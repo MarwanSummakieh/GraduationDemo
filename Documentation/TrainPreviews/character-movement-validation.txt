@@ -1,0 +1,1 @@
+PASS: Keyboard input moved the detective 2.02m, enabled walking animation, then returned to idle on release.

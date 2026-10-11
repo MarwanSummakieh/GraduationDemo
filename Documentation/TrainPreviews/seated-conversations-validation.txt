@@ -1,0 +1,1 @@
+PASS: Three seated NPCs remain anchored with feet on the floor; E opens every conversation from the aisle; topic keys answer without changing rooms; Escape closes talking animation; orthographic side camera follows horizontally.

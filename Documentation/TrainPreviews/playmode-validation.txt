@@ -1,0 +1,1 @@
+PASS: Carriage switching, exterior/cutaway visibility, detective spawn, physical traversal in both directions, four package characters with body and facial animators, three decorations, and three NPC conversations with talking animation.

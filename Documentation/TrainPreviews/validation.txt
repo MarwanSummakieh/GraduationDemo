@@ -1,0 +1,2 @@
+PASS: Three furnished carriages, six cutaway shells, assigned materials, open collision-tested aisle and gangways.
+PASS: Four camera renders captured.
