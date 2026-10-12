@@ -1,0 +1,17 @@
+﻿Statement ID,Speaker,Exact notebook claim (not necessarily spoken subtitle),Availability,Reliability note
+F-S01,Felix,I was drinking at the bar around half past eight.,initial,"Context-dependent; character claim, not objective proof"
+F-S02,Felix,Odette bought me champagne.,initial,"Context-dependent; character claim, not objective proof"
+B-S01,Bellamy,I heard a sharp noise and then a crash near her compartment.,initial,"Context-dependent; character claim, not objective proof"
+B-S02,Bellamy,Odette forbade interruptions during rehearsal.,initial,"Context-dependent; character claim, not objective proof"
+M-S01,Mila,I rehearsed alone in my compartment during the evening.,initial,False / misleading
+M-S02,Mila,I only visited Odette earlier to prepare stage blood.,initial,False / misleading
+M-S03,Mila,Odette was excited about the masquerade when I last spoke with her.,initial,False / misleading
+F-S03,Felix,Odette and I intended to marry.,First-time: rings + Felix says Odette paid for champagne → confront Felix,"Context-dependent; character claim, not objective proof"
+F-S04,Felix,I saw Mila coming from Odette's end of the carriage around 20:45.,First-time: rehearsal rule + Felix bar alibi → confront Felix,"Context-dependent; character claim, not objective proof"
+F-S05,Felix,I lent Mila a safety pin for her rabbit mask earlier.,First-time: stage blood materials + Felix bar alibi → confront Felix,"Context-dependent; character claim, not objective proof"
+B-S03,Bellamy,Odette and I argued about her changing responsibilities.,First-time: rehearsal rule + Bellamy says rehearsal uninterrupted → confront Bellamy,"Context-dependent; character claim, not objective proof"
+B-S04,Bellamy,I assumed the crash was part of the performance.,First-time: clock + Bellamy says rehearsals were private → confront Bellamy,"Context-dependent; character claim, not objective proof"
+B-S05,Bellamy,Mila helped prepare the theatrical blood.,First-time: stage blood + Bellamy heard crash → confront Bellamy,"Context-dependent; character claim, not objective proof"
+M-S04,Mila,Odette often knocked things over; she may have broken the clock.,First-time: broken clock + Mila says Odette was happy → confront Mila,"Context-dependent; character claim, not objective proof"
+M-S05,Mila,She couldn't have reached the clock from where she fell.,"Either disturbed desk + M-S04, or concealed clock + M-S04 → confront Mila","Context-dependent; character claim, not objective proof"
+M-S06,Mila,I was happy for Odette and Felix.,First-time: rings + Mila says Odette was happy → confront Mila,"Context-dependent; character claim, not objective proof"

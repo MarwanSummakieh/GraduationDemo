@@ -1,0 +1,1 @@
+PASS: Input System Space event advanced the opening exactly once from BURR_001 to BELL_001.

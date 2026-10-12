@@ -17,6 +17,7 @@ namespace GraduationDemo.Train
         public string[] roomNames = { "01 / THE VELVET LOUNGE", "02 / THE DINING SALOON", "03 / THE PRIVATE SUITE" };
         public bool exterior;
         public int currentRoom;
+        public TrainNarrative narrative;
         public TrainObservation Nearby => nearby;
         public TrainObservation ActiveConversation => activeConversation;
         public string CurrentResponse => observation;
@@ -27,11 +28,12 @@ namespace GraduationDemo.Train
         private GUIStyle titleStyle, smallStyle, bodyStyle, buttonStyle, nameStyle;
         private Texture2D panel;
 
-        private void Start() { SetView(0, false); SnapCamera(); }
+        private void Start() { narrative = GetComponent<TrainNarrative>(); if (narrative == null) SetView(0, false); SnapCamera(); }
 
         private void Update()
         {
             FindNearby();
+            if (narrative != null && narrative.Busy) { UpdateCamera(); return; }
             var keys = Keyboard.current;
             if (keys != null)
             {
@@ -43,6 +45,8 @@ namespace GraduationDemo.Train
                     if (keys.digit1Key.wasPressedThisFrame) SetView(0, true);
                     if (keys.digit2Key.wasPressedThisFrame) SetView(1, true);
                     if (keys.digit3Key.wasPressedThisFrame) SetView(2, true);
+                    if (keys.digit4Key.wasPressedThisFrame && roomViews.Length > 3) SetView(3, true);
+                    if (keys.digit5Key.wasPressedThisFrame && roomViews.Length > 4) SetView(4, true);
                 }
                 else if (activeConversation != null)
                 {
@@ -57,7 +61,12 @@ namespace GraduationDemo.Train
                     Vector3 direction = Vector3.ClampMagnitude(new Vector3(h, 0, v), 1);
                     detective.Move((direction * walkSpeed + Vector3.down * 9.8f) * Time.deltaTime);
                     if (direction.sqrMagnitude > .01f) detective.transform.rotation = Quaternion.Slerp(detective.transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 12);
-                    currentRoom = Mathf.Clamp(Mathf.FloorToInt((detective.transform.position.x + 6.5f) / 13), 0, 2);
+                    float nearestRoom = float.PositiveInfinity;
+                    for (int i = 0; i < roomViews.Length; i++)
+                    {
+                        float distance = Mathf.Abs(detective.transform.position.x - roomViews[i].position.x);
+                        if (distance < nearestRoom) { nearestRoom = distance; currentRoom = i; }
+                    }
                     if (keys.eKey.wasPressedThisFrame && nearby != null) OpenObservation(nearby);
                 }
             }
@@ -89,7 +98,7 @@ namespace GraduationDemo.Train
                 float playerX = detective.transform.position.x;
                 if (Mathf.Abs(playerX - CameraFollowX) > 1.7f)
                     CameraFollowX = playerX - Mathf.Sign(playerX - CameraFollowX) * 1.7f;
-                CameraFollowX = Mathf.Clamp(CameraFollowX, 0, 26);
+                CameraFollowX = Mathf.Clamp(CameraFollowX, MinimumRoomX(), MaximumRoomX());
                 position.x = CameraFollowX;
             }
             float blend = 1 - Mathf.Exp(-Time.deltaTime * 5);
@@ -102,7 +111,7 @@ namespace GraduationDemo.Train
         public void SnapCamera()
         {
             Transform target = exterior ? exteriorView : roomViews[currentRoom];
-            CameraFollowX = Mathf.Clamp(detective.transform.position.x, 0, 26);
+            CameraFollowX = Mathf.Clamp(detective.transform.position.x, MinimumRoomX(), MaximumRoomX());
             Vector3 position = target.position;
             if (!exterior) position.x = CameraFollowX;
             viewCamera.transform.SetPositionAndRotation(position, target.rotation);
@@ -111,14 +120,14 @@ namespace GraduationDemo.Train
 
         public void SetView(int room, bool moveDetective)
         {
-            currentRoom = Mathf.Clamp(room, 0, 2);
+            currentRoom = Mathf.Clamp(room, 0, roomViews.Length - 1);
             SetExterior(false);
             if (moveDetective)
             {
                 detective.enabled = false;
-                detective.transform.position = new Vector3(currentRoom * 13, 1.12f, -.7f);
+                detective.transform.position = new Vector3(roomViews[currentRoom].position.x, 1.12f, -.7f);
                 detective.enabled = true;
-                CameraFollowX = currentRoom * 13;
+                CameraFollowX = roomViews[currentRoom].position.x;
             }
         }
 
@@ -140,6 +149,7 @@ namespace GraduationDemo.Train
 
         public void OpenObservation(TrainObservation item)
         {
+            if (narrative != null && narrative.Interact(item)) return;
             CloseObservation(); observation = item.description;
             currentSpeaker = item.speaker;
             if (currentSpeaker != null) { activeConversation = item; currentSpeaker.SetTalking(true); }
@@ -172,12 +182,13 @@ namespace GraduationDemo.Train
 
         private void OnGUI()
         {
+            if (narrative != null && narrative.Busy) return;
             Styles();
             float scale = Mathf.Max(.1f, Mathf.Min(Screen.width / 1280f, Screen.height / 720f));
             GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one * scale);
             float width = Screen.width / scale, height = Screen.height / scale;
             GUI.DrawTexture(new Rect(24, 20, 360, 78), panel);
-            GUI.Label(new Rect(40, 27, 340, 32), "THE CARNIVAL EXPRESS", titleStyle);
+            GUI.Label(new Rect(40, 27, 340, 32), narrative != null ? "MURDER MOST INCONVENIENT" : "THE CARNIVAL EXPRESS", titleStyle);
             GUI.Label(new Rect(41, 65, 340, 24), exterior ? "A MOST PECULIAR JOURNEY" : roomNames[currentRoom], smallStyle);
             if (GUI.Button(new Rect(width - 178, 24, 150, 35), exterior ? "Enter the train" : "View exterior", buttonStyle)) SetExterior(!exterior);
             if (!exterior && string.IsNullOrEmpty(observation))
@@ -195,7 +206,7 @@ namespace GraduationDemo.Train
             if (string.IsNullOrEmpty(observation))
             {
                 GUI.DrawTexture(new Rect(24, height - 62, width - 48, 38), panel);
-                GUI.Label(new Rect(40, height - 53, width - 80, 28), "A / D  Walk along train     W / S  Move closer     E  Talk / Inspect     1–3  Carriages     TAB  Exterior", smallStyle);
+                GUI.Label(new Rect(40, height - 53, width - 80, 28), "A / D  Walk along train     W / S  Move closer     E  Talk / Inspect     1–5  Carriages     N  Notebook     TAB  Exterior", smallStyle);
                 if (nearby != null && GUI.Button(new Rect(width / 2 - 180, height - 112, 360, 36), "E  /  " + nearby.title, buttonStyle)) OpenObservation(nearby);
             }
             else
@@ -215,5 +226,7 @@ namespace GraduationDemo.Train
         }
 
         private void OnDestroy() { if (panel != null) Destroy(panel); }
+        private float MinimumRoomX() { float value = float.PositiveInfinity; foreach (var room in roomViews) value = Mathf.Min(value, room.position.x); return value; }
+        private float MaximumRoomX() { float value = float.NegativeInfinity; foreach (var room in roomViews) value = Mathf.Max(value, room.position.x); return value; }
     }
 }

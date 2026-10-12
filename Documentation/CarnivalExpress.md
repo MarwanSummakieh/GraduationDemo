@@ -1,5 +1,7 @@
 # Carnival Express
 
+The current prototype includes the five-carriage Murder Most Inconvenient investigation. See [narrative setup and architecture](Narrative/README.md) and [manual QA](Narrative/ManualQA.md) for current controls and playable content. The notes below describe the original three-carriage environment baseline.
+
 Open `Assets/Scenes/CarnivalExpress.unity` and press Play.
 
 - **A / D or left / right:** walk along the train. **W / S or up / down:** move closer to or away from the benches.

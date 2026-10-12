@@ -1,0 +1,5 @@
+Native Unity UI review, observed 2026-10-11:
+PASS: selected broken clock and Felix's alibi; scrolled the notebook; clicked Combine; displayed authored T_C02_FS01 and its clue/statement sources.
+PASS: opened Build accusation; selected three independent supporting theories and Mila; clicked Present supported accusation; the static finale began in Burrows's compartment with Mila present.
+PASS: clicked Continue once; the next beat displayed Mila's matching subtitle and voice ID MILA_006.
+Opening and notebook readability were inspected at small and wider Game view sizes. Opaque teal panels and minimum UI scaling corrected the initial small-text problem. Final selection indicators are verified separately by compilation and the final runtime pass.

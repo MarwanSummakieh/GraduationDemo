@@ -1,0 +1,12 @@
+﻿Theory route,Suspect,Condition (all required),Priority order,Sequence to play,Unlock once,Fallback scene,Notes
+T_C02_MS03,Mila,M-S04 not collected,100,An awkward guess,M-S04,Reusable theory reaction,First-time source of Mila clock speculation
+T_C07_MS04,Mila,M-S04 collected; M-S05 not collected,100,The damaged desk and Mila’s guess,M-S05,Reusable theory reaction,Fall knowledge discovery route A
+T_C10_MS04,Mila,M-S04 collected; M-S05 not collected,100,A fall she shouldn’t picture,M-S05,Reusable theory reaction,Fall knowledge discovery route B
+T_C06_FS02,Felix,F-S03 not collected,100,The engagement in the suitcase,F-S03,Reusable theory reaction,Must not require F-S03 as input
+T_C09_FS01,Felix,F-S04 not collected,100,A woman heading away,F-S04,Reusable theory reaction,Must not require F-S04 as input
+T_C08_FS01,Felix,F-S05 not collected,100,A pin for a rabbit,F-S05,Reusable theory reaction,Optional discovery
+T_C09_BS02,Bellamy,B-S03 not collected,100,Bellamy admits an argument,B-S03,Reusable theory reaction,First argument reveal
+T_C02_BS02,Bellamy,B-S04 not collected,100,A reasonable mistake,B-S04,Reusable theory reaction,First misunderstanding reveal
+T_C08_BS01,Bellamy,B-S05 not collected,100,Who made the syrup?,B-S05,Reusable theory reaction,First syrup source
+T_C06_MS03,Mila,M-S06 not collected,100,Happy for them,M-S06,Reusable theory reaction,First private announcement knowledge
+ANY,ANY,Default,0,"Route scene if defined, else reusable confrontation",,Reusable theory reaction,No exact theory / speaker route left unhandled

@@ -1,0 +1,1 @@
+PASS: dialogue acquired M-S01 and displayed NOTED IN LOGBOOK; theory nodes distributed by parent connections; selected theory removal removed node/edges while preserving clue and statement; restoration returned the node.
