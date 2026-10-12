@@ -38,6 +38,15 @@ namespace GraduationDemo.Train
                 Stroke(vh, notebook.NodePosition(node.clueParent), here, new Color(.72f, .62f, .39f, .55f));
                 Stroke(vh, here, notebook.NodePosition(node.statementParent), new Color(.42f, .72f, .72f, .55f));
             }
+            if (notebook.Assistance != ReasoningAssistance.Guided) return;
+            foreach (var hint in notebook.VisibleHints)
+            {
+                Vector2 a = notebook.NodePosition(hint.firstId), b = notebook.NodePosition(hint.secondId);
+                Color tint = hint.kind == ReasoningHintKind.Contradiction ? new Color(1, .52f, .31f, .65f) : new Color(.79f, .71f, 1, .65f);
+                int segments = Mathf.Max(2, Mathf.CeilToInt(Vector2.Distance(a, b) / 16));
+                for (int i = 0; i < segments; i += 2)
+                    Stroke(vh, Vector2.Lerp(a, b, i / (float)segments), Vector2.Lerp(a, b, Mathf.Min(i + 1, segments) / (float)segments), tint, 4);
+            }
         }
     }
     [RequireComponent(typeof(CanvasRenderer))]
@@ -54,12 +63,18 @@ namespace GraduationDemo.Train
             vh.AddTriangle(0, 1, 2); vh.AddTriangle(0, 2, 3);
         }
     }
-    public sealed class NotebookHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public sealed class NotebookHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         public InvestigationNotebook notebook;
         public string text;
+        public string theoryId;
         public void OnPointerEnter(PointerEventData data) { notebook.ShowTooltip(text, data.position); }
         public void OnPointerExit(PointerEventData data) { notebook.HideTooltip(); }
+        public void OnPointerClick(PointerEventData data)
+        {
+            if (data.button == PointerEventData.InputButton.Right && !string.IsNullOrEmpty(theoryId))
+                notebook.RemoveTheory(theoryId);
+        }
     }
     public sealed class NotebookPanZoom : MonoBehaviour, IBeginDragHandler, IDragHandler, IScrollHandler
     {

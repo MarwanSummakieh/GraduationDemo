@@ -46,6 +46,6 @@ Current test reports and live evidence are `PacingEditModeResults.json`, `Pacing
 
 ## Theory management and recording cues
 
-Select a theory and use **Remove theory** to take it and its connections out of the active graph. **Removed** opens a restore list. Evidence, statements and consumed conversation prompts are retained; restoring never replays a used encounter. Previously removed theories can also be restored during final accusation review.
+Right-click a theory icon or caption to take it and its connections out of the active graph. **Removed** opens a restore list. Evidence, statements and consumed conversation prompts are retained; restoring never replays a used encounter. Previously removed theories can also be restored during final accusation review.
 
 When a completed dialogue beat grants a new clue or statement, a five-second **NOTED IN LOGBOOK** notice identifies the new entry. Flags and already-known discoveries do not produce duplicate notices, and the cue does not mark testimony as verified truth.

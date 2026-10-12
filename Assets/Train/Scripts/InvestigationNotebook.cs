@@ -18,6 +18,9 @@ namespace GraduationDemo.Train
         public int VisibleNodeCount => nodeRects.Count;
         public Vector2 JourneyMarker { get; private set; }
         public int JourneyConnection { get; private set; }
+        public ReasoningAssistance Assistance { get; private set; } = ReasoningAssistance.Subtle;
+        public List<ReasoningHint> VisibleHints { get; private set; } = new List<ReasoningHint>();
+        public void SetAssistance(ReasoningAssistance value) { Assistance = value; refresh = true; HideTooltip(); }
         TrainNarrative owner;
         TrainTour tour;
         Canvas canvas;
@@ -44,6 +47,7 @@ namespace GraduationDemo.Train
         void Start()
         {
             owner = GetComponent<TrainNarrative>(); tour = GetComponent<TrainTour>();
+            Assistance = owner.configuration == null ? ReasoningAssistance.Subtle : owner.configuration.reasoningAssistance;
             if (owner.State == null) { enabled = false; return; }
             font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             var root = new GameObject("Investigation notebook canvas", typeof(RectTransform), typeof(Canvas), typeof(GraphicRaycaster));
@@ -148,9 +152,11 @@ namespace GraduationDemo.Train
             accusationMode = false;
             float width = page.rect.width, height = page.rect.height; bool narrow = width < 880;
             viewport = Panel(page, "Reasoning graph viewport", new Color(.065f, .12f, .13f));
-            Place(viewport, new Vector2(8, -52), new Vector2(narrow ? width - 16 : width - 300, narrow ? height - 281 : height - 64)); viewport.gameObject.AddComponent<RectMask2D>();
+            Place(viewport, new Vector2(8, -52), new Vector2(narrow ? width - 16 : width - 300, narrow ? height - 245 : height - 64)); viewport.gameObject.AddComponent<RectMask2D>();
             graphContent = new GameObject("Graph", typeof(RectTransform)).GetComponent<RectTransform>(); graphContent.SetParent(viewport, false); graphContent.anchorMin = graphContent.anchorMax = new Vector2(.5f, .5f); graphContent.pivot = new Vector2(0, 1);
             Graph = ReasoningGraphLayout.Build(owner.catalogue, owner.State.progress, search, suspectFilter); graphContent.sizeDelta = Graph.size;
+            VisibleHints = ReasoningGuidance.Available(owner.configuration, owner.State.progress, Assistance)
+                .Where(h => Graph.nodes.Any(n => n.id == h.firstId) && Graph.nodes.Any(n => n.id == h.secondId)).ToList();
             var edgeObject = new GameObject("Parent connections", typeof(RectTransform), typeof(NotebookStrokeGraphic)); edgeObject.transform.SetParent(graphContent, false);
             var edgeRect = edgeObject.GetComponent<RectTransform>(); Stretch(edgeRect, 0, 0, 0, 0); edgeRect.pivot = new Vector2(0, 1);
             strokes = edgeObject.GetComponent<NotebookStrokeGraphic>(); strokes.notebook = this; strokes.raycastTarget = false;
@@ -182,24 +188,25 @@ namespace GraduationDemo.Train
             Button(page, string.IsNullOrEmpty(suspectFilter) ? "All" : suspectFilter, () => { suspectFilter = suspectFilter == "" ? "Felix" : suspectFilter == "Felix" ? "Mila" : suspectFilter == "Mila" ? "Bellamy" : ""; firstFit = true; refresh = true; }, new Vector2(248, -8), new Vector2(90, 32));
             Button(page, "Fit", () => navigation.Fit(Graph.size), new Vector2(346, -8), new Vector2(70, 32));
             Button(page, "Removed: " + owner.State.progress.removedTheories.Count, () => { removedMode = true; refresh = true; }, new Vector2(424, -8), new Vector2(104, 32));
+            var guidance = Button(page, "Guidance: " + Assistance, () => SetAssistance((ReasoningAssistance)(((int)Assistance + 1) % 3)), new Vector2(536, -8), new Vector2(180, 32));
+            var guidanceHover = guidance.gameObject.AddComponent<NotebookHover>(); guidanceHover.notebook = this;
+            guidanceHover.text = "Click to cycle Off / Subtle / Guided.\nSubtle marks nodes; Guided also draws dotted links and explains them.\n! Potential contradiction; ? relevant ambiguity.";
             sidebar = Panel(page, "Theory detail", ink);
-            Place(sidebar, new Vector2(narrow ? 8 : width - 280, narrow ? -(height - 217) : -52), new Vector2(narrow ? width - 16 : 272, narrow ? 207 : height - 64));
-            float detailHeight = narrow ? 66 : sidebar.rect.height - 208;
+            Place(sidebar, new Vector2(narrow ? 8 : width - 280, narrow ? -(height - 181) : -52), new Vector2(narrow ? width - 16 : 272, narrow ? 171 : height - 64));
+            float detailHeight = narrow ? 66 : sidebar.rect.height - 172;
             var detailContent = ScrollContent(sidebar, new Vector2(10, -8), new Vector2(sidebar.rect.width - 20, detailHeight), 400);
             detail = Label(detailContent, SelectedDetail(), 18, gold, Vector2.zero, new Vector2(sidebar.rect.width - 28, 400));
             float textHeight = Mathf.Max(detailHeight, detail.preferredHeight + 16); detailContent.sizeDelta = new Vector2(detailContent.sizeDelta.x, textHeight); detail.rectTransform.sizeDelta = new Vector2(detail.rectTransform.sizeDelta.x, textHeight);
             if (owner.State.progress.phase == InvestigationPhase.Accusation)
-                Button(sidebar, "Build final accusation", () => { accusationMode = true; refresh = true; }, new Vector2(10, narrow ? -115 : -(sidebar.rect.height - 108)), new Vector2(sidebar.rect.width - 20, 32));
+                Button(sidebar, "Build final accusation", () => { accusationMode = true; refresh = true; }, new Vector2(10, narrow ? -79 : -(sidebar.rect.height - 108)), new Vector2(sidebar.rect.width - 20, 32));
             else if (owner.State.InvestigationOpen)
                 for (int i = 0; i < 3; i++)
                 {
                     string target = new[] { "Felix", "Mila", "Bellamy" }[i];
-                    var rect = Button(sidebar, "Present to " + target, () => owner.Confront(selectedTheory, target), new Vector2(narrow ? 10 + i * (sidebar.rect.width - 20) / 3 : 10, narrow ? -115 : -(sidebar.rect.height - 144 + i * 36)), new Vector2(narrow ? (sidebar.rect.width - 26) / 3 : sidebar.rect.width - 20, 32));
+                    var rect = Button(sidebar, "Present to " + target, () => owner.Confront(selectedTheory, target), new Vector2(narrow ? 10 + i * (sidebar.rect.width - 20) / 3 : 10, narrow ? -79 : -(sidebar.rect.height - 160 + i * 36)), new Vector2(narrow ? (sidebar.rect.width - 26) / 3 : sidebar.rect.width - 20, 32));
                     rect.GetComponent<Button>().interactable = selectedTheory != null && owner.State.Presentation(selectedTheory, target) != null;
                 }
             status = Label(sidebar, owner.Message ?? "Click a clue, then a statement. Drag to pan; scroll to zoom.", 16, paper, new Vector2(10, -(sidebar.rect.height - 52)), new Vector2(sidebar.rect.width - 20, 48));
-            if (selectedTheory != null)
-                Button(sidebar, "Remove theory", () => RemoveSelectedTheory(), new Vector2(10, narrow ? -79 : -(sidebar.rect.height - 180)), new Vector2(sidebar.rect.width - 20, 28));
         }
         void AddSearch()
         {
@@ -220,6 +227,19 @@ namespace GraduationDemo.Train
             if (node.id == selectedClue || node.id == selectedStatement || node.id == selectedTheory) graphic.color = Color.Lerp(graphic.color, Color.white, .45f);
             go.GetComponent<Button>().targetGraphic = graphic; go.GetComponent<Button>().onClick.AddListener(() => SelectNode(node.id));
             var hover = go.GetComponent<NotebookHover>(); hover.notebook = this; hover.text = node.label + "\n" + node.detail;
+            if (node.kind == ReasoningNodeKind.Theory)
+            {
+                hover.theoryId = node.id;
+                hover.text += "\n\nRight-click to remove theory. Restore it from Removed.";
+            }
+            var hints = VisibleHints.Where(h => h.firstId == node.id || h.secondId == node.id).ToList();
+            if (hints.Count > 0)
+            {
+                hover.text += "\n\n" + string.Join("\n\n", hints.Select(h => ReasoningGuidance.Text(h, Assistance)));
+                string badge = (hints.Any(h => h.kind == ReasoningHintKind.Contradiction) ? "!" : "") +
+                    (hints.Any(h => h.kind == ReasoningHintKind.Ambiguity) ? "?" : "");
+                Label(rect, badge, 24, new Color(1, .68f, .37f), new Vector2(46, 8), new Vector2(38, 32));
+            }
             string icon = node.kind == ReasoningNodeKind.Theory ? node.label.Replace("Theory ", "") : node.kind == ReasoningNodeKind.Clue ? node.id : node.speaker.Substring(0, 1) + node.id.Substring(node.id.Length - 2);
             var inside = Label(rect, icon, 18, ink, Vector2.zero, new Vector2(60, 60)); Stretch(inside.rectTransform, 0, 0, 0, 0); inside.alignment = TextAnchor.MiddleCenter;
             var caption = Label(rect, node.label, 17, paper, new Vector2(-60, -62), new Vector2(180, 50)); caption.alignment = TextAnchor.UpperCenter;
@@ -241,24 +261,36 @@ namespace GraduationDemo.Train
         }
         public bool RemoveSelectedTheory()
         {
-            if (selectedTheory == null) return false;
-            string id = selectedTheory;
+            return RemoveTheory(selectedTheory);
+        }
+        public bool RemoveTheory(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return false;
             if (!owner.State.RemoveTheory(id)) return false;
-            accusation.Remove(id); positions.Remove(id); selectedTheory = null; selectedClue = null; selectedStatement = null;
+            accusation.Remove(id); positions.Remove(id);
+            if (selectedTheory == id) selectedTheory = null;
+            HideTooltip();
             refresh = true; return true;
         }
         string SelectedDetail()
         {
             var theory = owner.catalogue.Theory(selectedTheory);
-            if (theory != null) return theory.text + "\n\nClue: " + owner.catalogue.Clue(theory.clueId).name + "\nStatement: " + owner.catalogue.Statement(theory.statementId).claim;
-            return "Click a clue and a statement to make a theory. Drag to pan; scroll to zoom. Hover over any icon for its details.";
+            string text = theory != null ? theory.text + "\n\nClue: " + owner.catalogue.Clue(theory.clueId).name + "\nStatement: " + owner.catalogue.Statement(theory.statementId).claim :
+                Graph?.nodes.Find(n => n.id == (selectedClue ?? selectedStatement))?.detail ?? "Click a clue and a statement to make a theory. Drag to pan; scroll to zoom. Hover over any icon for its details.";
+            var ids = new[] { selectedClue, selectedStatement, selectedTheory, theory?.clueId, theory?.statementId };
+            var hints = VisibleHints.Where(h => ids.Contains(h.firstId) || ids.Contains(h.secondId)).ToList();
+            if (hints.Count > 0) text += "\n\nREASONING NOTES\n" + string.Join("\n\n", hints.Select(h => ReasoningGuidance.Text(h, Assistance)));
+            return text;
         }
         public Vector2 NodePosition(string id) => positions.TryGetValue(id, out var value) ? value : Vector2.zero;
         public void ShowTooltip(string text, Vector2 screenPosition)
         {
             if (tooltip == null) return; tooltipText.text = text;
+            float tooltipHeight = Mathf.Min(window.rect.height - 16, Mathf.Max(140, tooltipText.preferredHeight + 24));
+            tooltip.sizeDelta = new Vector2(380, tooltipHeight);
+            tooltipText.rectTransform.sizeDelta = new Vector2(356, tooltipHeight - 20);
             RectTransformUtility.ScreenPointToLocalPointInRectangle(window, screenPosition, null, out var local);
-            tooltip.anchoredPosition = new Vector2(Mathf.Clamp(local.x + 16, window.rect.xMin + 8, window.rect.xMax - 390), Mathf.Clamp(local.y - 12, window.rect.yMin + 150, window.rect.yMax - 8));
+            tooltip.anchoredPosition = new Vector2(Mathf.Clamp(local.x + 16, window.rect.xMin + 8, window.rect.xMax - 390), Mathf.Clamp(local.y - 12, window.rect.yMin + tooltipHeight + 8, window.rect.yMax - 8));
             tooltip.gameObject.SetActive(true); tooltip.SetAsLastSibling();
         }
         public void HideTooltip() { if (tooltip != null) tooltip.gameObject.SetActive(false); }

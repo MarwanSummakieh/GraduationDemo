@@ -16,6 +16,34 @@ MonoBehaviour:
   actionsPerDay: 3
   alibiCost: 0
   confrontationCost: 1
+  reasoningAssistance: 1
+  reasoningHints:
+  - id: mila_evening_accounts
+    firstId: M-S01
+    secondId: F-S04
+    kind: 0
+    prompt: Mila describes an evening rehearsing alone; Felix places her coming from
+      Odette's end around 20:45. Which account, timing or interpretation needs checking?
+      Neither statement is independent proof.
+  - id: mila_visit_timing
+    firstId: M-S02
+    secondId: F-S04
+    kind: 0
+    prompt: Mila says she only visited earlier to prepare stage blood. Felix describes
+      her coming from Odette's end around 20:45. Can both accounts describe the same
+      visit? Check the timing and what Felix actually saw.
+  - id: receipt_alibi_gap
+    firstId: C05
+    secondId: F-S01
+    kind: 1
+    prompt: The receipt records an order at 20:10; Felix's claim concerns about 20:30.
+      An earlier purchase alone does not establish where he was later.
+  - id: clock_cause_uncertain
+    firstId: C02
+    secondId: M-S04
+    kind: 1
+    prompt: The stopped clock records about 20:37. Mila suggests Odette may have
+      knocked it over, but the time alone does not establish who broke it or how.
   stops:
   - name: Departure
     position: {x: 0.12, y: 0.28}

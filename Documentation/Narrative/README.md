@@ -2,13 +2,15 @@
 
 **Current interaction/notebook update:** see [one-use conversations and daily pacing](PacingAndNotebook.md). It supersedes the repeat-response, list-notebook and unrestricted-accusation behavior described in the original integration notes below.
 
+**Latest graph update:** [right-click removal and configurable reasoning guidance](ReasoningGuidance.md). Subtle guidance is the default; authored hints highlight discovered contradictions and ambiguities.
+
 Open `Assets/Scenes/CarnivalExpress.unity` and press Play. The opening begins in Odette's compartment with Burrows and Bellamy. All supplied recordings are pending, so the prototype explicitly displays **DEVELOPMENT — unvoiced** and logs each missing voice ID once per play session.
 
 ## Controls and investigation
 
 - A/D and W/S: move through the connected train. E or an inspection button: collect physical evidence or interview a nearby suspect.
 - Space/Enter or Continue: advance the spoken dialogue beat. A recorded beat must finish playback before advancing.
-- N: notebook. Select one discovered clue and one acquired statement, then Combine. Review a constructed theory and its ingredients; approach a suspect and present it.
+- N: notebook. Click a discovered clue and an acquired statement to construct a theory. Right-click a theory to remove it; **Removed** restores it. **Guidance** cycles Off/Subtle/Guided. Approach a suspect to present an available theory.
 - 1–5: Odette, Felix/Mila, bar/lounge, dining, Burrows. Tab: exterior. Escape: close observations/notebook or cancel ordinary dialogue. Opening and finale finish through Continue.
 - F8 in the editor/development builds: grant discoveries, construct available pairs, inspect route decisions and flags, and play named sequences.
 
