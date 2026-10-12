@@ -1,8 +1,12 @@
 # Murder Most Inconvenient
 
+**Latest final-day update:** [accusation graph and continued theory construction](FinalAccusationGraph.md). Collected evidence can still be combined after the investigation closes; the final case is built with theory and suspect tethers.
+
 **Current interaction/notebook update:** see [one-use conversations and daily pacing](PacingAndNotebook.md). It supersedes the repeat-response, list-notebook and unrestricted-accusation behavior described in the original integration notes below.
 
 **Latest graph update:** [right-click removal and configurable reasoning guidance](ReasoningGuidance.md). Subtle guidance is the default; authored hints highlight discovered contradictions and ambiguities.
+
+Guidance now has four levels. **Directed** names interview recipients, distinguishes reaction-only conversations before spending confirmation, and gives action advice at the top of selected theory details. Ten interview leads feed thirteen follow-on case connections; every revelation has a link to an acquired clue. [Portrait animation and dialogue emphasis](PortraitPresentationBacklog.md) are saved for later implementation.
 
 Open `Assets/Scenes/CarnivalExpress.unity` and press Play. The opening begins in Odette's compartment with Burrows and Bellamy. All supplied recordings are pending, so the prototype explicitly displays **DEVELOPMENT — unvoiced** and logs each missing voice ID once per play session.
 
@@ -10,7 +14,7 @@ Open `Assets/Scenes/CarnivalExpress.unity` and press Play. The opening begins in
 
 - A/D and W/S: move through the connected train. E or an inspection button: collect physical evidence or interview a nearby suspect.
 - Space/Enter or Continue: advance the spoken dialogue beat. A recorded beat must finish playback before advancing.
-- N: notebook. Click a discovered clue and an acquired statement to construct a theory. Right-click a theory to remove it; **Removed** restores it. **Guidance** cycles Off/Subtle/Guided. Approach a suspect to present an available theory.
+- N: notebook. Click a discovered clue and an acquired statement to construct a theory. Right-click a theory to remove it; **Removed** restores it. **Guidance** cycles Off/Subtle/Guided/Directed. Approach a suspect to present an available theory.
 - 1–5: Odette, Felix/Mila, bar/lounge, dining, Burrows. Tab: exterior. Escape: close observations/notebook or cancel ordinary dialogue. Opening and finale finish through Continue.
 - F8 in the editor/development builds: grant discoveries, construct available pairs, inspect route decisions and flags, and play named sequences.
 
@@ -18,7 +22,7 @@ Construction never confirms a theory or unlocks testimony. A statement enters th
 
 ## Architecture and assets
 
-`Assets/Narrative/Source` contains six untouched CSV exports, the original XLSX and `theories.csv` extracted from its Theory Matrix. `Assets/Narrative/Data/Investigation.asset` holds 10 clues, 16 statements, 160 theories, 490 routes and 216 voice definitions. The catalogue inspector offers searchable sections with readable text.
+`Assets/Narrative/Source` contains six untouched CSV exports, the original XLSX and `theories.csv` extracted from its Theory Matrix. `Assets/Narrative/Data/Investigation.asset` holds 10 clues, 16 statements, 160 theories, 490 routes and 217 voice definitions. The catalogue inspector offers searchable sections with readable text.
 
 `Assets/Narrative/Runtime` contains immutable serializable definitions, the ScriptableObject catalogue, pure `InvestigationState` rules and structural validation. `InvestigationProgress` holds discoveries, constructed theories, completed encounters and flags. It supports JSON round trips, but this prototype has no save/load UI or automatic persistence because the original project had no save system.
 

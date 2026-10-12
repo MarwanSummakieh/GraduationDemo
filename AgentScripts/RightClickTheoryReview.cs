@@ -21,9 +21,16 @@ public static class RightClickTheoryReview
     public static string SaveConfiguration()
     {
         var configuration = AssetDatabase.LoadAssetAtPath<InvestigationConfiguration>("Assets/Narrative/Data/InvestigationPacing.asset");
-        Check(configuration.reasoningAssistance == ReasoningAssistance.Subtle && configuration.reasoningHints.Count == 4, "Missing authored defaults.");
+        Check(configuration.reasoningAssistance == ReasoningAssistance.Subtle && configuration.reasoningHints.Count == 23, "Missing authored defaults.");
         EditorUtility.SetDirty(configuration); AssetDatabase.SaveAssets();
-        return "Saved four authored hints and Subtle default in InvestigationPacing.asset.";
+        return "Saved interview and case-review hints with Subtle default in InvestigationPacing.asset.";
+    }
+    public static string UpdateHintCoverage()
+    {
+        var configuration = AssetDatabase.LoadAssetAtPath<InvestigationConfiguration>("Assets/Narrative/Data/InvestigationPacing.asset");
+        configuration.reasoningHints = ReasoningGuidance.DefaultHints();
+        EditorUtility.SetDirty(configuration); AssetDatabase.SaveAssets();
+        return "Updated hint coverage to ten interview leads and thirteen case-review connections; retained pacing and assistance settings.";
     }
     static void Check(bool value, string message) { if (!value) throw new Exception(message); }
     public static async Task<string> Run()
@@ -68,15 +75,15 @@ public static class RightClickTheoryReview
             Check(n.State.RestoreTheory(theory.id), "Restoration after real pointer failed.");
         }
         finally { InputSystem.QueueStateEvent(Mouse.current, new MouseState()); InputSystem.settings.editorInputBehaviorInPlayMode = inputBehavior; }
-        n.State.Grant("C05"); n.State.Grant("M-S01");
+        n.State.Grant("C09"); n.State.Grant("M-S03");
         await Task.Delay(150);
         Check(book.Assistance == ReasoningAssistance.Subtle, "Wrong default guidance.");
-        Check(book.VisibleHints.Any(h => h.id == "receipt_alibi_gap"), "Discovered ambiguity missing.");
-        Check(!book.VisibleHints.Any(h => h.id == "mila_evening_accounts"), "Undiscovered testimony leaked.");
-        n.State.Grant("F-S04"); await Task.Delay(150);
-        Check(book.VisibleHints.Any(h => h.id == "mila_evening_accounts"), "Discovered contradiction missing.");
-        hover = book.GetComponentsInChildren<NotebookHover>().Single(h => h.gameObject.name == "M-S01");
-        Check(!hover.text.Contains("F-S04") && !hover.text.Contains("Which account"), "Subtle revealed the counterpart or explanation.");
+        Check(book.VisibleHints.Any(h => h.id == "rehearsal_bar_context"), "Discovered ambiguity missing.");
+        Check(!book.VisibleHints.Any(h => h.id == "clock_and_happy_mood"), "Undiscovered testimony leaked.");
+        n.State.Grant("C02"); await Task.Delay(150);
+        Check(book.VisibleHints.Any(h => h.id == "clock_and_happy_mood"), "Discovered contradiction missing.");
+        hover = book.GetComponentsInChildren<NotebookHover>().Single(h => h.gameObject.name == "M-S03");
+        Check(!hover.text.Contains("C02") && !hover.text.Contains("A happy mood"), "Subtle revealed the counterpart or explanation.");
         Check(book.GetComponentsInChildren<Text>().Any(t => t.text == "!" || t.text == "?"), "Subtle node marks absent.");
         int subtleVertices = GraphVertices(book);
         book.SetAssistance(ReasoningAssistance.Off); await Task.Delay(150);
@@ -84,10 +91,10 @@ public static class RightClickTheoryReview
         Check(GraphVertices(book) == subtleVertices, "Subtle drew extra hint connections.");
         book.SetAssistance(ReasoningAssistance.Guided); await Task.Delay(150);
         Check(GraphVertices(book) > subtleVertices, "Guided dotted connections absent.");
-        hover = book.GetComponentsInChildren<NotebookHover>().Single(h => h.gameObject.name == "M-S01");
-        Check(hover.text.Contains("Which account"), "Guided explanation absent.");
-        book.SelectNode("M-S01"); await Task.Delay(150);
-        Check(book.GetComponentsInChildren<Text>().Any(t => t.text.Contains("REASONING NOTES") && t.text.Contains("Which account")), "Scrollable guidance detail absent.");
+        hover = book.GetComponentsInChildren<NotebookHover>().Single(h => h.gameObject.name == "M-S03");
+        Check(hover.text.Contains("A happy mood"), "Guided explanation absent.");
+        book.SelectNode("M-S03"); await Task.Delay(150);
+        Check(book.GetComponentsInChildren<Text>().Any(t => t.text.Contains("REASONING NOTES") && t.text.Contains("A happy mood")), "Scrollable guidance detail absent.");
         return "PASS: icon/caption right-click handlers and real Input System right click; sources/restoration; Subtle node marks with no counterpart text or dotted geometry; Off suppression; Guided dotted geometry, tooltip and scrollable explanations.";
     }
     static int GraphVertices(InvestigationNotebook book)

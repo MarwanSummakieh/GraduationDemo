@@ -189,6 +189,49 @@ public sealed class PlayableInvestigationTests
         Assert.That(State.RestoreTheory(t.id), Is.True); yield return null; yield return null;
         graph = (ReasoningGraphLayout)notebook.GetType().GetProperty("Graph").GetValue(notebook); Assert.That(graph.nodes.Count, Is.EqualTo(3));
     }
+    [UnityTest] public IEnumerator FinalPhaseGraphConstructsNewTheoriesAndTethersASupportedAccusation()
+    {
+        Finish(); foreach (var c in State.catalogue.clues) State.Grant(c.id); foreach (var s in State.catalogue.statements) State.Grant(s.id);
+        int discoveries = State.progress.discoveries.Count;
+        while (State.InvestigationOpen) State.EndDay(out _);
+        var notebook = controller.GetComponent("InvestigationNotebook"); Call(controller, "ToggleNotebook"); yield return null; yield return null;
+        Assert.That((bool)notebook.GetType().GetProperty("AccusationGraphActive").GetValue(notebook), Is.True);
+        Assert.That((bool)Call(notebook, "TetherAccusationToSuspect", "Mila"), Is.False);
+        foreach (var pair in new[] { new[] { "C03", "B-S01" }, new[] { "C09", "F-S04" }, new[] { "C10", "M-S05" } })
+        {
+            Call(notebook, "SelectNode", pair[0]); Call(notebook, "SelectNode", pair[1]); yield return null; yield return null;
+            Assert.That(State.progress.theories, Does.Contain(State.catalogue.Pair(pair[0], pair[1]).id));
+            Call(notebook, "SelectNode", AccusationGraphLayout.DraftId); yield return null; yield return null;
+        }
+        Assert.That((bool)notebook.GetType().GetProperty("CanSubmitAccusation").GetValue(notebook), Is.False);
+        Call(notebook, "SelectNode", AccusationGraphLayout.SuspectId("Mila")); yield return null; yield return null;
+        Assert.That((string)notebook.GetType().GetProperty("AccusationSuspect").GetValue(notebook), Is.EqualTo("Mila"));
+        var graph = (ReasoningGraphLayout)notebook.GetType().GetProperty("Graph").GetValue(notebook);
+        Assert.That(graph.nodes.Count(n => n.kind == ReasoningNodeKind.Suspect), Is.EqualTo(3));
+        var faded = notebook.GetComponentsInChildren<MonoBehaviour>().First(c => c.GetType().Name == "NotebookNodeGraphic" && c.gameObject.name == "C03");
+        Assert.That(((Color)faded.GetType().GetProperty("color").GetValue(faded)).a, Is.LessThan(.4f));
+        Assert.That(State.progress.discoveries.Count, Is.EqualTo(discoveries)); Assert.That(State.progress.actionsSpent, Is.Zero);
+        Assert.That((bool)Call(notebook, "SubmitAccusation"), Is.True); Finish(); Assert.That(State.progress.phase, Is.EqualTo(InvestigationPhase.Resolved));
+    }
+    [UnityTest] public IEnumerator AccusationTethersEnforceThreeAndPruneRemovedTheoriesWithoutReopeningInvestigation()
+    {
+        Finish(); foreach (var c in State.catalogue.clues) State.Grant(c.id); foreach (var s in State.catalogue.statements) State.Grant(s.id);
+        var ids = new[] { State.Construct("C03", "B-S01").id, State.Construct("C09", "F-S04").id, State.Construct("C10", "M-S05").id, State.Construct("C01", "F-S01").id };
+        var notebook = controller.GetComponent("InvestigationNotebook"); Assert.That((bool)Call(notebook, "BeginAccusationGraph"), Is.False);
+        while (State.InvestigationOpen) State.EndDay(out _);
+        Call(controller, "ToggleNotebook"); yield return null; yield return null;
+        foreach (var id in ids.Take(3)) Assert.That((bool)Call(notebook, "TetherTheoryToAccusation", id), Is.True);
+        Assert.That((bool)Call(notebook, "TetherTheoryToAccusation", ids[3]), Is.False);
+        Assert.That((bool)Call(notebook, "TetherAccusationToSuspect", "Mila"), Is.True);
+        State.RemoveTheory(ids[0]); yield return null; yield return null;
+        Assert.That((bool)notebook.GetType().GetProperty("CanSubmitAccusation").GetValue(notebook), Is.False);
+        Assert.That(notebook.GetType().GetProperty("AccusationSuspect").GetValue(notebook), Is.Null);
+        State.RestoreTheory(ids[0]); yield return null;
+        Assert.That((bool)Call(notebook, "TetherTheoryToAccusation", ids[0]), Is.True);
+        Assert.That((bool)Call(notebook, "TetherAccusationToSuspect", "Felix"), Is.True);
+        Assert.That((bool)Call(notebook, "SubmitAccusation"), Is.False); Assert.That(State.progress.phase, Is.EqualTo(InvestigationPhase.Accusation));
+        Assert.That(State.Construct("C02", "F-S01"), Is.Not.Null); yield return null;
+    }
     [UnityTest] public IEnumerator DialogueClueRewardAlsoShowsLogbookCue()
     {
         Finish(); var beat = State.catalogue.Sequence("Felix — Champagne alibi").beats[3];

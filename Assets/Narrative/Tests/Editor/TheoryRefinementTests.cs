@@ -39,7 +39,7 @@ public sealed class TheoryRefinementTests
     {
         var t = state.Construct("C03", "B-S01"); state.RemoveTheory(t.id); while (state.InvestigationOpen) state.EndDay(out _);
         Assert.That(state.RestoreTheory(t.id), Is.True); Assert.That(state.progress.theories, Does.Contain(t.id));
-        Assert.That(state.Construct("C01", "F-S01"), Is.Null); Assert.That(state.RestoreTheory("T_C01_FS01"), Is.False);
+        Assert.That(state.Construct("C01", "F-S01"), Is.Not.Null); Assert.That(state.RestoreTheory("T_C01_FS01"), Is.False);
         Assert.That(state.progress.phase, Is.EqualTo(InvestigationPhase.Accusation));
     }
     [Test] public void RemovalCannotInvalidateAnActiveConversation()

@@ -322,7 +322,7 @@ namespace GraduationDemo.Train
             if (confirmDay)
             {
                 GUILayout.Label(State.progress.day >= State.Days ? "Close the final investigation day?" : "End this day?", heading);
-                GUILayout.Label("Unused actions: " + State.RemainingActions + ". They will be forfeited." + (State.progress.day >= State.Days ? " Investigation closes; only notebook review and accusation remain." : ""), body);
+                GUILayout.Label("Unused actions: " + State.RemainingActions + ". They will be forfeited." + (State.progress.day >= State.Days ? " Interviews and collection close. You can still construct theories from collected evidence and build an accusation." : ""), body);
                 if (GUILayout.Button("Confirm end of day")) ConfirmEndDay();
             }
             else if (pending != null)
@@ -330,6 +330,8 @@ namespace GraduationDemo.Train
                 GUILayout.Label("Spend " + pending.cost + " action(s) on this conversation?", heading);
                 GUILayout.Label(catalogue.Theory(pending.theoryId)?.text ?? "Ask for an alibi.", body);
                 GUILayout.Label("Actions remaining today: " + State.RemainingActions, body);
+                if (notebookView != null && notebookView.Assistance == ReasoningAssistance.Directed)
+                    GUILayout.Label(ReasoningGuidance.InterviewNote(catalogue, State.progress, pending), body);
                 if (GUILayout.Button("Confirm and speak to " + pending.suspect)) ConfirmConversation();
             }
             else
@@ -340,6 +342,8 @@ namespace GraduationDemo.Train
                 {
                     GUI.enabled = prompt.cost <= State.RemainingActions;
                     string label = (prompt.kind == ConversationKind.Alibi ? "Ask for an alibi" : catalogue.Theory(prompt.theoryId).text) + (prompt.cost == 0 ? " / free" : " / " + prompt.cost + " action(s)");
+                    if (notebookView != null && notebookView.Assistance == ReasoningAssistance.Directed && prompt.kind == ConversationKind.Theory)
+                        label += ReasoningGuidance.InterviewNote(catalogue, State.progress, prompt).StartsWith("No new") ? " / reaction only" : " / new inquiry";
                     if (GUILayout.Button(label, notebookButton)) { OfferConversation(prompt); break; }
                 }
                 GUI.enabled = true; GUILayout.EndScrollView();

@@ -35,14 +35,27 @@ namespace GraduationDemo.Train
             {
                 if (node.kind != ReasoningNodeKind.Theory) continue;
                 Vector2 here = notebook.NodePosition(node.id);
-                Stroke(vh, notebook.NodePosition(node.clueParent), here, new Color(.72f, .62f, .39f, .55f));
-                Stroke(vh, here, notebook.NodePosition(node.statementParent), new Color(.42f, .72f, .72f, .55f));
+                float alpha = notebook.AccusationGraphActive ? .16f : .55f;
+                Stroke(vh, notebook.NodePosition(node.clueParent), here, new Color(.72f, .62f, .39f, alpha));
+                Stroke(vh, here, notebook.NodePosition(node.statementParent), new Color(.42f, .72f, .72f, alpha));
             }
-            if (notebook.Assistance != ReasoningAssistance.Guided) return;
+            if (notebook.AccusationGraphActive)
+            {
+                Vector2 draft = notebook.NodePosition(AccusationGraphLayout.DraftId);
+                foreach (var node in model.nodes)
+                    if (node.kind == ReasoningNodeKind.Statement)
+                        Stroke(vh, notebook.NodePosition(node.id), notebook.NodePosition(AccusationGraphLayout.SuspectId(node.speaker)), new Color(.65f, .73f, .70f, .18f));
+                foreach (var id in notebook.AccusationTheories)
+                    Stroke(vh, notebook.NodePosition(id), draft, new Color(1, .84f, .40f, .95f), 5);
+                if (!string.IsNullOrEmpty(notebook.AccusationSuspect))
+                    Stroke(vh, draft, notebook.NodePosition(AccusationGraphLayout.SuspectId(notebook.AccusationSuspect)), new Color(1, .84f, .40f, .95f), 5);
+            }
+            if (!ReasoningGuidance.ShowsConnections(notebook.Assistance)) return;
             foreach (var hint in notebook.VisibleHints)
             {
                 Vector2 a = notebook.NodePosition(hint.firstId), b = notebook.NodePosition(hint.secondId);
-                Color tint = hint.kind == ReasoningHintKind.Contradiction ? new Color(1, .52f, .31f, .65f) : new Color(.79f, .71f, 1, .65f);
+                Color tint = hint.kind == ReasoningHintKind.Contradiction ? new Color(1, .52f, .31f, .65f) : hint.kind == ReasoningHintKind.CaseConnection ? new Color(.40f, .83f, .69f, .65f) : new Color(.79f, .71f, 1, .65f);
+                if (notebook.AccusationGraphActive) tint.a = .15f;
                 int segments = Mathf.Max(2, Mathf.CeilToInt(Vector2.Distance(a, b) / 16));
                 for (int i = 0; i < segments; i += 2)
                     Stroke(vh, Vector2.Lerp(a, b, i / (float)segments), Vector2.Lerp(a, b, Mathf.Min(i + 1, segments) / (float)segments), tint, 4);
@@ -56,7 +69,13 @@ namespace GraduationDemo.Train
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear(); Vector2 middle = rectTransform.rect.center; float r = Mathf.Min(rectTransform.rect.width, rectTransform.rect.height) * .43f;
-            if (kind == ReasoningNodeKind.Statement) { NotebookStrokeGraphic.Dot(vh, middle, color, r); return; }
+            if (kind == ReasoningNodeKind.Statement || kind == ReasoningNodeKind.Suspect) { NotebookStrokeGraphic.Dot(vh, middle, color, r); return; }
+            if (kind == ReasoningNodeKind.Accusation)
+            {
+                for (int i = 0; i < 6; i++) { float angle = i * Mathf.PI / 3; vh.AddVert(middle + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * r, color, Vector2.zero); }
+                for (int i = 1; i < 5; i++) vh.AddTriangle(0, i, i + 1);
+                return;
+            }
             Vector2[] corners = kind == ReasoningNodeKind.Theory ? new[] { middle + Vector2.up * r, middle + Vector2.right * r, middle + Vector2.down * r, middle + Vector2.left * r } :
                 new[] { middle + new Vector2(-r, r), middle + new Vector2(r, r), middle + new Vector2(r, -r), middle + new Vector2(-r, -r) };
             for (int i = 0; i < 4; i++) vh.AddVert(corners[i], color, Vector2.zero);

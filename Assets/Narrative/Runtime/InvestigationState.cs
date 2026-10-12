@@ -42,6 +42,7 @@ namespace GraduationDemo.Narrative
         public int ActionsPerDay => configuration == null ? 3 : configuration.actionsPerDay;
         public int RemainingActions => Math.Max(0, ActionsPerDay - progress.actionsSpent);
         public bool InvestigationOpen => progress.phase == InvestigationPhase.Investigating;
+        public bool CanConstructTheories => progress.phase == InvestigationPhase.Investigating || progress.phase == InvestigationPhase.Accusation;
         public bool Has(string id) => progress.clues.Contains(id) || progress.statements.Contains(id) || progress.flags.Contains(id);
         public bool Grant(string id) => Grant(id, "unknown");
         public bool Grant(string id, string locationId)
@@ -66,7 +67,7 @@ namespace GraduationDemo.Narrative
         static bool Add(List<string> values, string id) { if (values.Contains(id)) return false; values.Add(id); return true; }
         public TheoryDefinition Construct(string first, string second)
         {
-            if (!InvestigationOpen) return null;
+            if (!CanConstructTheories) return null;
             string clue = catalogue.Clue(first) != null ? first : second;
             string statement = catalogue.Statement(second) != null ? second : first;
             if (!progress.clues.Contains(clue) || !progress.statements.Contains(statement)) return null;

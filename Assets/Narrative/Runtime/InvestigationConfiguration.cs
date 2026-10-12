@@ -6,12 +6,17 @@ namespace GraduationDemo.Narrative
 {
     public enum InvestigationPhase { Investigating, Accusation, Resolved }
     public enum ConversationKind { Alibi, Theory }
-    public enum ReasoningAssistance { Off, Subtle, Guided }
-    public enum ReasoningHintKind { Contradiction, Ambiguity }
+    public enum ReasoningAssistance { Off, Subtle, Guided, Directed }
+    public enum ReasoningHintKind { Contradiction, Ambiguity, CaseConnection }
+    public enum ReasoningHintPurpose { Interview, CaseReview }
     [Serializable] public class ReasoningHint
     {
         public string id, firstId, secondId;
         public ReasoningHintKind kind;
+        public ReasoningHintPurpose purpose;
+        public string recipient;
+        [Tooltip("Hide this lead once any listed discovery has been learned, including through an alternative route.")]
+        public List<string> resolvedBy = new List<string>();
         [TextArea] public string prompt;
     }
     [Serializable] public class JourneyStop { public string name; public Vector2 position; }
@@ -23,16 +28,7 @@ namespace GraduationDemo.Narrative
         [Min(0)] public int alibiCost;
         [Min(0)] public int confrontationCost = 1;
         public ReasoningAssistance reasoningAssistance = ReasoningAssistance.Subtle;
-        public List<ReasoningHint> reasoningHints = new List<ReasoningHint> {
-            new ReasoningHint { id = "mila_evening_accounts", firstId = "M-S01", secondId = "F-S04", kind = ReasoningHintKind.Contradiction,
-                prompt = "Mila describes an evening rehearsing alone; Felix places her coming from Odette's end around 20:45. Which account, timing or interpretation needs checking? Neither statement is independent proof." },
-            new ReasoningHint { id = "mila_visit_timing", firstId = "M-S02", secondId = "F-S04", kind = ReasoningHintKind.Contradiction,
-                prompt = "Mila says she only visited earlier to prepare stage blood. Felix describes her coming from Odette's end around 20:45. Can both accounts describe the same visit? Check the timing and what Felix actually saw." },
-            new ReasoningHint { id = "receipt_alibi_gap", firstId = "C05", secondId = "F-S01", kind = ReasoningHintKind.Ambiguity,
-                prompt = "The receipt records an order at 20:10; Felix's claim concerns about 20:30. An earlier purchase alone does not establish where he was later." },
-            new ReasoningHint { id = "clock_cause_uncertain", firstId = "C02", secondId = "M-S04", kind = ReasoningHintKind.Ambiguity,
-                prompt = "The stopped clock records about 20:37. Mila suggests Odette may have knocked it over, but the time alone does not establish who broke it or how." }
-        };
+        public List<ReasoningHint> reasoningHints = ReasoningGuidance.DefaultHints();
         public List<JourneyStop> stops = new List<JourneyStop> {
             new JourneyStop { name = "Departure", position = new Vector2(.12f, .28f) },
             new JourneyStop { name = "Valley stop", position = new Vector2(.36f, .48f) },

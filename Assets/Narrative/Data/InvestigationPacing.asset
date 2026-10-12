@@ -18,32 +18,230 @@ MonoBehaviour:
   confrontationCost: 1
   reasoningAssistance: 1
   reasoningHints:
-  - id: mila_evening_accounts
-    firstId: M-S01
-    secondId: F-S04
-    kind: 0
-    prompt: Mila describes an evening rehearsing alone; Felix places her coming from
-      Odette's end around 20:45. Which account, timing or interpretation needs checking?
-      Neither statement is independent proof.
-  - id: mila_visit_timing
-    firstId: M-S02
-    secondId: F-S04
-    kind: 0
-    prompt: Mila says she only visited earlier to prepare stage blood. Felix describes
-      her coming from Odette's end around 20:45. Can both accounts describe the same
-      visit? Check the timing and what Felix actually saw.
-  - id: receipt_alibi_gap
-    firstId: C05
+  - id: engagement_context
+    firstId: C06
+    secondId: F-S02
+    kind: 1
+    purpose: 0
+    recipient: Felix
+    resolvedBy:
+    - F-S03
+    prompt: Matching rings suggest a private commitment. Could the champagne paid
+      for by Odette have been a celebration rather than an ordinary drink?
+  - id: rehearsal_bar_context
+    firstId: C09
     secondId: F-S01
     kind: 1
-    prompt: The receipt records an order at 20:10; Felix's claim concerns about 20:30.
-      An earlier purchase alone does not establish where he was later.
-  - id: clock_cause_uncertain
+    purpose: 0
+    recipient: Felix
+    resolvedBy:
+    - F-S04
+    prompt: The rehearsal ban explains why guests stayed away. Could the account
+      of time at the bar help establish what was happening outside the private rehearsal?
+  - id: preparations_bar_context
+    firstId: C08
+    secondId: F-S01
+    kind: 1
+    purpose: 0
+    recipient: Felix
+    resolvedBy:
+    - F-S05
+    prompt: The syrup was part of the masquerade preparations; the bar account concerns
+      a different activity. Could preparations or exchanges of costume items connect
+      those activities?
+  - id: privacy_and_authority
+    firstId: C09
+    secondId: B-S02
+    kind: 1
+    purpose: 0
+    recipient: Bellamy
+    resolvedBy:
+    - B-S03
+    prompt: A strict privacy rule kept people away from the rehearsal. Was that rule
+      accepted without disagreement, or might it have caused friction?
+  - id: clock_and_private_rehearsal
     firstId: C02
+    secondId: B-S02
+    kind: 1
+    purpose: 0
+    recipient: Bellamy
+    resolvedBy:
+    - B-S04
+    prompt: The clock stopped at about 20:37 during a private rehearsal. Could a
+      disturbance have been mistaken for part of the performance rather than checked?
+  - id: syrup_and_crash
+    firstId: C08
+    secondId: B-S01
+    kind: 1
+    purpose: 0
+    recipient: Bellamy
+    resolvedBy:
+    - B-S05
+    prompt: Stage blood preparations offer a theatrical explanation for some of the
+      scene. Could the reported sharp noise and crash have involved rehearsal materials?
+  - id: rings_and_happy_mood
+    firstId: C06
+    secondId: M-S03
+    kind: 1
+    purpose: 0
+    recipient: Mila
+    resolvedBy:
+    - M-S06
+    prompt: The matching rings suggest news beyond the masquerade. Could that explain
+      the reported excitement, and what would knowing its cause imply?
+  - id: clock_and_happy_mood
+    firstId: C02
+    secondId: M-S03
+    kind: 1
+    purpose: 0
+    recipient: Mila
+    resolvedBy:
+    - M-S04
+    prompt: A happy mood does not establish when or how the clock broke. What explanation
+      for the damaged clock follows from this account, if any?
+  - id: desk_and_clumsiness
+    firstId: C07
     secondId: M-S04
     kind: 1
-    prompt: The stopped clock records about 20:37. Mila suggests Odette may have
-      knocked it over, but the time alone does not establish who broke it or how.
+    purpose: 0
+    recipient: Mila
+    resolvedBy:
+    - M-S05
+    prompt: Could ordinary clumsiness account for the displaced furniture and impact
+      damage? Compare the physical desk evidence with the suggested accident.
+  - id: clock_position_and_clumsiness
+    firstId: C10
+    secondId: M-S04
+    kind: 1
+    purpose: 0
+    recipient: Mila
+    resolvedBy:
+    - M-S05
+    prompt: Could a casually knocked-over clock end up behind the desk? Compare where
+      it was found with the suggested accident.
+  - id: injury_and_crash
+    firstId: C03
+    secondId: B-S01
+    kind: 2
+    purpose: 1
+    recipient:
+    resolvedBy: []
+    prompt: 'Injury: compare the observed head/neck trauma with the reported crash.
+      This helps examine whether the real injury fits the fictional stabbing.'
+  - id: clock_and_crash
+    firstId: C02
+    secondId: B-S01
+    kind: 2
+    purpose: 1
+    recipient:
+    resolvedBy: []
+    prompt: 'Injury: compare the stopped heavy clock with the reported crash. The
+      time and sound need independent physical corroboration.'
+  - id: rings_and_engagement
+    firstId: C06
+    secondId: F-S03
+    kind: 2
+    purpose: 1
+    recipient:
+    resolvedBy: []
+    prompt: 'Context: the admission of an engagement explains the matching rings.
+      A private relationship alone does not establish responsibility for the death.'
+  - id: presence_despite_privacy
+    firstId: C09
+    secondId: F-S04
+    kind: 2
+    purpose: 1
+    recipient:
+    resolvedBy: []
+    prompt: 'Presence: compare the prohibition on interruptions with the sighting
+      near the private rehearsal. This can support your final case; it does not open
+      another interview.'
+  - id: programme_and_sighting
+    firstId: C04
+    secondId: F-S04
+    kind: 2
+    purpose: 1
+    recipient:
+    resolvedBy: []
+    prompt: 'Presence: compare the sighting around 20:45 with the fictional murder
+      scheduled for 22:00. Keep the sighting separate from proof of the injury.'
+  - id: costume_preparations
+    firstId: C08
+    secondId: F-S05
+    kind: 2
+    purpose: 1
+    recipient:
+    resolvedBy: []
+    prompt: 'Context: costume preparation and the borrowed safety pin belong to the
+      masquerade. Neither detail alone establishes when someone entered Odette''s
+      compartment.'
+  - id: privacy_and_argument
+    firstId: C09
+    secondId: B-S03
+    kind: 2
+    purpose: 1
+    recipient:
+    resolvedBy: []
+    prompt: 'Context: compare the admitted argument with the privacy rule. Friction
+      provides a question about relationships, not proof of guilt.'
+  - id: clock_and_assumption
+    firstId: C02
+    secondId: B-S04
+    kind: 2
+    purpose: 1
+    recipient:
+    resolvedBy: []
+    prompt: 'Context: the clock''s damage is physical evidence; calling a crash part
+      of the performance was an assumption. Keep observation and interpretation separate.'
+  - id: syrup_preparation_account
+    firstId: C08
+    secondId: B-S05
+    kind: 2
+    purpose: 1
+    recipient:
+    resolvedBy: []
+    prompt: 'Context: compare the account of preparing theatrical blood with the
+      syrup materials. Participation in preparations does not establish responsibility
+      for the real injury.'
+  - id: rings_and_reaction
+    firstId: C06
+    secondId: M-S06
+    kind: 2
+    purpose: 1
+    recipient:
+    resolvedBy: []
+    prompt: 'Context: compare the claimed happiness for the couple with the matching
+      rings. A reported emotion is not independent evidence of innocence or guilt.'
+  - id: clock_and_speculation
+    firstId: C02
+    secondId: M-S04
+    kind: 2
+    purpose: 1
+    recipient:
+    resolvedBy: []
+    prompt: 'Context: the suggestion of clumsiness is an explanation offered for
+      the broken clock, not an observed cause. Investigate the physical desk or clock
+      position to examine that suggestion.'
+  - id: desk_and_spatial_account
+    firstId: C07
+    secondId: M-S05
+    kind: 2
+    purpose: 1
+    recipient:
+    resolvedBy: []
+    prompt: 'Contradiction: compare the damaged desk with the claim about what Odette
+      could reach from where she fell. Consider whether the speaker could know that
+      geometry, and whether Burrows had disclosed it.'
+  - id: clock_and_spatial_account
+    firstId: C10
+    secondId: M-S05
+    kind: 2
+    purpose: 1
+    recipient:
+    resolvedBy: []
+    prompt: 'Contradiction: compare the clock''s concealed position with the precise
+      claim about what Odette could reach. Examine the source of that knowledge;
+      an evasive tone alone is not evidence.'
   stops:
   - name: Departure
     position: {x: 0.12, y: 0.28}
