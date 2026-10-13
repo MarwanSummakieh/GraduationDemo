@@ -6,6 +6,7 @@ namespace GraduationDemo.Train
     public sealed class TrainTour : MonoBehaviour
     {
         public Camera viewCamera;
+        public DetectiveNotebook notebook;
         public CharacterController detective;
         public GameObject[] cutawayShells;
         public Transform[] roomViews;
@@ -32,6 +33,7 @@ namespace GraduationDemo.Train
 
         private void Update()
         {
+            if (notebook != null && notebook.IsOpen) return;
             FindNearby();
             if (narrative != null && narrative.Busy) { UpdateCamera(); return; }
             var keys = Keyboard.current;
@@ -149,16 +151,19 @@ namespace GraduationDemo.Train
 
         public void OpenObservation(TrainObservation item)
         {
+            if (item == null || (notebook != null && notebook.IsOpen)) return;
             if (narrative != null && narrative.Interact(item)) return;
             CloseObservation(); observation = item.description;
             currentSpeaker = item.speaker;
             if (currentSpeaker != null) { activeConversation = item; currentSpeaker.SetTalking(true); }
+            if (notebook != null) notebook.Record(item);
         }
 
         public void SelectTopic(int index)
         {
             if (activeConversation == null || activeConversation.responses == null || index < 0 || index >= activeConversation.responses.Length) return;
             observation = activeConversation.responses[index];
+            if (notebook != null) notebook.Record(activeConversation, index);
         }
 
         public void CloseObservation()
@@ -182,6 +187,7 @@ namespace GraduationDemo.Train
 
         private void OnGUI()
         {
+            if (notebook != null && notebook.IsOpen) return;
             if (narrative != null && narrative.Busy) return;
             Styles();
             float scale = Mathf.Max(.1f, Mathf.Min(Screen.width / 1280f, Screen.height / 720f));
