@@ -1,0 +1,1 @@
+PASS: two scene installs and saved scene reload preserve one narrative controller, ten clue bindings, three suspect bindings, four character identities, five room cameras, original character prefab GUIDs and catalogue GUID. No missing scene scripts or animator references.

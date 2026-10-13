@@ -1,0 +1,4 @@
+PASS: ten reachable clues with collection locations; three free one-use alibis; Burrows no-chit-chat bark; cancelled confirmation preserved prompt/budget; four paid core revelations; zero-action free reasoning; manual day closure/replenishment; shared revelation suppressed; early accusation rejected. Currently day 2 with two actions left.
+PASS: unused actions forfeited on early day ending; final-day closure locked discoveries/interviews; wrong suspect rejected; supported Mila finale resolved the case.
+PASS: fresh case spent an action on an unproductive theory, ended all days, returned provisional unresolved feedback and did not reopen investigation.
+PASS: all 160 constructed theories produce 186 unique graph nodes with their acquired parents.

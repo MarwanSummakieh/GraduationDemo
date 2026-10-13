@@ -39,6 +39,7 @@ namespace GraduationDemo.Editor
             tour.detective.transform.SetPositionAndRotation(position, rotation);
             UnityEngine.Object.DestroyImmediate(oldDetective);
             CreateNpcs(tour);
+            if (tour.GetComponent<TrainNarrative>() != null) NarrativeSceneInstaller.Install();
             EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
             AssetDatabase.SaveAssets();
             CarnivalTrainBuilder.ValidateAndCapture();
@@ -71,6 +72,7 @@ namespace GraduationDemo.Editor
 
         public static void ConfigureTour(TrainTour tour)
         {
+            if (tour.GetComponent<TrainNarrative>() != null) return;
             EnsureBenches();
             foreach (var actor in UnityEngine.Object.FindObjectsByType<TrainActor>())
             {

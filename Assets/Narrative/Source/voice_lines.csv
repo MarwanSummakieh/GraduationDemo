@@ -1,0 +1,213 @@
+﻿Voice file ID,Actor,EXACT spoken line / subtitle,Portrait,Priority,Recording status,Origin scene
+BURR_001,Burrows,At last. A murder worthy of my considerable abilities.,Confident,MUST,To record,OPENING — The real corpse
+BELL_001,Bellamy,"You're late, Inspector. The fictional murder was scheduled for ten.",Annoyed,MUST,To record,OPENING — The real corpse
+BURR_002,Burrows,Observe the stillness. The absence of breathing. Our hostess is a marvel.,Smug,MUST,To record,OPENING — The real corpse
+BELL_002,Bellamy,Might we check whether she's actually breathing?,Concerned,MUST,To record,OPENING — The real corpse
+BURR_003,Burrows,A detective must never leap to conclusions.,Confident,MUST,To record,OPENING — The real corpse
+BURR_004,Burrows,Aha. Blood.,Curious,MUST,To record,OPENING — The real corpse
+BURR_005,Burrows,Strawberry.,Surprised,MUST,To record,OPENING — The real corpse
+BELL_003,Bellamy,Strawberry?,Confused,MUST,To record,OPENING — The real corpse
+BURR_006,Burrows,Raspberry makes a more convincing arterial effect.,Smug,MUST,To record,OPENING — The real corpse
+BELL_004,Bellamy,"Inspector, please look at her.",Concerned,MUST,To record,OPENING — The real corpse
+BURR_007,Burrows,Odette? The performance has gone on quite long enough.,Concerned,MUST,To record,OPENING — The real corpse
+BELL_005,Bellamy,She isn't moving.,Concerned,MUST,To record,OPENING — The real corpse
+BURR_008,Burrows,Good heavens. Someone has murdered the victim.,Shocked,MUST,To record,OPENING — The real corpse
+BELL_006,Bellamy,"Yes, Inspector.",Dry,MUST,To record,OPENING — The real corpse
+BURR_009,Burrows,Before the murder.,Shocked,MUST,To record,OPENING — The real corpse
+BURR_010,Burrows,We had better start again.,Serious,MUST,To record,OPENING — The real corpse
+BURR_011,Burrows,"Mr. Mercer, where were you at approximately half past eight?",Serious,MUST,To record,Felix — Champagne alibi
+FELI_001,Felix,At the bar.,Defensive,MUST,To record,Felix — Champagne alibi
+BURR_012,Burrows,Can anyone confirm that?,Curious,MUST,To record,Felix — Champagne alibi
+FELI_002,Felix,I've got the receipt.,Neutral,MUST,To record,Felix — Champagne alibi
+BURR_013,Burrows,Champagne. An expensive taste.,Smug,MUST,To record,Felix — Champagne alibi
+FELI_003,Felix,Wasn't mine. Odette was paying.,Defensive,MUST,To record,Felix — Champagne alibi
+BURR_014,Burrows,And you remained there?,Serious,MUST,To record,Felix — Champagne alibi
+FELI_004,Felix,"I was drinking, Inspector. Not posing for a portrait.",Annoyed,MUST,To record,Felix — Champagne alibi
+BURR_015,Burrows,Where were you before we discovered her?,Serious,MUST,To record,Bellamy — Corridor witness
+BELL_007,Bellamy,Walking through the sleeping carriage.,Neutral,MUST,To record,Bellamy — Corridor witness
+BURR_016,Burrows,Did you notice anything?,Curious,MUST,To record,Bellamy — Corridor witness
+BELL_008,Bellamy,"A sharp noise, then a crash. From Odette's end of the corridor.",Neutral,MUST,To record,Bellamy — Corridor witness
+BURR_017,Burrows,You didn't investigate?,Serious,MUST,To record,Bellamy — Corridor witness
+BELL_009,Bellamy,She forbade interruptions. I believed she was rehearsing.,Defensive,MUST,To record,Bellamy — Corridor witness
+BURR_018,Burrows,A very convenient belief.,Smug,MUST,To record,Bellamy — Corridor witness
+BELL_010,Bellamy,It was considerably more convenient before she died.,Subdued,MUST,To record,Bellamy — Corridor witness
+BURR_019,Burrows,"Miss Novak, where were you at half past eight?",Serious,MUST,To record,Mila — Solitary rehearsal
+MILA_001,Mila,Rehearsing! In my compartment.,Polite,MUST,To record,Mila — Solitary rehearsal
+BURR_020,Burrows,Alone?,Curious,MUST,To record,Mila — Solitary rehearsal
+MILA_002,Mila,Entirely. Not even a mouse.,Cheerful,MUST,To record,Mila — Solitary rehearsal
+BURR_021,Burrows,What were you rehearsing?,Curious,MUST,To record,Mila — Solitary rehearsal
+MILA_003,Mila,My death scene. One must prepare for opportunity.,Cheerful,MUST,To record,Mila — Solitary rehearsal
+BURR_022,Burrows,Did you visit Odette later?,Serious,MUST,To record,Mila — Solitary rehearsal
+MILA_004,Mila,"Only earlier, for the fake blood. Terribly sticky stuff.",Polite,MUST,To record,Mila — Solitary rehearsal
+BURR_023,Burrows,And after that?,Serious,MUST,To record,Mila — Solitary rehearsal
+MILA_005,Mila,I left her to prepare. She was very excited.,Nervous,MUST,To record,Mila — Solitary rehearsal
+BURR_024,Burrows,You were near Odette's compartment when the real injury occurred.,Serious,MUST,To record,ENDING — Mila's account
+MILA_006,Mila,I didn't murder her.,Defensive,MUST,To record,ENDING — Mila's account
+BURR_025,Burrows,"The clock, your account of the fall, and your changing alibi tell a different story about that evening.",Serious,MUST,To record,ENDING — Mila's account
+MILA_007,Mila,It was an argument. She said I had to let her go.,Subdued,MUST,To record,ENDING — Mila's account
+BURR_026,Burrows,What happened next?,Serious,MUST,To record,ENDING — Mila's account
+MILA_008,Mila,"I slapped her. She stumbled, and her head struck the desk. I couldn't wake her.",Subdued,MUST,To record,ENDING — Mila's account
+BURR_027,Burrows,And the dagger?,Serious,MUST,To record,ENDING — Mila's account
+MILA_009,Mila,"I thought if somebody found her with it, they'd think she was rehearsing.",Subdued,MUST,To record,ENDING — Mila's account
+BURR_028,Burrows,You knew she needed help.,Serious,MUST,To record,ENDING — Mila's account
+MILA_010,Mila,I was frightened.,Sad,MUST,To record,ENDING — Mila's account
+BURR_029,Burrows,You could have called someone.,Serious,MUST,To record,ENDING — Mila's account
+MILA_011,Mila,I know.,Sad,MUST,To record,ENDING — Mila's account
+MILA_012,Mila,She was supposed to wake up.,Sad,MUST,To record,ENDING — Mila's account
+BURR_030,Burrows,You will have to tell the authorities what happened.,Serious,MUST,To record,ENDING — Mila's account
+BURR_031,Burrows,The blood is counterfeit. Who was entrusted with the manufacture of this ghastly confection?,Confident,Should,To record,The syrup supplier
+BELL_011,Bellamy,Miss Novak. She and Odette spent an extraordinary amount of time arguing about strawberries.,Annoyed,Should,To record,The syrup supplier
+BURR_032,Burrows,And you watched them prepare it?,Curious,Should,To record,The syrup supplier
+BELL_012,Bellamy,I saw the materials. I was not invited to lick the evidence.,Disgusted,Should,To record,The syrup supplier
+BURR_033,Burrows,"This clock stopped at twenty minutes to nine, give or take a few minutes. You heard a crash near then?",Serious,MUST,To record,The sound in the corridor
+BELL_013,Bellamy,"A sharp sound, then a crash. I couldn't tell you what made either noise.",Neutral,MUST,To record,The sound in the corridor
+BURR_034,Burrows,Did you look inside?,Curious,MUST,To record,The sound in the corridor
+BELL_014,Bellamy,No. Odette had forbidden interruptions. I assumed it was part of the performance.,Defensive,MUST,To record,The sound in the corridor
+BURR_035,Burrows,So you heard something. You did not see it.,Serious,MUST,To record,The sound in the corridor
+BELL_015,Bellamy,"At last, a statement with which I can agree.",Relieved,MUST,To record,The sound in the corridor
+BURR_036,Burrows,That clock was damaged before the scheduled discovery. Do you know how?,Curious,Should,To record,An inconvenient clock
+MILA_013,Mila,Odette knocked things over all the time. You should have seen what happened to the champagne glasses.,Nervous,Should,To record,An inconvenient clock
+BURR_037,Burrows,Did she break the clock?,Serious,Should,To record,An inconvenient clock
+MILA_014,Mila,Perhaps. She was terribly busy preparing her surprise.,Polite,Should,To record,An inconvenient clock
+BURR_038,Burrows,Perhaps is not the same as yes.,Serious,Should,To record,An inconvenient clock
+MILA_015,Mila,"No, Inspector. Of course it isn't.",Nervous,Should,To record,An inconvenient clock
+BURR_039,Burrows,"You speak as if you remember a fall, Miss Novak.",Serious,MUST,To record,The remembered fall
+MILA_016,Mila,I'm only imagining it. This whole business has made my imagination rather unhelpful.,Defensive,MUST,To record,The remembered fall
+BURR_040,Burrows,Then tell me what you actually saw.,Serious,MUST,To record,The remembered fall
+MILA_017,Mila,"I saw her earlier, when we prepared the syrup. That's all.",Nervous,MUST,To record,The remembered fall
+BURR_041,Burrows,An imagination can be mistaken. A memory has a source.,Serious,MUST,To record,The remembered fall
+MILA_018,Mila,Then perhaps I've mistaken the two.,Subdued,MUST,To record,The remembered fall
+BURR_042,Burrows,You heard a crash and obeyed a printed instruction instead of checking on your friend?,Serious,Should,To record,Instructions not to interrupt
+BELL_016,Bellamy,Odette had threatened to expel anyone who interrupted her preparations.,Annoyed,Should,To record,Instructions not to interrupt
+BURR_043,Burrows,A threat you considered binding?,Curious,Should,To record,Instructions not to interrupt
+BELL_017,Bellamy,From Odette? Entirely. Last year she dismissed a violinist for sneezing in the wrong key.,Dry,Should,To record,Instructions not to interrupt
+BURR_044,Burrows,A serious musical offense.,Confident,Should,To record,Instructions not to interrupt
+BURR_045,Burrows,Champagne charged to Madame Vesper. What exactly were you celebrating?,Curious,MUST,To record,Why the champagne?
+FELI_005,Felix,You'd turn it into something ugly.,Defensive,MUST,To record,Why the champagne?
+BURR_046,Burrows,Try me.,Serious,MUST,To record,Why the champagne?
+FELI_006,Felix,We were going to marry. Odette and me.,Subdued,MUST,To record,Why the champagne?
+BURR_047,Burrows,You were engaged?,Shocked,MUST,To record,Why the champagne?
+FELI_007,Felix,Yes. She bought the drinks. I bought the rings.,Sad,MUST,To record,Why the champagne?
+BURR_048,Burrows,"My condolences, Mr. Mercer.",Serious,MUST,To record,Why the champagne?
+BURR_049,Burrows,A peacock and a lion. These rings were made for you and Odette?,Curious,MUST,To record,The peacock and lion
+FELI_008,Felix,"I had them made. I used my own savings, before you ask.",Defensive,MUST,To record,The peacock and lion
+BURR_050,Burrows,I hadn't asked.,Neutral,MUST,To record,The peacock and lion
+FELI_009,Felix,You were going to.,Defensive,MUST,To record,The peacock and lion
+BURR_051,Burrows,And were you happy together?,Serious,MUST,To record,The peacock and lion
+FELI_010,Felix,I wanted breakfast with her tomorrow. And the day after that.,Sad,MUST,To record,The peacock and lion
+BURR_052,Burrows,You gave Miss Novak a pin and kept two rings. Is this an unusually elaborate courtship?,Confident,Should,To record,A safety pin is not a proposal
+FELI_011,Felix,It was a safety pin. Her rabbit mask kept falling off.,Annoyed,Should,To record,A safety pin is not a proposal
+BURR_053,Burrows,An intimate gift.,Confident,Should,To record,A safety pin is not a proposal
+FELI_012,Felix,It came from my cuff. You make everything sound filthy.,Annoyed,Should,To record,A safety pin is not a proposal
+BURR_054,Burrows,I prefer the term thorough.,Smug,Should,To record,A safety pin is not a proposal
+BURR_055,Burrows,These rings explain why Odette was arranging her life differently.,Serious,MUST,To record,A changing household
+BELL_018,Bellamy,She had begun delegating work she once insisted on doing herself.,Neutral,MUST,To record,A changing household
+BURR_056,Burrows,You resented that.,Curious,MUST,To record,A changing household
+BELL_019,Bellamy,I resented having a sensible arrangement dismantled without discussion.,Defensive,MUST,To record,A changing household
+BURR_057,Burrows,Did you argue with her?,Serious,MUST,To record,A changing household
+BELL_020,Bellamy,"Yes. Earlier that evening. We argued, and I left her alive.",Subdued,MUST,To record,A changing household
+BURR_058,Burrows,You knew about the engagement?,Curious,Should,To record,How lovely for them
+MILA_019,Mila,"Odette told me herself. Isn't that lovely? Two rings, two very determined people.",Polite,Should,To record,How lovely for them
+BURR_059,Burrows,Were you pleased?,Serious,Should,To record,How lovely for them
+MILA_020,Mila,"Of course. We spent ages on the invitations for her pretend murder, though. The lettering alone took all afternoon.",Nervous,Should,To record,How lovely for them
+BURR_060,Burrows,I asked about the wedding.,Serious,Should,To record,How lovely for them
+MILA_021,Mila,"I was happy for them, Inspector.",Subdued,Should,To record,How lovely for them
+BURR_061,Burrows,You insist you were alone during preparations. Did you leave your compartment?,Serious,MUST,To record,The empty rehearsal
+MILA_022,Mila,I was practicing my death scene. Very little movement was required.,Polite,MUST,To record,The empty rehearsal
+BURR_062,Burrows,An enviable role for a tired performer.,Dry,MUST,To record,The empty rehearsal
+MILA_023,Mila,Odette said nobody should disturb her. So I didn't.,Defensive,MUST,To record,The empty rehearsal
+BURR_063,Burrows,That isn't quite the question I asked.,Serious,MUST,To record,The empty rehearsal
+MILA_024,Mila,"It's the answer I have, Inspector.",Subdued,MUST,To record,The empty rehearsal
+BURR_064,Burrows,Did anyone pass Odette's end of the corridor after you left the bar?,Serious,MUST,To record,A figure in the corridor
+FELI_013,Felix,Mila did. I saw her walking away from that end of the carriage.,Neutral,MUST,To record,A figure in the corridor
+BURR_065,Burrows,Coming out of Odette's door?,Curious,MUST,To record,A figure in the corridor
+FELI_014,Felix,I didn't see the door. Don't put words in my mouth.,Annoyed,MUST,To record,A figure in the corridor
+BURR_066,Burrows,Roughly when?,Serious,MUST,To record,A figure in the corridor
+FELI_015,Felix,About a quarter to nine. I was on my way back from the bar.,Neutral,MUST,To record,A figure in the corridor
+BURR_067,Burrows,You described where Odette fell. Yet you maintain you never returned.,Serious,MUST,To record,A knowledge she cannot place
+MILA_025,Mila,"Everyone saw the room after the discovery, didn't they?",Nervous,MUST,To record,A knowledge she cannot place
+BURR_068,Burrows,You described the direction of her fall before I described it to you.,Serious,MUST,To record,A knowledge she cannot place
+MILA_026,Mila,I only meant the desk. She was always stumbling into things.,Defensive,MUST,To record,A knowledge she cannot place
+BURR_069,Burrows,You are correcting details I never gave you.,Serious,MUST,To record,A knowledge she cannot place
+MILA_027,Mila,Then I've said it badly. I'm sorry.,Subdued,MUST,To record,A knowledge she cannot place
+BURR_070,Burrows,You say you only visited Odette to help with the stage blood.,Serious,Should,To record,An exceptionally sticky explanation
+MILA_028,Mila,"We tried strawberry syrup, then raspberry. The raspberry stained everything, and the cornflour made terrible lumps.",Polite,Should,To record,An exceptionally sticky explanation
+BURR_071,Burrows,After that visit?,Curious,Should,To record,An exceptionally sticky explanation
+MILA_029,Mila,Then there was the tablecloth. It looked like a butcher had married a jam-maker.,Cheerful,Should,To record,An exceptionally sticky explanation
+BURR_072,Burrows,Miss Novak. After that visit?,Serious,Should,To record,An exceptionally sticky explanation
+MILA_030,Mila,I went to practice alone.,Defensive,Should,To record,An exceptionally sticky explanation
+BURR_073,Burrows,Explain why a violent noise didn't alarm you.,Serious,Should,To record,The intolerable rehearsal
+BELL_021,Bellamy,Because we had been told not to interfere with the rehearsal. Very emphatically.,Annoyed,Should,To record,The intolerable rehearsal
+BURR_074,Burrows,A rule more important than a woman's safety?,Serious,Should,To record,The intolerable rehearsal
+BELL_022,Bellamy,"At the time, Inspector, I thought I was preserving her peace. I was wrong.",Subdued,Should,To record,The intolerable rehearsal
+BURR_075,Burrows,You told me Odette could not have reached the clock from where she fell.,Serious,MUST,To record,The clock behind the desk
+MILA_031,Mila,I said I was guessing.,Defensive,MUST,To record,The clock behind the desk
+BURR_076,Burrows,"You guessed the position of her body, not merely that she fell.",Serious,MUST,To record,The clock behind the desk
+MILA_032,Mila,Everyone knew her desk was crowded.,Nervous,MUST,To record,The clock behind the desk
+BURR_077,Burrows,A crowded desk would not tell you which way she fell.,Serious,MUST,To record,The clock behind the desk
+MILA_033,Mila,"I have nothing more to add, Inspector.",Subdued,MUST,To record,The clock behind the desk
+BURR_078,Burrows,You said Odette often knocked things over. Could she have damaged her desk in a fall?,Serious,MUST,To record,A fall she shouldn't picture
+MILA_034,Mila,Perhaps. But she could hardly have reached the clock from where she fell.,Nervous,MUST,To record,A fall she shouldn't picture
+BURR_079,Burrows,From where she fell?,Serious,MUST,To record,A fall she shouldn't picture
+MILA_035,Mila,Oh. I only meant that she must have fallen. Surely?,Defensive,MUST,To record,A fall she shouldn't picture
+BURR_080,Burrows,You described her position. I never told you how she landed.,Serious,MUST,To record,A fall she shouldn't picture
+MILA_036,Mila,Then I must have imagined it. I have imagined a great deal lately.,Subdued,MUST,To record,A fall she shouldn't picture
+FELIX_REACT_DISMISS_01,Felix,You've got to be joking.,Annoyed,MUST,To record,Reusable reaction bank
+FELIX_REACT_QUESTION_01,Felix,What are you getting at?,Defensive,MUST,To record,Reusable reaction bank
+FELIX_REACT_PRIVACY_01,Felix,That's none of your business.,Defensive,MUST,To record,Reusable reaction bank
+FELIX_REACT_SERIOUS_01,Felix,I don't know what happened in that room.,Sad,MUST,To record,Reusable reaction bank
+BELL_REACT_DISMISS_01,Bellamy,Preposterous.,Annoyed,MUST,To record,Reusable reaction bank
+BELL_REACT_QUESTION_01,Bellamy,I fail to see the relevance.,Neutral,MUST,To record,Reusable reaction bank
+BELL_REACT_DEFLECT_01,Bellamy,That is an extraordinary assumption.,Defensive,MUST,To record,Reusable reaction bank
+BELL_REACT_SERIOUS_01,Bellamy,I heard a noise. I did not see what happened.,Serious,MUST,To record,Reusable reaction bank
+MILA_REACT_DISMISS_01,Mila,"Oh, Inspector, what an imagination!",Amused,MUST,To record,Reusable reaction bank
+MILA_REACT_QUESTION_01,Mila,I'm not sure I understand.,Neutral,MUST,To record,Reusable reaction bank
+MILA_REACT_DEFLECT_01,Mila,"Oh, that reminds me of the rehearsals!",Nervous,MUST,To record,Reusable reaction bank
+MILA_REACT_SERIOUS_01,Mila,I only know what I've already told you.,Nervous,MUST,To record,Reusable reaction bank
+BURR_081,Burrows,"I have a question, Mr. Mercer.",Curious,MUST,To record,Reusable openings
+BURR_082,Burrows,"I have a question, Miss Novak.",Curious,MUST,To record,Reusable openings
+BURR_083,Burrows,"I have a question, Mr. Bellamy.",Curious,MUST,To record,Reusable openings
+BURR_ALT_01,Burrows,You say Odette had a habit of knocking things over. What about her damaged writing desk?,Serious,MUST,To record,The damaged desk and Mila’s guess
+MILA_ALT_02,Mila,"She could have fallen against it. Though not from that side, with the clock in the way.",Nervous,MUST,To record,The damaged desk and Mila’s guess
+BURR_ALT_03,Burrows,What side?,Serious,MUST,To record,The damaged desk and Mila’s guess
+MILA_ALT_04,Mila,Whichever side it was. I was only guessing.,Defensive,MUST,To record,The damaged desk and Mila’s guess
+BURR_ALT_05,Burrows,You seem unusually sure of a fall you say you never witnessed.,Serious,MUST,To record,The damaged desk and Mila’s guess
+MILA_ALT_06,Mila,"Oh, Inspector. I wish I had never said anything.",Subdued,MUST,To record,The damaged desk and Mila’s guess
+NEW_01_01,Burrows,These rings carry a lion and a peacock. An exceedingly expensive zoological partnership.,Curious,MUST,To record,The engagement in the suitcase
+NEW_01_02,Felix,They are for Odette and me.,Subdued,MUST,To record,The engagement in the suitcase
+NEW_01_03,Burrows,An engagement?,Surprised,MUST,To record,The engagement in the suitcase
+NEW_01_04,Felix,"Yes. I bought them myself, before you ask. We were going to marry.",Serious,MUST,To record,The engagement in the suitcase
+NEW_01_05,Burrows,Then the champagne was a celebration.,Serious,MUST,To record,The engagement in the suitcase
+NEW_01_06,Felix,It was supposed to be.,Sad,MUST,To record,The engagement in the suitcase
+NEW_02_01,Burrows,You say you were at the bar. Did you leave it at any point?,Serious,MUST,To record,A woman heading away
+NEW_02_02,Felix,I went back toward the compartments later.,Defensive,MUST,To record,A woman heading away
+NEW_02_03,Burrows,Did you see anyone?,Curious,MUST,To record,A woman heading away
+NEW_02_04,Felix,Mila. Near Odette’s end of the carriage. I think it was quarter to nine.,Neutral,MUST,To record,A woman heading away
+NEW_02_05,Burrows,And you neglected to mention that?,Serious,MUST,To record,A woman heading away
+NEW_02_06,Felix,I thought everybody was running about rehearsing.,Defensive,MUST,To record,A woman heading away
+NEW_03_01,Burrows,These preparations seem to have required an extraordinary amount of equipment.,Curious,SHOULD,To record,A pin for a rabbit
+NEW_03_02,Felix,Tell me about it. Mila had me hunting for a safety pin before dinner.,Neutral,SHOULD,To record,A pin for a rabbit
+NEW_03_03,Burrows,For what purpose?,Serious,SHOULD,To record,A pin for a rabbit
+NEW_03_04,Felix,Her rabbit mask. The ribbon kept coming loose.,Neutral,SHOULD,To record,A pin for a rabbit
+NEW_04_01,Burrows,"You insist Odette wanted privacy, yet you spoke to her shortly before the performance.",Serious,MUST,To record,Bellamy admits an argument
+NEW_04_02,Bellamy,We had a disagreement. I left when she told me to.,Annoyed,MUST,To record,Bellamy admits an argument
+NEW_04_03,Burrows,Concerning?,Curious,MUST,To record,Bellamy admits an argument
+NEW_04_04,Bellamy,She was handing away responsibilities she had spent decades accumulating.,Serious,MUST,To record,Bellamy admits an argument
+NEW_04_05,Burrows,And you objected.,Serious,MUST,To record,Bellamy admits an argument
+NEW_04_06,Bellamy,I objected to being made dispensable without so much as a memorandum.,Embarrassed,MUST,To record,Bellamy admits an argument
+NEW_05_01,Burrows,A broken clock and a prohibition on interruptions. Why ignore a crash?,Serious,SHOULD,To record,A reasonable mistake
+NEW_05_02,Bellamy,Because I thought it was part of the wretched performance.,Annoyed,SHOULD,To record,A reasonable mistake
+NEW_05_03,Burrows,You were certain?,Curious,SHOULD,To record,A reasonable mistake
+NEW_05_04,Bellamy,"No, Inspector. That is what a mistake is.",Annoyed,SHOULD,To record,A reasonable mistake
+NEW_06_01,Burrows,The theatrical blood appears to have required considerable preparation.,Curious,SHOULD,To record,Who made the syrup?
+NEW_06_02,Bellamy,Miss Novak assisted Odette. It was apparently a substantial undertaking.,Neutral,SHOULD,To record,Who made the syrup?
+NEW_06_03,Burrows,Did you help?,Curious,SHOULD,To record,Who made the syrup?
+NEW_06_04,Bellamy,I declined to participate in the manufacture of confectionery homicide.,Annoyed,SHOULD,To record,Who made the syrup?
+NEW_07_01,Burrows,The clock is broken. You say Odette seemed pleased when you last saw her.,Serious,MUST,To record,An awkward guess
+NEW_07_02,Mila,Odette was always knocking things over. Perhaps she broke it herself.,Nervous,MUST,To record,An awkward guess
+NEW_07_03,Burrows,A possibility. When did you see her last?,Curious,MUST,To record,An awkward guess
+NEW_07_04,Mila,"Before dinner, Inspector. I told you.",Neutral,MUST,To record,An awkward guess
+NEW_08_01,Burrows,A lion and a peacock. Their relationship was more than a costume joke.,Serious,SHOULD,To record,Happy for them
+NEW_08_02,Mila,Yes. Odette told me. I was happy for them.,Pleasant,SHOULD,To record,Happy for them
+NEW_08_03,Burrows,And you kept that to yourself?,Curious,SHOULD,To record,Happy for them
+NEW_08_04,Mila,"She trusted me, Inspector. I did not think it was mine to announce.",Subdued,SHOULD,To record,Happy for them

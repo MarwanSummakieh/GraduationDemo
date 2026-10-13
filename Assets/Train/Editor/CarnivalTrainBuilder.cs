@@ -110,6 +110,7 @@ namespace GraduationDemo.Editor
             AssetDatabase.SaveAssets();
             ValidateAndCapture();
             Selection.activeGameObject = train.gameObject;
+            NarrativeSceneInstaller.Install();
             Debug.Log("CARNIVAL_TRAIN_BUILD_OK: Editable train, prefab, scene, constrained exploration and previews created.");
         }
 

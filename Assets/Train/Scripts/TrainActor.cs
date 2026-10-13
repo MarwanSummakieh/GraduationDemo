@@ -11,6 +11,7 @@ namespace GraduationDemo.Train
         public Transform detective;
         public bool secondaryIdle;
         public string role;
+        public string characterId;
         public bool seated;
         public float seatHeight = .60f;
         private Quaternion restingRotation;
