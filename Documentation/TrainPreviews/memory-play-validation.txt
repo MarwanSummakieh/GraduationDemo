@@ -1,0 +1,1 @@
+PASS: Unity Play mode; J/Escape notebook controls; movement and carriage input blocked; E reaches all three passengers; topic keys preserve carriage and record exact answers; J ends talking animation; only heard answers saved; object inspections; search and observation/pinned filters.

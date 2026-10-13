@@ -1,0 +1,1 @@
+PASS: Empty start; exact heard responses; three passengers and three objects; no unasked topics; repeat deduplication; revised answers; invalid topic bounds; stable IDs; testimony/observation distinction; pins/notes and scene data persist; corrupt-save recovery; notebook closes conversation.
