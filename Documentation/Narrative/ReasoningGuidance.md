@@ -38,6 +38,8 @@ There are **10 interview leads and 13 case-review connections**. The leads cover
 
 These coverage/reward details are authoring notes, not player-facing hints. No hint uses hidden truth labels, unlocks testimony, changes accusation support, spends an action, or resets conversations. Prompts are unvoiced notebook annotations, not new dialogue attributed to Burrows.
 
+Dotted connections are hidden once their clue–statement theory is constructed or restored. Removing that theory brings its connection back while the hint is eligible. This affects the dotted line only; recipient advice and explanations remain available. Learned revelations still retire their interview leads.
+
 This prototype requires authored relationships. It does not infer contradictions from arbitrary prose or automatically assess every possible theory.
 
 ## Verification

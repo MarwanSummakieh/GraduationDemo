@@ -189,25 +189,65 @@ namespace GraduationDemo.Narrative
         }
         public float JourneyProgress => progress.phase == InvestigationPhase.Investigating ?
             Math.Min(.999f, (progress.day - 1 + (float)progress.actionsSpent / ActionsPerDay) / Days) : 1f;
-        public ArrestRule EvaluateArrest(string suspect, IEnumerable<string> selection, out string reason)
+        public ArrestRule EvaluateArrest(string suspect, IEnumerable<string> selection, out string reason, IReadOnlyDictionary<string, string> sockets = null)
         {
-            if (progress.phase != InvestigationPhase.Accusation) { reason = "Accusations are available only after the final day ends."; return null; }
-            var ids = selection.ToList();
-            if (ids.Distinct().Count() != ids.Count || ids.Any(x => !progress.theories.Contains(x)))
-            { reason = "Select distinct theories you have constructed."; return null; }
+            var assessment = AssessAccusation(suspect, selection, sockets);
+            reason = assessment.Reason; return assessment.Supported ? assessment.rule : null;
+        }
+        public AccusationAssessment AssessAccusation(string suspect, IEnumerable<string> selection, IReadOnlyDictionary<string, string> sockets = null)
+        {
+            var result = new AccusationAssessment();
+            if (progress.phase != InvestigationPhase.Accusation)
+            { result.Add("phase", "Final day closed", false, "Accusations are available only after the final day ends."); return result; }
+            var ids = (selection ?? Enumerable.Empty<string>()).ToList();
+            if (ids.Distinct().Count() != ids.Count || ids.Any(id => !progress.theories.Contains(id) || catalogue.Theory(id) == null))
+            { result.Add("selection", "Active distinct theories", false, "Select distinct theories you have constructed."); return result; }
             var theories = ids.Select(catalogue.Theory).ToList();
-            if (theories.Any(x => x == null)) { reason = "An accusation references missing theory data."; return null; }
-            foreach (var rule in catalogue.arrestRules.Where(x => x.enabled && x.suspect == suspect))
+            var rules = catalogue.arrestRules.Where(r => r.enabled && (string.IsNullOrEmpty(suspect) || r.suspect == suspect)).ToList();
+            if (rules.Count == 0)
+            { result.Add("suspect", "Suspect support", false, "These theories do not support the chosen suspect's responsibility under the case criteria."); return result; }
+            var assessments = new List<AccusationAssessment>();
+            foreach (var rule in rules)
             {
-                if (ids.Count != rule.selectionCount || rule.requiredStatements.Any(x => !progress.statements.Contains(x)) ||
-                    rule.requiredClues.Any(x => !progress.clues.Contains(x)) || rule.forbiddenFlags.Any(Has)) continue;
-                var groups = theories.Where(x => !string.IsNullOrEmpty(x.observationGroup)).Select(x => x.observationGroup).Distinct().Count();
-                // Assign each required proposition to a different observation group. One observation cannot corroborate itself.
-                if (groups < rule.minimumObservationGroups || !Assign(rule.propositions, theories, 0, new HashSet<string>())) continue;
-                reason = "Supported accusation: " + rule.id; return rule;
+                var a = new AccusationAssessment { rule = rule };
+                a.Add("count", "Theory tethers", ids.Count == rule.selectionCount, "Tether " + rule.selectionCount + " distinct theories.");
+                a.Add("suspect", "Suspect tether", suspect == rule.suspect, "Tether the accusation to a suspect.");
+                a.Add("sources", "Collected source evidence", theories.All(t => progress.clues.Contains(t.clueId) && progress.statements.Contains(t.statementId)), "An attached theory is missing its collected source evidence.");
+                if (sockets != null) a.Add("sockets", "One theory per socket", sockets.Count == rule.selectionCount && rule.propositions.All(sockets.ContainsKey) &&
+                    sockets.Values.Distinct().Count() == ids.Count && sockets.Values.All(ids.Contains), "Attach one distinct theory to each Means, Motive and Opportunity socket.");
+                foreach (var proposition in rule.propositions)
+                {
+                    string label = PropositionLabel(proposition);
+                    bool covered = sockets == null ? theories.Any(t => t.propositions.Contains(proposition)) :
+                        sockets.TryGetValue(proposition, out var attached) && ids.Contains(attached) && catalogue.Theory(attached).propositions.Contains(proposition);
+                    a.Add(proposition, label, covered, "Missing evidence supporting " + label.ToLowerInvariant() + ".", true);
+                }
+                int missingClues = rule.requiredClues.Count(id => !progress.clues.Contains(id));
+                int missingStatements = rule.requiredStatements.Count(id => !progress.statements.Contains(id));
+                a.Add("clues", "Physical observations", missingClues == 0, "Required physical observations not collected: " + missingClues + ".");
+                a.Add("statements", "Witness accounts", missingStatements == 0, "Required witness accounts not collected: " + missingStatements + ".");
+                bool independent = theories.Where(t => !string.IsNullOrEmpty(t.observationGroup)).Select(t => t.observationGroup).Distinct().Count() >= rule.minimumObservationGroups &&
+                    Assign(rule.propositions, theories, 0, new HashSet<string>());
+                a.Add("independence", "Independent corroboration", independent, "Each required evidence line needs a separate supporting observation; an uncorroborated interpretation does not add one.");
+                a.Add("conditions", "Usable evidence", !rule.forbiddenFlags.Any(Has), progress.flags.Contains("flag:geometry_disclosed") ?
+                    "The private geometry was disclosed; knowledge of it no longer establishes a contradiction." : "This case cannot currently be resolved from these theories.");
+                if (ids.Contains("T_C06_MS06")) a.notes.Add("Motive is a plausible interpretation of the relationship and reaction, not proof of intent. This is an investigative hypothesis.");
+                assessments.Add(a);
             }
-            reason = "Provisional unresolved case: these theories do not support this accusation. Review the notebook and revise your selection.";
-            return null;
+            return assessments.OrderBy(a => a.checks.Count(c => !c.satisfied)).First();
+        }
+        static string PropositionLabel(string proposition)
+        {
+            switch (proposition)
+            {
+                case AccusationReasoning.Means: return "Means";
+                case AccusationReasoning.Motive: return "Motive";
+                case AccusationReasoning.Opportunity: return "Opportunity";
+                case "P1_REAL_INJURY": return "Real injury";
+                case "P3_MILA_PRESENCE": return "Presence at the scene";
+                case "P4_CONTRADICTORY_ACCOUNT": return "Contradictory testimony";
+                default: return "Required evidence line";
+            }
         }
         static bool Assign(List<string> propositions, List<TheoryDefinition> theories, int index, HashSet<string> used)
         {

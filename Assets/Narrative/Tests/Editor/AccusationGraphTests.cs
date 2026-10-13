@@ -45,7 +45,7 @@ namespace GraduationDemo.Narrative.Tests
         {
             foreach (var c in catalogue.clues) state.Grant(c.id); foreach (var s in catalogue.statements) state.Grant(s.id);
             while (state.InvestigationOpen) state.EndDay(out _);
-            var theories = new[] { state.Construct("C03", "B-S01"), state.Construct("C09", "F-S04"), state.Construct("C10", "M-S05") };
+            var theories = new[] { state.Construct("C03", "B-S01"), state.Construct("C09", "F-S04"), state.Construct("C06", "M-S06") };
             Assert.That(theories.All(t => t != null), Is.True);
             Assert.That(state.EvaluateArrest("Mila", theories.Select(t => t.id), out _), Is.Not.Null);
         }

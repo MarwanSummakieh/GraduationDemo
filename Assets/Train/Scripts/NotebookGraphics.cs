@@ -35,9 +35,12 @@ namespace GraduationDemo.Train
             {
                 if (node.kind != ReasoningNodeKind.Theory) continue;
                 Vector2 here = notebook.NodePosition(node.id);
-                float alpha = notebook.AccusationGraphActive ? .16f : .55f;
-                Stroke(vh, notebook.NodePosition(node.clueParent), here, new Color(.72f, .62f, .39f, alpha));
-                Stroke(vh, here, notebook.NodePosition(node.statementParent), new Color(.42f, .72f, .72f, alpha));
+                float alpha = notebook.AccusationGraphActive || notebook.ConversationGraphActive ? .16f : .55f;
+                Color clueLink = notebook.ConversationGraphActive ? new Color(.65f, .65f, .65f, .32f) : new Color(.72f, .62f, .39f, alpha);
+                Color statementLink = notebook.ConversationGraphActive ? clueLink : new Color(.42f, .72f, .72f, alpha);
+                float width = notebook.ConversationGraphActive ? 4 : 2;
+                Stroke(vh, notebook.NodePosition(node.clueParent), here, clueLink, width);
+                Stroke(vh, here, notebook.NodePosition(node.statementParent), statementLink, width);
             }
             if (notebook.AccusationGraphActive)
             {
@@ -45,14 +48,20 @@ namespace GraduationDemo.Train
                 foreach (var node in model.nodes)
                     if (node.kind == ReasoningNodeKind.Statement)
                         Stroke(vh, notebook.NodePosition(node.id), notebook.NodePosition(AccusationGraphLayout.SuspectId(node.speaker)), new Color(.65f, .73f, .70f, .18f));
-                foreach (var id in notebook.AccusationTheories)
-                    Stroke(vh, notebook.NodePosition(id), draft, new Color(1, .84f, .40f, .95f), 5);
+                foreach (var role in AccusationReasoning.Roles)
+                {
+                    Vector2 socket = notebook.NodePosition(AccusationReasoning.SocketId(role));
+                    bool filled = notebook.AccusationSockets.TryGetValue(role, out var id);
+                    Stroke(vh, socket, draft, new Color(1, .84f, .40f, filled ? .95f : .20f), filled ? 5 : 2);
+                    if (filled) Stroke(vh, notebook.NodePosition(id), socket, new Color(1, .84f, .40f, .95f), 5);
+                }
                 if (!string.IsNullOrEmpty(notebook.AccusationSuspect))
                     Stroke(vh, draft, notebook.NodePosition(AccusationGraphLayout.SuspectId(notebook.AccusationSuspect)), new Color(1, .84f, .40f, .95f), 5);
             }
             if (!ReasoningGuidance.ShowsConnections(notebook.Assistance)) return;
             foreach (var hint in notebook.VisibleHints)
             {
+                if (!notebook.HintConnectionVisible(hint)) continue;
                 Vector2 a = notebook.NodePosition(hint.firstId), b = notebook.NodePosition(hint.secondId);
                 Color tint = hint.kind == ReasoningHintKind.Contradiction ? new Color(1, .52f, .31f, .65f) : hint.kind == ReasoningHintKind.CaseConnection ? new Color(.40f, .83f, .69f, .65f) : new Color(.79f, .71f, 1, .65f);
                 if (notebook.AccusationGraphActive) tint.a = .15f;

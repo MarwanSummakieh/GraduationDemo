@@ -260,7 +260,7 @@ MonoBehaviour:
     reading: Core candidate
     truth: Needs corroboration
     propositions:
-    - P1_REAL_INJURY
+    - P_MEANS
     observationGroup: injury_and_crash
   - id: T_C02_BS02
     clueId: C02
@@ -309,7 +309,7 @@ MonoBehaviour:
     reading: Character / interpretation
     truth: Possible, unproven
     propositions:
-    - P3_MILA_PRESENCE
+    - P_OPPORTUNITY
     observationGroup: felix_corridor_sighting
   - id: T_C02_FS05
     clueId: C02
@@ -358,7 +358,7 @@ MonoBehaviour:
     reading: Core candidate
     truth: Needs corroboration
     propositions:
-    - P4_CONTRADICTORY_ACCOUNT
+    - P_MEANS
     observationGroup: mila_spatial_slip
   - id: T_C02_MS06
     clueId: C02
@@ -391,7 +391,7 @@ MonoBehaviour:
     reading: Core candidate
     truth: Needs corroboration
     propositions:
-    - P1_REAL_INJURY
+    - P_MEANS
     observationGroup: injury_and_crash
   - id: T_C03_BS02
     clueId: C03
@@ -440,7 +440,7 @@ MonoBehaviour:
     reading: Character / interpretation
     truth: Possible, unproven
     propositions:
-    - P3_MILA_PRESENCE
+    - P_OPPORTUNITY
     observationGroup: felix_corridor_sighting
   - id: T_C03_FS05
     clueId: C03
@@ -570,7 +570,7 @@ MonoBehaviour:
     reading: Character / interpretation
     truth: Possible, unproven
     propositions:
-    - P3_MILA_PRESENCE
+    - P_OPPORTUNITY
     observationGroup: felix_corridor_sighting
   - id: T_C04_FS05
     clueId: C04
@@ -882,8 +882,9 @@ MonoBehaviour:
     text: Mila congratulated the couple but may have felt displaced.
     reading: Core candidate
     truth: Needs corroboration
-    propositions: []
-    observationGroup: 
+    propositions:
+    - P_MOTIVE
+    observationGroup: relationship_and_reaction
   - id: T_C07_FS01
     clueId: C07
     statementId: F-S01
@@ -1003,7 +1004,7 @@ MonoBehaviour:
     reading: Core candidate
     truth: Needs corroboration
     propositions:
-    - P4_CONTRADICTORY_ACCOUNT
+    - P_MEANS
     observationGroup: mila_spatial_slip
   - id: T_C07_MS06
     clueId: C07
@@ -1212,7 +1213,7 @@ MonoBehaviour:
     reading: Character / interpretation
     truth: Possible, unproven
     propositions:
-    - P3_MILA_PRESENCE
+    - P_OPPORTUNITY
     observationGroup: felix_corridor_sighting
   - id: T_C09_FS05
     clueId: C09
@@ -1341,7 +1342,7 @@ MonoBehaviour:
     reading: Core candidate
     truth: Needs corroboration
     propositions:
-    - P3_MILA_PRESENCE
+    - P_OPPORTUNITY
     observationGroup: felix_corridor_sighting
   - id: T_C10_FS05
     clueId: C10
@@ -1390,7 +1391,7 @@ MonoBehaviour:
     reading: Core candidate
     truth: Needs corroboration
     propositions:
-    - P4_CONTRADICTORY_ACCOUNT
+    - P_MEANS
     observationGroup: mila_spatial_slip
   - id: T_C10_MS06
     clueId: C10
@@ -3159,6 +3160,15 @@ MonoBehaviour:
     priority: MUST
     recordingStatus: "Canon correction \u2014 needs new recording"
     disclosesFallGeometry: 0
+  - id: BURR_MMO_FINALE_01
+    speaker: Burrows
+    subtitle: The injury, your connection to the couple, and the sighting near Odette's
+      compartment warrant an explanation.
+    clip: {fileID: 0}
+    expression: Serious
+    priority: MUST
+    recordingStatus: "New MMO finale bridge \u2014 needs recording"
+    disclosesFallGeometry: 0
   - id: BURR_NO_CHAT_01
     speaker: Burrows
     subtitle: Chit-chat? A waste of valuable time.
@@ -3281,7 +3291,7 @@ MonoBehaviour:
       grants: []
     - voiceId: MILA_006
       grants: []
-    - voiceId: BURR_025
+    - voiceId: BURR_MMO_FINALE_01
       grants: []
     - voiceId: MILA_007
       grants: []
@@ -8229,27 +8239,19 @@ MonoBehaviour:
     grants:
     - M-S06
   arrestRules:
-  - id: Physical MVP
+  - id: Means, Motive and Opportunity
     suspect: Mila
     enabled: 1
     selectionCount: 3
     minimumObservationGroups: 3
     propositions:
-    - P1_REAL_INJURY
-    - P3_MILA_PRESENCE
-    - P4_CONTRADICTORY_ACCOUNT
-    requiredStatements:
-    - M-S01
-    - M-S02
-    - F-S04
-    - M-S05
+    - P_MEANS
+    - P_MOTIVE
+    - P_OPPORTUNITY
+    requiredStatements: []
     requiredClues:
-    - C02
     - C03
-    - C07
-    - C10
     forbiddenFlags:
-    - flag:geometry_disclosed
     - flag:resolved
     endingSequence: "ENDING \u2014 Mila's account"
   - id: Alibi (needs strengthening)

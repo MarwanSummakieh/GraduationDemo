@@ -32,7 +32,7 @@ namespace GraduationDemo.Train
         bool notebook, debug;
         string suspect = "Mila";
         readonly HashSet<string> warned = new HashSet<string>();
-        Vector2 choiceScroll, debugScroll;
+        Vector2 debugScroll;
         TrainActor talkingActor;
         InvestigationNotebook notebookView;
         string choiceSuspect, conversationLocation = "unknown";
@@ -110,7 +110,9 @@ namespace GraduationDemo.Train
                 suspect = binding.suspectId;
                 var options = State.AvailableConversations(suspect);
                 if (!options.Any(x => x.cost <= State.RemainingActions)) { PlayBark(); return true; }
-                tour.CloseObservation(); choiceSuspect = suspect; return true;
+                tour.CloseObservation(); choiceSuspect = null;
+                if (notebookView != null && notebookView.BeginConversationGraph(suspect)) { notebook = true; notebookView.SetOpen(true); }
+                return true;
             }
             return false;
         }
@@ -231,9 +233,11 @@ namespace GraduationDemo.Train
             else Debug.LogError("Recording unavailable: " + voice.id, this);
         }
         public bool Accuse(string target, IEnumerable<string> theories)
+        { return AccuseWithSockets(target, theories, null); }
+        public bool AccuseWithSockets(string target, IEnumerable<string> theories, IReadOnlyDictionary<string, string> sockets)
         {
             if (sequence != null) return false;
-            var rule = State.EvaluateArrest(target, theories, out var reason); Message = reason;
+            var rule = State.EvaluateArrest(target, theories, out var reason, sockets); Message = reason;
             if (rule == null) return false;
             tour.SetView(4, true);
             var accused = FindObjectsByType<TrainActor>(FindObjectsSortMode.None).FirstOrDefault(x => x.characterId == target);
@@ -333,20 +337,6 @@ namespace GraduationDemo.Train
                 if (notebookView != null && notebookView.Assistance == ReasoningAssistance.Directed)
                     GUILayout.Label(ReasoningGuidance.InterviewNote(catalogue, State.progress, pending), body);
                 if (GUILayout.Button("Confirm and speak to " + pending.suspect)) ConfirmConversation();
-            }
-            else
-            {
-                GUILayout.Label("Speak to " + choiceSuspect, heading);
-                choiceScroll = GUILayout.BeginScrollView(choiceScroll);
-                foreach (var prompt in State.AvailableConversations(choiceSuspect))
-                {
-                    GUI.enabled = prompt.cost <= State.RemainingActions;
-                    string label = (prompt.kind == ConversationKind.Alibi ? "Ask for an alibi" : catalogue.Theory(prompt.theoryId).text) + (prompt.cost == 0 ? " / free" : " / " + prompt.cost + " action(s)");
-                    if (notebookView != null && notebookView.Assistance == ReasoningAssistance.Directed && prompt.kind == ConversationKind.Theory)
-                        label += ReasoningGuidance.InterviewNote(catalogue, State.progress, prompt).StartsWith("No new") ? " / reaction only" : " / new inquiry";
-                    if (GUILayout.Button(label, notebookButton)) { OfferConversation(prompt); break; }
-                }
-                GUI.enabled = true; GUILayout.EndScrollView();
             }
             if (GUILayout.Button("Cancel")) CancelConfirmation();
             GUILayout.EndArea();

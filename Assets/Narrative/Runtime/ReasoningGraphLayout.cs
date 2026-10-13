@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GraduationDemo.Narrative
 {
-    public enum ReasoningNodeKind { Clue, Statement, Theory, Accusation, Suspect }
+    public enum ReasoningNodeKind { Clue, Statement, Theory, Accusation, Suspect, AccusationSocket }
     public sealed class ReasoningNode
     {
         public string id, label, detail, speaker, clueParent, statementParent;

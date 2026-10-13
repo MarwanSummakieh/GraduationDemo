@@ -17,19 +17,19 @@ namespace GraduationDemo.Narrative
             Lead("clock_and_happy_mood", "C02", "M-S03", "M-S04", "A happy mood does not establish when or how the clock broke. What explanation for the damaged clock follows from this account, if any?"),
             Lead("desk_and_clumsiness", "C07", "M-S04", "M-S05", "Could ordinary clumsiness account for the displaced furniture and impact damage? Compare the physical desk evidence with the suggested accident."),
             Lead("clock_position_and_clumsiness", "C10", "M-S04", "M-S05", "Could a casually knocked-over clock end up behind the desk? Compare where it was found with the suggested accident."),
-            Case("injury_and_crash", "C03", "B-S01", "Injury: compare the observed head/neck trauma with the reported crash. This helps examine whether the real injury fits the fictional stabbing."),
-            Case("clock_and_crash", "C02", "B-S01", "Injury: compare the stopped heavy clock with the reported crash. The time and sound need independent physical corroboration."),
+            Case("injury_and_crash", "C03", "B-S01", "Means: compare the observed head/neck trauma with the reported crash. This helps examine whether the real injury fits the fictional stabbing."),
+            Case("clock_and_crash", "C02", "B-S01", "Means: compare the stopped heavy clock with the reported crash. The time and sound need independent physical corroboration."),
             Case("rings_and_engagement", "C06", "F-S03", "Context: the admission of an engagement explains the matching rings. A private relationship alone does not establish responsibility for the death."),
-            Case("presence_despite_privacy", "C09", "F-S04", "Presence: compare the prohibition on interruptions with the sighting near the private rehearsal. This can support your final case; it does not open another interview."),
-            Case("programme_and_sighting", "C04", "F-S04", "Presence: compare the sighting around 20:45 with the fictional murder scheduled for 22:00. Keep the sighting separate from proof of the injury."),
+            Case("presence_despite_privacy", "C09", "F-S04", "Opportunity: compare the prohibition on interruptions with the sighting near the private rehearsal. This can support your final case; it does not open another interview."),
+            Case("programme_and_sighting", "C04", "F-S04", "Opportunity: compare the sighting around 20:45 with the fictional murder scheduled for 22:00. Keep the sighting separate from proof of the injury."),
             Case("costume_preparations", "C08", "F-S05", "Context: costume preparation and the borrowed safety pin belong to the masquerade. Neither detail alone establishes when someone entered Odette's compartment."),
             Case("privacy_and_argument", "C09", "B-S03", "Context: compare the admitted argument with the privacy rule. Friction provides a question about relationships, not proof of guilt."),
             Case("clock_and_assumption", "C02", "B-S04", "Context: the clock's damage is physical evidence; calling a crash part of the performance was an assumption. Keep observation and interpretation separate."),
             Case("syrup_preparation_account", "C08", "B-S05", "Context: compare the account of preparing theatrical blood with the syrup materials. Participation in preparations does not establish responsibility for the real injury."),
-            Case("rings_and_reaction", "C06", "M-S06", "Context: compare the claimed happiness for the couple with the matching rings. A reported emotion is not independent evidence of innocence or guilt."),
+            Case("rings_and_reaction", "C06", "M-S06", "Motive: the rings and her reaction allow a hypothesis of feeling displaced. Treat that as a possible reason for conflict, not an established intention to kill."),
             Case("clock_and_speculation", "C02", "M-S04", "Context: the suggestion of clumsiness is an explanation offered for the broken clock, not an observed cause. Investigate the physical desk or clock position to examine that suggestion."),
-            Case("desk_and_spatial_account", "C07", "M-S05", "Contradiction: compare the damaged desk with the claim about what Odette could reach from where she fell. Consider whether the speaker could know that geometry, and whether Burrows had disclosed it."),
-            Case("clock_and_spatial_account", "C10", "M-S05", "Contradiction: compare the clock's concealed position with the precise claim about what Odette could reach. Examine the source of that knowledge; an evasive tone alone is not evidence.")
+            Case("desk_and_spatial_account", "C07", "M-S05", "Means: compare the damaged desk with the claim about what Odette could reach from where she fell. Consider whether the speaker could know that geometry, and whether Burrows had disclosed it."),
+            Case("clock_and_spatial_account", "C10", "M-S05", "Means: compare the clock's concealed position with the precise claim about what Odette could reach. Examine the source of that knowledge; an evasive tone alone is not evidence.")
         };
         static ReasoningHint Lead(string id, string clue, string statement, string reward, string prompt) =>
             new ReasoningHint { id = id, firstId = clue, secondId = statement, kind = ReasoningHintKind.Ambiguity, prompt = prompt,
@@ -37,6 +37,11 @@ namespace GraduationDemo.Narrative
         static ReasoningHint Case(string id, string clue, string statement, string prompt) =>
             new ReasoningHint { id = id, firstId = clue, secondId = statement, purpose = ReasoningHintPurpose.CaseReview, kind = ReasoningHintKind.CaseConnection, prompt = prompt };
         public static bool ShowsConnections(ReasoningAssistance assistance) => assistance == ReasoningAssistance.Guided || assistance == ReasoningAssistance.Directed;
+        public static bool ConnectionUnbuilt(ReasoningHint hint, NarrativeCatalogue catalogue, InvestigationProgress progress)
+        {
+            var theory = catalogue.Pair(hint.firstId, hint.secondId) ?? catalogue.Pair(hint.secondId, hint.firstId);
+            return theory == null || !progress.theories.Contains(theory.id);
+        }
         public static bool Matches(ReasoningHint hint, TheoryDefinition theory) => theory != null &&
             (hint.firstId == theory.id || hint.secondId == theory.id || hint.firstId == theory.clueId && hint.secondId == theory.statementId || hint.secondId == theory.clueId && hint.firstId == theory.statementId);
         public static string InterviewNote(NarrativeCatalogue catalogue, InvestigationProgress progress, ConversationInitialization conversation)

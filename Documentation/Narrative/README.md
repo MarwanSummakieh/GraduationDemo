@@ -1,5 +1,11 @@
 # Murder Most Inconvenient
 
+**Current accusation model:** [Means, Motive and Opportunity sockets](MeansMotiveOpportunity.md), with exactly three distinct theory attachments. This supersedes the earlier contradiction requirement and its historical notes below.
+
+**Latest accusation feedback:** [live case-support checklist](AccusationFeedback.md) explains missing evidence while building the draft and shares its checks with final validation. The existing injury/presence/contradictory-account rule is retained.
+
+**Latest conversation update:** [suspect theory graphs and guidance-line lifecycle](ConversationGraph.md). Dialogue choices now show available theories with greyed, hoverable sources. Dotted guidance disappears when its theory exists and returns on removal while the hint remains eligible.
+
 **Latest final-day update:** [accusation graph and continued theory construction](FinalAccusationGraph.md). Collected evidence can still be combined after the investigation closes; the final case is built with theory and suspect tethers.
 
 **Current interaction/notebook update:** see [one-use conversations and daily pacing](PacingAndNotebook.md). It supersedes the repeat-response, list-notebook and unrestricted-accusation behavior described in the original integration notes below.

@@ -113,6 +113,8 @@ namespace GraduationDemo.Editor
             CorrectVoice(c, "BURR_ALT_03", "BURR_CANON_SPATIAL_01", "From where she fell?");
             CorrectVoice(c, "MILA_ALT_04", "MILA_CANON_SPATIAL_02", "I was only guessing, Inspector.");
             CorrectVoice(c, "MILA_008", "MILA_CANON_FINALE_01", "I slapped her. She stumbled, and her head struck the heavy clock on her desk. I couldn't wake her.");
+            c.voices.Add(new VoiceDefinition { id = "BURR_MMO_FINALE_01", speaker = "Burrows", subtitle = "The injury, your connection to the couple, and the sighting near Odette's compartment warrant an explanation.", expression = "Serious", priority = "MUST", recordingStatus = "New MMO finale bridge — needs recording", clip = previous?.Voice("BURR_MMO_FINALE_01")?.clip });
+            foreach (var beat in c.Sequence(Ending).beats.Where(b => b.voiceId == "BURR_025")) beat.voiceId = "BURR_MMO_FINALE_01";
             foreach (var corrected in c.voices.Where(v => v.id.Contains("_CANON_"))) corrected.clip = previous?.Voice(corrected.id)?.clip;
             c.voices.Add(new VoiceDefinition { id = "BURR_NO_CHAT_01", speaker = "Burrows", subtitle = "Chit-chat? A waste of valuable time.", expression = "Dismissive", priority = "MUST", recordingStatus = "New player bark — needs recording", clip = previous?.Voice("BURR_NO_CHAT_01")?.clip });
             foreach (var voice in c.voices) voice.disclosesFallGeometry = new[] { "BURR_075", "BURR_076", "BURR_077" }.Contains(voice.id) || previous?.Voice(voice.id)?.disclosesFallGeometry == true;
@@ -125,11 +127,12 @@ namespace GraduationDemo.Editor
                 var old = previous?.Theory(t.id);
                 if (old != null) { t.propositions = new List<string>(old.propositions); t.observationGroup = old.observationGroup; }
             }
-            c.arrestRules = previous != null && previous.arrestRules.Count > 0 ? previous.arrestRules : new List<ArrestRule> {
+            c.arrestRules = previous != null && previous.arrestRules.Count > 0 ? previous.arrestRules.Select(r => JsonUtility.FromJson<ArrestRule>(JsonUtility.ToJson(r))).ToList() : new List<ArrestRule> {
                 new ArrestRule { id = "Physical MVP", suspect = "Mila", propositions = new List<string> { "P1_REAL_INJURY", "P3_MILA_PRESENCE", "P4_CONTRADICTORY_ACCOUNT" }, requiredStatements = new List<string> { "M-S01", "M-S02", "F-S04", "M-S05" }, requiredClues = new List<string> { "C02", "C03", "C07", "C10" }, forbiddenFlags = new List<string> { "flag:geometry_disclosed", "flag:resolved" }, endingSequence = Ending },
                 new ArrestRule { id = "Alibi (needs strengthening)", suspect = "Mila", enabled = false, endingSequence = Ending },
                 new ArrestRule { id = "Staging (missing right-hand observation)", suspect = "Mila", enabled = false, endingSequence = Ending }
             };
+            AccusationReasoning.MigrateReviewedDefaults(c);
             return c;
         }
         static void GrantOn(NarrativeCatalogue c, string voice, string statement)

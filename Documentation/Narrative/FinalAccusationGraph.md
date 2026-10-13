@@ -1,5 +1,7 @@
 # Final accusation graph
 
+**Current model:** [Means, Motive and Opportunity](MeansMotiveOpportunity.md). Each of the three theory tethers now attaches to a labelled socket before joining the central accusation. The earlier direct-to-accusation interaction remains an automatic role-placement shortcut for compatibility.
+
 Ending the final day closes interviews and evidence collection, but **theory construction stays available** using collected clues and statements. No new discoveries or action spending are introduced. After the case is resolved, new construction closes.
 
 The Reasoning tab automatically opens the accusation graph when the final day ends. **Reasoning / Accusation** switches between the ordinary graph and accusation graph. Search, filtering, pan, zoom, hover details and the Removed restore list remain available.
@@ -23,3 +25,9 @@ The draft requires three active theories and one suspect tether before confirmat
 Tethered theories and their parents stay visible under search/filtering, so a draft's links cannot silently disappear. Unsupported accusations keep the graph editable without reopening collection or interviews. Theory construction also remains possible after an unsupported accusation. Existing independent-evidence evaluation and the supported Mila finale remain in use.
 
 The draft is notebook-session UI state, matching the previous accusation selection. No automatic save/load system was added.
+
+## Verification
+
+The accusation update passed 53 EditMode and 15 PlayMode tests, including construction after final closure, filtering, tether limits, removal/restoration, unsupported-case editing and the supported finale. A real mouse walkthrough exercised faded-source hover, three new final-stage theories and both tether types without changing discoveries or action spending. Submitting that graph played the supported Mila finale and resolved the case.
+
+Evidence: `AccusationGraphEditModeResults.json`, `AccusationGraphPlayModeResults.json`, `AccusationGraphInteractionReview.json`, `AccusationGraphFinaleReview.json`, and `FinalAccusationGraph.png`.

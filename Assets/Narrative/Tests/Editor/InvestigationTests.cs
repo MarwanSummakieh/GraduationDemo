@@ -85,8 +85,8 @@ public sealed class InvestigationTests
         foreach (var pair in new[] { new[] { "C02", "M-S03", "Mila" }, new[] { "C07", "M-S04", "Mila" }, new[] { "C06", "F-S02", "Felix" }, new[] { "C09", "F-S01", "Felix" }, new[] { "C08", "F-S01", "Felix" }, new[] { "C09", "B-S02", "Bellamy" }, new[] { "C02", "B-S02", "Bellamy" }, new[] { "C08", "B-S01", "Bellamy" }, new[] { "C06", "M-S03", "Mila" } }) Present(pair[0], pair[1], pair[2]);
         Assert.That(state.progress.statements.Count, Is.EqualTo(16));
     }
-    [TestCase("T_C03_BS01", "T_C04_FS04", "T_C10_MS05")]
-    [TestCase("T_C02_BS01", "T_C09_FS04", "T_C07_MS05")]
+    [TestCase("T_C03_BS01", "T_C04_FS04", "T_C06_MS06")]
+    [TestCase("T_C02_BS01", "T_C09_FS04", "T_C06_MS06")]
     public void IndependentPhysicalBuildsSupportStaticEnding(string injury, string presence, string contradiction)
     {
         PrepareArrest(injury, presence, contradiction);
@@ -96,21 +96,21 @@ public sealed class InvestigationTests
     }
     void PrepareArrest(params string[] ids)
     {
-        Initial(); state.Grant("F-S04"); state.Grant("M-S05");
+        Initial(); state.Grant("F-S04"); state.Grant("M-S05"); state.Grant("M-S06");
         foreach (var id in ids) { var t = catalogue.Theory(id); state.Construct(t.clueId, t.statementId); }
         while (state.InvestigationOpen) state.EndDay(out _);
     }
     [Test] public void WrongSuspectRedundancyMissingEvidenceAndDisclosureCannotSucceed()
     {
-        var ids = new[] { "T_C03_BS01", "T_C04_FS04", "T_C10_MS05" }; PrepareArrest(ids);
+        var ids = new[] { "T_C03_BS01", "T_C04_FS04", "T_C06_MS06" }; PrepareArrest(ids);
         Assert.That(state.EvaluateArrest("Felix", ids, out _), Is.Null);
         Assert.That(state.EvaluateArrest("Mila", new[] { ids[0], ids[0], ids[2] }, out _), Is.Null);
-        state.progress.statements.Remove("M-S02"); Assert.That(state.EvaluateArrest("Mila", ids, out _), Is.Null); state.progress.statements.Add("M-S02");
-        state.Grant("flag:geometry_disclosed"); Assert.That(state.EvaluateArrest("Mila", ids, out _), Is.Null);
+        state.progress.statements.Remove("M-S06"); Assert.That(state.EvaluateArrest("Mila", ids, out _), Is.Null); state.progress.statements.Add("M-S06");
+        state.Grant("flag:geometry_disclosed"); Assert.That(state.EvaluateArrest("Mila", ids, out _), Is.Not.Null);
     }
     [Test] public void OneObservationCannotSatisfyIndependentPropositions()
     {
-        var ids = new[] { "T_C03_BS01", "T_C04_FS04", "T_C10_MS05" }; PrepareArrest(ids);
+        var ids = new[] { "T_C03_BS01", "T_C04_FS04", "T_C06_MS06" }; PrepareArrest(ids);
         catalogue.Theory(ids[2]).observationGroup = catalogue.Theory(ids[1]).observationGroup;
         Assert.That(state.EvaluateArrest("Mila", ids, out _), Is.Null);
     }

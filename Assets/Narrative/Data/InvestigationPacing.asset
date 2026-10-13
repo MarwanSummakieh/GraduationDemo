@@ -126,7 +126,7 @@ MonoBehaviour:
     purpose: 1
     recipient:
     resolvedBy: []
-    prompt: 'Injury: compare the observed head/neck trauma with the reported crash.
+    prompt: 'Means: compare the observed head/neck trauma with the reported crash.
       This helps examine whether the real injury fits the fictional stabbing.'
   - id: clock_and_crash
     firstId: C02
@@ -135,7 +135,7 @@ MonoBehaviour:
     purpose: 1
     recipient:
     resolvedBy: []
-    prompt: 'Injury: compare the stopped heavy clock with the reported crash. The
+    prompt: 'Means: compare the stopped heavy clock with the reported crash. The
       time and sound need independent physical corroboration.'
   - id: rings_and_engagement
     firstId: C06
@@ -153,7 +153,7 @@ MonoBehaviour:
     purpose: 1
     recipient:
     resolvedBy: []
-    prompt: 'Presence: compare the prohibition on interruptions with the sighting
+    prompt: 'Opportunity: compare the prohibition on interruptions with the sighting
       near the private rehearsal. This can support your final case; it does not open
       another interview.'
   - id: programme_and_sighting
@@ -163,7 +163,7 @@ MonoBehaviour:
     purpose: 1
     recipient:
     resolvedBy: []
-    prompt: 'Presence: compare the sighting around 20:45 with the fictional murder
+    prompt: 'Opportunity: compare the sighting around 20:45 with the fictional murder
       scheduled for 22:00. Keep the sighting separate from proof of the injury.'
   - id: costume_preparations
     firstId: C08
@@ -210,8 +210,9 @@ MonoBehaviour:
     purpose: 1
     recipient:
     resolvedBy: []
-    prompt: 'Context: compare the claimed happiness for the couple with the matching
-      rings. A reported emotion is not independent evidence of innocence or guilt.'
+    prompt: 'Motive: the rings and her reaction allow a hypothesis of feeling displaced.
+      Treat that as a possible reason for conflict, not an established intention
+      to kill.'
   - id: clock_and_speculation
     firstId: C02
     secondId: M-S04
@@ -229,9 +230,9 @@ MonoBehaviour:
     purpose: 1
     recipient:
     resolvedBy: []
-    prompt: 'Contradiction: compare the damaged desk with the claim about what Odette
-      could reach from where she fell. Consider whether the speaker could know that
-      geometry, and whether Burrows had disclosed it.'
+    prompt: 'Means: compare the damaged desk with the claim about what Odette could
+      reach from where she fell. Consider whether the speaker could know that geometry,
+      and whether Burrows had disclosed it.'
   - id: clock_and_spatial_account
     firstId: C10
     secondId: M-S05
@@ -239,9 +240,9 @@ MonoBehaviour:
     purpose: 1
     recipient:
     resolvedBy: []
-    prompt: 'Contradiction: compare the clock''s concealed position with the precise
-      claim about what Odette could reach. Examine the source of that knowledge;
-      an evasive tone alone is not evidence.'
+    prompt: 'Means: compare the clock''s concealed position with the precise claim
+      about what Odette could reach. Examine the source of that knowledge; an evasive
+      tone alone is not evidence.'
   stops:
   - name: Departure
     position: {x: 0.12, y: 0.28}
