@@ -1,5 +1,7 @@
 # Carnival Express
 
+The new three-carriage perspective version is `Assets/Scenes/ThirdPersonTrain.unity`; see [Third-person train](ThirdPersonTrain.md) for its seven cameras and controls. Both scenes use the shared investigation logbook. The older standalone detective notebook has been removed.
+
 The current prototype includes the five-carriage Murder Most Inconvenient investigation. See [narrative setup and architecture](Narrative/README.md) and [manual QA](Narrative/ManualQA.md) for current controls and playable content. The notes below describe the original three-carriage environment baseline.
 
 Open `Assets/Scenes/CarnivalExpress.unity` and press Play.

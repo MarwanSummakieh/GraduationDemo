@@ -47,7 +47,7 @@ namespace GraduationDemo.Train
                 if (tour == null || tour.detective == null) return "unknown";
                 int nearest = 0; float distance = float.PositiveInfinity;
                 for (int i = 0; i < tour.roomViews.Length; i++) { float d = Mathf.Abs(tour.detective.transform.position.x - tour.roomViews[i].position.x); if (d < distance) { nearest = i; distance = d; } }
-                return new[] { "odette", "sleeping_a", "bar", "dining", "burrows" }[Mathf.Clamp(nearest, 0, 4)];
+                return tour.locationIds[Mathf.Clamp(nearest, 0, tour.locationIds.Length - 1)];
             }
         }
         GUIStyle body, heading, notebookButton, panelStyle;
@@ -239,9 +239,10 @@ namespace GraduationDemo.Train
             if (sequence != null) return false;
             var rule = State.EvaluateArrest(target, theories, out var reason, sockets); Message = reason;
             if (rule == null) return false;
-            tour.SetView(4, true);
+            int finaleRoom = tour.roomViews.Length - 1;
+            tour.SetView(finaleRoom, true);
             var accused = FindObjectsByType<TrainActor>(FindObjectsSortMode.None).FirstOrDefault(x => x.characterId == target);
-            if (accused != null) accused.transform.position = new Vector3(tour.roomViews[4].position.x + .1f, 1.12f, 1.7f);
+            if (accused != null) accused.transform.position = new Vector3(tour.roomViews[finaleRoom].position.x + .1f, 1.12f, 1.7f);
             authorisedEnding = true; bool started = Begin(rule.endingSequence); authorisedEnding = false; return started;
         }
         void OnGUI()

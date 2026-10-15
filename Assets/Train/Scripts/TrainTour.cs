@@ -6,7 +6,8 @@ namespace GraduationDemo.Train
     public sealed class TrainTour : MonoBehaviour
     {
         public Camera viewCamera;
-        public DetectiveNotebook notebook;
+        public TrainCameraRig cameraRig;
+        public string[] locationIds = { "odette", "sleeping_a", "bar", "dining", "burrows" };
         public CharacterController detective;
         public GameObject[] cutawayShells;
         public Transform[] roomViews;
@@ -33,15 +34,15 @@ namespace GraduationDemo.Train
 
         private void Update()
         {
-            if (notebook != null && notebook.IsOpen) return;
             FindNearby();
-            if (narrative != null && narrative.Busy) { UpdateCamera(); return; }
+            if (narrative != null && narrative.Busy) { cameraRig?.ResetMovement(); UpdateCamera(); return; }
             var keys = Keyboard.current;
             if (keys != null)
             {
                 bool reading = !string.IsNullOrEmpty(observation);
                 if (keys.escapeKey.wasPressedThisFrame) CloseObservation();
-                if (keys.tabKey.wasPressedThisFrame) SetExterior(!exterior);
+                if (cameraRig != null && keys.cKey.wasPressedThisFrame) cameraRig.ToggleFollow();
+                if (cameraRig == null && keys.tabKey.wasPressedThisFrame) SetExterior(!exterior);
                 if (!reading)
                 {
                     if (keys.digit1Key.wasPressedThisFrame) SetView(0, true);
@@ -60,7 +61,7 @@ namespace GraduationDemo.Train
                 {
                     float h = (keys.dKey.isPressed || keys.rightArrowKey.isPressed ? 1 : 0) - (keys.aKey.isPressed || keys.leftArrowKey.isPressed ? 1 : 0);
                     float v = (keys.wKey.isPressed || keys.upArrowKey.isPressed ? 1 : 0) - (keys.sKey.isPressed || keys.downArrowKey.isPressed ? 1 : 0);
-                    Vector3 direction = Vector3.ClampMagnitude(new Vector3(h, 0, v), 1);
+                    Vector3 direction = cameraRig != null ? cameraRig.Movement(new Vector2(h, v)) : Vector3.ClampMagnitude(new Vector3(h, 0, v), 1);
                     detective.Move((direction * walkSpeed + Vector3.down * 9.8f) * Time.deltaTime);
                     if (direction.sqrMagnitude > .01f) detective.transform.rotation = Quaternion.Slerp(detective.transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 12);
                     float nearestRoom = float.PositiveInfinity;
@@ -69,6 +70,7 @@ namespace GraduationDemo.Train
                         float distance = Mathf.Abs(detective.transform.position.x - roomViews[i].position.x);
                         if (distance < nearestRoom) { nearestRoom = distance; currentRoom = i; }
                     }
+                    FindNearby();
                     if (keys.eKey.wasPressedThisFrame && nearby != null) OpenObservation(nearby);
                 }
             }
@@ -93,6 +95,7 @@ namespace GraduationDemo.Train
 
         private void UpdateCamera()
         {
+            if (cameraRig != null) return;
             Transform target = exterior ? exteriorView : roomViews[currentRoom];
             Vector3 position = target.position;
             if (!exterior)
@@ -112,6 +115,7 @@ namespace GraduationDemo.Train
 
         public void SnapCamera()
         {
+            if (cameraRig != null) { cameraRig.Refresh(true); return; }
             Transform target = exterior ? exteriorView : roomViews[currentRoom];
             CameraFollowX = Mathf.Clamp(detective.transform.position.x, MinimumRoomX(), MaximumRoomX());
             Vector3 position = target.position;
@@ -131,10 +135,12 @@ namespace GraduationDemo.Train
                 detective.enabled = true;
                 CameraFollowX = roomViews[currentRoom].position.x;
             }
+            if (cameraRig != null) { cameraRig.ResetMovement(); cameraRig.Refresh(true); }
         }
 
         public void SetExterior(bool value)
         {
+            if (cameraRig != null) { exterior = false; return; }
             exterior = value;
             foreach (GameObject shell in cutawayShells) shell.SetActive(value);
             if (foregroundScenery != null) foreach (var renderer in foregroundScenery) if (renderer != null) renderer.enabled = value;
@@ -151,19 +157,17 @@ namespace GraduationDemo.Train
 
         public void OpenObservation(TrainObservation item)
         {
-            if (item == null || (notebook != null && notebook.IsOpen)) return;
+            if (item == null || (narrative != null && narrative.Busy)) return;
             if (narrative != null && narrative.Interact(item)) return;
             CloseObservation(); observation = item.description;
             currentSpeaker = item.speaker;
             if (currentSpeaker != null) { activeConversation = item; currentSpeaker.SetTalking(true); }
-            if (notebook != null) notebook.Record(item);
         }
 
         public void SelectTopic(int index)
         {
             if (activeConversation == null || activeConversation.responses == null || index < 0 || index >= activeConversation.responses.Length) return;
             observation = activeConversation.responses[index];
-            if (notebook != null) notebook.Record(activeConversation, index);
         }
 
         public void CloseObservation()
@@ -187,7 +191,6 @@ namespace GraduationDemo.Train
 
         private void OnGUI()
         {
-            if (notebook != null && notebook.IsOpen) return;
             if (narrative != null && narrative.Busy) return;
             Styles();
             float scale = Mathf.Max(.1f, Mathf.Min(Screen.width / 1280f, Screen.height / 720f));
@@ -196,7 +199,11 @@ namespace GraduationDemo.Train
             GUI.DrawTexture(new Rect(24, 20, 360, 78), panel);
             GUI.Label(new Rect(40, 27, 340, 32), narrative != null ? "MURDER MOST INCONVENIENT" : "THE CARNIVAL EXPRESS", titleStyle);
             GUI.Label(new Rect(41, 65, 340, 24), exterior ? "A MOST PECULIAR JOURNEY" : roomNames[currentRoom], smallStyle);
-            if (GUI.Button(new Rect(width - 178, 24, 150, 35), exterior ? "Enter the train" : "View exterior", buttonStyle)) SetExterior(!exterior);
+            if (cameraRig != null)
+            {
+                if (GUI.Button(new Rect(width - 248, 24, 220, 35), cameraRig.Following ? "C / Use fixed cameras" : "C / Follow detective", buttonStyle)) cameraRig.ToggleFollow();
+            }
+            else if (GUI.Button(new Rect(width - 178, 24, 150, 35), exterior ? "Enter the train" : "View exterior", buttonStyle)) SetExterior(!exterior);
             if (!exterior && string.IsNullOrEmpty(observation))
                 foreach (var item in TrainObservation.Active)
                 {
@@ -212,7 +219,9 @@ namespace GraduationDemo.Train
             if (string.IsNullOrEmpty(observation))
             {
                 GUI.DrawTexture(new Rect(24, height - 62, width - 48, 38), panel);
-                GUI.Label(new Rect(40, height - 53, width - 80, 28), "A / D  Walk along train     W / S  Move closer     E  Talk / Inspect     1–5  Carriages     N  Notebook     TAB  Exterior", smallStyle);
+                GUI.Label(new Rect(40, height - 53, width - 80, 28), cameraRig != null
+                    ? "WASD / Arrows  Move     E  Talk / Inspect     1–3  Carriages     N  Logbook     C  Camera     Hold RMB  Look around in follow mode"
+                    : "A / D  Walk along train     W / S  Move closer     E  Talk / Inspect     1–5  Carriages     N  Notebook     TAB  Exterior", smallStyle);
                 if (nearby != null && GUI.Button(new Rect(width / 2 - 180, height - 112, 360, 36), "E  /  " + nearby.title, buttonStyle)) OpenObservation(nearby);
             }
             else

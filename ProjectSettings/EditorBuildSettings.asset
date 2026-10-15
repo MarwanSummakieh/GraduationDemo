@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/ThirdPersonTrain.unity
+    guid: 233e53ba833a95f4b9fd24349deb1f14
+  - enabled: 1
     path: Assets/Scenes/CarnivalExpress.unity
     guid: e067db4e09fd4b64087bee5541a5571f
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
-    path: Assets/Scenes/InterrogationMemory.unity
-    guid: 428a144c1a1cef44fa0dab3d260c7ba7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

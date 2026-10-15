@@ -524,14 +524,17 @@ namespace GraduationDemo.Train
         void BuildTrain()
         {
             float width = page.rect.width, height = page.rect.height;
-            var content = ScrollContent(page, new Vector2(8, -8), new Vector2(width - 16, 242), 242, true, 1290);
+            var locationIds = tour.locationIds;
+            var locationNames = tour.cameraRig != null ? tour.roomNames : LocationNames;
+            if (selectedCar != "unknown" && Array.IndexOf(locationIds, selectedCar) < 0) selectedCar = locationIds[0];
+            var content = ScrollContent(page, new Vector2(8, -8), new Vector2(width - 16, 242), 242, true, locationIds.Length * 258);
             var actors = FindObjectsByType<TrainActor>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < locationIds.Length; i++)
             {
-                int index = i; string location = LocationIds[i];
-                var card = Button(content, LocationNames[i], () => { selectedCar = LocationIds[index]; refresh = true; }, new Vector2(i * 258, 0), new Vector2(248, 228));
+                int index = i; string location = locationIds[i];
+                var card = Button(content, locationNames[i], () => { selectedCar = locationIds[index]; refresh = true; }, new Vector2(i * 258, 0), new Vector2(248, 228));
                 card.GetComponentInChildren<Text>().alignment = TextAnchor.UpperCenter;
-                var names = actors.Where(a => ClosestLocation(a.transform.position.x) == index).Select(a => a.role).ToList(); if (i == 0) names.Add("Madame Odette Vesper");
+                var names = actors.Where(a => ClosestLocation(a.transform.position.x) == index).Select(a => a.role).ToList(); if (location == "odette" || (tour.cameraRig != null && i == 2)) names.Add("Madame Odette Vesper");
                 Label(card, string.Join("\n", names), 17, paper, new Vector2(12, -39), new Vector2(224, 66));
                 var collected = owner.State.progress.discoveries.Where(d => d.locationId == location).ToList();
                 for (int j = 0; j < collected.Count; j++)
@@ -543,7 +546,7 @@ namespace GraduationDemo.Train
             }
             var records = owner.State.progress.discoveries.Where(d => d.locationId == selectedCar || (selectedCar == "unknown" && d.locationId == "unknown")).ToList();
             var list = ScrollContent(page, new Vector2(8, -264), new Vector2(width - 16, Mathf.Max(80, height - 274)), Mathf.Max(120, records.Count * 72 + 80));
-            string place = Array.IndexOf(LocationIds, selectedCar) >= 0 ? LocationNames[Array.IndexOf(LocationIds, selectedCar)] : "Unknown location";
+            string place = Array.IndexOf(locationIds, selectedCar) >= 0 ? locationNames[Array.IndexOf(locationIds, selectedCar)] : "Unknown location";
             Label(list, "Collected in " + place, 21, gold, new Vector2(12, -8), new Vector2(width - 40, 32));
             for (int i = 0; i < records.Count; i++) { var d = records[i]; Label(list, (d.day > 0 ? "Day " + d.day : "Day unknown") + " / " + (owner.catalogue.Clue(d.id)?.fact ?? owner.catalogue.Statement(d.id)?.claim), 18, paper, new Vector2(12, -48 - i * 72), new Vector2(width - 44, 68)); }
             if (owner.State.progress.discoveries.Any(d => d.locationId == "unknown")) Button(page, "Unknown provenance", () => { selectedCar = "unknown"; refresh = true; }, new Vector2(width - 205, -232), new Vector2(195, 30));
