@@ -137,7 +137,6 @@ namespace GraduationDemo.Editor
                 while (narrative.State.InvestigationOpen) narrative.State.EndDay(out _);
                 var sockets = new Dictionary<string, string>
                 {
-                    { AccusationReasoning.Means, narrative.State.Construct("C03", "B-S01").id },
                     { AccusationReasoning.Motive, narrative.State.Construct("C06", "M-S06").id },
                     { AccusationReasoning.Opportunity, narrative.State.Construct("C09", "F-S04").id }
                 };

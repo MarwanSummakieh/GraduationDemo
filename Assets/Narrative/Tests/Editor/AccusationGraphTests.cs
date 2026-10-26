@@ -45,9 +45,19 @@ namespace GraduationDemo.Narrative.Tests
         {
             foreach (var c in catalogue.clues) state.Grant(c.id); foreach (var s in catalogue.statements) state.Grant(s.id);
             while (state.InvestigationOpen) state.EndDay(out _);
-            var theories = new[] { state.Construct("C03", "B-S01"), state.Construct("C09", "F-S04"), state.Construct("C06", "M-S06") };
+            var theories = new[] { state.Construct("C09", "F-S04"), state.Construct("C06", "M-S06") };
             Assert.That(theories.All(t => t != null), Is.True);
             Assert.That(state.EvaluateArrest("Mila", theories.Select(t => t.id), out _), Is.Not.Null);
+        }
+        [Test] public void QuestionsAreTentativeAndFilteredAccusationRetainsAttachedCluesAndStatements()
+        {
+            Assert.That(catalogue.theories.All(q => q.text.EndsWith("?")), Is.True);
+            state.Grant("C06"); state.Grant("F-S04");
+            var graph = AccusationGraphLayout.Build(catalogue, state.progress, new[] { "C06", "F-S04" }, "Mila", "no match", "Bellamy");
+            Assert.That(graph.nodes.Any(n => n.id == "C06"), Is.True);
+            Assert.That(graph.nodes.Any(n => n.id == "F-S04"), Is.True);
+            Assert.That(graph.nodes.Count(n => n.kind == ReasoningNodeKind.AccusationSocket), Is.EqualTo(2));
+            Assert.That(graph.nodes.Single(n => n.kind == ReasoningNodeKind.Accusation).label, Does.EndWith("2/2"));
         }
     }
 }

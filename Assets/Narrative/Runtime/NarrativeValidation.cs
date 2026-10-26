@@ -10,13 +10,13 @@ namespace GraduationDemo.Narrative
             var errors = new List<string>();
             Duplicate(c.clues.Select(x => x.id), "clue", errors);
             Duplicate(c.statements.Select(x => x.id), "statement", errors);
-            Duplicate(c.theories.Select(x => x.id), "theory", errors);
+            Duplicate(c.theories.Select(x => x.id), "question", errors);
             Duplicate(c.voices.Select(x => x.id), "voice", errors);
             Duplicate(c.sequences.Select(x => x.id), "sequence", errors);
             Duplicate(c.routes.Select(x => x.id), "route", errors);
             Duplicate(c.theories.Select(x => x.clueId + "/" + x.statementId), "pair", errors);
             foreach (var t in c.theories)
-                if (c.Clue(t.clueId) == null || c.Statement(t.statementId) == null || string.IsNullOrWhiteSpace(t.text)) errors.Add("Invalid theory " + t.id);
+                if (c.Clue(t.clueId) == null || c.Statement(t.statementId) == null || string.IsNullOrWhiteSpace(t.text)) errors.Add("Invalid question " + t.id);
             foreach (var clue in c.clues)
                 foreach (var statement in c.statements)
                     if (c.Pair(clue.id, statement.id) == null) errors.Add("Missing pair " + clue.id + "/" + statement.id);

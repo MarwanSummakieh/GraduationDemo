@@ -90,7 +90,7 @@ public sealed class InvestigationTests
     public void IndependentPhysicalBuildsSupportStaticEnding(string injury, string presence, string contradiction)
     {
         PrepareArrest(injury, presence, contradiction);
-        var rule = state.EvaluateArrest("Mila", new[] { injury, presence, contradiction }, out _);
+        var rule = state.EvaluateArrest("Mila", new[] { presence, contradiction }, out _);
         Assert.That(rule, Is.Not.Null); Assert.That(rule.endingSequence, Is.EqualTo(NarrativeImporter.Ending));
         Assert.That(state.Has("flag:resolved"), Is.False);
     }
@@ -102,16 +102,16 @@ public sealed class InvestigationTests
     }
     [Test] public void WrongSuspectRedundancyMissingEvidenceAndDisclosureCannotSucceed()
     {
-        var ids = new[] { "T_C03_BS01", "T_C04_FS04", "T_C06_MS06" }; PrepareArrest(ids);
+        var ids = new[] { "T_C04_FS04", "T_C06_MS06" }; PrepareArrest(ids);
         Assert.That(state.EvaluateArrest("Felix", ids, out _), Is.Null);
-        Assert.That(state.EvaluateArrest("Mila", new[] { ids[0], ids[0], ids[2] }, out _), Is.Null);
+        Assert.That(state.EvaluateArrest("Mila", new[] { ids[0], ids[0] }, out _), Is.Null);
         state.progress.statements.Remove("M-S06"); Assert.That(state.EvaluateArrest("Mila", ids, out _), Is.Null); state.progress.statements.Add("M-S06");
         state.Grant("flag:geometry_disclosed"); Assert.That(state.EvaluateArrest("Mila", ids, out _), Is.Not.Null);
     }
     [Test] public void OneObservationCannotSatisfyIndependentPropositions()
     {
-        var ids = new[] { "T_C03_BS01", "T_C04_FS04", "T_C06_MS06" }; PrepareArrest(ids);
-        catalogue.Theory(ids[2]).observationGroup = catalogue.Theory(ids[1]).observationGroup;
+        var ids = new[] { "T_C04_FS04", "T_C06_MS06" }; PrepareArrest(ids);
+        catalogue.Theory(ids[1]).observationGroup = catalogue.Theory(ids[0]).observationGroup;
         Assert.That(state.EvaluateArrest("Mila", ids, out _), Is.Null);
     }
     [Test] public void MissingAssetsAndCircularDependenciesAreActionable()
@@ -145,9 +145,13 @@ public sealed class InvestigationTests
     [Test] public void RefreshPreservesDesignerMetadataAndOriginalVoices()
     {
         catalogue.Theory("T_C01_FS01").propositions.Add("CUSTOM");
+        catalogue.Clue("C01").interpretationTags.Add(AccusationReasoning.Motive);
+        catalogue.Statement("F-S01").interpretationTags.Add(AccusationReasoning.Opportunity);
         var clip = AudioClip.Create("Import preservation test", 100, 1, 44100, false);
         catalogue.Voice("BURR_001").clip = clip; catalogue.Voice("MILA_CANON_FINALE_01").clip = clip;
         var refresh = NarrativeImporter.Build(NarrativeImporter.Source, catalogue);
+        Assert.That(refresh.Clue("C01").interpretationTags, Does.Contain(AccusationReasoning.Motive));
+        Assert.That(refresh.Statement("F-S01").interpretationTags, Does.Contain(AccusationReasoning.Opportunity));
         try { Assert.That(refresh.Theory("T_C01_FS01").propositions, Does.Contain("CUSTOM")); Assert.That(refresh.Voice("MILA_008").subtitle, Does.Contain("desk")); Assert.That(refresh.Voice("MILA_CANON_FINALE_01").subtitle, Does.Contain("heavy clock")); Assert.That(refresh.Voice("BURR_001").clip, Is.SameAs(clip)); Assert.That(refresh.Voice("MILA_CANON_FINALE_01").clip, Is.SameAs(clip)); }
         finally { Object.DestroyImmediate(refresh); Object.DestroyImmediate(clip); }
     }

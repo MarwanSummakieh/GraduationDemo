@@ -1,3 +1,14 @@
+# Current question and accusation QA
+
+1. Play either train scene. Check **Action costs OFF** in the HUD. Open F8; confirm Enable action costs is unchecked. Ask several different questions beyond the configured daily budget; conversations remain free, and consumed prompts stay unavailable.
+2. Combine rings C06 and champagne account F-S02 in Reasoning. Check that the result appears as a question ending in `?`, and ask Felix about it. Check that the authored dialogue still grants the marriage account.
+3. Obtain Felix's corridor sighting F-S04 through the C09/F-S01 question, and Mila's reaction M-S06 through C06/M-S03. Inspect the Motive and Opportunity interpretation tags in notebook details.
+4. End the remaining days. In Accusation select C06 then Motive, and F-S04 then Opportunity. Choose Mila and confirm; the finale resolves. Repeat with constructed questions T_C06_MS06 and T_C09_FS04 instead. Exactly two slots should appear, with no Means requirement.
+5. Choose Felix or Bellamy, swap the motive/opportunity assignments, or leave either empty. Confirm that the draft cannot resolve successfully and remains available for correction. Moving an entry between slots must clear its old assignment.
+6. In a fresh session, enable action costs in F8 and adjust the budget and both conversation costs. Confirm spending, insufficient-action rejection, free costs when set to zero, refund on playback failure, and daily replenishment. Disable costs to continue at an exhausted budget. Leave Play mode and check the saved asset still starts disabled.
+7. Check narrow and wide Game views: question labels, interpretation details, two accusation slots, suspect links and confirmation should remain accessible. Check both train scenes.
+
+See [design and tuning](QuestionsAndAccusation.md). The checklist below is historical.
 # Minimum playable investigation QA
 
 For the current one-use conversation and daily pacing flow, follow [the updated QA additions](PacingAndNotebook.md). The original checklist below predates action confirmations and final-day accusation gating.

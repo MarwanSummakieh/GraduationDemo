@@ -1,19 +1,8 @@
 # Murder Most Inconvenient
 
-**Current accusation model:** [Means, Motive and Opportunity sockets](MeansMotiveOpportunity.md), with exactly three distinct theory attachments. This supersedes the earlier contradiction requirement and its historical notes below.
+**Current flow:** [Questions, interpretation tags, Motive and Opportunity accusations, and optional action costs](QuestionsAndAccusation.md). This supersedes the older three-theory/Means model. Combine clues and statements into questions for interviews; assign two collected entries as motive and opportunity to a suspect at final accusation. Action costs start disabled. Use F8 for session tuning or edit InvestigationPacing for saved defaults.
 
-**Latest accusation feedback:** [live case-support checklist](AccusationFeedback.md) explains missing evidence while building the draft and shares its checks with final validation. The existing injury/presence/contradictory-account rule is retained.
-
-**Latest conversation update:** [suspect theory graphs and guidance-line lifecycle](ConversationGraph.md). Dialogue choices now show available theories with greyed, hoverable sources. Dotted guidance disappears when its theory exists and returns on removal while the hint remains eligible.
-
-**Latest final-day update:** [accusation graph and continued theory construction](FinalAccusationGraph.md). Collected evidence can still be combined after the investigation closes; the final case is built with theory and suspect tethers.
-
-**Current interaction/notebook update:** see [one-use conversations and daily pacing](PacingAndNotebook.md). It supersedes the repeat-response, list-notebook and unrestricted-accusation behavior described in the original integration notes below.
-
-**Latest graph update:** [right-click removal and configurable reasoning guidance](ReasoningGuidance.md). Subtle guidance is the default; authored hints highlight discovered contradictions and ambiguities.
-
-Guidance now has four levels. **Directed** names interview recipients, distinguishes reaction-only conversations before spending confirmation, and gives action advice at the top of selected theory details. Ten interview leads feed thirteen follow-on case connections; every revelation has a link to an acquired clue. [Portrait animation and dialogue emphasis](PortraitPresentationBacklog.md) are saved for later implementation.
-
+The earlier design and verification records remain in this folder as historical notes. The controls and integration notes below predate the current question and accusation flow.
 Open `Assets/Scenes/CarnivalExpress.unity` and press Play. The opening begins in Odette's compartment with Burrows and Bellamy. All supplied recordings are pending, so the prototype explicitly displays **DEVELOPMENT — unvoiced** and logs each missing voice ID once per play session.
 
 ## Controls and investigation

@@ -72,6 +72,7 @@ public sealed class PlayableInvestigationTests
     }
     [UnityTest] public IEnumerator FullInvestigationConfrontationAndStaticEnding()
     {
+        State.configuration.actionCostsEnabled = true;
         Finish(); foreach (var clue in State.catalogue.clues) State.Grant(clue.id);
         foreach (var suspect in new[] { "Felix", "Bellamy", "Mila" })
         {
@@ -89,7 +90,7 @@ public sealed class PlayableInvestigationTests
         var motiveLead = State.Construct("C06", "M-S03"); Approach("Mila");
         Assert.That((bool)Call(controller, "Confront", motiveLead.id, "Mila"), Is.True);
         Assert.That((bool)Call(controller, "ConfirmConversation"), Is.True); Finish();
-        var ids = new[] { State.Construct("C03", "B-S01").id, State.Construct("C04", "F-S04").id, State.Construct("C06", "M-S06").id };
+        var ids = new[] { State.Construct("C04", "F-S04").id, State.Construct("C06", "M-S06").id };
         Assert.That((bool)Call(controller, "Accuse", "Mila", ids), Is.False);
         while (State.InvestigationOpen) { Call(controller, "RequestEndDay"); Assert.That((bool)Call(controller, "ConfirmEndDay"), Is.True); }
         Assert.That((bool)Call(controller, "Accuse", "Felix", ids), Is.False);
@@ -137,6 +138,7 @@ public sealed class PlayableInvestigationTests
     }
     [UnityTest] public IEnumerator PaidConfirmationCanCancelAndCannotDoubleSpend()
     {
+        State.configuration.actionCostsEnabled = true;
         Finish(); State.Grant("C01"); State.Grant("F-S01"); var t = State.Construct("C01", "F-S01"); Approach("Felix");
         Assert.That((bool)Call(controller, "Confront", t.id, "Felix"), Is.True); Assert.That(Sequence, Is.Null); Assert.That(State.RemainingActions, Is.EqualTo(3));
         Call(controller, "CancelConfirmation"); Assert.That(State.progress.usedInitializations, Is.Empty);
@@ -201,9 +203,9 @@ public sealed class PlayableInvestigationTests
         var notebook = controller.GetComponent("InvestigationNotebook"); Call(controller, "ToggleNotebook"); yield return null; yield return null;
         Assert.That((bool)notebook.GetType().GetProperty("AccusationGraphActive").GetValue(notebook), Is.True);
         Assert.That((bool)Call(notebook, "TetherAccusationToSuspect", "Mila"), Is.False);
-        foreach (var pair in new[] { new[] { "C03", "B-S01" }, new[] { "C09", "F-S04" }, new[] { "C06", "M-S06" } })
+        foreach (var pair in new[] { new[] { "C09", "F-S04" }, new[] { "C06", "M-S06" } })
         {
-            Call(notebook, "SelectNode", pair[0]); Call(notebook, "SelectNode", pair[1]); yield return null; yield return null;
+            var question = State.Construct(pair[0], pair[1]); yield return null; yield return null; Call(notebook, "SelectNode", question.id); yield return null; yield return null;
             Assert.That(State.progress.theories, Does.Contain(State.catalogue.Pair(pair[0], pair[1]).id));
             Call(notebook, "SelectNode", AccusationGraphLayout.DraftId); yield return null; yield return null;
         }
@@ -213,18 +215,18 @@ public sealed class PlayableInvestigationTests
         var graph = (ReasoningGraphLayout)notebook.GetType().GetProperty("Graph").GetValue(notebook);
         Assert.That(graph.nodes.Count(n => n.kind == ReasoningNodeKind.Suspect), Is.EqualTo(3));
         var faded = notebook.GetComponentsInChildren<MonoBehaviour>().First(c => c.GetType().Name == "NotebookNodeGraphic" && c.gameObject.name == "C03");
-        Assert.That(((Color)faded.GetType().GetProperty("color").GetValue(faded)).a, Is.LessThan(.4f));
+        Assert.That(((Color)faded.GetType().GetProperty("color").GetValue(faded)).a, Is.EqualTo(1f));
         Assert.That(State.progress.discoveries.Count, Is.EqualTo(discoveries)); Assert.That(State.progress.actionsSpent, Is.Zero);
         Assert.That((bool)Call(notebook, "SubmitAccusation"), Is.True); Finish(); Assert.That(State.progress.phase, Is.EqualTo(InvestigationPhase.Resolved));
     }
-    [UnityTest] public IEnumerator AccusationTethersEnforceThreeAndPruneRemovedTheoriesWithoutReopeningInvestigation()
+    [UnityTest] public IEnumerator AccusationTethersEnforceTwoAndPruneRemovedTheoriesWithoutReopeningInvestigation()
     {
         Finish(); foreach (var c in State.catalogue.clues) State.Grant(c.id); foreach (var s in State.catalogue.statements) State.Grant(s.id);
         var ids = new[] { State.Construct("C03", "B-S01").id, State.Construct("C09", "F-S04").id, State.Construct("C06", "M-S06").id, State.Construct("C01", "F-S01").id };
         var notebook = controller.GetComponent("InvestigationNotebook"); Assert.That((bool)Call(notebook, "BeginAccusationGraph"), Is.False);
         while (State.InvestigationOpen) State.EndDay(out _);
         Call(controller, "ToggleNotebook"); yield return null; yield return null;
-        foreach (var id in ids.Take(3)) Assert.That((bool)Call(notebook, "TetherTheoryToAccusation", id), Is.True);
+        foreach (var id in ids.Take(2)) Assert.That((bool)Call(notebook, "TetherTheoryToAccusation", id), Is.True);
         Assert.That((bool)Call(notebook, "TetherTheoryToAccusation", ids[3]), Is.False);
         Assert.That((bool)Call(notebook, "TetherAccusationToSuspect", "Mila"), Is.True);
         State.RemoveTheory(ids[0]); yield return null; yield return null;
@@ -238,6 +240,7 @@ public sealed class PlayableInvestigationTests
     }
     [UnityTest] public IEnumerator SuspectInteractionUsesATheoryGraphWithGreyedSourcesAndPreservesConfirmation()
     {
+        State.configuration.actionCostsEnabled = true;
         Finish(); State.Grant("C06"); State.Grant("F-S02"); var theory = State.Construct("C06", "F-S02");
         var binding = UnityEngine.Object.FindObjectsByType<MonoBehaviour>().First(x => x.GetType().Name == "NarrativeInteraction" && (string)x.GetType().GetField("suspectId").GetValue(x) == "Felix");
         Assert.That((bool)Call(controller, "Interact", binding.GetComponent("TrainObservation")), Is.True); yield return null; yield return null;
@@ -259,7 +262,7 @@ public sealed class PlayableInvestigationTests
     [UnityTest] public IEnumerator AccusationChecklistShowsTheReportedGapAndUpdatesWhenTheTheoryIsReplaced()
     {
         Finish(); foreach (var c in State.catalogue.clues) State.Grant(c.id); foreach (var s in State.catalogue.statements) State.Grant(s.id);
-        var ids = new[] { State.Construct("C03", "B-S01").id, State.Construct("C01", "F-S01").id, State.Construct("C09", "F-S04").id };
+        var ids = new[] { State.Construct("C09", "F-S04").id, State.Construct("C01", "F-S01").id };
         while (State.InvestigationOpen) State.EndDay(out _);
         var notebook = controller.GetComponent("InvestigationNotebook"); Call(controller, "ToggleNotebook"); yield return null; yield return null;
         foreach (var id in ids) Call(notebook, "TetherTheoryToAccusation", id);
@@ -279,7 +282,7 @@ public sealed class PlayableInvestigationTests
         Finish(); foreach (var id in new[] { "C03", "B-S01", "C06", "M-S06", "C09", "F-S04" }) State.Grant(id);
         while (State.InvestigationOpen) State.EndDay(out _);
         var notebook = controller.GetComponent("InvestigationNotebook"); Call(controller, "ToggleNotebook"); yield return null; yield return null;
-        var pairs = new[] { new[] { "C03", "B-S01", AccusationReasoning.Means }, new[] { "C06", "M-S06", AccusationReasoning.Motive }, new[] { "C09", "F-S04", AccusationReasoning.Opportunity } };
+        var pairs = new[] { new[] { "C06", "M-S06", AccusationReasoning.Motive }, new[] { "C09", "F-S04", AccusationReasoning.Opportunity } };
         foreach (var pair in pairs)
         {
             var theory = State.Construct(pair[0], pair[1]); yield return null; yield return null;
@@ -287,7 +290,7 @@ public sealed class PlayableInvestigationTests
         }
         Call(notebook, "SelectNode", AccusationGraphLayout.DraftId); Call(notebook, "SelectNode", AccusationGraphLayout.SuspectId("Mila")); yield return null;
         var graph = (ReasoningGraphLayout)notebook.GetType().GetProperty("Graph").GetValue(notebook);
-        Assert.That(graph.nodes.Count(n => n.kind == ReasoningNodeKind.AccusationSocket), Is.EqualTo(3));
+        Assert.That(graph.nodes.Count(n => n.kind == ReasoningNodeKind.AccusationSocket), Is.EqualTo(2));
         Assert.That(State.Has("M-S05"), Is.False); Assert.That(State.Has("C10"), Is.False);
         Assert.That(((AccusationAssessment)notebook.GetType().GetProperty("AccusationSupport").GetValue(notebook)).Supported, Is.True);
         Assert.That((bool)Call(notebook, "SubmitAccusation"), Is.True); Finish(); Assert.That(State.Has("flag:resolved"), Is.True);
@@ -299,15 +302,27 @@ public sealed class PlayableInvestigationTests
         while (State.InvestigationOpen) State.EndDay(out _);
         var notebook = controller.GetComponent("InvestigationNotebook"); Call(controller, "ToggleNotebook"); yield return null; yield return null;
         Call(notebook, "TetherTheoryToSocket", ids[0], AccusationReasoning.Motive);
-        Call(notebook, "TetherTheoryToSocket", ids[1], AccusationReasoning.Means);
+        Call(notebook, "TetherTheoryToSocket", ids[1], AccusationReasoning.Opportunity);
         Call(notebook, "TetherTheoryToSocket", ids[2], AccusationReasoning.Opportunity);
         Call(notebook, "TetherAccusationToSuspect", "Mila");
         Assert.That((bool)Call(notebook, "SubmitAccusation"), Is.False);
-        Call(notebook, "TetherTheoryToSocket", ids[0], AccusationReasoning.Means);
+        Call(notebook, "TetherTheoryToSocket", ids[0], AccusationReasoning.Opportunity);
         var sockets = (System.Collections.Generic.IReadOnlyDictionary<string, string>)notebook.GetType().GetProperty("AccusationSockets").GetValue(notebook);
-        Assert.That(sockets.Count, Is.EqualTo(2)); Assert.That(sockets.Values.Distinct().Count(), Is.EqualTo(2));
-        Call(notebook, "TetherTheoryToSocket", ids[1], AccusationReasoning.Motive); Call(notebook, "TetherAccusationToSuspect", "Mila");
+        Assert.That(sockets.Count, Is.EqualTo(1)); Assert.That(sockets.Values.Distinct().Count(), Is.EqualTo(1));
+        Call(notebook, "TetherTheoryToSocket", ids[1], AccusationReasoning.Motive); Call(notebook, "TetherTheoryToSocket", ids[2], AccusationReasoning.Opportunity); Call(notebook, "TetherAccusationToSuspect", "Mila");
         Assert.That(((AccusationAssessment)notebook.GetType().GetProperty("AccusationSupport").GetValue(notebook)).Supported, Is.True); yield return null;
+    }
+    [UnityTest] public IEnumerator CollectedClueAndStatementFillTwoInterpretationsAndResolve()
+    {
+        Finish(); State.Grant("C06"); State.Grant("F-S04");
+        while (State.InvestigationOpen) State.EndDay(out _);
+        var notebook = controller.GetComponent("InvestigationNotebook"); Call(controller, "ToggleNotebook"); yield return null; yield return null;
+        Call(notebook, "SelectNode", "C06"); Call(notebook, "SelectNode", AccusationReasoning.SocketId(AccusationReasoning.Motive));
+        Call(notebook, "SelectNode", "F-S04"); Call(notebook, "SelectNode", AccusationReasoning.SocketId(AccusationReasoning.Opportunity));
+        Call(notebook, "SelectNode", AccusationGraphLayout.SuspectId("Mila")); yield return null;
+        Assert.That(State.progress.theories, Is.Empty);
+        Assert.That((bool)Call(notebook, "SubmitAccusation"), Is.True);
+        Finish(); Assert.That(State.progress.phase, Is.EqualTo(InvestigationPhase.Resolved));
     }
     [UnityTest] public IEnumerator DialogueClueRewardAlsoShowsLogbookCue()
     {

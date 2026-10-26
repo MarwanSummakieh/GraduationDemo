@@ -12,7 +12,7 @@ public sealed class PacingAndNotebookTests
     [SetUp] public void Setup()
     {
         catalogue = NarrativeImporter.Build(NarrativeImporter.Source); pacing = ScriptableObject.CreateInstance<InvestigationConfiguration>();
-        state = new InvestigationState(catalogue, null, pacing);
+        pacing.actionCostsEnabled = true; state = new InvestigationState(catalogue, null, pacing);
     }
     [TearDown] public void Cleanup() { Object.DestroyImmediate(catalogue); Object.DestroyImmediate(pacing); }
     ConversationInitialization Prompt(string clue = "C01", string statement = "F-S01", string suspect = "Mila")
@@ -30,6 +30,25 @@ public sealed class PacingAndNotebookTests
         Assert.That(state.TryInitialize(alibi, out _), Is.True); Assert.That(state.Alibi("Mila"), Is.Null);
         Assert.That(state.RemainingActions, Is.EqualTo(3)); Assert.That(state.TryInitialize(alibi, out _), Is.False);
         Finish(alibi); Assert.That(state.progress.statements.Count, Is.EqualTo(3));
+    }
+    [Test] public void DisabledCostsAllowConversationsPastBudgetAndCanBeReenabled()
+    {
+        pacing.actionCostsEnabled = false; pacing.alibiCost = 2; pacing.confrontationCost = 2;
+        state.progress.actionsSpent = pacing.actionsPerDay;
+        var prompt = Prompt(); Assert.That(prompt.cost, Is.Zero);
+        Assert.That(state.TryInitialize(prompt, out _), Is.True); Finish(prompt);
+        Assert.That(state.progress.actionsSpent, Is.EqualTo(pacing.actionsPerDay));
+        Assert.That(state.Presentation(prompt.theoryId, prompt.suspect), Is.Null);
+        pacing.actionCostsEnabled = true;
+        Assert.That(state.Alibi("Mila").cost, Is.EqualTo(2));
+        Assert.That(state.TryInitialize(state.Alibi("Mila"), out _), Is.False);
+        state.EndDay(out _); Assert.That(state.TryInitialize(state.Alibi("Mila"), out _), Is.True);
+    }
+    [Test] public void NewPacingStartsWithCostsDisabled()
+    {
+        var defaults = ScriptableObject.CreateInstance<InvestigationConfiguration>();
+        try { Assert.That(defaults.actionCostsEnabled, Is.False); }
+        finally { Object.DestroyImmediate(defaults); }
     }
     [Test] public void OfferingDoesNotSpendAndConfirmationIsAtomic()
     {

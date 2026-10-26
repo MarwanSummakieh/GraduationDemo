@@ -15,7 +15,7 @@ namespace GraduationDemo.Narrative
             foreach (var id in tethered)
             {
                 var theory = catalogue.Theory(id);
-                if (theory == null || !progress.theories.Contains(id)) continue;
+                if (theory == null) { visible.Add(id); continue; }
                 visible.Add(id); visible.Add(theory.clueId); visible.Add(theory.statementId);
             }
             // Use the full layout's positions so filtering cannot collide existing or tethered theories.
@@ -27,13 +27,13 @@ namespace GraduationDemo.Narrative
                 string role = AccusationReasoning.Roles[i]; sockets.TryGetValue(role, out var theoryId);
                 graph.nodes.Add(new ReasoningNode { id = AccusationReasoning.SocketId(role), kind = ReasoningNodeKind.AccusationSocket,
                     label = AccusationReasoning.Label(role), speaker = role,
-                    detail = "Click a theory, then this " + AccusationReasoning.Label(role) + " socket to attach it. One theory per socket; repeat to untether.\n\n" +
-                        (theoryId == null ? "Empty socket." : catalogue.Theory(theoryId)?.text), position = new Vector2(1190, graph.size.y * .5f + (i - 1) * 140) });
+                    detail = "Click a clue, statement or question, then this " + AccusationReasoning.Label(role) + " socket to attach it. One collected entry per socket; repeat to untether.\n\n" +
+                        (theoryId == null ? "Empty socket." : catalogue.EntryText(theoryId)), position = new Vector2(1190, graph.size.y * .5f + (i - .5f) * 140) });
             }
-            graph.nodes.Add(new ReasoningNode { id = DraftId, kind = ReasoningNodeKind.Accusation, label = "Accusation " + tethered.Count + "/3",
-                detail = "DRAFT: " + tethered.Count + "/3 theory tethers. " + (string.IsNullOrEmpty(target) ? "Tether three theories and a suspect." : "Target: " + target + ". Review, then confirm.") +
-                    "\n\nAttach one theory to each socket: Means, Motive and Opportunity. Click a theory, then its socket. Repeat to untether.\n\nAfter three theories, click this accusation node and then a suspect node. Review the hypothesis, then confirm.\n\n" +
-                    string.Join("\n", tethered.Select(id => catalogue.Theory(id)?.text)) + (string.IsNullOrEmpty(target) ? "" : "\nSuspect: " + target), position = new Vector2(1400, graph.size.y * .5f) });
+            graph.nodes.Add(new ReasoningNode { id = DraftId, kind = ReasoningNodeKind.Accusation, label = "Accusation " + tethered.Count + "/2",
+                detail = "DRAFT: " + tethered.Count + "/2 interpretation tethers. " + (string.IsNullOrEmpty(target) ? "Tether two interpretations and a suspect." : "Target: " + target + ". Review, then confirm.") +
+                    "\n\nAttach one collected entry to each socket: Motive and Opportunity. Click a question, then its socket. Repeat to untether.\n\nAfter two interpretations, click this accusation node and then a suspect node. Review the hypothesis, then confirm.\n\n" +
+                    string.Join("\n", tethered.Select(id => catalogue.EntryText(id))) + (string.IsNullOrEmpty(target) ? "" : "\nSuspect: " + target), position = new Vector2(1400, graph.size.y * .5f) });
             var suspects = new[] { "Felix", "Mila", "Bellamy" };
             for (int i = 0; i < suspects.Length; i++)
             {

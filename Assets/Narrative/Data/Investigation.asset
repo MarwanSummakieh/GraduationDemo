@@ -16,103 +16,132 @@ MonoBehaviour:
   - id: C01
     name: Theatrical dagger
     fact: Strawberry-syrup-covered prop, not a demonstrated stabbing weapon
+    interpretationTags: []
   - id: C02
     name: Broken clock
     fact: Heavy desk clock stopped at about 20:37
+    interpretationTags: []
   - id: C03
     name: Odette's injury
     fact: Head/neck trauma; no visible stab wound
+    interpretationTags: []
   - id: C04
     name: Murder programme
     fact: Fictional stabbing due 22:00; dagger intended in left hand
+    interpretationTags: []
   - id: C05
     name: Champagne receipt
     fact: Order at 20:10 charged to Odette; Felix possesses receipt
+    interpretationTags: []
   - id: C06
     name: Peacock and lion rings
     fact: Matched engagement rings in Felix's suitcase, privately purchased by him
+    interpretationTags:
+    - P_MOTIVE
   - id: C07
     name: Disturbed desk
     fact: Displaced furniture and impact damage at Odette's desk
+    interpretationTags: []
   - id: C08
     name: Stage blood materials
     fact: Strawberry-syrup preparation involving Mila
+    interpretationTags: []
   - id: C09
     name: No-interruption rule
     fact: Odette instructed guests not to interrupt private rehearsals
+    interpretationTags: []
   - id: C10
     name: Clock behind desk
     fact: Clock found behind desk, away from its ordinary position
+    interpretationTags: []
   statements:
   - id: F-S01
     speaker: Felix
     claim: I was drinking at the bar around half past eight.
     initial: 1
+    interpretationTags: []
   - id: F-S02
     speaker: Felix
     claim: Odette bought me champagne.
     initial: 1
+    interpretationTags: []
   - id: B-S01
     speaker: Bellamy
     claim: I heard a sharp noise and then a crash near her compartment.
     initial: 1
+    interpretationTags: []
   - id: B-S02
     speaker: Bellamy
     claim: Odette forbade interruptions during rehearsal.
     initial: 1
+    interpretationTags: []
   - id: M-S01
     speaker: Mila
     claim: I rehearsed alone in my compartment during the evening.
     initial: 1
+    interpretationTags: []
   - id: M-S02
     speaker: Mila
     claim: I only visited Odette earlier to prepare stage blood.
     initial: 1
+    interpretationTags: []
   - id: M-S03
     speaker: Mila
     claim: Odette was excited about the masquerade when I last spoke with her.
     initial: 1
+    interpretationTags: []
   - id: F-S03
     speaker: Felix
     claim: Odette and I intended to marry.
     initial: 0
+    interpretationTags: []
   - id: F-S04
     speaker: Felix
     claim: I saw Mila coming from Odette's end of the carriage around 20:45.
     initial: 0
+    interpretationTags:
+    - P_OPPORTUNITY
   - id: F-S05
     speaker: Felix
     claim: I lent Mila a safety pin for her rabbit mask earlier.
     initial: 0
+    interpretationTags: []
   - id: B-S03
     speaker: Bellamy
     claim: Odette and I argued about her changing responsibilities.
     initial: 0
+    interpretationTags: []
   - id: B-S04
     speaker: Bellamy
     claim: I assumed the crash was part of the performance.
     initial: 0
+    interpretationTags: []
   - id: B-S05
     speaker: Bellamy
     claim: Mila helped prepare the theatrical blood.
     initial: 0
+    interpretationTags: []
   - id: M-S04
     speaker: Mila
     claim: Odette often knocked things over; she may have broken the clock.
     initial: 0
+    interpretationTags: []
   - id: M-S05
     speaker: Mila
     claim: She couldn't have reached the clock from where she fell.
     initial: 0
+    interpretationTags: []
   - id: M-S06
     speaker: Mila
     claim: I was happy for Odette and Felix.
     initial: 0
+    interpretationTags:
+    - P_MOTIVE
   theories:
   - id: T_C01_FS01
     clueId: C01
     statementId: F-S01
-    text: The dagger does not verify Felix's bar alibi.
+    text: 'Could this be significant: The dagger does not verify Felix''s bar alibi?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -120,7 +149,8 @@ MonoBehaviour:
   - id: T_C01_FS02
     clueId: C01
     statementId: F-S02
-    text: Odette financed the very dagger meant to kill her.
+    text: 'Could this be significant: Odette financed the very dagger meant to kill
+      her?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -128,7 +158,8 @@ MonoBehaviour:
   - id: T_C01_BS01
     clueId: C01
     statementId: B-S01
-    text: Bellamy heard the fatal rehearsal of a harmless weapon.
+    text: 'Could this be significant: Bellamy heard the fatal rehearsal of a harmless
+      weapon?'
     reading: Red herring
     truth: Possible, unproven
     propositions: []
@@ -136,7 +167,7 @@ MonoBehaviour:
   - id: T_C01_BS02
     clueId: C01
     statementId: B-S02
-    text: The dagger was planted despite the ban on interruptions.
+    text: 'Could this be significant: The dagger was planted despite the ban on interruptions?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -144,7 +175,8 @@ MonoBehaviour:
   - id: T_C01_MS01
     clueId: C01
     statementId: M-S01
-    text: Mila rehearsed her own death using Odette's dagger.
+    text: 'Could this be significant: Mila rehearsed her own death using Odette''s
+      dagger?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -152,7 +184,8 @@ MonoBehaviour:
   - id: T_C01_MS02
     clueId: C01
     statementId: M-S02
-    text: Mila's earlier help explains her access to the dagger.
+    text: 'Could this be significant: Mila''s earlier help explains her access to
+      the dagger?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -160,7 +193,7 @@ MonoBehaviour:
   - id: T_C01_MS03
     clueId: C01
     statementId: M-S03
-    text: Odette could be enthusiastic about a fake stabbing.
+    text: 'Could this be significant: Odette could be enthusiastic about a fake stabbing?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -168,7 +201,8 @@ MonoBehaviour:
   - id: T_C01_FS03
     clueId: C01
     statementId: F-S03
-    text: The engaged couple planned a wedding and a stabbing.
+    text: 'Could this be significant: The engaged couple planned a wedding and a
+      stabbing?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -176,7 +210,8 @@ MonoBehaviour:
   - id: T_C01_FS04
     clueId: C01
     statementId: F-S04
-    text: Mila passed the compartment after someone staged the dagger.
+    text: 'Could this be significant: Mila passed the compartment after someone staged
+      the dagger?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -184,7 +219,8 @@ MonoBehaviour:
   - id: T_C01_FS05
     clueId: C01
     statementId: F-S05
-    text: Felix armed Mila with a safety pin to wield a dagger.
+    text: 'Could this be significant: Felix armed Mila with a safety pin to wield
+      a dagger?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -192,7 +228,8 @@ MonoBehaviour:
   - id: T_C01_BS03
     clueId: C01
     statementId: B-S03
-    text: Bellamy's argument may have inspired the staged stabbing.
+    text: 'Could this be significant: Bellamy''s argument may have inspired the staged
+      stabbing?'
     reading: Red herring
     truth: Possible, unproven
     propositions: []
@@ -200,7 +237,8 @@ MonoBehaviour:
   - id: T_C01_BS04
     clueId: C01
     statementId: B-S04
-    text: Bellamy mistook a real death for a theatrical stabbing.
+    text: 'Could this be significant: Bellamy mistook a real death for a theatrical
+      stabbing?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -208,7 +246,8 @@ MonoBehaviour:
   - id: T_C01_BS05
     clueId: C01
     statementId: B-S05
-    text: Mila's stage-blood expertise made dagger staging possible.
+    text: 'Could this be significant: Mila''s stage-blood expertise made dagger staging
+      possible?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -216,7 +255,8 @@ MonoBehaviour:
   - id: T_C01_MS04
     clueId: C01
     statementId: M-S04
-    text: Odette may have dropped her fake dagger with the clock.
+    text: 'Could this be significant: Odette may have dropped her fake dagger with
+      the clock?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -224,7 +264,8 @@ MonoBehaviour:
   - id: T_C01_MS05
     clueId: C01
     statementId: M-S05
-    text: Mila knows how the dagger came to rest by the body.
+    text: 'Could this be significant: Mila knows how the dagger came to rest by the
+      body?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -232,7 +273,8 @@ MonoBehaviour:
   - id: T_C01_MS06
     clueId: C01
     statementId: M-S06
-    text: Mila liked the happy couple enough to arm their celebration.
+    text: 'Could this be significant: Mila liked the happy couple enough to arm their
+      celebration?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -240,7 +282,8 @@ MonoBehaviour:
   - id: T_C02_FS01
     clueId: C02
     statementId: F-S01
-    text: The stopped clock challenges the timing of Felix's alibi.
+    text: 'Could this be significant: The stopped clock challenges the timing of
+      Felix''s alibi?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -248,7 +291,8 @@ MonoBehaviour:
   - id: T_C02_FS02
     clueId: C02
     statementId: F-S02
-    text: Odette was paying for champagne while her clock was dying.
+    text: 'Could this be significant: Odette was paying for champagne while her clock
+      was dying?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -256,7 +300,8 @@ MonoBehaviour:
   - id: T_C02_BS01
     clueId: C02
     statementId: B-S01
-    text: Bellamy's crash may be the impact that stopped the clock.
+    text: 'Could this be significant: Bellamy''s crash may be the impact that stopped
+      the clock?'
     reading: Core candidate
     truth: Needs corroboration
     propositions:
@@ -265,7 +310,8 @@ MonoBehaviour:
   - id: T_C02_BS02
     clueId: C02
     statementId: B-S02
-    text: The no-interruption rule explains an unwitnessed clock accident.
+    text: 'Could this be significant: The no-interruption rule explains an unwitnessed
+      clock accident?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -273,7 +319,8 @@ MonoBehaviour:
   - id: T_C02_MS01
     clueId: C02
     statementId: M-S01
-    text: Mila was rehearsing while the clock stopped elsewhere.
+    text: 'Could this be significant: Mila was rehearsing while the clock stopped
+      elsewhere?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -281,7 +328,8 @@ MonoBehaviour:
   - id: T_C02_MS02
     clueId: C02
     statementId: M-S02
-    text: Mila's last visit may have preceded the clock's damage.
+    text: 'Could this be significant: Mila''s last visit may have preceded the clock''s
+      damage?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -289,7 +337,8 @@ MonoBehaviour:
   - id: T_C02_MS03
     clueId: C02
     statementId: M-S03
-    text: Odette's happy mood cannot tell us when the clock broke.
+    text: 'Could this be significant: Odette''s happy mood cannot tell us when the
+      clock broke?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -297,7 +346,8 @@ MonoBehaviour:
   - id: T_C02_FS03
     clueId: C02
     statementId: F-S03
-    text: The newly engaged Odette had literally run out of time.
+    text: 'Could this be significant: The newly engaged Odette had literally run
+      out of time?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -305,7 +355,8 @@ MonoBehaviour:
   - id: T_C02_FS04
     clueId: C02
     statementId: F-S04
-    text: Mila was nearby after the clock appears to have stopped.
+    text: 'Could this be significant: Mila was nearby after the clock appears to
+      have stopped?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions:
@@ -314,7 +365,8 @@ MonoBehaviour:
   - id: T_C02_FS05
     clueId: C02
     statementId: F-S05
-    text: Felix's safety pin somehow interfered with the clockwork.
+    text: 'Could this be significant: Felix''s safety pin somehow interfered with
+      the clockwork?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -322,7 +374,8 @@ MonoBehaviour:
   - id: T_C02_BS03
     clueId: C02
     statementId: B-S03
-    text: Bellamy's dispute might have happened before the clock stopped.
+    text: 'Could this be significant: Bellamy''s dispute might have happened before
+      the clock stopped?'
     reading: Red herring
     truth: Possible, unproven
     propositions: []
@@ -330,7 +383,8 @@ MonoBehaviour:
   - id: T_C02_BS04
     clueId: C02
     statementId: B-S04
-    text: Bellamy's supposed rehearsal noise may mark the real accident.
+    text: 'Could this be significant: Bellamy''s supposed rehearsal noise may mark
+      the real accident?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -338,7 +392,8 @@ MonoBehaviour:
   - id: T_C02_BS05
     clueId: C02
     statementId: B-S05
-    text: The fake-blood preparations may have damaged the clock.
+    text: 'Could this be significant: The fake-blood preparations may have damaged
+      the clock?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -346,7 +401,7 @@ MonoBehaviour:
   - id: T_C02_MS04
     clueId: C02
     statementId: M-S04
-    text: Odette could have broken the clock herself.
+    text: 'Could this be significant: Odette could have broken the clock herself?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -354,7 +409,8 @@ MonoBehaviour:
   - id: T_C02_MS05
     clueId: C02
     statementId: M-S05
-    text: Mila describes the fall in relation to a clock stopped by impact.
+    text: 'Could this be significant: Mila describes the fall in relation to a clock
+      stopped by impact?'
     reading: Core candidate
     truth: Needs corroboration
     propositions:
@@ -363,7 +419,8 @@ MonoBehaviour:
   - id: T_C02_MS06
     clueId: C02
     statementId: M-S06
-    text: Mila's congratulations may have changed once the clock stopped.
+    text: 'Could this be significant: Mila''s congratulations may have changed once
+      the clock stopped?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -371,7 +428,8 @@ MonoBehaviour:
   - id: T_C03_FS01
     clueId: C03
     statementId: F-S01
-    text: Felix was drinking while Odette suffered an unstaged injury.
+    text: 'Could this be significant: Felix was drinking while Odette suffered an
+      unstaged injury?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -379,7 +437,8 @@ MonoBehaviour:
   - id: T_C03_FS02
     clueId: C03
     statementId: F-S02
-    text: Odette bought a toast, not the blow that killed her.
+    text: 'Could this be significant: Odette bought a toast, not the blow that killed
+      her?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -387,7 +446,8 @@ MonoBehaviour:
   - id: T_C03_BS01
     clueId: C03
     statementId: B-S01
-    text: The noise Bellamy heard may accompany Odette's head injury.
+    text: 'Could this be significant: The noise Bellamy heard may accompany Odette''s
+      head injury?'
     reading: Core candidate
     truth: Needs corroboration
     propositions:
@@ -396,7 +456,8 @@ MonoBehaviour:
   - id: T_C03_BS02
     clueId: C03
     statementId: B-S02
-    text: The rehearsal rule may explain why an injured Odette went unaided.
+    text: 'Could this be significant: The rehearsal rule may explain why an injured
+      Odette went unaided?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -404,7 +465,8 @@ MonoBehaviour:
   - id: T_C03_MS01
     clueId: C03
     statementId: M-S01
-    text: Mila's rehearsal alibi must fit Odette's actual injury time.
+    text: 'Could this be significant: Mila''s rehearsal alibi must fit Odette''s
+      actual injury time?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -412,7 +474,8 @@ MonoBehaviour:
   - id: T_C03_MS02
     clueId: C03
     statementId: M-S02
-    text: Mila's claimed earlier visit does not explain the fatal injury.
+    text: 'Could this be significant: Mila''s claimed earlier visit does not explain
+      the fatal injury?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -420,7 +483,8 @@ MonoBehaviour:
   - id: T_C03_MS03
     clueId: C03
     statementId: M-S03
-    text: Mila's cheerful account preceded or conceals a violent encounter.
+    text: 'Could this be significant: Mila''s cheerful account preceded or conceals
+      a violent encounter?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -428,7 +492,8 @@ MonoBehaviour:
   - id: T_C03_FS03
     clueId: C03
     statementId: F-S03
-    text: The planned marriage cannot explain a stab wound that isn't there.
+    text: 'Could this be significant: The planned marriage cannot explain a stab
+      wound that isn''t there?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -436,7 +501,8 @@ MonoBehaviour:
   - id: T_C03_FS04
     clueId: C03
     statementId: F-S04
-    text: Mila's later presence may relate to Odette's real injuries.
+    text: 'Could this be significant: Mila''s later presence may relate to Odette''s
+      real injuries?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions:
@@ -445,7 +511,7 @@ MonoBehaviour:
   - id: T_C03_FS05
     clueId: C03
     statementId: F-S05
-    text: The safety pin was secretly the fatal weapon.
+    text: 'Could this be significant: The safety pin was secretly the fatal weapon?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -453,7 +519,8 @@ MonoBehaviour:
   - id: T_C03_BS03
     clueId: C03
     statementId: B-S03
-    text: Bellamy's argument provides motive but no proof of injury.
+    text: 'Could this be significant: Bellamy''s argument provides motive but no
+      proof of injury?'
     reading: Red herring
     truth: Possible, unproven
     propositions: []
@@ -461,7 +528,8 @@ MonoBehaviour:
   - id: T_C03_BS04
     clueId: C03
     statementId: B-S04
-    text: Bellamy mistook sounds of the real injury for theatre.
+    text: 'Could this be significant: Bellamy mistook sounds of the real injury for
+      theatre?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -469,7 +537,7 @@ MonoBehaviour:
   - id: T_C03_BS05
     clueId: C03
     statementId: B-S05
-    text: Sticky stage blood hid a wound that never existed.
+    text: 'Could this be significant: Sticky stage blood hid a wound that never existed?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -477,7 +545,7 @@ MonoBehaviour:
   - id: T_C03_MS04
     clueId: C03
     statementId: M-S04
-    text: Odette's clumsiness might explain a head injury.
+    text: 'Could this be significant: Odette''s clumsiness might explain a head injury?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -485,7 +553,7 @@ MonoBehaviour:
   - id: T_C03_MS05
     clueId: C03
     statementId: M-S05
-    text: Mila seems to know how Odette's injury occurred.
+    text: 'Could this be significant: Mila seems to know how Odette''s injury occurred?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -493,7 +561,8 @@ MonoBehaviour:
   - id: T_C03_MS06
     clueId: C03
     statementId: M-S06
-    text: Mila's claim of happiness conflicts with evidence of violence.
+    text: 'Could this be significant: Mila''s claim of happiness conflicts with evidence
+      of violence?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -501,7 +570,8 @@ MonoBehaviour:
   - id: T_C04_FS01
     clueId: C04
     statementId: F-S01
-    text: Felix's alibi relates to the scheduled rather than real death.
+    text: 'Could this be significant: Felix''s alibi relates to the scheduled rather
+      than real death?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -509,7 +579,8 @@ MonoBehaviour:
   - id: T_C04_FS02
     clueId: C04
     statementId: F-S02
-    text: Odette treated both a champagne celebration and murder as appointments.
+    text: 'Could this be significant: Odette treated both a champagne celebration
+      and murder as appointments?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -517,7 +588,8 @@ MonoBehaviour:
   - id: T_C04_BS01
     clueId: C04
     statementId: B-S01
-    text: Bellamy heard a noise well before the scripted murder.
+    text: 'Could this be significant: Bellamy heard a noise well before the scripted
+      murder?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -525,7 +597,8 @@ MonoBehaviour:
   - id: T_C04_BS02
     clueId: C04
     statementId: B-S02
-    text: The no-interruption instruction gave an actual crime cover.
+    text: 'Could this be significant: The no-interruption instruction gave an actual
+      crime cover?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -533,7 +606,8 @@ MonoBehaviour:
   - id: T_C04_MS01
     clueId: C04
     statementId: M-S01
-    text: Mila might have rehearsed the wrong scene at the wrong time.
+    text: 'Could this be significant: Mila might have rehearsed the wrong scene at
+      the wrong time?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -541,7 +615,7 @@ MonoBehaviour:
   - id: T_C04_MS02
     clueId: C04
     statementId: M-S02
-    text: Mila helped with props but denies a later visit.
+    text: 'Could this be significant: Mila helped with props but denies a later visit?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -549,8 +623,8 @@ MonoBehaviour:
   - id: T_C04_MS03
     clueId: C04
     statementId: M-S03
-    text: Odette's enthusiasm was for a fictional crime, not necessarily her last
-      hour.
+    text: 'Could this be significant: Odette''s enthusiasm was for a fictional crime,
+      not necessarily her last hour?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -558,7 +632,8 @@ MonoBehaviour:
   - id: T_C04_FS03
     clueId: C04
     statementId: F-S03
-    text: Odette scheduled a fictitious murder before a very real wedding.
+    text: 'Could this be significant: Odette scheduled a fictitious murder before
+      a very real wedding?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -566,7 +641,8 @@ MonoBehaviour:
   - id: T_C04_FS04
     clueId: C04
     statementId: F-S04
-    text: Mila was near the scene before its scheduled discovery.
+    text: 'Could this be significant: Mila was near the scene before its scheduled
+      discovery?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions:
@@ -575,7 +651,8 @@ MonoBehaviour:
   - id: T_C04_FS05
     clueId: C04
     statementId: F-S05
-    text: Felix's safety pin was part of Odette's elaborate murder script.
+    text: 'Could this be significant: Felix''s safety pin was part of Odette''s elaborate
+      murder script?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -583,7 +660,8 @@ MonoBehaviour:
   - id: T_C04_BS03
     clueId: C04
     statementId: B-S03
-    text: Bellamy was so typecast that he argued about it.
+    text: 'Could this be significant: Bellamy was so typecast that he argued about
+      it?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -591,7 +669,7 @@ MonoBehaviour:
   - id: T_C04_BS04
     clueId: C04
     statementId: B-S04
-    text: Bellamy trusted the script more than the crash.
+    text: 'Could this be significant: Bellamy trusted the script more than the crash?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -599,7 +677,8 @@ MonoBehaviour:
   - id: T_C04_BS05
     clueId: C04
     statementId: B-S05
-    text: Mila's prop preparation gave her knowledge of the script.
+    text: 'Could this be significant: Mila''s prop preparation gave her knowledge
+      of the script?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -607,7 +686,8 @@ MonoBehaviour:
   - id: T_C04_MS04
     clueId: C04
     statementId: M-S04
-    text: Odette's clock may have broken during an unscheduled rehearsal.
+    text: 'Could this be significant: Odette''s clock may have broken during an unscheduled
+      rehearsal?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -615,7 +695,8 @@ MonoBehaviour:
   - id: T_C04_MS05
     clueId: C04
     statementId: M-S05
-    text: Mila's spatial description matches a death not in the programme.
+    text: 'Could this be significant: Mila''s spatial description matches a death
+      not in the programme?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -623,7 +704,8 @@ MonoBehaviour:
   - id: T_C04_MS06
     clueId: C04
     statementId: M-S06
-    text: Mila was delighted by a script about her patron's fictional death.
+    text: 'Could this be significant: Mila was delighted by a script about her patron''s
+      fictional death?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -631,7 +713,8 @@ MonoBehaviour:
   - id: T_C05_FS01
     clueId: C05
     statementId: F-S01
-    text: The receipt fixes one purchase, not Felix's every movement.
+    text: 'Could this be significant: The receipt fixes one purchase, not Felix''s
+      every movement?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -639,7 +722,8 @@ MonoBehaviour:
   - id: T_C05_FS02
     clueId: C05
     statementId: F-S02
-    text: Odette purchased the champagne Felix used to celebrate.
+    text: 'Could this be significant: Odette purchased the champagne Felix used to
+      celebrate?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -647,7 +731,8 @@ MonoBehaviour:
   - id: T_C05_BS01
     clueId: C05
     statementId: B-S01
-    text: Bellamy's crash occurred after the receipt was issued.
+    text: 'Could this be significant: Bellamy''s crash occurred after the receipt
+      was issued?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -655,7 +740,8 @@ MonoBehaviour:
   - id: T_C05_BS02
     clueId: C05
     statementId: B-S02
-    text: The no-interruption rule was expensive enough to require champagne.
+    text: 'Could this be significant: The no-interruption rule was expensive enough
+      to require champagne?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -663,7 +749,7 @@ MonoBehaviour:
   - id: T_C05_MS01
     clueId: C05
     statementId: M-S01
-    text: Mila was rehearsing when Felix bought the champagne.
+    text: 'Could this be significant: Mila was rehearsing when Felix bought the champagne?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -671,7 +757,8 @@ MonoBehaviour:
   - id: T_C05_MS02
     clueId: C05
     statementId: M-S02
-    text: Mila could have learned of the celebration at an earlier visit.
+    text: 'Could this be significant: Mila could have learned of the celebration
+      at an earlier visit?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -679,7 +766,8 @@ MonoBehaviour:
   - id: T_C05_MS03
     clueId: C05
     statementId: M-S03
-    text: Odette was cheerful because she'd bought a round of champagne.
+    text: 'Could this be significant: Odette was cheerful because she''d bought a
+      round of champagne?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -687,7 +775,7 @@ MonoBehaviour:
   - id: T_C05_FS03
     clueId: C05
     statementId: F-S03
-    text: Felix's champagne was an engagement celebration.
+    text: 'Could this be significant: Felix''s champagne was an engagement celebration?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -695,7 +783,8 @@ MonoBehaviour:
   - id: T_C05_FS04
     clueId: C05
     statementId: F-S04
-    text: Felix could leave the bar before he saw Mila at 20:45.
+    text: 'Could this be significant: Felix could leave the bar before he saw Mila
+      at 20:45?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -703,7 +792,8 @@ MonoBehaviour:
   - id: T_C05_FS05
     clueId: C05
     statementId: F-S05
-    text: A safety pin was the change from Felix's champagne purchase.
+    text: 'Could this be significant: A safety pin was the change from Felix''s champagne
+      purchase?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -711,7 +801,8 @@ MonoBehaviour:
   - id: T_C05_BS03
     clueId: C05
     statementId: B-S03
-    text: Bellamy's argument may have occurred after Felix's drink.
+    text: 'Could this be significant: Bellamy''s argument may have occurred after
+      Felix''s drink?'
     reading: Red herring
     truth: Possible, unproven
     propositions: []
@@ -719,7 +810,8 @@ MonoBehaviour:
   - id: T_C05_BS04
     clueId: C05
     statementId: B-S04
-    text: Bellamy misheard the crash through a haze of champagne.
+    text: 'Could this be significant: Bellamy misheard the crash through a haze of
+      champagne?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -727,7 +819,8 @@ MonoBehaviour:
   - id: T_C05_BS05
     clueId: C05
     statementId: B-S05
-    text: Mila prepared stage blood while Felix ordered real drinks.
+    text: 'Could this be significant: Mila prepared stage blood while Felix ordered
+      real drinks?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -735,7 +828,8 @@ MonoBehaviour:
   - id: T_C05_MS04
     clueId: C05
     statementId: M-S04
-    text: Odette's clumsiness explains who spilled the champagne.
+    text: 'Could this be significant: Odette''s clumsiness explains who spilled the
+      champagne?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -743,7 +837,8 @@ MonoBehaviour:
   - id: T_C05_MS05
     clueId: C05
     statementId: M-S05
-    text: Mila knew about the clock because Felix bought a drink.
+    text: 'Could this be significant: Mila knew about the clock because Felix bought
+      a drink?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -751,7 +846,8 @@ MonoBehaviour:
   - id: T_C05_MS06
     clueId: C05
     statementId: M-S06
-    text: Mila's blessing of the marriage may have concealed jealousy.
+    text: 'Could this be significant: Mila''s blessing of the marriage may have concealed
+      jealousy?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -759,7 +855,8 @@ MonoBehaviour:
   - id: T_C06_FS01
     clueId: C06
     statementId: F-S01
-    text: Felix concealed a romance more serious than his alibi suggests.
+    text: 'Could this be significant: Felix concealed a romance more serious than
+      his alibi suggests?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -767,7 +864,8 @@ MonoBehaviour:
   - id: T_C06_FS02
     clueId: C06
     statementId: F-S02
-    text: The champagne and matching rings suggest an engagement.
+    text: 'Could this be significant: The champagne and matching rings suggest an
+      engagement?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -775,7 +873,8 @@ MonoBehaviour:
   - id: T_C06_BS01
     clueId: C06
     statementId: B-S01
-    text: The rings explain no noise, but may explain somebody's anger.
+    text: 'Could this be significant: The rings explain no noise, but may explain
+      somebody''s anger?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -783,7 +882,8 @@ MonoBehaviour:
   - id: T_C06_BS02
     clueId: C06
     statementId: B-S02
-    text: Odette wanted privacy for a proposal as well as a rehearsal.
+    text: 'Could this be significant: Odette wanted privacy for a proposal as well
+      as a rehearsal?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -791,7 +891,8 @@ MonoBehaviour:
   - id: T_C06_MS01
     clueId: C06
     statementId: M-S01
-    text: Mila's solitary rehearsal coincided with a major romantic revelation.
+    text: 'Could this be significant: Mila''s solitary rehearsal coincided with a
+      major romantic revelation?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -799,7 +900,8 @@ MonoBehaviour:
   - id: T_C06_MS02
     clueId: C06
     statementId: M-S02
-    text: Mila's earlier visit may have included Odette's private news.
+    text: 'Could this be significant: Mila''s earlier visit may have included Odette''s
+      private news?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -807,7 +909,8 @@ MonoBehaviour:
   - id: T_C06_MS03
     clueId: C06
     statementId: M-S03
-    text: Odette's happiness may have been about Felix, not the game.
+    text: 'Could this be significant: Odette''s happiness may have been about Felix,
+      not the game?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -815,7 +918,8 @@ MonoBehaviour:
   - id: T_C06_FS03
     clueId: C06
     statementId: F-S03
-    text: The rings substantiate Felix's claim of a planned marriage.
+    text: 'Could this be significant: The rings substantiate Felix''s claim of a
+      planned marriage?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -823,7 +927,8 @@ MonoBehaviour:
   - id: T_C06_FS04
     clueId: C06
     statementId: F-S04
-    text: Mila may have seen Felix near the rings' hiding place.
+    text: 'Could this be significant: Mila may have seen Felix near the rings'' hiding
+      place?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -831,7 +936,8 @@ MonoBehaviour:
   - id: T_C06_FS05
     clueId: C06
     statementId: F-S05
-    text: Felix used a safety pin to propose to Mila instead.
+    text: 'Could this be significant: Felix used a safety pin to propose to Mila
+      instead?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -839,7 +945,8 @@ MonoBehaviour:
   - id: T_C06_BS03
     clueId: C06
     statementId: B-S03
-    text: Bellamy's argument concerned Odette's new priorities.
+    text: 'Could this be significant: Bellamy''s argument concerned Odette''s new
+      priorities?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -847,7 +954,8 @@ MonoBehaviour:
   - id: T_C06_BS04
     clueId: C06
     statementId: B-S04
-    text: Bellamy mistook wedding preparations for theatrical murder.
+    text: 'Could this be significant: Bellamy mistook wedding preparations for theatrical
+      murder?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -855,7 +963,8 @@ MonoBehaviour:
   - id: T_C06_BS05
     clueId: C06
     statementId: B-S05
-    text: Mila's work on stage blood was also bridal preparation.
+    text: 'Could this be significant: Mila''s work on stage blood was also bridal
+      preparation?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -863,7 +972,8 @@ MonoBehaviour:
   - id: T_C06_MS04
     clueId: C06
     statementId: M-S04
-    text: Odette knocked the clock over while admiring the rings.
+    text: 'Could this be significant: Odette knocked the clock over while admiring
+      the rings?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -871,7 +981,8 @@ MonoBehaviour:
   - id: T_C06_MS05
     clueId: C06
     statementId: M-S05
-    text: Mila's secret knowledge was planted by the peacock ring.
+    text: 'Could this be significant: Mila''s secret knowledge was planted by the
+      peacock ring?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -879,7 +990,8 @@ MonoBehaviour:
   - id: T_C06_MS06
     clueId: C06
     statementId: M-S06
-    text: Mila congratulated the couple but may have felt displaced.
+    text: Could Mila's relationship with the couple explain a motive for hurting
+      Odette?
     reading: Core candidate
     truth: Needs corroboration
     propositions:
@@ -888,7 +1000,8 @@ MonoBehaviour:
   - id: T_C07_FS01
     clueId: C07
     statementId: F-S01
-    text: A damaged desk offers a second story beyond Felix's drinks.
+    text: 'Could this be significant: A damaged desk offers a second story beyond
+      Felix''s drinks?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -896,7 +1009,8 @@ MonoBehaviour:
   - id: T_C07_FS02
     clueId: C07
     statementId: F-S02
-    text: Odette financed champagne, not the damage in her cabin.
+    text: 'Could this be significant: Odette financed champagne, not the damage in
+      her cabin?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -904,7 +1018,8 @@ MonoBehaviour:
   - id: T_C07_BS01
     clueId: C07
     statementId: B-S01
-    text: Bellamy's crash corresponds to the disturbed desk.
+    text: 'Could this be significant: Bellamy''s crash corresponds to the disturbed
+      desk?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -912,7 +1027,8 @@ MonoBehaviour:
   - id: T_C07_BS02
     clueId: C07
     statementId: B-S02
-    text: The rule against interruptions allowed the wrecked desk to go unchecked.
+    text: 'Could this be significant: The rule against interruptions allowed the
+      wrecked desk to go unchecked?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -920,7 +1036,8 @@ MonoBehaviour:
   - id: T_C07_MS01
     clueId: C07
     statementId: M-S01
-    text: Mila was elsewhere, yet the desk shows a violent disturbance.
+    text: 'Could this be significant: Mila was elsewhere, yet the desk shows a violent
+      disturbance?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -928,7 +1045,8 @@ MonoBehaviour:
   - id: T_C07_MS02
     clueId: C07
     statementId: M-S02
-    text: Mila's claimed earlier visit cannot place her at the disturbed desk later.
+    text: 'Could this be significant: Mila''s claimed earlier visit cannot place
+      her at the disturbed desk later?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -936,7 +1054,8 @@ MonoBehaviour:
   - id: T_C07_MS03
     clueId: C07
     statementId: M-S03
-    text: Odette's last mood may be less cheerful than Mila claims.
+    text: 'Could this be significant: Odette''s last mood may be less cheerful than
+      Mila claims?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -944,7 +1063,8 @@ MonoBehaviour:
   - id: T_C07_FS03
     clueId: C07
     statementId: F-S03
-    text: Odette's engagement triggered a spontaneous desk renovation.
+    text: 'Could this be significant: Odette''s engagement triggered a spontaneous
+      desk renovation?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -952,7 +1072,8 @@ MonoBehaviour:
   - id: T_C07_FS04
     clueId: C07
     statementId: F-S04
-    text: Mila was near the room soon after its desk was disturbed.
+    text: 'Could this be significant: Mila was near the room soon after its desk
+      was disturbed?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -960,7 +1081,8 @@ MonoBehaviour:
   - id: T_C07_FS05
     clueId: C07
     statementId: F-S05
-    text: Felix's safety pin was used to dismantle the desk.
+    text: 'Could this be significant: Felix''s safety pin was used to dismantle the
+      desk?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -968,7 +1090,8 @@ MonoBehaviour:
   - id: T_C07_BS03
     clueId: C07
     statementId: B-S03
-    text: Bellamy's earlier argument may have disturbed the furniture.
+    text: 'Could this be significant: Bellamy''s earlier argument may have disturbed
+      the furniture?'
     reading: Red herring
     truth: Possible, unproven
     propositions: []
@@ -976,7 +1099,8 @@ MonoBehaviour:
   - id: T_C07_BS04
     clueId: C07
     statementId: B-S04
-    text: Bellamy heard a genuine crash but called it rehearsal.
+    text: 'Could this be significant: Bellamy heard a genuine crash but called it
+      rehearsal?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -984,7 +1108,8 @@ MonoBehaviour:
   - id: T_C07_BS05
     clueId: C07
     statementId: B-S05
-    text: Mila's blood-making activity wrecked Odette's desk.
+    text: 'Could this be significant: Mila''s blood-making activity wrecked Odette''s
+      desk?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -992,7 +1117,8 @@ MonoBehaviour:
   - id: T_C07_MS04
     clueId: C07
     statementId: M-S04
-    text: Odette's clumsiness could explain a disturbed desk.
+    text: 'Could this be significant: Odette''s clumsiness could explain a disturbed
+      desk?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1000,7 +1126,7 @@ MonoBehaviour:
   - id: T_C07_MS05
     clueId: C07
     statementId: M-S05
-    text: Mila knows how the body and desk were positioned.
+    text: 'Could this be significant: Mila knows how the body and desk were positioned?'
     reading: Core candidate
     truth: Needs corroboration
     propositions:
@@ -1009,7 +1135,8 @@ MonoBehaviour:
   - id: T_C07_MS06
     clueId: C07
     statementId: M-S06
-    text: Mila's polite congratulations could conceal an argument at the desk.
+    text: 'Could this be significant: Mila''s polite congratulations could conceal
+      an argument at the desk?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1017,7 +1144,8 @@ MonoBehaviour:
   - id: T_C08_FS01
     clueId: C08
     statementId: F-S01
-    text: Felix's bar alibi is unrelated to the syrup recipe.
+    text: 'Could this be significant: Felix''s bar alibi is unrelated to the syrup
+      recipe?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1025,7 +1153,8 @@ MonoBehaviour:
   - id: T_C08_FS02
     clueId: C08
     statementId: F-S02
-    text: Odette bought champagne while preparing strawberry 'blood'.
+    text: 'Could this be significant: Odette bought champagne while preparing strawberry
+      ''blood''?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1033,7 +1162,8 @@ MonoBehaviour:
   - id: T_C08_BS01
     clueId: C08
     statementId: B-S01
-    text: Bellamy may have heard a rehearsal prop being dropped.
+    text: 'Could this be significant: Bellamy may have heard a rehearsal prop being
+      dropped?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1041,7 +1171,8 @@ MonoBehaviour:
   - id: T_C08_BS02
     clueId: C08
     statementId: B-S02
-    text: The rehearsal rule protected a very sticky private preparation.
+    text: 'Could this be significant: The rehearsal rule protected a very sticky
+      private preparation?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1049,7 +1180,8 @@ MonoBehaviour:
   - id: T_C08_MS01
     clueId: C08
     statementId: M-S01
-    text: Mila's solitary rehearsal involved making more fake blood.
+    text: 'Could this be significant: Mila''s solitary rehearsal involved making
+      more fake blood?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1057,7 +1189,8 @@ MonoBehaviour:
   - id: T_C08_MS02
     clueId: C08
     statementId: M-S02
-    text: Mila's acknowledged earlier visit explains her syrup knowledge.
+    text: 'Could this be significant: Mila''s acknowledged earlier visit explains
+      her syrup knowledge?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1065,7 +1198,8 @@ MonoBehaviour:
   - id: T_C08_MS03
     clueId: C08
     statementId: M-S03
-    text: Odette's last happiness was measured in teaspoons of syrup.
+    text: 'Could this be significant: Odette''s last happiness was measured in teaspoons
+      of syrup?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1073,7 +1207,8 @@ MonoBehaviour:
   - id: T_C08_FS03
     clueId: C08
     statementId: F-S03
-    text: Odette planned a wedding with a strawberry-based bloodbath.
+    text: 'Could this be significant: Odette planned a wedding with a strawberry-based
+      bloodbath?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1081,7 +1216,8 @@ MonoBehaviour:
   - id: T_C08_FS04
     clueId: C08
     statementId: F-S04
-    text: Mila might have carried syrup past the compartment at 20:45.
+    text: 'Could this be significant: Mila might have carried syrup past the compartment
+      at 20:45?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1089,7 +1225,7 @@ MonoBehaviour:
   - id: T_C08_FS05
     clueId: C08
     statementId: F-S05
-    text: The safety pin was an improvised syrup stirrer.
+    text: 'Could this be significant: The safety pin was an improvised syrup stirrer?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -1097,7 +1233,8 @@ MonoBehaviour:
   - id: T_C08_BS03
     clueId: C08
     statementId: B-S03
-    text: Bellamy's argument concerned the stage-blood budget.
+    text: 'Could this be significant: Bellamy''s argument concerned the stage-blood
+      budget?'
     reading: Red herring
     truth: Possible, unproven
     propositions: []
@@ -1105,7 +1242,8 @@ MonoBehaviour:
   - id: T_C08_BS04
     clueId: C08
     statementId: B-S04
-    text: Bellamy assumed a crash meant another prop rehearsal.
+    text: 'Could this be significant: Bellamy assumed a crash meant another prop
+      rehearsal?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1113,7 +1251,8 @@ MonoBehaviour:
   - id: T_C08_BS05
     clueId: C08
     statementId: B-S05
-    text: Mila can explain the fake blood without explaining the death.
+    text: 'Could this be significant: Mila can explain the fake blood without explaining
+      the death?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1121,7 +1260,8 @@ MonoBehaviour:
   - id: T_C08_MS04
     clueId: C08
     statementId: M-S04
-    text: Odette's clumsiness accounts for the syrup's stickiness.
+    text: 'Could this be significant: Odette''s clumsiness accounts for the syrup''s
+      stickiness?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1129,7 +1269,8 @@ MonoBehaviour:
   - id: T_C08_MS05
     clueId: C08
     statementId: M-S05
-    text: Mila knows the clock's position because syrup is sticky.
+    text: 'Could this be significant: Mila knows the clock''s position because syrup
+      is sticky?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -1137,7 +1278,8 @@ MonoBehaviour:
   - id: T_C08_MS06
     clueId: C08
     statementId: M-S06
-    text: Mila embraced the engagement by making extra fake blood.
+    text: 'Could this be significant: Mila embraced the engagement by making extra
+      fake blood?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -1145,7 +1287,8 @@ MonoBehaviour:
   - id: T_C09_FS01
     clueId: C09
     statementId: F-S01
-    text: Felix's presence at the bar followed Odette's rehearsal ban.
+    text: 'Could this be significant: Felix''s presence at the bar followed Odette''s
+      rehearsal ban?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1153,7 +1296,8 @@ MonoBehaviour:
   - id: T_C09_FS02
     clueId: C09
     statementId: F-S02
-    text: Odette's champagne gift was a reward for leaving her alone.
+    text: 'Could this be significant: Odette''s champagne gift was a reward for leaving
+      her alone?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1161,7 +1305,8 @@ MonoBehaviour:
   - id: T_C09_BS01
     clueId: C09
     statementId: B-S01
-    text: Bellamy's crash went unchecked because of her clear instruction.
+    text: 'Could this be significant: Bellamy''s crash went unchecked because of
+      her clear instruction?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -1169,7 +1314,8 @@ MonoBehaviour:
   - id: T_C09_BS02
     clueId: C09
     statementId: B-S02
-    text: Odette's privacy rule made every guest a suspect and no one a witness.
+    text: 'Could this be significant: Odette''s privacy rule made every guest a suspect
+      and no one a witness?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1177,7 +1323,8 @@ MonoBehaviour:
   - id: T_C09_MS01
     clueId: C09
     statementId: M-S01
-    text: Mila's rehearsal alibi echoes Odette's instruction to work alone.
+    text: 'Could this be significant: Mila''s rehearsal alibi echoes Odette''s instruction
+      to work alone?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -1185,7 +1332,8 @@ MonoBehaviour:
   - id: T_C09_MS02
     clueId: C09
     statementId: M-S02
-    text: Mila was permitted an early visit, but not a later interruption.
+    text: 'Could this be significant: Mila was permitted an early visit, but not
+      a later interruption?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1193,7 +1341,8 @@ MonoBehaviour:
   - id: T_C09_MS03
     clueId: C09
     statementId: M-S03
-    text: Mila remembered Odette's order to rehearse, not her actual mood.
+    text: 'Could this be significant: Mila remembered Odette''s order to rehearse,
+      not her actual mood?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1201,7 +1350,8 @@ MonoBehaviour:
   - id: T_C09_FS03
     clueId: C09
     statementId: F-S03
-    text: Odette imposed solitude to keep the wedding secret from Felix.
+    text: 'Could this be significant: Odette imposed solitude to keep the wedding
+      secret from Felix?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1209,7 +1359,8 @@ MonoBehaviour:
   - id: T_C09_FS04
     clueId: C09
     statementId: F-S04
-    text: Mila was near the private rehearsal despite the prohibition.
+    text: Does Felix's sighting place Mila near Odette despite the no-interruption
+      rule?
     reading: Character / interpretation
     truth: Possible, unproven
     propositions:
@@ -1218,7 +1369,8 @@ MonoBehaviour:
   - id: T_C09_FS05
     clueId: C09
     statementId: F-S05
-    text: Felix gave Mila a pin as a clandestine rehearsal pass.
+    text: 'Could this be significant: Felix gave Mila a pin as a clandestine rehearsal
+      pass?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -1226,7 +1378,8 @@ MonoBehaviour:
   - id: T_C09_BS03
     clueId: C09
     statementId: B-S03
-    text: Bellamy quarreled with Odette despite the no-interruption rule.
+    text: 'Could this be significant: Bellamy quarreled with Odette despite the no-interruption
+      rule?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1234,7 +1387,7 @@ MonoBehaviour:
   - id: T_C09_BS04
     clueId: C09
     statementId: B-S04
-    text: Bellamy took the crash as a reason not to enter.
+    text: 'Could this be significant: Bellamy took the crash as a reason not to enter?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -1242,7 +1395,8 @@ MonoBehaviour:
   - id: T_C09_BS05
     clueId: C09
     statementId: B-S05
-    text: Mila's legitimate preparation was an exception to the rule.
+    text: 'Could this be significant: Mila''s legitimate preparation was an exception
+      to the rule?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1250,7 +1404,8 @@ MonoBehaviour:
   - id: T_C09_MS04
     clueId: C09
     statementId: M-S04
-    text: Odette's rule may explain why a clumsy fall went unnoticed.
+    text: 'Could this be significant: Odette''s rule may explain why a clumsy fall
+      went unnoticed?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1258,7 +1413,8 @@ MonoBehaviour:
   - id: T_C09_MS05
     clueId: C09
     statementId: M-S05
-    text: Mila knew the fall's layout despite the rule against entry.
+    text: 'Could this be significant: Mila knew the fall''s layout despite the rule
+      against entry?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1266,7 +1422,8 @@ MonoBehaviour:
   - id: T_C09_MS06
     clueId: C09
     statementId: M-S06
-    text: Mila liked the marriage but resented the rehearsal timetable.
+    text: 'Could this be significant: Mila liked the marriage but resented the rehearsal
+      timetable?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1274,7 +1431,8 @@ MonoBehaviour:
   - id: T_C10_FS01
     clueId: C10
     statementId: F-S01
-    text: Felix's alibi says little about the displaced clock.
+    text: 'Could this be significant: Felix''s alibi says little about the displaced
+      clock?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1282,7 +1440,8 @@ MonoBehaviour:
   - id: T_C10_FS02
     clueId: C10
     statementId: F-S02
-    text: Odette financed a drink, not relocation services for her clock.
+    text: 'Could this be significant: Odette financed a drink, not relocation services
+      for her clock?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1290,7 +1449,8 @@ MonoBehaviour:
   - id: T_C10_BS01
     clueId: C10
     statementId: B-S01
-    text: Bellamy's noise may mark the clock falling behind the desk.
+    text: 'Could this be significant: Bellamy''s noise may mark the clock falling
+      behind the desk?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -1298,7 +1458,8 @@ MonoBehaviour:
   - id: T_C10_BS02
     clueId: C10
     statementId: B-S02
-    text: Nobody checked behind the desk because rehearsals were private.
+    text: 'Could this be significant: Nobody checked behind the desk because rehearsals
+      were private?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1306,7 +1467,8 @@ MonoBehaviour:
   - id: T_C10_MS01
     clueId: C10
     statementId: M-S01
-    text: Mila was supposedly elsewhere when the clock moved.
+    text: 'Could this be significant: Mila was supposedly elsewhere when the clock
+      moved?'
     reading: Core candidate
     truth: Needs corroboration
     propositions: []
@@ -1314,7 +1476,8 @@ MonoBehaviour:
   - id: T_C10_MS02
     clueId: C10
     statementId: M-S02
-    text: Mila's early visit cannot by itself explain the clock behind the desk.
+    text: 'Could this be significant: Mila''s early visit cannot by itself explain
+      the clock behind the desk?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1322,7 +1485,8 @@ MonoBehaviour:
   - id: T_C10_MS03
     clueId: C10
     statementId: M-S03
-    text: Odette's last cheerful moment preceded the clock's disappearance.
+    text: 'Could this be significant: Odette''s last cheerful moment preceded the
+      clock''s disappearance?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1330,7 +1494,8 @@ MonoBehaviour:
   - id: T_C10_FS03
     clueId: C10
     statementId: F-S03
-    text: The clock was hidden to prevent Odette's wedding from being late.
+    text: 'Could this be significant: The clock was hidden to prevent Odette''s wedding
+      from being late?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1338,7 +1503,8 @@ MonoBehaviour:
   - id: T_C10_FS04
     clueId: C10
     statementId: F-S04
-    text: Mila was seen nearby after the clock had been displaced.
+    text: 'Could this be significant: Mila was seen nearby after the clock had been
+      displaced?'
     reading: Core candidate
     truth: Needs corroboration
     propositions:
@@ -1347,7 +1513,8 @@ MonoBehaviour:
   - id: T_C10_FS05
     clueId: C10
     statementId: F-S05
-    text: Felix's safety pin was used to wind the clock from a distance.
+    text: 'Could this be significant: Felix''s safety pin was used to wind the clock
+      from a distance?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -1355,7 +1522,8 @@ MonoBehaviour:
   - id: T_C10_BS03
     clueId: C10
     statementId: B-S03
-    text: Bellamy's quarrel led to the clock's mysterious relocation.
+    text: 'Could this be significant: Bellamy''s quarrel led to the clock''s mysterious
+      relocation?'
     reading: Red herring
     truth: Possible, unproven
     propositions: []
@@ -1363,7 +1531,8 @@ MonoBehaviour:
   - id: T_C10_BS04
     clueId: C10
     statementId: B-S04
-    text: Bellamy heard the clock fall but assumed stage business.
+    text: 'Could this be significant: Bellamy heard the clock fall but assumed stage
+      business?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1371,7 +1540,8 @@ MonoBehaviour:
   - id: T_C10_BS05
     clueId: C10
     statementId: B-S05
-    text: Stage syrup made the clock slip behind the desk.
+    text: 'Could this be significant: Stage syrup made the clock slip behind the
+      desk?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1379,7 +1549,7 @@ MonoBehaviour:
   - id: T_C10_MS04
     clueId: C10
     statementId: M-S04
-    text: Odette routinely misplaced clocks behind furniture.
+    text: 'Could this be significant: Odette routinely misplaced clocks behind furniture?'
     reading: Character / interpretation
     truth: Possible, unproven
     propositions: []
@@ -1387,7 +1557,8 @@ MonoBehaviour:
   - id: T_C10_MS05
     clueId: C10
     statementId: M-S05
-    text: Mila described a fall relative to a hidden clock she denies seeing.
+    text: 'Could this be significant: Mila described a fall relative to a hidden
+      clock she denies seeing?'
     reading: Core candidate
     truth: Needs corroboration
     propositions:
@@ -1396,7 +1567,8 @@ MonoBehaviour:
   - id: T_C10_MS06
     clueId: C10
     statementId: M-S06
-    text: Mila celebrated the engagement by hiding time itself.
+    text: 'Could this be significant: Mila celebrated the engagement by hiding time
+      itself?'
     reading: Absurd
     truth: Nonsense / deliberately wrong
     propositions: []
@@ -8239,18 +8411,16 @@ MonoBehaviour:
     grants:
     - M-S06
   arrestRules:
-  - id: Means, Motive and Opportunity
+  - id: Motive and Opportunity
     suspect: Mila
     enabled: 1
-    selectionCount: 3
-    minimumObservationGroups: 3
+    selectionCount: 2
+    minimumObservationGroups: 2
     propositions:
-    - P_MEANS
     - P_MOTIVE
     - P_OPPORTUNITY
     requiredStatements: []
-    requiredClues:
-    - C03
+    requiredClues: []
     forbiddenFlags:
     - flag:resolved
     endingSequence: "ENDING \u2014 Mila's account"

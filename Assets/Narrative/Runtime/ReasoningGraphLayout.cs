@@ -72,7 +72,7 @@ namespace GraduationDemo.Narrative
                 Vector2 position = candidates.OrderBy(p => (p - ideal).sqrMagnitude).ThenBy(p => Mathf.Abs(p.x - columnX)).ThenBy(p => p.y).ThenBy(p => p.x)
                     .First(p => placed.All(other => Mathf.Abs(p.x - other.x) >= 79.9f || Mathf.Abs(p.y - other.y) >= 95.9f));
                 placed.Add(position);
-                model.nodes.Add(new ReasoningNode { id = t.id, kind = ReasoningNodeKind.Theory, label = "Theory " + (progress.theories.IndexOf(t.id) + 1), detail = t.text,
+                model.nodes.Add(new ReasoningNode { id = t.id, kind = ReasoningNodeKind.Theory, label = "Question " + (progress.theories.IndexOf(t.id) + 1), detail = t.text,
                     speaker = catalogue.Statement(t.statementId).speaker, clueParent = t.clueId, statementParent = t.statementId,
                     position = position });
             }

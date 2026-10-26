@@ -52,7 +52,7 @@ namespace GraduationDemo.Narrative
                 .Concat(conversation.selection?.route?.grants ?? new List<string>())
                 .Any(id => (catalogue.Statement(id) != null || catalogue.Clue(id) != null) && !Discovered(progress, id));
             return newDiscovery ? "This interview can develop a new line of inquiry." :
-                "No new testimony is expected from this pairing with " + conversation.suspect + ". You can still hear their reaction, or cancel and review the theory for your final case.";
+                "No new testimony is expected from this pairing with " + conversation.suspect + ". You can still hear their reaction, or cancel and review the question for your final case.";
         }
         public static List<ReasoningHint> Available(InvestigationConfiguration configuration, InvestigationProgress progress, ReasoningAssistance assistance)
         {
@@ -75,7 +75,7 @@ namespace GraduationDemo.Narrative
             if (!ShowsConnections(assistance)) return label;
             string text = label + " / " + hint.firstId + " ↔ " + hint.secondId + "\n" + hint.prompt;
             if (hint.purpose == ReasoningHintPurpose.CaseReview) text += "\nReview for your final case; no further interview is suggested.";
-            else if (assistance == ReasoningAssistance.Directed && NarrativeCatalogue.IsSuspect(hint.recipient)) text += "\nConstruct this theory, then bring it to " + hint.recipient + ".";
+            else if (assistance == ReasoningAssistance.Directed && NarrativeCatalogue.IsSuspect(hint.recipient)) text += "\nConstruct this question, then bring it to " + hint.recipient + ".";
             return text;
         }
     }

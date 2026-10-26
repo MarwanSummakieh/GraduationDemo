@@ -38,6 +38,7 @@ namespace GraduationDemo.Train
         string choiceSuspect, conversationLocation = "unknown";
         ConversationInitialization pending;
         bool confirmDay, debugSequence, authorisedEnding;
+        bool ownsConfiguration;
         float barkAgainAt;
         public string BarkText { get; private set; }
         public string CurrentLocation
@@ -61,6 +62,8 @@ namespace GraduationDemo.Train
             var errors = NarrativeValidation.Errors(catalogue);
             if (errors.Count > 0) { Debug.LogError("Invalid narrative catalogue: " + string.Join("\n", errors), this); enabled = false; return; }
             if (configuration != null && configuration.Errors().Count > 0) { Debug.LogError(string.Join("\n", configuration.Errors()), this); enabled = false; return; }
+            // Debug tuning applies to this play session without changing the project asset.
+            if (configuration != null) { configuration = Instantiate(configuration); ownsConfiguration = true; }
             State = new InvestigationState(catalogue, null, configuration);
             notebookView = GetComponent<InvestigationNotebook>();
         }
@@ -198,7 +201,7 @@ namespace GraduationDemo.Train
             if (!NarrativeCatalogue.IsSuspect(target)) return false;
             var actor = FindObjectsByType<TrainActor>(FindObjectsSortMode.None).FirstOrDefault(x => x.characterId == target);
             if (actor == null || tour.exterior || Vector3.Distance(tour.detective.transform.position + Vector3.up, actor.transform.position) > 3.3f)
-            { Message = "Approach " + target + " before presenting a theory."; return false; }
+            { Message = "Approach " + target + " before presenting a question."; return false; }
             return OfferConversation(State.Presentation(theoryId, target));
         }
         public bool OfferConversation(ConversationInitialization prompt)
@@ -295,9 +298,9 @@ namespace GraduationDemo.Train
             if (choiceSuspect != null || pending != null || confirmDay) DrawConversationChoice(width, height);
             if (sequence == null && !notebook && choiceSuspect == null && pending == null && !confirmDay && State.Has("flag:investigation"))
             {
-                GUI.Label(new Rect(24, height - 126, 550, 32), State.InvestigationOpen ? "Day " + State.progress.day + "/" + State.Days + "   " + State.RemainingActions + "/" + State.ActionsPerDay + " actions" : "Investigation closed / Review your accusation", heading);
+                GUI.Label(new Rect(24, height - 126, 550, 32), State.InvestigationOpen ? "Day " + State.progress.day + "/" + State.Days + "   " + (State.ActionCostsEnabled ? State.RemainingActions + "/" + State.ActionsPerDay + " actions" : "Action costs OFF") : "Investigation closed / Review your accusation", heading);
                 if (State.InvestigationOpen && GUI.Button(new Rect(24, height - 164, 170, 30), "End day")) RequestEndDay();
-                if (State.InvestigationOpen) GUI.Label(new Rect(24, height - 194, 430, 26), string.Join("  ", Enumerable.Range(0, State.ActionsPerDay).Select(i => i < State.progress.actionsSpent ? "☾" : "☀")), heading);
+                if (State.InvestigationOpen && State.ActionCostsEnabled) GUI.Label(new Rect(24, height - 194, 430, 26), string.Join("  ", Enumerable.Range(0, State.ActionsPerDay).Select(i => i < State.progress.actionsSpent ? "☾" : "☀")), heading);
                 if (Time.unscaledTime < barkAgainAt) GUI.Label(new Rect(width / 2 - 230, height - 224, 460, 40), BarkText, body);
             }
             if (debug && (Application.isEditor || Debug.isDebugBuild)) DrawDebug(width, height);
@@ -312,6 +315,21 @@ namespace GraduationDemo.Train
         {
             GUILayout.BeginArea(new Rect(width - 460, 24, 440, height - 48), panelStyle);
             GUILayout.Label("Narrative debug / F8", heading); debugScroll = GUILayout.BeginScrollView(debugScroll);
+            if (configuration != null)
+            {
+                GUILayout.Label("Action pacing (this play session)", heading);
+                GUI.enabled = State.progress.reservation == null && pending == null;
+                bool wasEnabled = configuration.actionCostsEnabled;
+                int budget = configuration.actionsPerDay, alibi = configuration.alibiCost, question = configuration.confrontationCost;
+                configuration.actionCostsEnabled = GUILayout.Toggle(configuration.actionCostsEnabled, "Enable action costs");
+                configuration.actionsPerDay = PacingValue("Actions per day", budget, 1);
+                configuration.alibiCost = PacingValue("Alibi cost", alibi, 0);
+                configuration.confrontationCost = PacingValue("Question cost", question, 0);
+                if (wasEnabled != configuration.actionCostsEnabled || budget != configuration.actionsPerDay || alibi != configuration.alibiCost || question != configuration.confrontationCost)
+                    State.RefreshConfiguration();
+                GUI.enabled = true;
+                GUILayout.Label("Persistent defaults: InvestigationPacing asset. Days still end manually.", body);
+            }
             foreach (var c in catalogue.clues) if (GUILayout.Button("Grant clue " + c.name)) State.Grant(c.id);
             foreach (var s in catalogue.statements) if (GUILayout.Button("Grant statement " + s.id + " / " + s.claim)) State.Grant(s.id);
             if (GUILayout.Button("Construct every acquired pair")) foreach (var c in State.progress.clues) foreach (var s in State.progress.statements) State.Construct(c, s);
@@ -320,21 +338,28 @@ namespace GraduationDemo.Train
             foreach (var s in catalogue.sequences) if (GUILayout.Button("Play: " + s.id)) DebugPlaySequence(s.id);
             GUILayout.EndScrollView(); GUILayout.EndArea();
         }
-        void OnDestroy() { if (panelTexture != null) Destroy(panelTexture); }
+        static int PacingValue(string label, int value, int minimum)
+        {
+            GUILayout.BeginHorizontal(); GUILayout.Label(label + ": " + value);
+            if (GUILayout.Button("-", GUILayout.Width(32))) value = Mathf.Max(minimum, value - 1);
+            if (GUILayout.Button("+", GUILayout.Width(32))) value++;
+            GUILayout.EndHorizontal(); return value;
+        }
+        void OnDestroy() { if (panelTexture != null) Destroy(panelTexture); if (ownsConfiguration) Destroy(configuration); }
         void DrawConversationChoice(float width, float height)
         {
             GUILayout.BeginArea(new Rect(width / 2 - 280, 125, 560, height - 225), panelStyle);
             if (confirmDay)
             {
                 GUILayout.Label(State.progress.day >= State.Days ? "Close the final investigation day?" : "End this day?", heading);
-                GUILayout.Label("Unused actions: " + State.RemainingActions + ". They will be forfeited." + (State.progress.day >= State.Days ? " Interviews and collection close. You can still construct theories from collected evidence and build an accusation." : ""), body);
+                GUILayout.Label((State.ActionCostsEnabled ? "Unused actions: " + State.RemainingActions + ". They will be forfeited." : "Action costs are disabled.") + (State.progress.day >= State.Days ? " Interviews and collection close. You can still construct questions from collected evidence and build an accusation." : ""), body);
                 if (GUILayout.Button("Confirm end of day")) ConfirmEndDay();
             }
             else if (pending != null)
             {
-                GUILayout.Label("Spend " + pending.cost + " action(s) on this conversation?", heading);
+                GUILayout.Label((State.ActionCostsEnabled ? "Spend " + pending.cost + " action(s) on this conversation?" : "Start this conversation? (Action costs OFF)"), heading);
                 GUILayout.Label(catalogue.Theory(pending.theoryId)?.text ?? "Ask for an alibi.", body);
-                GUILayout.Label("Actions remaining today: " + State.RemainingActions, body);
+                GUILayout.Label((State.ActionCostsEnabled ? "Actions remaining today: " + State.RemainingActions : "Unlimited conversations; each prompt is still used once."), body);
                 if (notebookView != null && notebookView.Assistance == ReasoningAssistance.Directed)
                     GUILayout.Label(ReasoningGuidance.InterviewNote(catalogue, State.progress, pending), body);
                 if (GUILayout.Button("Confirm and speak to " + pending.suspect)) ConfirmConversation();

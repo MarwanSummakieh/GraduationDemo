@@ -106,7 +106,7 @@ namespace GraduationDemo.Narrative.Tests
             var catalogue = NarrativeImporter.Build(NarrativeImporter.Source);
             try
             {
-                var state = new InvestigationState(catalogue, pacing: configuration);
+                configuration.actionCostsEnabled = true; var state = new InvestigationState(catalogue, pacing: configuration);
                 foreach (var clue in catalogue.clues) state.Grant(clue.id);
                 foreach (var statement in catalogue.statements.Where(s => s.initial)) state.Grant(statement.id);
                 int interviews = 0;
@@ -124,7 +124,7 @@ namespace GraduationDemo.Narrative.Tests
                     state.FinishConversation(conversation.selection); interviews++;
                 }
                 Assert.That(interviews, Is.EqualTo(9));
-                var selection = new[] { state.Construct("C03", "B-S01"), state.Construct("C09", "F-S04"), state.Construct("C06", "M-S06") };
+                var selection = new[] { state.Construct("C09", "F-S04"), state.Construct("C06", "M-S06") };
                 foreach (var theory in selection) Assert.That(ReasoningGuidance.Available(configuration, state.progress, ReasoningAssistance.Directed).Any(h => h.purpose == ReasoningHintPurpose.CaseReview && ReasoningGuidance.Matches(h, theory)), Is.True);
                 while (state.InvestigationOpen) Assert.That(state.EndDay(out _), Is.True);
                 Assert.That(state.EvaluateArrest("Mila", selection.Select(t => t.id), out _), Is.Not.Null);

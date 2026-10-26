@@ -30,6 +30,7 @@ namespace GraduationDemo.Narrative
         public readonly InvestigationProgress progress;
         public readonly InvestigationConfiguration configuration;
         public event Action Changed;
+        public void RefreshConfiguration() => Changed?.Invoke();
         public InvestigationState(NarrativeCatalogue data, InvestigationProgress restored = null, InvestigationConfiguration pacing = null)
         {
             catalogue = data ?? throw new ArgumentNullException(nameof(data));
@@ -40,9 +41,11 @@ namespace GraduationDemo.Narrative
         }
         public int Days => configuration == null ? 3 : configuration.investigationDays;
         public int ActionsPerDay => configuration == null ? 3 : configuration.actionsPerDay;
-        public int RemainingActions => Math.Max(0, ActionsPerDay - progress.actionsSpent);
+        public bool ActionCostsEnabled => configuration != null && configuration.actionCostsEnabled;
+        public int RemainingActions => ActionCostsEnabled ? Math.Max(0, ActionsPerDay - progress.actionsSpent) : ActionsPerDay;
         public bool InvestigationOpen => progress.phase == InvestigationPhase.Investigating;
         public bool CanConstructTheories => progress.phase == InvestigationPhase.Investigating || progress.phase == InvestigationPhase.Accusation;
+        public bool HasAccusationEntry(string id) => progress.clues.Contains(id) || progress.statements.Contains(id) || progress.theories.Contains(id);
         public bool Has(string id) => progress.clues.Contains(id) || progress.statements.Contains(id) || progress.flags.Contains(id);
         public bool Grant(string id) => Grant(id, "unknown");
         public bool Grant(string id, string locationId)
@@ -137,14 +140,14 @@ namespace GraduationDemo.Narrative
             string sequence = suspect == "Felix" ? "Felix — Champagne alibi" : suspect == "Mila" ? "Mila — Solitary rehearsal" : "Bellamy — Corridor witness";
             string key = "alibi/" + suspect;
             if (!InvestigationOpen || !NarrativeCatalogue.IsSuspect(suspect) || progress.usedInitializations.Contains(key) || catalogue.Sequence(sequence) == null) return null;
-            return new ConversationInitialization { key = key, suspect = suspect, sequenceId = sequence, kind = ConversationKind.Alibi, cost = configuration == null ? 0 : configuration.alibiCost };
+            return new ConversationInitialization { key = key, suspect = suspect, sequenceId = sequence, kind = ConversationKind.Alibi, cost = ActionCostsEnabled ? configuration.alibiCost : 0 };
         }
         public ConversationInitialization Presentation(string theory, string suspect)
         {
             var selection = SelectRoute(theory, suspect);
             if (selection?.sequence == null) return null;
             return new ConversationInitialization { key = "theory/" + theory + "/" + suspect + "/" + (selection.route?.id ?? "fallback"), suspect = suspect, theoryId = theory,
-                sequenceId = selection.sequence.id, selection = selection, kind = ConversationKind.Theory, cost = configuration == null ? 1 : configuration.confrontationCost };
+                sequenceId = selection.sequence.id, selection = selection, kind = ConversationKind.Theory, cost = ActionCostsEnabled ? configuration.confrontationCost : 0 };
         }
         public List<ConversationInitialization> AvailableConversations(string suspect)
         {
@@ -200,38 +203,36 @@ namespace GraduationDemo.Narrative
             if (progress.phase != InvestigationPhase.Accusation)
             { result.Add("phase", "Final day closed", false, "Accusations are available only after the final day ends."); return result; }
             var ids = (selection ?? Enumerable.Empty<string>()).ToList();
-            if (ids.Distinct().Count() != ids.Count || ids.Any(id => !progress.theories.Contains(id) || catalogue.Theory(id) == null))
-            { result.Add("selection", "Active distinct theories", false, "Select distinct theories you have constructed."); return result; }
-            var theories = ids.Select(catalogue.Theory).ToList();
+            if (ids.Distinct().Count() != ids.Count || ids.Any(id => !HasAccusationEntry(id) || catalogue.EntryText(id) == null))
+            { result.Add("selection", "Active distinct questions", false, "Select two distinct collected clues, statements or questions."); return result; }
+            var theories = ids.Select(catalogue.Theory).Where(t => t != null).ToList();
             var rules = catalogue.arrestRules.Where(r => r.enabled && (string.IsNullOrEmpty(suspect) || r.suspect == suspect)).ToList();
             if (rules.Count == 0)
-            { result.Add("suspect", "Suspect support", false, "These theories do not support the chosen suspect's responsibility under the case criteria."); return result; }
+            { result.Add("suspect", "Suspect support", false, "These questions do not support the chosen suspect's responsibility under the case criteria."); return result; }
             var assessments = new List<AccusationAssessment>();
             foreach (var rule in rules)
             {
                 var a = new AccusationAssessment { rule = rule };
-                a.Add("count", "Theory tethers", ids.Count == rule.selectionCount, "Tether " + rule.selectionCount + " distinct theories.");
+                a.Add("count", "Motive and opportunity", ids.Count == rule.selectionCount, "Tether " + rule.selectionCount + " distinct collected entries.");
                 a.Add("suspect", "Suspect tether", suspect == rule.suspect, "Tether the accusation to a suspect.");
-                a.Add("sources", "Collected source evidence", theories.All(t => progress.clues.Contains(t.clueId) && progress.statements.Contains(t.statementId)), "An attached theory is missing its collected source evidence.");
-                if (sockets != null) a.Add("sockets", "One theory per socket", sockets.Count == rule.selectionCount && rule.propositions.All(sockets.ContainsKey) &&
-                    sockets.Values.Distinct().Count() == ids.Count && sockets.Values.All(ids.Contains), "Attach one distinct theory to each Means, Motive and Opportunity socket.");
+                a.Add("sources", "Collected source evidence", theories.All(t => progress.clues.Contains(t.clueId) && progress.statements.Contains(t.statementId)), "An attached question is missing its collected source evidence.");
+                if (sockets != null) a.Add("sockets", "One interpretation per socket", sockets.Count == rule.selectionCount && rule.propositions.All(sockets.ContainsKey) &&
+                    sockets.Values.Distinct().Count() == ids.Count && sockets.Values.All(ids.Contains), "Define a motive and an opportunity using distinct collected entries.");
                 foreach (var proposition in rule.propositions)
                 {
                     string label = PropositionLabel(proposition);
-                    bool covered = sockets == null ? theories.Any(t => t.propositions.Contains(proposition)) :
-                        sockets.TryGetValue(proposition, out var attached) && ids.Contains(attached) && catalogue.Theory(attached).propositions.Contains(proposition);
+                    bool covered = sockets == null ? ids.Any(id => catalogue.InterpretationTags(id).Contains(proposition)) :
+                        sockets.TryGetValue(proposition, out var attached) && ids.Contains(attached) && catalogue.InterpretationTags(attached).Contains(proposition);
                     a.Add(proposition, label, covered, "Missing evidence supporting " + label.ToLowerInvariant() + ".", true);
                 }
                 int missingClues = rule.requiredClues.Count(id => !progress.clues.Contains(id));
                 int missingStatements = rule.requiredStatements.Count(id => !progress.statements.Contains(id));
                 a.Add("clues", "Physical observations", missingClues == 0, "Required physical observations not collected: " + missingClues + ".");
                 a.Add("statements", "Witness accounts", missingStatements == 0, "Required witness accounts not collected: " + missingStatements + ".");
-                bool independent = theories.Where(t => !string.IsNullOrEmpty(t.observationGroup)).Select(t => t.observationGroup).Distinct().Count() >= rule.minimumObservationGroups &&
-                    Assign(rule.propositions, theories, 0, new HashSet<string>());
-                a.Add("independence", "Independent corroboration", independent, "Each required evidence line needs a separate supporting observation; an uncorroborated interpretation does not add one.");
+                a.Add("independence", "Independent interpretations", ids.Select(catalogue.ObservationGroup).Where(g => !string.IsNullOrEmpty(g)).Distinct().Count() >= rule.minimumObservationGroups, "Motive and opportunity need separate supporting observations.");
                 a.Add("conditions", "Usable evidence", !rule.forbiddenFlags.Any(Has), progress.flags.Contains("flag:geometry_disclosed") ?
-                    "The private geometry was disclosed; knowledge of it no longer establishes a contradiction." : "This case cannot currently be resolved from these theories.");
-                if (ids.Contains("T_C06_MS06")) a.notes.Add("Motive is a plausible interpretation of the relationship and reaction, not proof of intent. This is an investigative hypothesis.");
+                    "The private geometry was disclosed; knowledge of it no longer establishes a contradiction." : "This case cannot currently be resolved from these questions.");
+                if (ids.Any(id => catalogue.InterpretationTags(id).Contains(AccusationReasoning.Motive))) a.notes.Add("Motive is a plausible interpretation of the relationship and reaction, not proof of intent. This is an investigative hypothesis.");
                 assessments.Add(a);
             }
             return assessments.OrderBy(a => a.checks.Count(c => !c.satisfied)).First();
@@ -248,17 +249,6 @@ namespace GraduationDemo.Narrative
                 case "P4_CONTRADICTORY_ACCOUNT": return "Contradictory testimony";
                 default: return "Required evidence line";
             }
-        }
-        static bool Assign(List<string> propositions, List<TheoryDefinition> theories, int index, HashSet<string> used)
-        {
-            if (index == propositions.Count) return true;
-            foreach (var theory in theories.Where(x => x.propositions.Contains(propositions[index]) && !string.IsNullOrEmpty(x.observationGroup)))
-            {
-                if (!used.Add(theory.observationGroup)) continue;
-                if (Assign(propositions, theories, index + 1, used)) return true;
-                used.Remove(theory.observationGroup);
-            }
-            return false;
         }
     }
 }

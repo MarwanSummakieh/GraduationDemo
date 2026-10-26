@@ -24,9 +24,11 @@ namespace GraduationDemo.Narrative
     public sealed class InvestigationConfiguration : ScriptableObject
     {
         [Min(1)] public int investigationDays = 3;
+        [Tooltip("Enable daily action spending. Disabled for unrestricted playtesting.")] public bool actionCostsEnabled = false;
         [Min(1)] public int actionsPerDay = 3;
         [Min(0)] public int alibiCost;
-        [Min(0)] public int confrontationCost = 1;
+        [InspectorName("Question Cost"), Min(0), Tooltip("Actions spent when beginning a conversation about a constructed question, if action costs are enabled.")]
+        public int confrontationCost = 1;
         public ReasoningAssistance reasoningAssistance = ReasoningAssistance.Subtle;
         public List<ReasoningHint> reasoningHints = ReasoningGuidance.DefaultHints();
         public List<JourneyStop> stops = new List<JourneyStop> {

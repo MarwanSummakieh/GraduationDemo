@@ -38,7 +38,7 @@ namespace GraduationDemo.Train
         }
         public string AccusationSuspect => accusationSuspect;
         public AccusationAssessment AccusationSupport => owner.State.AssessAccusation(accusationSuspect, accusation, accusationSockets);
-        public bool CanSubmitAccusation => AccusationGraphActive && accusation.Count == 3 && accusation.All(owner.State.progress.theories.Contains) && NarrativeCatalogue.IsSuspect(accusationSuspect);
+        public bool CanSubmitAccusation => AccusationGraphActive && accusation.Count == 2 && accusation.All(owner.State.HasAccusationEntry) && NarrativeCatalogue.IsSuspect(accusationSuspect);
         TrainNarrative owner;
         TrainTour tour;
         Canvas canvas;
@@ -108,7 +108,7 @@ namespace GraduationDemo.Train
             conversationSuspect = null;
             firstFit = true; refresh = true; pendingAccusationTheory = null; selectedSpecialNode = null;
             selectedClue = null; selectedStatement = null; selectedTheory = null;
-            tetherMessage = "Click a theory, then a Means, Motive or Opportunity socket."; return true;
+            tetherMessage = "Click a clue, statement or question, then Motive or Opportunity."; return true;
         }
         public void SetOpen(bool open)
         {
@@ -140,14 +140,14 @@ namespace GraduationDemo.Train
                 }
                 strokes?.SetVerticesDirty();
             }
-            if (status != null) status.text = AccusationGraphActive ? tetherMessage ?? accusationFeedback ?? "Click a theory, then the accusation node." : owner.Message ?? "Select a clue and statement to make a theory.";
+            if (status != null) status.text = AccusationGraphActive ? tetherMessage ?? accusationFeedback ?? "Click a question, then the accusation node." : owner.Message ?? "Select a clue and statement to make a question.";
         }
         void Rebuild()
         {
-            accusation.RemoveAll(id => !owner.State.progress.theories.Contains(id));
+            accusation.RemoveAll(id => !owner.State.HasAccusationEntry(id));
             foreach (var role in accusationSockets.Keys.ToList()) if (!accusation.Contains(accusationSockets[role])) accusationSockets.Remove(role);
-            if (accusation.Count < 3) { accusationSuspect = null; awaitingSuspect = false; }
-            if (pendingAccusationTheory != null && !owner.State.progress.theories.Contains(pendingAccusationTheory)) pendingAccusationTheory = null;
+            if (accusation.Count < 2) { accusationSuspect = null; awaitingSuspect = false; }
+            if (pendingAccusationTheory != null && !owner.State.HasAccusationEntry(pendingAccusationTheory)) pendingAccusationTheory = null;
             if (selectedTheory != null && !owner.State.progress.theories.Contains(selectedTheory)) selectedTheory = null;
             preserveView = !firstFit && Tab == NotebookTab.Reasoning && navigation != null;
             if (preserveView) { savedPan = navigation.content.anchoredPosition; savedZoom = navigation.zoom; }
@@ -245,7 +245,7 @@ namespace GraduationDemo.Train
             guidanceHover.text = "Click to cycle Off / Subtle / Guided / Directed.\nGuided adds links and questions; Directed also names whom to approach.\n? Interview lead; + case-building connection.\nCase connections do not suggest another interview.";
             if (owner.State.progress.phase == InvestigationPhase.Accusation)
                 Button(page, AccusationGraphActive ? "Reasoning" : "Accusation", () => { if (AccusationGraphActive) { accusationMode = false; firstFit = true; refresh = true; } else BeginAccusationGraph(); }, new Vector2(724, -8), new Vector2(130, 32));
-            sidebar = Panel(page, "Theory detail", ink);
+            sidebar = Panel(page, "Question detail", ink);
             Place(sidebar, new Vector2(narrow ? 8 : width - 280, narrow ? -(height - (ConversationGraphActive ? 217 : 181)) : -52), new Vector2(narrow ? width - 16 : 272, narrow ? (ConversationGraphActive ? 207 : 171) : height - 64));
             float detailHeight = narrow ? 66 : sidebar.rect.height - 172;
             var detailContent = ScrollContent(sidebar, new Vector2(10, -8), new Vector2(sidebar.rect.width - 20, detailHeight), 400);
@@ -263,7 +263,7 @@ namespace GraduationDemo.Train
                 var alibi = owner.State.Alibi(target);
                 var ask = Button(sidebar, "Ask " + target + " for an alibi", () => owner.OfferConversation(owner.State.Alibi(target)), new Vector2(10, narrow ? -79 : -(sidebar.rect.height - 160)), new Vector2(sidebar.rect.width - 20, 32));
                 ask.GetComponent<Button>().interactable = alibi != null && alibi.cost <= owner.State.RemainingActions;
-                var present = Button(sidebar, "Present theory to " + target, () => owner.Confront(selectedTheory, target), new Vector2(10, narrow ? -115 : -(sidebar.rect.height - 124)), new Vector2(sidebar.rect.width - 20, 32));
+                var present = Button(sidebar, "Present question to " + target, () => owner.Confront(selectedTheory, target), new Vector2(10, narrow ? -115 : -(sidebar.rect.height - 124)), new Vector2(sidebar.rect.width - 20, 32));
                 var prompt = selectedTheory == null ? null : owner.State.Presentation(selectedTheory, target);
                 present.GetComponent<Button>().interactable = prompt != null && prompt.cost <= owner.State.RemainingActions;
             }
@@ -284,14 +284,14 @@ namespace GraduationDemo.Train
             var rect = Panel(page, "Search graph", new Color(.15f, .23f, .24f)); Place(rect, new Vector2(8, -8), new Vector2(230, 32));
             searchInput = rect.gameObject.AddComponent<InputField>();
             var text = Label(rect, "", 17, gold, new Vector2(8, -3), new Vector2(214, 26)); searchInput.textComponent = text;
-            var placeholder = Label(rect, "Search discoveries / theories", 15, paper, new Vector2(8, -3), new Vector2(214, 26)); searchInput.placeholder = placeholder;
+            var placeholder = Label(rect, "Search discoveries / questions", 15, paper, new Vector2(8, -3), new Vector2(214, 26)); searchInput.placeholder = placeholder;
             searchInput.SetTextWithoutNotify(search); searchInput.onEndEdit.AddListener(value => { if (search == value) return; search = value; firstFit = true; refresh = true; });
         }
         void AddNode(ReasoningNode node)
         {
             var go = new GameObject(node.id, typeof(RectTransform), typeof(NotebookNodeGraphic), typeof(Button), typeof(NotebookHover)); go.transform.SetParent(graphContent, false);
             var rect = go.GetComponent<RectTransform>(); rect.anchorMin = rect.anchorMax = new Vector2(0, 1); rect.pivot = new Vector2(.5f, .5f); rect.sizeDelta = new Vector2(60, 60);
-            bool background = (AccusationGraphActive || ConversationGraphActive) && (node.kind == ReasoningNodeKind.Clue || node.kind == ReasoningNodeKind.Statement);
+            bool background = ConversationGraphActive && (node.kind == ReasoningNodeKind.Clue || node.kind == ReasoningNodeKind.Statement);
             if (background) rect.sizeDelta = new Vector2(48, 48);
             if (AccusationGraphActive && node.kind == ReasoningNodeKind.Theory) rect.sizeDelta = new Vector2(72, 72);
             if (node.kind == ReasoningNodeKind.Accusation) rect.sizeDelta = new Vector2(100, 100);
@@ -305,22 +305,24 @@ namespace GraduationDemo.Train
             if (AccusationGraphActive && node.kind == ReasoningNodeKind.Theory) graphic.color = accusation.Contains(node.id) ? new Color(1, .90f, .52f) : gold;
             if (node.kind == ReasoningNodeKind.Accusation) graphic.color = gold;
             if (node.kind == ReasoningNodeKind.AccusationSocket) graphic.color = accusationSockets.ContainsKey(node.speaker) ? gold : new Color(.55f, .63f, .62f);
-            if (node.kind == ReasoningNodeKind.AccusationSocket && pendingAccusationTheory != null && owner.catalogue.Theory(pendingAccusationTheory)?.propositions.Contains(node.speaker) == true)
+            if (node.kind == ReasoningNodeKind.AccusationSocket && pendingAccusationTheory != null && owner.catalogue.InterpretationTags(pendingAccusationTheory).Contains(node.speaker))
                 graphic.color = new Color(.45f, .82f, .65f);
             if (node.kind == ReasoningNodeKind.Suspect && node.speaker == accusationSuspect) graphic.color = gold;
             if (background) graphic.color = ConversationGraphActive ? new Color(.55f, .55f, .55f, .30f) : new Color(graphic.color.r, graphic.color.g, graphic.color.b, .30f);
             go.GetComponent<Button>().targetGraphic = graphic; go.GetComponent<Button>().onClick.AddListener(() => SelectNode(node.id));
             if (ConversationGraphActive && node.kind != ReasoningNodeKind.Theory) go.GetComponent<Button>().interactable = false;
             var hover = go.GetComponent<NotebookHover>(); hover.notebook = this; hover.text = node.label + "\n" + node.detail;
+            var interpretationTags = owner.catalogue.InterpretationTags(node.id).Where(AccusationReasoning.Roles.Contains).Select(AccusationReasoning.Label).ToList();
+            if (interpretationTags.Count > 0) hover.text += "\n\nInterpretation: " + string.Join(", ", interpretationTags) + " (a lead, not proof)";
             if (node.kind == ReasoningNodeKind.Accusation) hover.text = AccusationSupport.DisplayText + "\n\n" + hover.text;
             if (node.kind == ReasoningNodeKind.Theory && AccusationGraphActive)
-                hover.text = "Click this theory, then a Means, Motive or Opportunity socket. Repeat to untether it.\nSupports: " + string.Join(", ", owner.catalogue.Theory(node.id).propositions.Where(AccusationReasoning.Roles.Contains).Select(AccusationReasoning.Label)) + "\n\n" + hover.text;
+                hover.text = "Click this question, then a Motive or Opportunity socket. Repeat to untether it.\nSupports: " + string.Join(", ", owner.catalogue.Theory(node.id).propositions.Where(AccusationReasoning.Roles.Contains).Select(AccusationReasoning.Label)) + "\n\n" + hover.text;
             else if (node.kind == ReasoningNodeKind.Theory && Assistance == ReasoningAssistance.Directed)
                 hover.text = DirectedActionSummary(node.id) + "\n\n" + hover.text;
             if (node.kind == ReasoningNodeKind.Theory)
             {
                 hover.theoryId = node.id;
-                hover.text += "\n\nRight-click to remove theory. Restore it from Removed.";
+                hover.text += "\n\nRight-click to remove question. Restore it from Removed.";
             }
             var hints = node.kind == ReasoningNodeKind.Theory ? VisibleHints.Where(h => ReasoningGuidance.Matches(h, owner.catalogue.Theory(node.id))).ToList() :
                 VisibleHints.Where(h => h.firstId == node.id || h.secondId == node.id).ToList();
@@ -332,8 +334,8 @@ namespace GraduationDemo.Train
                     (hints.Any(h => h.kind == ReasoningHintKind.CaseConnection) ? "+" : "");
                 Label(rect, badge, 24, new Color(1, .68f, .37f, background ? .30f : 1), new Vector2(46, 8), new Vector2(38, 32));
             }
-            string icon = node.kind == ReasoningNodeKind.AccusationSocket ? (node.speaker == AccusationReasoning.Opportunity ? "OP" : node.speaker == AccusationReasoning.Means ? "ME" : "MO") : node.kind == ReasoningNodeKind.Accusation ? "CASE\n" + accusation.Count + "/3" : node.kind == ReasoningNodeKind.Suspect ? node.speaker.Substring(0, 1) :
-                node.kind == ReasoningNodeKind.Theory ? node.label.Replace("Theory ", "") : node.kind == ReasoningNodeKind.Clue ? node.id : node.speaker.Substring(0, 1) + node.id.Substring(node.id.Length - 2);
+            string icon = node.kind == ReasoningNodeKind.AccusationSocket ? (node.speaker == AccusationReasoning.Opportunity ? "OP" : node.speaker == AccusationReasoning.Means ? "ME" : "MO") : node.kind == ReasoningNodeKind.Accusation ? "CASE\n" + accusation.Count + "/2" : node.kind == ReasoningNodeKind.Suspect ? node.speaker.Substring(0, 1) :
+                node.kind == ReasoningNodeKind.Theory ? node.label.Replace("Question ", "") : node.kind == ReasoningNodeKind.Clue ? node.id : node.speaker.Substring(0, 1) + node.id.Substring(node.id.Length - 2);
             var inside = Label(rect, icon, 18, background ? new Color(ink.r, ink.g, ink.b, .4f) : ink, Vector2.zero, rect.sizeDelta); Stretch(inside.rectTransform, 0, 0, 0, 0); inside.alignment = TextAnchor.MiddleCenter;
             float captionWidth = node.kind == ReasoningNodeKind.Theory ? 76 : 180;
             var caption = Label(rect, node.label, AccusationGraphActive && node.kind == ReasoningNodeKind.Theory ? 14 : 17, background ? new Color(paper.r, paper.g, paper.b, .38f) : paper, new Vector2((rect.sizeDelta.x - captionWidth) / 2, -rect.sizeDelta.y - 2), new Vector2(captionWidth, 45)); caption.alignment = TextAnchor.UpperCenter;
@@ -347,14 +349,14 @@ namespace GraduationDemo.Train
             {
                 selectedSpecialNode = id;
                 if (pendingAccusationTheory != null) TetherTheoryToSocket(pendingAccusationTheory, node.speaker);
-                else { tetherMessage = "Select a theory, then this " + AccusationReasoning.Label(node.speaker) + " socket."; refresh = true; }
+                else { tetherMessage = "Select a question, then this " + AccusationReasoning.Label(node.speaker) + " socket."; refresh = true; }
                 return;
             }
             if (node.kind == ReasoningNodeKind.Accusation)
             {
                 selectedSpecialNode = id;
                 if (pendingAccusationTheory != null) TetherTheoryToAccusation(pendingAccusationTheory);
-                else { awaitingSuspect = accusation.Count == 3; tetherMessage = awaitingSuspect ? (accusationSuspect == null ? "Click a suspect node to tether the accusation." : "Change the suspect tether, or confirm your accusation.") : "Tether three theories before choosing a suspect."; refresh = true; }
+                else { awaitingSuspect = accusation.Count == 2; tetherMessage = awaitingSuspect ? (accusationSuspect == null ? "Click a suspect node to tether the accusation." : "Change the suspect tether, or confirm your accusation.") : "Tether two interpretations before choosing a suspect."; refresh = true; }
                 return;
             }
             if (node.kind == ReasoningNodeKind.Suspect)
@@ -365,33 +367,41 @@ namespace GraduationDemo.Train
                 return;
             }
             selectedSpecialNode = null; accusationFeedback = null;
+            if (AccusationGraphActive)
+            {
+                selectedClue = node.kind == ReasoningNodeKind.Clue ? id : null;
+                selectedStatement = node.kind == ReasoningNodeKind.Statement ? id : null;
+                selectedTheory = node.kind == ReasoningNodeKind.Theory ? id : null;
+                pendingAccusationTheory = id; awaitingSuspect = false;
+                tetherMessage = "Choose Motive or Opportunity to interpret this entry for your accusation.";
+                refresh = true; return;
+            }
             if (node.kind == ReasoningNodeKind.Clue || node.kind == ReasoningNodeKind.Statement)
             {
                 selectedTheory = null; pendingAccusationTheory = null; awaitingSuspect = false;
-                if (AccusationGraphActive) tetherMessage = node.kind == ReasoningNodeKind.Clue ? "Choose a statement to construct a theory." : "Choose a clue to construct a theory.";
+                if (AccusationGraphActive) tetherMessage = node.kind == ReasoningNodeKind.Clue ? "Choose a statement to construct a question." : "Choose a clue to construct a question.";
             }
             if (node.kind == ReasoningNodeKind.Clue) selectedClue = id;
             else if (node.kind == ReasoningNodeKind.Statement) selectedStatement = id;
-            else { selectedTheory = id; selectedClue = null; selectedStatement = null; if (AccusationGraphActive) { pendingAccusationTheory = id; awaitingSuspect = false; tetherMessage = "Now click a Means, Motive or Opportunity socket."; } }
+            else { selectedTheory = id; selectedClue = null; selectedStatement = null; if (AccusationGraphActive) { pendingAccusationTheory = id; awaitingSuspect = false; tetherMessage = "Now click a Motive or Opportunity socket."; } }
             if (node.kind != ReasoningNodeKind.Theory && selectedClue != null && selectedStatement != null && owner.State.CanConstructTheories)
             {
                 var theory = owner.State.Construct(selectedClue, selectedStatement);
-                if (theory != null) { selectedTheory = theory.id; selectedClue = null; selectedStatement = null; if (AccusationGraphActive) { pendingAccusationTheory = theory.id; tetherMessage = "Theory constructed. Choose its accusation socket."; } }
+                if (theory != null) { selectedTheory = theory.id; selectedClue = null; selectedStatement = null; if (AccusationGraphActive) { pendingAccusationTheory = theory.id; tetherMessage = "Question constructed. Choose its accusation socket."; } }
             }
             refresh = true;
         }
         public bool TetherTheoryToAccusation(string id)
         {
-            if (!AccusationGraphActive || !owner.State.progress.theories.Contains(id)) return false;
+            if (!AccusationGraphActive || !owner.State.HasAccusationEntry(id)) return false;
             var existing = accusationSockets.FirstOrDefault(p => p.Value == id);
             if (existing.Key != null) return TetherTheoryToSocket(id, existing.Key);
-            var theory = owner.catalogue.Theory(id);
-            var role = AccusationReasoning.Roles.FirstOrDefault(r => !accusationSockets.ContainsKey(r) && theory.propositions.Contains(r)) ?? AccusationReasoning.Roles.FirstOrDefault(r => !accusationSockets.ContainsKey(r));
+            var role = AccusationReasoning.Roles.FirstOrDefault(r => !accusationSockets.ContainsKey(r) && owner.catalogue.InterpretationTags(id).Contains(r)) ?? AccusationReasoning.Roles.FirstOrDefault(r => !accusationSockets.ContainsKey(r));
             return role != null && TetherTheoryToSocket(id, role);
         }
         public bool TetherTheoryToSocket(string id, string role)
         {
-            if (!AccusationGraphActive || !owner.State.progress.theories.Contains(id)) return false;
+            if (!AccusationGraphActive || !owner.State.HasAccusationEntry(id)) return false;
             if (!AccusationReasoning.Roles.Contains(role)) return false;
             if (accusationSockets.TryGetValue(role, out var old) && old == id) { accusationSockets.Remove(role); accusation.Remove(id); accusationSuspect = null; }
             else
@@ -401,13 +411,13 @@ namespace GraduationDemo.Train
                 accusationSockets[role] = id; if (!accusation.Contains(id)) accusation.Add(id);
                 accusationSuspect = null;
             }
-            pendingAccusationTheory = null; accusationFeedback = null; awaitingSuspect = accusation.Count == 3;
-            tetherMessage = awaitingSuspect ? "Click a suspect node to tether your accusation." : "Tethered " + accusation.Count + "/3 theories. Choose another theory.";
+            pendingAccusationTheory = null; accusationFeedback = null; awaitingSuspect = accusation.Count == 2;
+            tetherMessage = awaitingSuspect ? "Click a suspect node to tether your accusation." : "Tethered " + accusation.Count + "/2 interpretations. Choose another question.";
             refresh = true; return true;
         }
         public bool TetherAccusationToSuspect(string suspect)
         {
-            if (!AccusationGraphActive || accusation.Count != 3 || !NarrativeCatalogue.IsSuspect(suspect)) return false;
+            if (!AccusationGraphActive || accusation.Count != 2 || !NarrativeCatalogue.IsSuspect(suspect)) return false;
             accusationSuspect = accusationSuspect == suspect ? null : suspect; awaitingSuspect = false; accusationFeedback = null;
             tetherMessage = accusationSuspect == null ? "Suspect untethered. Click accusation, then a suspect." : "Review your tethers, then confirm the accusation.";
             refresh = true; return true;
@@ -434,6 +444,8 @@ namespace GraduationDemo.Train
         string SelectedDetail()
         {
             string content = SelectedDetailContent();
+            var tags = owner.catalogue.InterpretationTags(selectedTheory ?? selectedClue ?? selectedStatement).Where(AccusationReasoning.Roles.Contains).Select(AccusationReasoning.Label).ToList();
+            if (tags.Count > 0) content = "Interpretation: " + string.Join(", ", tags) + " (a lead, not proof)\n\n" + content;
             return AccusationGraphActive ? AccusationSupport.DisplayText + "\n\n" + content : content;
         }
         string SelectedDetailContent()
@@ -441,10 +453,10 @@ namespace GraduationDemo.Train
             if (AccusationGraphActive && selectedSpecialNode != null)
                 return (accusationFeedback == null ? "" : accusationFeedback + "\n\n") + (Graph.nodes.Find(n => n.id == selectedSpecialNode)?.detail ?? "Build your accusation with tethers.");
             var theory = owner.catalogue.Theory(selectedTheory);
-            if (ConversationGraphActive && theory == null) return "Speak to " + conversationSuspect + "\n\nSelect a theory in the graph, then present it. Greyed clues and statements show its sources; hover them for details. You may also ask for an available alibi.\n\nDrag to pan; scroll to zoom.";
+            if (ConversationGraphActive && theory == null) return "Speak to " + conversationSuspect + "\n\nSelect a question in the graph, then present it. Greyed clues and statements show its sources; hover them for details. You may also ask for an available alibi.\n\nDrag to pan; scroll to zoom.";
             string text = theory != null ? theory.text + "\n\nClue: " + owner.catalogue.Clue(theory.clueId).name + "\nStatement: " + owner.catalogue.Statement(theory.statementId).claim :
-                Graph?.nodes.Find(n => n.id == (selectedClue ?? selectedStatement))?.detail ?? "Click a clue and a statement to make a theory. Drag to pan; scroll to zoom. Hover over any icon for its details.";
-            if (theory != null && AccusationGraphActive) text = "Choose a Means, Motive or Opportunity socket.\nSupports: " +
+                Graph?.nodes.Find(n => n.id == (selectedClue ?? selectedStatement))?.detail ?? "Click a clue and a statement to make a question. Drag to pan; scroll to zoom. Hover over any icon for its details.";
+            if (theory != null && AccusationGraphActive) text = "Choose a Motive or Opportunity socket.\nSupports: " +
                 (theory.propositions.Any(AccusationReasoning.Roles.Contains) ? string.Join(", ", theory.propositions.Where(AccusationReasoning.Roles.Contains).Select(AccusationReasoning.Label)) : "Context only") + "\n\n" + text;
             else if (theory != null && Assistance == ReasoningAssistance.Directed) text = DirectedActionSummary(theory.id) + "\n\n" + text;
             if (ConversationGraphActive) text = "Speak to " + conversationSuspect + "\n\n" + text;
@@ -452,27 +464,27 @@ namespace GraduationDemo.Train
             var hints = theory != null ? VisibleHints.Where(h => ReasoningGuidance.Matches(h, theory)).ToList() :
                 VisibleHints.Where(h => ids.Contains(h.firstId) || ids.Contains(h.secondId)).ToList();
             if (hints.Count > 0) text += "\n\nREASONING NOTES\n" + string.Join("\n\n", hints.Select(h => ReasoningGuidance.Text(h, Assistance)));
-            if (AccusationGraphActive && theory == null) text = "Click a clue and statement to make another theory. Click a theory, then a Means, Motive or Opportunity socket. After three theories, tether the accusation to a suspect node and confirm.\n\n" + text;
+            if (AccusationGraphActive && theory == null) text = "Click a collected clue, statement or question, then Motive or Opportunity. Use Reasoning to form further questions. After two interpretations, tether the accusation to a suspect node and confirm.\n\n" + text;
             else if (Assistance == ReasoningAssistance.Directed)
             {
-                if (theory != null && hints.Count == 0) text += "\n\nNo new interview lead is identified for this theory. A reaction may not supply new testimony.";
+                if (theory != null && hints.Count == 0) text += "\n\nNo new interview lead is identified for this question. A reaction may not supply new testimony.";
                 else if (theory == null && selectedClue == null && selectedStatement == null) text += "\n\n" + DirectedInstructions();
             }
             return text;
         }
         string DirectedInstructions()
         {
-            if (!owner.State.InvestigationOpen) return owner.State.CanConstructTheories ? "Interviews and collection are closed. You can still combine collected clues and statements into new theories. Use the Accusation graph to tether three independent theories and a suspect." : "Case resolved. Review your notebook.";
-            return "Ask for each suspect's alibi and explore the train for clues.\n\n? links suggest interviews: combine the linked clue and statement, select the theory, then approach the named suspect.\n\n+ links build your case: review them without spending an interview action. Look for independent evidence of means, motive and opportunity.\n\nWhen ready, end the remaining days. The final accusation opens only after the final day closes.";
+            if (!owner.State.InvestigationOpen) return owner.State.CanConstructTheories ? "Interviews and collection are closed. You can still combine collected clues and statements into new questions. Use the Accusation graph to tether a motive and an opportunity and a suspect." : "Case resolved. Review your notebook.";
+            return "Ask for each suspect's alibi and explore the train for clues.\n\n? links suggest interviews: combine the linked clue and statement, select the question, then approach the named suspect.\n\n+ links build your case: review them without spending an interview action. Look for independent evidence of motive and opportunity.\n\nWhen ready, end the remaining days. The final accusation opens only after the final day closes.";
         }
         public string DirectedActionSummary(string theoryId)
         {
             var hints = ReasoningGuidance.Available(owner.configuration, owner.State.progress, ReasoningAssistance.Directed)
                 .Where(h => ReasoningGuidance.Matches(h, owner.catalogue.Theory(theoryId))).ToList();
             var interview = hints.FirstOrDefault(h => h.purpose == ReasoningHintPurpose.Interview && NarrativeCatalogue.IsSuspect(h.recipient));
-            if (interview != null) return "NEXT INTERVIEW: Bring this theory to " + interview.recipient + ".";
+            if (interview != null) return "NEXT INTERVIEW: Bring this question to " + interview.recipient + ".";
             if (hints.Any(h => h.purpose == ReasoningHintPurpose.CaseReview)) return "CASE REVIEW: No further interview is suggested. Keep this connection for your final reasoning.";
-            return "NO GUIDED INTERVIEW: No new interview lead is identified for this theory.";
+            return "NO GUIDED INTERVIEW: No new interview lead is identified for this question.";
         }
         public Vector2 NodePosition(string id) => positions.TryGetValue(id, out var value) ? value : Vector2.zero;
         public void ShowTooltip(string text, Vector2 screenPosition)
@@ -555,7 +567,7 @@ namespace GraduationDemo.Train
         void BuildRemovedTheories()
         {
             float width = page.rect.width, height = page.rect.height;
-            Label(page, "Removed theories — restore without replaying conversations", 20, gold, new Vector2(14, -8), new Vector2(width - 140, 55));
+            Label(page, "Removed questions — restore without replaying conversations", 20, gold, new Vector2(14, -8), new Vector2(width - 140, 55));
             Button(page, "Graph", () => { removedMode = false; refresh = true; }, new Vector2(width - 105, -8), new Vector2(90, 32));
             var content = ScrollContent(page, new Vector2(14, -72), new Vector2(width - 28, height - 85), Mathf.Max(80, owner.State.progress.removedTheories.Count * 76));
             for (int i = 0; i < owner.State.progress.removedTheories.Count; i++)

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: InvestigationPacing
   m_EditorClassIdentifier: GraduationDemo.Narrative::GraduationDemo.Narrative.InvestigationConfiguration
   investigationDays: 3
+  actionCostsEnabled: 0
   actionsPerDay: 3
   alibiCost: 0
   confrontationCost: 1

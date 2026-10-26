@@ -5,13 +5,14 @@ using UnityEngine;
 
 namespace GraduationDemo.Narrative
 {
-    [Serializable] public class ClueDefinition { public string id, name, fact; }
-    [Serializable] public class StatementDefinition { public string id, speaker, claim; public bool initial; }
+    [Serializable] public class ClueDefinition { public string id, name, fact; public List<string> interpretationTags = new List<string>(); }
+    [Serializable] public class StatementDefinition { public string id, speaker, claim; public bool initial; public List<string> interpretationTags = new List<string>(); }
     [Serializable] public class TheoryDefinition
     {
         public string id, clueId, statementId;
         [TextArea] public string text;
         public string reading, truth;
+        [InspectorName("Interpretation Tags"), Tooltip("Investigative interpretations such as P_MOTIVE or P_OPPORTUNITY; these are leads, not proof.")]
         public List<string> propositions = new List<string>();
         public string observationGroup;
     }
@@ -36,7 +37,7 @@ namespace GraduationDemo.Narrative
     {
         public string id, suspect;
         public bool enabled = true;
-        public int selectionCount = 3, minimumObservationGroups = 3;
+        public int selectionCount = 2, minimumObservationGroups = 2;
         public List<string> propositions = new List<string>();
         public List<string> requiredStatements = new List<string>();
         public List<string> requiredClues = new List<string>();
@@ -60,6 +61,10 @@ namespace GraduationDemo.Narrative
         public VoiceDefinition Voice(string id) => voices.Find(x => x.id == id);
         public DialogueDefinition Sequence(string id) => sequences.Find(x => x.id == id);
         public TheoryDefinition Pair(string clue, string statement) => theories.Find(x => x.clueId == clue && x.statementId == statement);
+        // Legacy Theory names/IDs remain serialized so existing discoveries and interview routes survive.
+        public List<string> InterpretationTags(string id) => Clue(id)?.interpretationTags ?? Statement(id)?.interpretationTags ?? Theory(id)?.propositions ?? new List<string>();
+        public string EntryText(string id) => Clue(id)?.fact ?? Statement(id)?.claim ?? Theory(id)?.text;
+        public string ObservationGroup(string id) => Theory(id)?.observationGroup ?? (id == "C06" || id == "M-S06" ? "relationship_and_reaction" : id == "F-S04" ? "felix_corridor_sighting" : id);
         public static bool IsSuspect(string id) => id == "Felix" || id == "Mila" || id == "Bellamy";
     }
 }

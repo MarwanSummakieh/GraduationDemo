@@ -132,6 +132,10 @@ namespace GraduationDemo.Editor
                 new ArrestRule { id = "Alibi (needs strengthening)", suspect = "Mila", enabled = false, endingSequence = Ending },
                 new ArrestRule { id = "Staging (missing right-hand observation)", suspect = "Mila", enabled = false, endingSequence = Ending }
             };
+            foreach (var clue in c.clues)
+                if (previous?.Clue(clue.id) != null) clue.interpretationTags = new List<string>(previous.Clue(clue.id).interpretationTags);
+            foreach (var statement in c.statements)
+                if (previous?.Statement(statement.id) != null) statement.interpretationTags = new List<string>(previous.Statement(statement.id).interpretationTags);
             AccusationReasoning.MigrateReviewedDefaults(c);
             return c;
         }

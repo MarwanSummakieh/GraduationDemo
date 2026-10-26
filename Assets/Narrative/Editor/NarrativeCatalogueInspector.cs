@@ -10,13 +10,13 @@ namespace GraduationDemo.Editor
     {
         int tab;
         string search = "";
-        readonly string[] tabs = { "Clues", "Statements", "Theories", "Dialogue", "Voices", "Routes", "Arrest" };
+        readonly string[] tabs = { "Clues", "Statements", "Questions", "Dialogue", "Voices", "Routes", "Arrest" };
         readonly string[] fields = { "clues", "statements", "theories", "sequences", "voices", "routes", "arrestRules" };
         public override void OnInspectorGUI()
         {
             var c = (NarrativeCatalogue)target;
             EditorGUILayout.LabelField("Murder Most Inconvenient", EditorStyles.boldLabel);
-            EditorGUILayout.HelpBox("Immutable narrative definitions. Player discoveries live in TrainNarrative.State. Refresh preserves audio assignments and theory/arrest metadata; source definitions are regenerated.", MessageType.Info);
+            EditorGUILayout.HelpBox("Immutable narrative definitions. Player discoveries live in TrainNarrative.State. Refresh preserves audio assignments and question/arrest metadata; source definitions are regenerated.", MessageType.Info);
             if (GUILayout.Button("Validate catalogue")) NarrativeImporter.Validate();
             tab = GUILayout.SelectionGrid(tab, tabs, 4);
             search = EditorGUILayout.TextField("Find text / character / ID", search);
