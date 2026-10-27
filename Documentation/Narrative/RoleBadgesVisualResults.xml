@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-27 18:39:18Z" end-time="2026-10-27 18:39:21Z" duration="2.9254763">
+  <test-suite type="TestSuite" id="1029" name="GraduationDemo" fullname="GraduationDemo" runstate="Runnable" testcasecount="23" result="Passed" start-time="2026-10-27 18:39:18Z" end-time="2026-10-27 18:39:21Z" duration="2.925476" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1025" name="GraduationDemo.Narrative.PlayTests.dll" fullname="C:/Users/oldal/.codex/visualizations/2026/10/26/01a17970-c602-7fa3-bac8-efd2625d99e9/unity-clue-verification/Library/ScriptAssemblies/GraduationDemo.Narrative.PlayTests.dll" runstate="Runnable" testcasecount="23" result="Passed" start-time="2026-10-27 18:39:18Z" end-time="2026-10-27 18:39:21Z" duration="2.913212" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="16392" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[CLUE_TEST_START: C:/Users/oldal/.codex/visualizations/2026/10/26/01a17970-c602-7fa3-bac8-efd2625d99e9/unity-clue-verification/Library/ScriptAssemblies/GraduationDemo.Narrative.PlayTests.dll
+]]></output>
+      <test-suite type="TestFixture" id="1001" name="PlayableInvestigationTests" fullname="PlayableInvestigationTests" classname="PlayableInvestigationTests" runstate="Runnable" testcasecount="23" result="Passed" start-time="2026-10-27 18:39:18Z" end-time="2026-10-27 18:39:21Z" duration="2.909820" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests
+]]></output>
+        <test-case id="1022" name="EarlyAccusationIsAccessibleWithoutClosingTheDayAndFailureKeepsInvestigationOpen" fullname="PlayableInvestigationTests.EarlyAccusationIsAccessibleWithoutClosingTheDayAndFailureKeepsInvestigationOpen" methodname="EarlyAccusationIsAccessibleWithoutClosingTheDayAndFailureKeepsInvestigationOpen" classname="PlayableInvestigationTests" runstate="Runnable" seed="2080017427" result="Passed" start-time="2026-10-27 18:39:18Z" end-time="2026-10-27 18:39:20Z" duration="2.186127" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.EarlyAccusationIsAccessibleWithoutClosingTheDayAndFailureKeepsInvestigationOpen
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: BURR_024 / You were near Odette's compartment when the real injury occurred.
+UNVOICED DEVELOPMENT LINE: MILA_006 / I didn't murder her.
+UNVOICED DEVELOPMENT LINE: BURR_MMO_FINALE_01 / The injury, your connection to the couple, and the sighting near Odette's compartment warrant an explanation.
+UNVOICED DEVELOPMENT LINE: MILA_007 / It was an argument. She said I had to let her go.
+UNVOICED DEVELOPMENT LINE: BURR_026 / What happened next?
+UNVOICED DEVELOPMENT LINE: MILA_CANON_FINALE_01 / I slapped her. She stumbled, and her head struck the heavy clock on her desk. I couldn't wake her.
+UNVOICED DEVELOPMENT LINE: BURR_027 / And the dagger?
+UNVOICED DEVELOPMENT LINE: MILA_009 / I thought if somebody found her with it, they'd think she was rehearsing.
+UNVOICED DEVELOPMENT LINE: BURR_028 / You knew she needed help.
+UNVOICED DEVELOPMENT LINE: MILA_010 / I was frightened.
+UNVOICED DEVELOPMENT LINE: BURR_029 / You could have called someone.
+UNVOICED DEVELOPMENT LINE: MILA_011 / I know.
+UNVOICED DEVELOPMENT LINE: MILA_012 / She was supposed to wake up.
+UNVOICED DEVELOPMENT LINE: BURR_030 / You will have to tell the authorities what happened.
+]]></output>
+        </test-case>
+        <test-case id="1023" name="InterpretationBadgesIdentifyCluesStatementsQuestionsAndBothRoles" fullname="PlayableInvestigationTests.InterpretationBadgesIdentifyCluesStatementsQuestionsAndBothRoles" methodname="InterpretationBadgesIdentifyCluesStatementsQuestionsAndBothRoles" classname="PlayableInvestigationTests" runstate="Runnable" seed="1811785915" result="Passed" start-time="2026-10-27 18:39:20Z" end-time="2026-10-27 18:39:21Z" duration="0.701263" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.InterpretationBadgesIdentifyCluesStatementsQuestionsAndBothRoles
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+Saving results to: C:/Users/oldal/AppData/LocalLow/DefaultCompany/GraduationDemo\TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

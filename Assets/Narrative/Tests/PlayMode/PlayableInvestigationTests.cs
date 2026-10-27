@@ -21,7 +21,15 @@ public sealed class PlayableInvestigationTests
     }
     void Finish()
     {
-        for (int i = 0; i < 50 && Sequence != null; i++) Call(controller, "Advance");
+        for (int i = 0; i < 100 && Sequence != null; i++)
+        {
+            if ((bool)controller.GetType().GetProperty("AwaitingIntuition").GetValue(controller))
+            {
+                string entry = (string)controller.GetType().GetProperty("IntuitionEntry").GetValue(controller);
+                Call(controller, "ChooseIntuition", State.catalogue.InterpretationTags(entry).First(AccusationReasoning.Roles.Contains));
+            }
+            else Call(controller, "Advance");
+        }
         Assert.That(Sequence, Is.Null);
     }
     [UnityTest] public IEnumerator OpeningAndFiveCarriageNavigation()
@@ -38,6 +46,38 @@ public sealed class PlayableInvestigationTests
             Assert.That(detective.transform.position.x, Is.EqualTo(views[i].position.x).Within(.05));
         }
         yield return null;
+    }
+    [UnityTest] public IEnumerator WrongIntuitionPausesForCorrectionAndChargesOnlyOnce()
+    {
+        Finish(); var pacing = (InvestigationConfiguration)controller.GetType().GetField("configuration").GetValue(controller);
+        pacing.actionCostsEnabled = true; pacing.intuitionMistakeCost = 2; State.RefreshConfiguration();
+        State.Grant("C09"); State.Grant("F-S01"); var question = State.Construct("C09", "F-S01"); Approach("Felix");
+        Assert.That((bool)Call(controller, "Confront", question.id, "Felix"), Is.True);
+        Assert.That((bool)Call(controller, "ConfirmConversation"), Is.True);
+        for (int i = 0; i < 30 && !(bool)controller.GetType().GetProperty("AwaitingIntuition").GetValue(controller); i++) Call(controller, "Advance");
+        Assert.That((string)controller.GetType().GetProperty("IntuitionEntry").GetValue(controller), Is.EqualTo("F-S04"));
+        string voice = (string)controller.GetType().GetProperty("CurrentVoiceId").GetValue(controller);
+        Call(controller, "Advance"); Assert.That(State.Has("F-S04"), Is.False);
+        Assert.That((bool)Call(controller, "ChooseIntuition", AccusationReasoning.Motive), Is.True);
+        Assert.That(State.progress.actionsSpent, Is.EqualTo(2)); Assert.That(State.Has("F-S04"), Is.False);
+        StringAssert.Contains("Opportunity", (string)controller.GetType().GetProperty("IntuitionFeedback").GetValue(controller));
+        Assert.That((string)controller.GetType().GetProperty("CurrentVoiceId").GetValue(controller), Is.EqualTo(voice));
+        Assert.That((bool)Call(controller, "ChooseIntuition", AccusationReasoning.Opportunity), Is.False);
+        yield return CaptureInteractionReview("intuition-correction");
+        Finish(); Assert.That(State.Has("F-S04"), Is.True); Assert.That(State.progress.actionsSpent, Is.EqualTo(2));
+    }
+    [UnityTest] public IEnumerator CorrectIntuitionMovesOnAndRefundsConversation()
+    {
+        Finish(); var pacing = (InvestigationConfiguration)controller.GetType().GetField("configuration").GetValue(controller);
+        pacing.actionCostsEnabled = true; State.RefreshConfiguration();
+        State.Grant("C06"); State.Grant("M-S03"); var question = State.Construct("C06", "M-S03"); Approach("Mila");
+        Call(controller, "Confront", question.id, "Mila"); Call(controller, "ConfirmConversation");
+        for (int i = 0; i < 30 && !(bool)controller.GetType().GetProperty("AwaitingIntuition").GetValue(controller); i++) Call(controller, "Advance");
+        Assert.That((string)controller.GetType().GetProperty("IntuitionEntry").GetValue(controller), Is.EqualTo("M-S06"));
+        yield return CaptureInteractionReview("intuition-choice");
+        Assert.That((bool)Call(controller, "ChooseIntuition", AccusationReasoning.Motive), Is.True);
+        Assert.That(State.Has("M-S06"), Is.True); Assert.That(State.progress.actionsSpent, Is.Zero);
+        Finish(); Assert.That(State.progress.actionsSpent, Is.Zero);
     }
     [UnityTest] public IEnumerator ContinuousWalkingAisleAcrossAllFiveCarriages()
     {
@@ -92,7 +132,7 @@ public sealed class PlayableInvestigationTests
         Assert.That((bool)Call(controller, "Confront", motiveLead.id, "Mila"), Is.True);
         Assert.That((bool)Call(controller, "ConfirmConversation"), Is.True); Finish();
         var ids = new[] { State.Construct("C04", "F-S04").id, State.Construct("C06", "M-S06").id };
-        Assert.That((bool)Call(controller, "Accuse", "Mila", ids), Is.False);
+        Assert.That((bool)Call(controller, "Accuse", "Felix", ids), Is.False);
         while (State.InvestigationOpen) { Call(controller, "RequestEndDay"); Assert.That((bool)Call(controller, "ConfirmEndDay"), Is.True); }
         Assert.That((bool)Call(controller, "Accuse", "Felix", ids), Is.False);
         Assert.That((bool)Call(controller, "Accuse", "Mila", ids), Is.True);
@@ -322,7 +362,7 @@ public sealed class PlayableInvestigationTests
     {
         Finish(); foreach (var c in State.catalogue.clues) State.Grant(c.id); foreach (var s in State.catalogue.statements) State.Grant(s.id);
         var ids = new[] { State.Construct("C03", "B-S01").id, State.Construct("C09", "F-S04").id, State.Construct("C06", "M-S06").id, State.Construct("C01", "F-S01").id };
-        var notebook = controller.GetComponent("InvestigationNotebook"); Assert.That((bool)Call(notebook, "BeginAccusationGraph"), Is.False);
+        var notebook = controller.GetComponent("InvestigationNotebook"); Assert.That((bool)Call(notebook, "BeginAccusationGraph"), Is.True);
         while (State.InvestigationOpen) State.EndDay(out _);
         Call(controller, "ToggleNotebook"); yield return null; yield return null;
         foreach (var id in ids.Take(2)) Assert.That((bool)Call(notebook, "TetherTheoryToAccusation", id), Is.True);
@@ -430,6 +470,46 @@ public sealed class PlayableInvestigationTests
         Assert.That(State.progress.theories, Is.Empty);
         Assert.That((bool)Call(notebook, "SubmitAccusation"), Is.True);
         Finish(); Assert.That(State.progress.phase, Is.EqualTo(InvestigationPhase.Resolved));
+    }
+    [UnityTest] public IEnumerator EarlyAccusationIsAccessibleWithoutClosingTheDayAndFailureKeepsInvestigationOpen()
+    {
+        Finish(); State.Grant("C06"); State.Grant("F-S04");
+        Call(controller, "ToggleNotebook"); yield return null; yield return null;
+        var notebook = controller.GetComponent("InvestigationNotebook");
+        var accuseButton = notebook.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b => b.GetComponentInChildren<UnityEngine.UI.Text>()?.text == "ACCUSE");
+        Assert.That(accuseButton.interactable, Is.True); accuseButton.onClick.Invoke(); yield return null; yield return null;
+        Assert.That((bool)notebook.GetType().GetProperty("AccusationGraphActive").GetValue(notebook), Is.True);
+        Call(notebook, "SelectNode", "C06"); Call(notebook, "SelectNode", AccusationReasoning.SocketId(AccusationReasoning.Motive));
+        Call(notebook, "SelectNode", "F-S04"); Call(notebook, "SelectNode", AccusationReasoning.SocketId(AccusationReasoning.Opportunity));
+        Call(notebook, "SelectNode", AccusationGraphLayout.SuspectId("Felix"));
+        Assert.That((bool)Call(notebook, "SubmitAccusation"), Is.False);
+        Assert.That(State.InvestigationOpen, Is.True); Assert.That(State.progress.day, Is.EqualTo(1));
+        Assert.That(State.Grant("C01"), Is.True); Assert.That(State.Alibi("Mila"), Is.Not.Null);
+        Call(notebook, "SelectNode", AccusationGraphLayout.DraftId); Call(notebook, "SelectNode", AccusationGraphLayout.SuspectId("Mila")); yield return null;
+        yield return CaptureInteractionReview("early-accusation");
+        Assert.That((bool)Call(notebook, "SubmitAccusation"), Is.True); Finish();
+        Assert.That(State.progress.day, Is.EqualTo(1)); Assert.That(State.Has("flag:resolved"), Is.True);
+    }
+    [UnityTest] public IEnumerator InterpretationBadgesIdentifyCluesStatementsQuestionsAndBothRoles()
+    {
+        Finish(); foreach (var id in new[] { "C01", "C06", "C09", "M-S06", "F-S04" }) State.Grant(id);
+        var motiveQuestion = State.Construct("C06", "M-S06"); var opportunityQuestion = State.Construct("C09", "F-S04");
+        bool added = !motiveQuestion.propositions.Contains(AccusationReasoning.Opportunity);
+        if (added) motiveQuestion.propositions.Add(AccusationReasoning.Opportunity);
+        try
+        {
+            State.HintClue("C05", "Felix", "FELI_002"); Call(controller, "ToggleNotebook"); yield return null; yield return null;
+            var notebook = controller.GetComponent("InvestigationNotebook");
+            Transform Node(string id) => notebook.GetComponentsInChildren<MonoBehaviour>().Single(c => c.GetType().Name == "NotebookNodeGraphic" && c.name == id).transform;
+            bool Badge(string id, string role) => Node(id).GetComponentsInChildren<RectTransform>().Any(r => r.name == "Interpretation badge / " + role);
+            Assert.That(Badge("C06", "Motive"), Is.True); Assert.That(Badge("M-S06", "Motive"), Is.True);
+            Assert.That(Badge("F-S04", "Opportunity"), Is.True); Assert.That(Badge(opportunityQuestion.id, "Opportunity"), Is.True);
+            Assert.That(Badge(motiveQuestion.id, "Motive") && Badge(motiveQuestion.id, "Opportunity"), Is.True);
+            Assert.That(Badge("C01", "Motive") || Badge("C01", "Opportunity"), Is.False);
+            Assert.That(Badge("C05", "Motive") || Badge("C05", "Opportunity"), Is.False);
+            yield return CaptureInteractionReview("interpretation-badges");
+        }
+        finally { if (added) motiveQuestion.propositions.Remove(AccusationReasoning.Opportunity); }
     }
     [UnityTest] public IEnumerator LegacyDialogueClueRewardBecomesHintInsteadOfRemoteEvidence()
     {

@@ -17,6 +17,22 @@ namespace GraduationDemo.Narrative.Tests
         }
         [TearDown] public void Cleanup() { Object.DestroyImmediate(catalogue); }
         string[] Construct(params string[] ids) { foreach (var id in ids) { var t = catalogue.Theory(id); state.Construct(t.clueId, t.statementId); } return ids; }
+        [Test] public void EarlyAccusationsAllowInvestigationToContinueAndRespectConversationAndResolutionLocks()
+        {
+            var early = new InvestigationState(catalogue);
+            early.Grant("C06"); early.Grant("F-S04");
+            var evidence = new[] { "C06", "F-S04" };
+            Assert.That(early.CanBuildAccusation, Is.True);
+            Assert.That(early.AssessAccusation("Mila", evidence).Supported, Is.True);
+            Assert.That(early.AssessAccusation("Felix", evidence).Supported, Is.False);
+            Assert.That(early.InvestigationOpen, Is.True); Assert.That(early.progress.day, Is.EqualTo(1));
+            Assert.That(early.Grant("C01"), Is.True);
+            Assert.That(early.TryInitialize(early.Alibi("Mila"), out _), Is.True);
+            Assert.That(early.CanBuildAccusation, Is.False);
+            early.RecoverFailedConversation(); Assert.That(early.CanBuildAccusation, Is.True);
+            early.Grant("flag:resolved"); Assert.That(early.CanBuildAccusation, Is.False);
+            Assert.That(early.AssessAccusation("Mila", evidence).Supported, Is.False);
+        }
         [Test] public void ReportedCaseSupportsAMeansMotiveOpportunityHypothesis()
         {
             var ids = Construct("T_C06_MS06", "T_C09_FS04");

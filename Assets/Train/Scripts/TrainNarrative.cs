@@ -19,6 +19,9 @@ namespace GraduationDemo.Train
         public bool NotebookOpen => notebook;
         public string CurrentSequence => sequence?.id;
         public string CurrentVoiceId => sequence == null ? null : sequence.beats[beatIndex].voiceId;
+        public string IntuitionEntry { get; private set; }
+        public string IntuitionFeedback { get; private set; }
+        public bool AwaitingIntuition => IntuitionEntry != null && IntuitionFeedback == null;
         public string RouteDiagnostic { get; private set; }
         public string Message { get; private set; }
         public string LogbookNotice { get; private set; }
@@ -196,6 +199,15 @@ namespace GraduationDemo.Train
         public void Advance()
         {
             if (sequence == null || audioSource.isPlaying) return;
+            if (AwaitingIntuition) return;
+            IntuitionEntry = null; IntuitionFeedback = null;
+            var reservation = State.progress.reservation;
+            if (reservation != null && !debugSequence)
+            {
+                IntuitionEntry = sequence.beats[beatIndex].grants.FirstOrDefault(id => !State.Has(id) &&
+                    !reservation.interpretedEntries.Contains(id) && catalogue.InterpretationTags(id).Any(AccusationReasoning.Roles.Contains));
+                if (IntuitionEntry != null) return;
+            }
             var notes = new List<string>();
             foreach (var id in sequence.beats[beatIndex].grants.Where(id => catalogue.Clue(id) == null))
             {
@@ -219,8 +231,20 @@ namespace GraduationDemo.Train
             Message = State.Has("flag:resolved") ? "Case resolved. Mila will give her account to the authorities." : "Notebook updated.";
         }
         void UserAdvance() { if (userAdvanceFrame == Time.frameCount) return; userAdvanceFrame = Time.frameCount; Advance(); }
+        public bool ChooseIntuition(string role)
+        {
+            if (!AwaitingIntuition || !AccusationReasoning.Roles.Contains(role)) return false;
+            bool correct = State.ResolveIntuition(IntuitionEntry, role);
+            string interpretation = string.Join(" or ", catalogue.InterpretationTags(IntuitionEntry).Where(AccusationReasoning.Roles.Contains).Select(AccusationReasoning.Label));
+            string explanation = interpretation == "Motive" ? "This suggests why someone might have wanted to hurt Odette." :
+                interpretation == "Opportunity" ? "This suggests access, presence or a chance to act." : "This account can support either interpretation.";
+            IntuitionFeedback = (correct ? "Correct. " : "The interpretation is " + interpretation + ". ") + explanation + "\n" +
+                (!State.ActionCostsEnabled ? "Action costs are disabled." : State.progress.reservation.cost == 0 ? "This conversation is free." : "Conversation cost: " + State.progress.reservation.cost + " action(s).");
+            if (correct) { Message = IntuitionFeedback; Advance(); }
+            return true;
+        }
         public void CancelDialogue() { if (sequence != null) Message = "Finish this conversation before returning to the investigation."; }
-        void RecoverPlayback() { State.RecoverFailedConversation(); StopSpeaker(); sequence = null; encounter = null; debugSequence = false; }
+        void RecoverPlayback() { State.RecoverFailedConversation(); StopSpeaker(); sequence = null; encounter = null; debugSequence = false; IntuitionEntry = null; IntuitionFeedback = null; }
         public void DebugPlaySequence(string id) { if (!(Application.isEditor || Debug.isDebugBuild)) return; RecoverPlayback(); debugSequence = true; if (!Begin(id)) debugSequence = false; }
         void StopSpeaker() { audioSource.Stop(); if (talkingActor != null) talkingActor.SetTalking(false); talkingActor = null; }
         public bool Confront(string theoryId, string target)
@@ -308,8 +332,26 @@ namespace GraduationDemo.Train
                 GUILayout.Label(voice.subtitle, body, GUILayout.MinHeight(76));
                 if (voice.clip == null) GUILayout.Label("DEVELOPMENT — unvoiced: " + voice.id);
                 GUI.enabled = !audioSource.isPlaying;
-                if (GUILayout.Button("Continue / Space", GUILayout.Height(32))) UserAdvance();
+                if (IntuitionEntry == null && GUILayout.Button("Continue / Space", GUILayout.Height(32))) UserAdvance();
                 GUI.enabled = true; GUILayout.EndArea();
+                if (IntuitionEntry != null)
+                {
+                    GUILayout.BeginArea(new Rect(24, 115, width - 48, Mathf.Max(210, height - 365)), panelStyle);
+                    GUILayout.Label("Detectives' intuition", heading);
+                    GUILayout.Label(catalogue.EntryText(IntuitionEntry), body);
+                    if (AwaitingIntuition)
+                    {
+                        GUILayout.Label("What does this reveal?", body);
+                        if (GUILayout.Button("Motive", GUILayout.Height(36))) ChooseIntuition(AccusationReasoning.Motive);
+                        if (GUILayout.Button("Opportunity", GUILayout.Height(36))) ChooseIntuition(AccusationReasoning.Opportunity);
+                    }
+                    else
+                    {
+                        GUILayout.Label(IntuitionFeedback, body);
+                        if (GUILayout.Button("Continue / Space", GUILayout.Height(32))) UserAdvance();
+                    }
+                    GUILayout.EndArea();
+                }
             }
             if (choiceSuspect != null || pending != null || confirmDay) DrawConversationChoice(width, height);
             if (sequence == null && !notebook && !QuestionMenuOpen && choiceSuspect == null && pending == null && !confirmDay && State.Has("flag:investigation"))
@@ -320,7 +362,7 @@ namespace GraduationDemo.Train
                 if (Time.unscaledTime < barkAgainAt) GUI.Label(new Rect(width / 2 - 230, height - 224, 460, 40), BarkText, body);
             }
             if (debug && (Application.isEditor || Debug.isDebugBuild)) DrawDebug(width, height);
-            if (!notebook && Time.unscaledTime < logbookNoticeUntil && !string.IsNullOrEmpty(LogbookNotice))
+            if (!notebook && IntuitionEntry == null && Time.unscaledTime < logbookNoticeUntil && !string.IsNullOrEmpty(LogbookNotice))
             {
                 GUI.DrawTexture(new Rect(24, 106, Mathf.Min(620, width - 48), 118), panelTexture);
                 GUI.Label(new Rect(38, 116, Mathf.Min(590, width - 76), 98), LogbookNotice, body);
@@ -341,6 +383,7 @@ namespace GraduationDemo.Train
                 configuration.actionsPerDay = PacingValue("Actions per day", budget, 1);
                 configuration.alibiCost = PacingValue("Alibi cost", alibi, 0);
                 configuration.confrontationCost = PacingValue("Question cost", question, 0);
+                configuration.intuitionMistakeCost = PacingValue("Intuition mistake cost", configuration.intuitionMistakeCost, 0);
                 if (wasEnabled != configuration.actionCostsEnabled || budget != configuration.actionsPerDay || alibi != configuration.alibiCost || question != configuration.confrontationCost)
                     State.RefreshConfiguration();
                 GUI.enabled = true;
@@ -373,7 +416,9 @@ namespace GraduationDemo.Train
             }
             else if (pending != null)
             {
-                GUILayout.Label((State.ActionCostsEnabled ? "Spend " + pending.cost + " action(s) on this conversation?" : "Start this conversation? (Action costs OFF)"), heading);
+                GUILayout.Label((State.ActionCostsEnabled ? "Reserve " + pending.cost + " action(s) for this conversation?" : "Start this conversation? (Action costs OFF)"), heading);
+                if (catalogue.Sequence(pending.sequenceId).beats.SelectMany(b => b.grants).Any(id => !State.Has(id) && catalogue.InterpretationTags(id).Any(AccusationReasoning.Roles.Contains)))
+                    GUILayout.Label("A correct intuition makes this conversation free. An incorrect intuition costs at least " + configuration.intuitionMistakeCost + " action(s) when costs are enabled.", body);
                 GUILayout.Label(catalogue.Theory(pending.theoryId)?.text ?? "Ask for an alibi.", body);
                 GUILayout.Label((State.ActionCostsEnabled ? "Actions remaining today: " + State.RemainingActions : "Unlimited conversations; each prompt is still used once."), body);
                 if (notebookView != null && notebookView.Assistance == ReasoningAssistance.Directed)

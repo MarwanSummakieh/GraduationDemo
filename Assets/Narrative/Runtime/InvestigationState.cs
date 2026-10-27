@@ -53,6 +53,7 @@ namespace GraduationDemo.Narrative
         public bool ActionCostsEnabled => configuration != null && configuration.actionCostsEnabled;
         public int RemainingActions => ActionCostsEnabled ? Math.Max(0, ActionsPerDay - progress.actionsSpent) : ActionsPerDay;
         public bool InvestigationOpen => progress.phase == InvestigationPhase.Investigating;
+        public bool CanBuildAccusation => progress.phase != InvestigationPhase.Resolved && progress.reservation == null;
         public bool CanConstructTheories => progress.phase == InvestigationPhase.Investigating || progress.phase == InvestigationPhase.Accusation;
         public bool HasAccusationEntry(string id) => progress.clues.Contains(id) || progress.statements.Contains(id) || progress.theories.Contains(id);
         public bool Has(string id) => progress.clues.Contains(id) || progress.statements.Contains(id) || progress.flags.Contains(id);
@@ -186,8 +187,23 @@ namespace GraduationDemo.Narrative
             progress.actionsSpent += current.cost; progress.usedInitializations.Add(current.key);
             string sequenceKey = current.kind == ConversationKind.Theory ? "theory/" + current.theoryId + "/" + current.suspect + "/" + current.sequenceId : current.key + "/" + current.sequenceId;
             Add(progress.usedConversationSequences, sequenceKey);
-            progress.reservation = new ConversationReservation { key = current.key, sequenceId = current.sequenceId, sequenceKey = sequenceKey, cost = current.cost, day = progress.day };
+            progress.reservation = new ConversationReservation { key = current.key, sequenceId = current.sequenceId, sequenceKey = sequenceKey, cost = current.cost, originalCost = current.cost, day = progress.day };
             reason = "Conversation started."; Changed?.Invoke(); return true;
+        }
+        public bool ResolveIntuition(string entryId, string role)
+        {
+            var reservation = progress.reservation;
+            if (reservation == null || Has(entryId) || !AccusationReasoning.Roles.Contains(role) || reservation.interpretedEntries.Contains(entryId)) return false;
+            if (catalogue.Sequence(reservation.sequenceId)?.beats.Any(b => b.grants.Contains(entryId)) != true) return false;
+            var roles = catalogue.InterpretationTags(entryId).Where(AccusationReasoning.Roles.Contains).ToList();
+            if (roles.Count == 0) return false;
+            reservation.interpretedEntries.Add(entryId);
+            bool correct = roles.Contains(role);
+            reservation.intuitionMistake |= !correct;
+            int cost = ActionCostsEnabled && reservation.intuitionMistake ? Math.Max(reservation.originalCost, configuration.intuitionMistakeCost) : 0;
+            progress.actionsSpent = Math.Max(0, progress.actionsSpent + cost - reservation.cost);
+            reservation.cost = cost;
+            Changed?.Invoke(); return correct;
         }
         public void FinishConversation(RouteSelection selection)
         {
@@ -220,8 +236,8 @@ namespace GraduationDemo.Narrative
         public AccusationAssessment AssessAccusation(string suspect, IEnumerable<string> selection, IReadOnlyDictionary<string, string> sockets = null)
         {
             var result = new AccusationAssessment();
-            if (progress.phase != InvestigationPhase.Accusation)
-            { result.Add("phase", "Final day closed", false, "Accusations are available only after the final day ends."); return result; }
+            if (!CanBuildAccusation)
+            { result.Add("phase", "Accusation available", false, progress.phase == InvestigationPhase.Resolved ? "This case is already resolved." : "Finish the current conversation before accusing someone."); return result; }
             var ids = (selection ?? Enumerable.Empty<string>()).ToList();
             if (ids.Distinct().Count() != ids.Count || ids.Any(id => !HasAccusationEntry(id) || catalogue.EntryText(id) == null))
             { result.Add("selection", "Active distinct questions", false, "Select two distinct collected clues, statements or questions."); return result; }

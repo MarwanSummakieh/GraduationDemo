@@ -29,6 +29,8 @@ namespace GraduationDemo.Narrative
         [Min(0)] public int alibiCost;
         [InspectorName("Question Cost"), Min(0), Tooltip("Actions spent when beginning a conversation about a constructed question, if action costs are enabled.")]
         public int confrontationCost = 1;
+        [Min(0), Tooltip("Minimum conversation cost after an incorrect intuition. Charged once per conversation when action costs are enabled.")]
+        public int intuitionMistakeCost = 1;
         public ReasoningAssistance reasoningAssistance = ReasoningAssistance.Subtle;
         public List<ReasoningHint> reasoningHints = ReasoningGuidance.DefaultHints();
         public List<JourneyStop> stops = new List<JourneyStop> {
@@ -40,7 +42,7 @@ namespace GraduationDemo.Narrative
         public List<string> Errors()
         {
             var errors = new List<string>();
-            if (investigationDays < 1 || actionsPerDay < 1 || alibiCost < 0 || confrontationCost < 0) errors.Add("Days/actions must be positive; costs cannot be negative.");
+            if (investigationDays < 1 || actionsPerDay < 1 || alibiCost < 0 || confrontationCost < 0 || intuitionMistakeCost < 0) errors.Add("Days/actions must be positive; costs cannot be negative.");
             if (stops == null || stops.Count < 2) errors.Add("The journey needs at least two stops.");
             else foreach (var stop in stops) if (stop == null || string.IsNullOrWhiteSpace(stop.name)) errors.Add("Every journey stop needs a readable name.");
             return errors;
@@ -59,6 +61,9 @@ namespace GraduationDemo.Narrative
         public string key, sequenceId;
         public string sequenceKey;
         public int cost, day;
+        public int originalCost;
+        public bool intuitionMistake;
+        public List<string> interpretedEntries = new List<string>();
         public List<string> grantedDuringPlayback = new List<string>();
     }
 }

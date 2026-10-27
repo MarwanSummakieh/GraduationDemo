@@ -15,6 +15,50 @@ public sealed class PacingAndNotebookTests
         pacing.actionCostsEnabled = true; state = new InvestigationState(catalogue, null, pacing);
     }
     [TearDown] public void Cleanup() { Object.DestroyImmediate(catalogue); Object.DestroyImmediate(pacing); }
+    [TestCase(true, true, 0)]
+    [TestCase(true, false, 2)]
+    [TestCase(false, false, 0)]
+    public void IntuitionSettlesConversationCostAndRecoveryRefunds(bool costsEnabled, bool correct, int expectedCost)
+    {
+        pacing.actionCostsEnabled = costsEnabled; pacing.intuitionMistakeCost = 2;
+        var prompt = Prompt("C09", "F-S01", "Felix");
+        Assert.That(state.TryInitialize(prompt, out _), Is.True);
+        Assert.That(state.ResolveIntuition("F-S04", correct ? AccusationReasoning.Opportunity : AccusationReasoning.Motive), Is.EqualTo(correct));
+        Assert.That(state.progress.actionsSpent, Is.EqualTo(expectedCost));
+        Assert.That(state.ResolveIntuition("F-S04", AccusationReasoning.Opportunity), Is.False, "An answer cannot be retried to avoid a penalty.");
+        Assert.That(state.progress.actionsSpent, Is.EqualTo(expectedCost));
+        state.RecoverFailedConversation(); Assert.That(state.progress.actionsSpent, Is.Zero);
+    }
+    [Test] public void UnrelatedInterpretationsCannotRefundConversation()
+    {
+        var prompt = Prompt(); state.TryInitialize(prompt, out _);
+        Assert.That(state.ResolveIntuition("M-S06", AccusationReasoning.Motive), Is.False);
+        Assert.That(state.progress.actionsSpent, Is.EqualTo(prompt.cost));
+    }
+    [Test] public void LaterCorrectAnswerCannotEraseMistakeAndDualRoleAcceptsEitherChoice()
+    {
+        pacing.intuitionMistakeCost = 2;
+        var prompt = Prompt("C09", "F-S01", "Felix");
+        var beat = catalogue.Sequence(prompt.sequenceId).beats.Last(); beat.grants.Add("M-S06");
+        catalogue.Statement("M-S06").interpretationTags.Add(AccusationReasoning.Opportunity);
+        Assert.That(state.TryInitialize(prompt, out _), Is.True);
+        Assert.That(state.ResolveIntuition("F-S04", AccusationReasoning.Motive), Is.False);
+        Assert.That(state.ResolveIntuition("M-S06", AccusationReasoning.Opportunity), Is.True);
+        Assert.That(state.progress.actionsSpent, Is.EqualTo(2));
+        state.FinishConversation(prompt.selection); Assert.That(state.progress.actionsSpent, Is.EqualTo(2));
+    }
+    [Test] public void FreeInterviewCanChargeMistakeAtExhaustedBudgetWithoutBlockingDialogue()
+    {
+        var prompt = state.Alibi("Mila");
+        catalogue.Sequence(prompt.sequenceId).beats.Last().grants.Add("M-S06");
+        state.progress.actionsSpent = pacing.actionsPerDay;
+        Assert.That(state.TryInitialize(prompt, out _), Is.True);
+        Assert.That(state.ResolveIntuition("M-S06", AccusationReasoning.Opportunity), Is.False);
+        Assert.That(state.RemainingActions, Is.Zero);
+        Assert.That(state.progress.actionsSpent, Is.EqualTo(pacing.actionsPerDay + 1));
+        state.FinishConversation(null); Assert.That(state.progress.reservation, Is.Null);
+        Assert.That(state.EndDay(out _), Is.True); Assert.That(state.RemainingActions, Is.EqualTo(pacing.actionsPerDay));
+    }
     ConversationInitialization Prompt(string clue = "C01", string statement = "F-S01", string suspect = "Mila")
     {
         state.Grant(clue); state.Grant(statement); var t = state.Construct(clue, statement); return state.Presentation(t.id, suspect);
@@ -67,7 +111,7 @@ public sealed class PacingAndNotebookTests
     {
         state.progress.actionsSpent = 1; Assert.That(state.EndDay(out _), Is.True); Assert.That(state.progress.day, Is.EqualTo(2)); Assert.That(state.RemainingActions, Is.EqualTo(3));
         state.EndDay(out _); Assert.That(state.progress.day, Is.EqualTo(3)); Assert.That(state.progress.phase, Is.EqualTo(InvestigationPhase.Investigating));
-        Assert.That(state.EvaluateArrest("Mila", new string[0], out var reason), Is.Null); Assert.That(reason, Does.Contain("final day"));
+        Assert.That(state.EvaluateArrest("Mila", new string[0], out var reason), Is.Null); Assert.That(reason, Does.Contain("distinct collected entries"));
         state.EndDay(out _); Assert.That(state.progress.phase, Is.EqualTo(InvestigationPhase.Accusation));
         Assert.That(state.Grant("C01"), Is.False); Assert.That(state.Alibi("Mila"), Is.Null); Assert.That(state.EndDay(out _), Is.False);
     }

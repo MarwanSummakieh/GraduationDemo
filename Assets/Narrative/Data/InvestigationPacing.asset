@@ -17,6 +17,7 @@ MonoBehaviour:
   actionsPerDay: 3
   alibiCost: 0
   confrontationCost: 1
+  intuitionMistakeCost: 1
   reasoningAssistance: 1
   reasoningHints:
   - id: engagement_context
