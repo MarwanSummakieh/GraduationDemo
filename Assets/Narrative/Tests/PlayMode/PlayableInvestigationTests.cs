@@ -55,6 +55,7 @@ public sealed class PlayableInvestigationTests
         {
             string clue = (string)binding.GetType().GetField("clueId").GetValue(binding);
             if (string.IsNullOrEmpty(clue)) continue;
+            State.HintClue(clue, "Test setup", "fixture"); ApproachClue(binding);
             Call(tour, "OpenObservation", binding.GetComponent("TrainObservation"));
             Assert.That(State.progress.clues, Does.Contain(clue));
             Call(tour, "CloseObservation");
@@ -77,7 +78,7 @@ public sealed class PlayableInvestigationTests
         foreach (var suspect in new[] { "Felix", "Bellamy", "Mila" })
         {
             string interview = suspect == "Felix" ? "Felix — Champagne alibi" : suspect == "Mila" ? "Mila — Solitary rehearsal" : "Bellamy — Corridor witness";
-            Call(controller, "Begin", interview, null); Finish();
+            Approach(suspect); Call(controller, "Begin", interview, null); Finish();
         }
         foreach (var input in new[] { new[] { "C02", "M-S03", "Mila" }, new[] { "C07", "M-S04", "Mila" }, new[] { "C09", "F-S01", "Felix" } })
         {
@@ -100,7 +101,7 @@ public sealed class PlayableInvestigationTests
     }
     [UnityTest] public IEnumerator InterviewMustFinishAndCannotBeReinitialized()
     {
-        Finish(); Call(controller, "Begin", "Mila — Solitary rehearsal", null);
+        Finish(); Approach("Mila"); Call(controller, "Begin", "Mila — Solitary rehearsal", null);
         Call(controller, "Advance"); Call(controller, "CancelDialogue");
         Assert.That(State.progress.statements, Is.Empty); Assert.That(Sequence, Is.Not.Null); Finish();
         Assert.That(State.Alibi("Mila"), Is.Null); yield return null;
@@ -135,6 +136,104 @@ public sealed class PlayableInvestigationTests
         var actor = UnityEngine.Object.FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).First(x => x.GetType().Name == "TrainActor" && (string)x.GetType().GetField("characterId").GetValue(x) == suspect);
         var detective = (CharacterController)tour.GetType().GetField("detective").GetValue(tour);
         detective.enabled = false; detective.transform.position = actor.transform.position + Vector3.back * 2; detective.enabled = true;
+    }
+    void ApproachClue(Component binding, float distance = 1.8f)
+    {
+        var detective = (CharacterController)tour.GetType().GetField("detective").GetValue(tour);
+        var point = binding.transform.position + Vector3.back * distance; point.y = 1.12f;
+        detective.enabled = false; detective.transform.position = point; detective.enabled = true;
+    }
+    static IEnumerator CaptureInteractionReview(string name)
+    {
+        yield return null;
+        var camera = Camera.main; Assert.That(camera, Is.Not.Null);
+        int width = Mathf.Max(1, Screen.width), height = Mathf.Max(1, Screen.height);
+        var target = new RenderTexture(width, height, 24);
+        var pixels = new Texture2D(width, height, TextureFormat.RGB24, false);
+        var previousTarget = camera.targetTexture; var previousActive = RenderTexture.active;
+        var overlays = UnityEngine.Object.FindObjectsByType<Canvas>().Where(c => c.renderMode == RenderMode.ScreenSpaceOverlay)
+            .Select(c => (canvas: c, worldCamera: c.worldCamera, distance: c.planeDistance)).ToList();
+        try
+        {
+            // A dedicated render target also works in batch mode, where there is no Game-view backbuffer.
+            camera.targetTexture = target;
+            foreach (var item in overlays)
+            {
+                item.canvas.renderMode = RenderMode.ScreenSpaceCamera; item.canvas.worldCamera = camera;
+                item.canvas.planeDistance = camera.nearClipPlane + .1f;
+            }
+            Canvas.ForceUpdateCanvases(); camera.Render(); RenderTexture.active = target;
+            pixels.ReadPixels(new Rect(0, 0, width, height), 0, 0); pixels.Apply();
+            var directory = System.IO.Path.GetFullPath("Documentation/Narrative/InteractionPreviews");
+            System.IO.Directory.CreateDirectory(directory);
+            System.IO.File.WriteAllBytes(System.IO.Path.Combine(directory, name + ".png"), pixels.EncodeToPNG());
+        }
+        finally
+        {
+            foreach (var item in overlays)
+            {
+                item.canvas.renderMode = RenderMode.ScreenSpaceOverlay; item.canvas.worldCamera = item.worldCamera; item.canvas.planeDistance = item.distance;
+            }
+            camera.targetTexture = previousTarget; RenderTexture.active = previousActive;
+            target.Release(); UnityEngine.Object.Destroy(target); UnityEngine.Object.Destroy(pixels);
+            Canvas.ForceUpdateCanvases();
+        }
+    }
+    [UnityTest] public IEnumerator DialogueHintRevealsMarkerButRequiresPhysicalCollectionInBothScenes()
+    {
+        foreach (var scene in new[] { "CarnivalExpress", "ThirdPersonTrain" })
+        {
+            yield return SceneManager.LoadSceneAsync(scene); yield return null;
+            controller = UnityEngine.Object.FindObjectsByType<MonoBehaviour>().First(c => c.GetType().Name == "TrainNarrative"); tour = controller.GetComponent("TrainTour"); Finish();
+            var markers = UnityEngine.Object.FindObjectsByType<MonoBehaviour>().Where(c => c.GetType().Name == "ClueMarker").ToArray();
+            Assert.That(markers.Length, Is.EqualTo(10));
+            var clusterClue = UnityEngine.Object.FindObjectsByType<MonoBehaviour>().Single(c => c.GetType().Name == "NarrativeInteraction" && (string)c.GetType().GetField("clueId").GetValue(c) == "C03");
+            var clusterViews = (Transform[])tour.GetType().GetField("roomViews").GetValue(tour);
+            int clusterRoom = Enumerable.Range(0, clusterViews.Length).OrderBy(i => Mathf.Abs(clusterViews[i].position.x - clusterClue.transform.position.x)).First();
+            Call(tour, "SetView", clusterRoom, true); Call(tour, "SnapCamera"); yield return null; yield return null;
+            var visibleMarkers = markers.Where(m => (bool)m.GetType().GetProperty("Visible").GetValue(m)).ToArray();
+            Assert.That(visibleMarkers.Length, Is.GreaterThanOrEqualTo(3));
+            for (int i = 0; i < visibleMarkers.Length; i++) for (int j = i + 1; j < visibleMarkers.Length; j++)
+                Assert.That(((Rect)visibleMarkers[i].GetType().GetProperty("ScreenBounds").GetValue(visibleMarkers[i])).Overlaps((Rect)visibleMarkers[j].GetType().GetProperty("ScreenBounds").GetValue(visibleMarkers[j])), Is.False);
+            yield return CaptureInteractionReview("clustered-clue-markers-" + scene);
+            var binding = UnityEngine.Object.FindObjectsByType<MonoBehaviour>().Single(c => c.GetType().Name == "NarrativeInteraction" && (string)c.GetType().GetField("clueId").GetValue(c) == "C05");
+            var marker = binding.GetComponent("ClueMarker");
+            Assert.That((bool)marker.GetType().GetProperty("Revealed").GetValue(marker), Is.False);
+            ApproachClue(binding); Call(tour, "OpenObservation", binding.GetComponent("TrainObservation")); Assert.That(State.Has("C05"), Is.False);
+            Approach("Felix"); Assert.That((bool)Call(controller, "OpenQuestionMenu", "Felix"), Is.True); yield return null; yield return null;
+            var menu = controller.GetComponent("SuspectQuestionMenu");
+            var options = (System.Collections.Generic.IEnumerable<ConversationInitialization>)menu.GetType().GetProperty("Options").GetValue(menu);
+            var alibi = options.Single(p => p.kind == ConversationKind.Alibi);
+            yield return CaptureInteractionReview("suspect-alibi-menu-" + scene);
+            Assert.That((bool)Call(menu, "Choose", alibi.key), Is.True);
+            for (int i = 0; i < 20 && (string)controller.GetType().GetProperty("CurrentVoiceId").GetValue(controller) != "FELI_002"; i++) Call(controller, "Advance");
+            Assert.That((string)controller.GetType().GetProperty("CurrentVoiceId").GetValue(controller), Is.EqualTo("FELI_002"));
+            Assert.That(State.HasClueHint("C05"), Is.False);
+            Call(controller, "Advance"); Assert.That(State.HasClueHint("C05"), Is.True); Assert.That(State.Has("C05"), Is.False);
+            Assert.That((bool)marker.GetType().GetProperty("Revealed").GetValue(marker), Is.True); Finish();
+            var views = (Transform[])tour.GetType().GetField("roomViews").GetValue(tour);
+            int room = Enumerable.Range(0, views.Length).OrderBy(i => Mathf.Abs(views[i].position.x - binding.transform.position.x)).First();
+            Call(tour, "SetView", room, true); ApproachClue(binding); Call(tour, "SnapCamera"); yield return null; yield return null;
+            var markerRoot = GameObject.Find("World clue marker / C05"); Assert.That(markerRoot, Is.Not.Null);
+            var inspectButton = markerRoot.GetComponentInChildren<UnityEngine.UI.Button>(); Assert.That(inspectButton.interactable, Is.True);
+            yield return CaptureInteractionReview("clue-marker-" + scene);
+            Call(controller, "ToggleNotebook"); yield return null; yield return null;
+            var notebook = controller.GetComponent("InvestigationNotebook");
+            var graph = (ReasoningGraphLayout)notebook.GetType().GetProperty("Graph").GetValue(notebook);
+            Assert.That(graph.nodes.Single(n => n.id == "C05").anticipated, Is.True); yield return CaptureInteractionReview("anticipated-clue-" + scene);
+            var icon = notebook.GetComponentsInChildren<MonoBehaviour>().Single(c => c.GetType().Name == "NotebookNodeGraphic" && c.name == "C05");
+            var color = (Color)icon.GetType().GetProperty("color").GetValue(icon); Assert.That(color.r, Is.EqualTo(color.g).Within(.05f));
+            Call(notebook, "SelectNode", "C05"); Call(notebook, "SelectNode", "F-S01"); Assert.That(State.progress.theories, Is.Empty);
+            Call(controller, "ToggleNotebook"); ApproachClue(binding, 12);
+            Call(tour, "OpenObservation", binding.GetComponent("TrainObservation")); Call(controller, "Interact", binding.GetComponent("TrainObservation"));
+            Assert.That(State.Has("C05"), Is.False); Assert.That((bool)marker.GetType().GetProperty("Interactable").GetValue(marker), Is.False);
+            ApproachClue(binding); yield return null; yield return null;
+            Assert.That((bool)marker.GetType().GetProperty("Interactable").GetValue(marker), Is.True);
+            Assert.That(inspectButton.interactable, Is.True); inspectButton.onClick.Invoke(); Assert.That(State.Has("C05"), Is.True);
+            Assert.That((bool)marker.GetType().GetProperty("Revealed").GetValue(marker), Is.False);
+            Assert.That(State.progress.discoveries.Single(d => d.id == "C05").locationId, Is.Not.EqualTo("unknown"));
+            Assert.That(ReasoningGraphLayout.Build(State.catalogue, State.progress).nodes.Single(n => n.id == "C05").anticipated, Is.False);
+        }
     }
     [UnityTest] public IEnumerator PaidConfirmationCanCancelAndCannotDoubleSpend()
     {
@@ -175,7 +274,7 @@ public sealed class PlayableInvestigationTests
     }
     [UnityTest] public IEnumerator DialogueShowsLogbookCueOnlyForNewDiscoveries()
     {
-        Finish(); Call(controller, "Begin", "Mila — Solitary rehearsal", null);
+        Finish(); Approach("Mila"); Call(controller, "Begin", "Mila — Solitary rehearsal", null);
         int before = (int)controller.GetType().GetProperty("LogbookNoticeVersion").GetValue(controller);
         Call(controller, "Advance"); Assert.That((int)controller.GetType().GetProperty("LogbookNoticeVersion").GetValue(controller), Is.EqualTo(before));
         Call(controller, "Advance");
@@ -238,26 +337,34 @@ public sealed class PlayableInvestigationTests
         Assert.That((bool)Call(notebook, "SubmitAccusation"), Is.False); Assert.That(State.progress.phase, Is.EqualTo(InvestigationPhase.Accusation));
         Assert.That(State.Construct("C02", "F-S01"), Is.Not.Null); yield return null;
     }
-    [UnityTest] public IEnumerator SuspectInteractionUsesATheoryGraphWithGreyedSourcesAndPreservesConfirmation()
+    [UnityTest] public IEnumerator SuspectMenuOffersUnaskedAlibiAndMatchingQuestionIcons()
     {
-        State.configuration.actionCostsEnabled = true;
-        Finish(); State.Grant("C06"); State.Grant("F-S02"); var theory = State.Construct("C06", "F-S02");
-        var binding = UnityEngine.Object.FindObjectsByType<MonoBehaviour>().First(x => x.GetType().Name == "NarrativeInteraction" && (string)x.GetType().GetField("suspectId").GetValue(x) == "Felix");
-        Assert.That((bool)Call(controller, "Interact", binding.GetComponent("TrainObservation")), Is.True); yield return null; yield return null;
-        var notebook = controller.GetComponent("InvestigationNotebook");
-        Assert.That((bool)notebook.GetType().GetProperty("ConversationGraphActive").GetValue(notebook), Is.True);
-        Assert.That((string)notebook.GetType().GetProperty("ConversationSuspect").GetValue(notebook), Is.EqualTo("Felix"));
-        var graph = (ReasoningGraphLayout)notebook.GetType().GetProperty("Graph").GetValue(notebook);
-        Assert.That(graph.nodes.Select(n => n.id), Is.EquivalentTo(new[] { theory.id, "C06", "F-S02" }));
-        var source = notebook.GetComponentsInChildren<MonoBehaviour>().First(c => c.GetType().Name == "NotebookNodeGraphic" && c.gameObject.name == "C06");
-        Color tint = (Color)source.GetType().GetProperty("color").GetValue(source);
-        Assert.That(tint.r, Is.EqualTo(tint.g)); Assert.That(tint.a, Is.LessThan(.4f));
-        Call(notebook, "SelectNode", "C06"); Call(notebook, "SelectNode", "F-S02"); Assert.That(State.progress.theories.Count, Is.EqualTo(1));
-        Call(notebook, "SelectNode", theory.id); yield return null;
-        Assert.That((bool)Call(controller, "OfferConversation", State.Presentation(theory.id, "Felix")), Is.True);
-        Assert.That(State.progress.actionsSpent, Is.Zero); Assert.That(Sequence, Is.Null);
-        Assert.That((bool)notebook.GetType().GetProperty("ConversationGraphActive").GetValue(notebook), Is.False);
-        Call(controller, "CancelConfirmation"); Assert.That(State.Presentation(theory.id, "Felix"), Is.Not.Null); yield return null;
+        Finish(); State.Grant("C06"); State.Grant("F-S02"); var question = State.Construct("C06", "F-S02"); Approach("Felix");
+        Assert.That((bool)Call(controller, "OpenQuestionMenu", "Felix"), Is.True); yield return null; yield return null;
+        var menu = controller.GetComponent("SuspectQuestionMenu");
+        Assert.That((bool)controller.GetType().GetProperty("NotebookOpen").GetValue(controller), Is.False);
+        var options = (System.Collections.Generic.IEnumerable<ConversationInitialization>)menu.GetType().GetProperty("Options").GetValue(menu);
+        Assert.That(options.Any(p => p.kind == ConversationKind.Alibi), Is.True);
+        Assert.That(options.Any(p => p.theoryId == question.id), Is.True);
+        var canvas = controller.GetComponentsInChildren<Canvas>().Single(c => c.name == "Suspect questioning menu"); yield return CaptureInteractionReview("suspect-question-menu");
+        Assert.That(canvas.GetComponentsInChildren<MonoBehaviour>().Any(c => c.GetType().Name == "NotebookNodeGraphic" && (ReasoningNodeKind)c.GetType().GetField("kind").GetValue(c) == ReasoningNodeKind.Theory), Is.True);
+        Assert.That(canvas.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t => t.text.StartsWith(ReasoningGraphLayout.QuestionLabel(State.progress, question.id))), Is.True);
+        var alibi = options.Single(p => p.kind == ConversationKind.Alibi);
+        Assert.That((bool)Call(menu, "Choose", alibi.key), Is.True); Finish();
+        Call(controller, "OpenQuestionMenu", "Felix"); yield return null;
+        options = (System.Collections.Generic.IEnumerable<ConversationInitialization>)menu.GetType().GetProperty("Options").GetValue(menu);
+        Assert.That(options.Any(p => p.kind == ConversationKind.Alibi), Is.False);
+        var offered = options.Single(p => p.theoryId == question.id);
+        State.configuration.actionCostsEnabled = true; State.progress.actionsSpent = State.ActionsPerDay; State.RefreshConfiguration(); yield return null;
+        Assert.That((bool)Call(menu, "Choose", offered.key), Is.False); Assert.That(Sequence, Is.Null);
+        State.progress.actionsSpent = 0; State.RefreshConfiguration();
+        Assert.That((bool)Call(menu, "Choose", offered.key), Is.True); Assert.That(Sequence, Is.Null);
+        Call(controller, "CancelConfirmation"); Assert.That(State.Presentation(question.id, "Felix"), Is.Not.Null);
+        State.configuration.actionCostsEnabled = false; Call(controller, "OpenQuestionMenu", "Felix"); yield return null;
+        Assert.That((bool)Call(menu, "Choose", offered.key), Is.True); Finish();
+        Call(controller, "OpenQuestionMenu", "Felix"); yield return null;
+        options = (System.Collections.Generic.IEnumerable<ConversationInitialization>)menu.GetType().GetProperty("Options").GetValue(menu);
+        Assert.That(options.Any(p => p.theoryId == question.id), Is.False);
     }
     [UnityTest] public IEnumerator AccusationChecklistShowsTheReportedGapAndUpdatesWhenTheTheoryIsReplaced()
     {
@@ -324,16 +431,16 @@ public sealed class PlayableInvestigationTests
         Assert.That((bool)Call(notebook, "SubmitAccusation"), Is.True);
         Finish(); Assert.That(State.progress.phase, Is.EqualTo(InvestigationPhase.Resolved));
     }
-    [UnityTest] public IEnumerator DialogueClueRewardAlsoShowsLogbookCue()
+    [UnityTest] public IEnumerator LegacyDialogueClueRewardBecomesHintInsteadOfRemoteEvidence()
     {
         Finish(); var beat = State.catalogue.Sequence("Felix — Champagne alibi").beats[3];
         bool alreadyPresent = beat.grants.Contains("C05"); if (!alreadyPresent) beat.grants.Add("C05");
         try
         {
-            Call(controller, "Begin", "Felix — Champagne alibi", null);
+            Approach("Felix"); Call(controller, "Begin", "Felix — Champagne alibi", null);
             for (int i = 0; i < 4; i++) Call(controller, "Advance");
-            Assert.That(State.Has("C05"), Is.True);
-            Assert.That((string)controller.GetType().GetProperty("LogbookNotice").GetValue(controller), Does.Contain("Clue: Champagne receipt"));
+            Assert.That(State.Has("C05"), Is.False); Assert.That(State.HasClueHint("C05"), Is.True);
+            Assert.That((string)controller.GetType().GetProperty("LogbookNotice").GetValue(controller), Does.Contain("Clue hint: Champagne receipt"));
         }
         finally { if (!alreadyPresent) beat.grants.Remove("C05"); }
         yield return null;

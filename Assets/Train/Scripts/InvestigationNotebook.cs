@@ -209,7 +209,7 @@ namespace GraduationDemo.Train
             // Layout groups remain constrained to clues / authored theories / suspect statements.
             Color sourceHeading = AccusationGraphActive || ConversationGraphActive ? new Color(paper.r, paper.g, paper.b, .35f) : gold;
             Label(graphContent, "CLUES", 24, sourceHeading, new Vector2(40, -8), new Vector2(190, 35));
-            Label(graphContent, "THEORIES", 24, gold, new Vector2(380, -8), new Vector2(260, 35));
+            Label(graphContent, "QUESTIONS", 24, gold, new Vector2(380, -8), new Vector2(260, 35));
             Label(graphContent, "STATEMENTS", 24, sourceHeading, new Vector2(920, -8), new Vector2(230, 35));
             if (AccusationGraphActive)
             {
@@ -263,7 +263,7 @@ namespace GraduationDemo.Train
                 var alibi = owner.State.Alibi(target);
                 var ask = Button(sidebar, "Ask " + target + " for an alibi", () => owner.OfferConversation(owner.State.Alibi(target)), new Vector2(10, narrow ? -79 : -(sidebar.rect.height - 160)), new Vector2(sidebar.rect.width - 20, 32));
                 ask.GetComponent<Button>().interactable = alibi != null && alibi.cost <= owner.State.RemainingActions;
-                var present = Button(sidebar, "Present question to " + target, () => owner.Confront(selectedTheory, target), new Vector2(10, narrow ? -115 : -(sidebar.rect.height - 124)), new Vector2(sidebar.rect.width - 20, 32));
+                var present = Button(sidebar, "Present question to " + target, () => owner.OpenQuestionMenu(target), new Vector2(10, narrow ? -115 : -(sidebar.rect.height - 124)), new Vector2(sidebar.rect.width - 20, 32));
                 var prompt = selectedTheory == null ? null : owner.State.Presentation(selectedTheory, target);
                 present.GetComponent<Button>().interactable = prompt != null && prompt.cost <= owner.State.RemainingActions;
             }
@@ -271,7 +271,7 @@ namespace GraduationDemo.Train
                 for (int i = 0; i < 3; i++)
                 {
                     string target = new[] { "Felix", "Mila", "Bellamy" }[i];
-                    var rect = Button(sidebar, "Present to " + target, () => owner.Confront(selectedTheory, target), new Vector2(narrow ? 10 + i * (sidebar.rect.width - 20) / 3 : 10, narrow ? -79 : -(sidebar.rect.height - 160 + i * 36)), new Vector2(narrow ? (sidebar.rect.width - 26) / 3 : sidebar.rect.width - 20, 32));
+                    var rect = Button(sidebar, "Present to " + target, () => owner.OpenQuestionMenu(target), new Vector2(narrow ? 10 + i * (sidebar.rect.width - 20) / 3 : 10, narrow ? -79 : -(sidebar.rect.height - 160 + i * 36)), new Vector2(narrow ? (sidebar.rect.width - 26) / 3 : sidebar.rect.width - 20, 32));
                     rect.GetComponent<Button>().interactable = selectedTheory != null && owner.State.Presentation(selectedTheory, target) != null;
                     if (Assistance == ReasoningAssistance.Directed && ReasoningGuidance.Available(owner.configuration, owner.State.progress, Assistance)
                         .Any(h => h.purpose == ReasoningHintPurpose.Interview && h.recipient == target && ReasoningGuidance.Matches(h, owner.catalogue.Theory(selectedTheory))))
@@ -309,6 +309,7 @@ namespace GraduationDemo.Train
                 graphic.color = new Color(.45f, .82f, .65f);
             if (node.kind == ReasoningNodeKind.Suspect && node.speaker == accusationSuspect) graphic.color = gold;
             if (background) graphic.color = ConversationGraphActive ? new Color(.55f, .55f, .55f, .30f) : new Color(graphic.color.r, graphic.color.g, graphic.color.b, .30f);
+            if (node.anticipated) graphic.color = new Color(.44f, .47f, .47f, .65f);
             go.GetComponent<Button>().targetGraphic = graphic; go.GetComponent<Button>().onClick.AddListener(() => SelectNode(node.id));
             if (ConversationGraphActive && node.kind != ReasoningNodeKind.Theory) go.GetComponent<Button>().interactable = false;
             var hover = go.GetComponent<NotebookHover>(); hover.notebook = this; hover.text = node.label + "\n" + node.detail;
@@ -338,12 +339,17 @@ namespace GraduationDemo.Train
                 node.kind == ReasoningNodeKind.Theory ? node.label.Replace("Question ", "") : node.kind == ReasoningNodeKind.Clue ? node.id : node.speaker.Substring(0, 1) + node.id.Substring(node.id.Length - 2);
             var inside = Label(rect, icon, 18, background ? new Color(ink.r, ink.g, ink.b, .4f) : ink, Vector2.zero, rect.sizeDelta); Stretch(inside.rectTransform, 0, 0, 0, 0); inside.alignment = TextAnchor.MiddleCenter;
             float captionWidth = node.kind == ReasoningNodeKind.Theory ? 76 : 180;
-            var caption = Label(rect, node.label, AccusationGraphActive && node.kind == ReasoningNodeKind.Theory ? 14 : 17, background ? new Color(paper.r, paper.g, paper.b, .38f) : paper, new Vector2((rect.sizeDelta.x - captionWidth) / 2, -rect.sizeDelta.y - 2), new Vector2(captionWidth, 45)); caption.alignment = TextAnchor.UpperCenter;
+            var caption = Label(rect, node.label, AccusationGraphActive && node.kind == ReasoningNodeKind.Theory ? 14 : 17, node.anticipated ? new Color(.55f, .58f, .58f) : background ? new Color(paper.r, paper.g, paper.b, .38f) : paper, new Vector2((rect.sizeDelta.x - captionWidth) / 2, -rect.sizeDelta.y - 2), new Vector2(captionWidth, 45)); caption.alignment = TextAnchor.UpperCenter;
             caption.raycastTarget = true;
         }
         public void SelectNode(string id)
         {
             var node = Graph?.nodes.Find(n => n.id == id); if (node == null) return;
+            if (node.anticipated)
+            {
+                selectedClue = id; selectedStatement = null; selectedTheory = null; selectedSpecialNode = null; pendingAccusationTheory = null;
+                tetherMessage = "This clue is only a lead. Find and inspect its marker before using it."; refresh = true; return;
+            }
             if (ConversationGraphActive && node.kind != ReasoningNodeKind.Theory) return;
             if (node.kind == ReasoningNodeKind.AccusationSocket)
             {
@@ -444,7 +450,7 @@ namespace GraduationDemo.Train
         string SelectedDetail()
         {
             string content = SelectedDetailContent();
-            var tags = owner.catalogue.InterpretationTags(selectedTheory ?? selectedClue ?? selectedStatement).Where(AccusationReasoning.Roles.Contains).Select(AccusationReasoning.Label).ToList();
+            var tags = owner.catalogue.InterpretationTags(selectedClue != null && !owner.State.Has(selectedClue) ? null : selectedTheory ?? selectedClue ?? selectedStatement).Where(AccusationReasoning.Roles.Contains).Select(AccusationReasoning.Label).ToList();
             if (tags.Count > 0) content = "Interpretation: " + string.Join(", ", tags) + " (a lead, not proof)\n\n" + content;
             return AccusationGraphActive ? AccusationSupport.DisplayText + "\n\n" + content : content;
         }

@@ -39,7 +39,8 @@ namespace GraduationDemo.Editor
         public static NarrativeCatalogue Build(string source, NarrativeCatalogue previous = null)
         {
             var c = ScriptableObject.CreateInstance<NarrativeCatalogue>();
-            foreach (var r in Read(source, "clues.csv")) c.clues.Add(new ClueDefinition { id = r["Clue ID"], name = r["Clue name"], fact = r["Observable fact"] });
+            foreach (var r in Read(source, "clues.csv")) c.clues.Add(new ClueDefinition { id = r["Clue ID"], name = r["Clue name"], fact = r["Observable fact"],
+                hiddenUntilHint = r.TryGetValue("Hidden until hinted", out var hidden) && hidden == "yes", hint = r.TryGetValue("Clue hint", out var hint) ? hint : "" });
             foreach (var r in Read(source, "statements.csv")) c.statements.Add(new StatementDefinition { id = r["Statement ID"], speaker = r["Speaker"], claim = r["Exact notebook claim (not necessarily spoken subtitle)"], initial = r["Availability"] == "initial" });
             foreach (var r in Read(source, "theories.csv")) c.theories.Add(new TheoryDefinition { id = r["Theory ID"], clueId = r["Clue ID"], statementId = r["Statement ID"], text = r["Theory (automatic text)"], reading = r["Narrative reading"], truth = r["Truth status"] });
             foreach (var r in Read(source, "voice_lines.csv"))
@@ -52,7 +53,11 @@ namespace GraduationDemo.Editor
                     var v = c.Voice(r["Voice file ID"]);
                     if (v == null || v.subtitle != r["EXACT subtitle = spoken VO"] || v.speaker != r["Speaker"]) throw new InvalidDataException("Subtitle/speaker mismatch: " + r["Voice file ID"]);
                     var beat = new DialogueBeat { voiceId = v.id };
-                    foreach (var reward in Rewards(r["Unlock on last beat"])) beat.grants.Add(reward);
+                    if (r.TryGetValue("Clue hints", out var hints))
+                        beat.clueHints.AddRange(hints.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(id => id.Trim()));
+                    foreach (var reward in Rewards(r["Unlock on last beat"]))
+                        if (c.Clue(reward) != null) { if (!beat.clueHints.Contains(reward)) beat.clueHints.Add(reward); }
+                        else beat.grants.Add(reward);
                     sequence.beats.Add(beat);
                 }
                 c.sequences.Add(sequence);

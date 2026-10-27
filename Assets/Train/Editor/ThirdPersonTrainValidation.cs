@@ -110,6 +110,7 @@ namespace GraduationDemo.Editor
                     MoveTo(tour, new Vector3(clue.transform.position.x, 1.12f, -.7f));
                     var observation = clue.GetComponent<TrainObservation>();
                     Require(Vector3.Distance(tour.detective.transform.position + Vector3.up, clue.transform.position) < observation.interactionRange, "Evidence reachable from aisle");
+                    narrative.State.HintClue(clue.clueId, "Traversal validation", "fixture");
                     tour.OpenObservation(observation);
                     Require(narrative.State.Has(clue.clueId), "Clue recorded in shared inventory");
                     tour.CloseObservation();
@@ -118,8 +119,8 @@ namespace GraduationDemo.Editor
                 {
                     MoveTo(tour, new Vector3(actor.transform.position.x, 1.12f, -.7f));
                     Require(tour.TryTalkTo(actor.GetComponentInChildren<TrainObservation>()), "Suspect reachable");
-                    Require(narrative.NotebookOpen, "Conversation uses colleague's notebook graph");
-                    narrative.ToggleNotebook();
+                    Require(narrative.QuestionMenuOpen, "Suspect opens dedicated questioning menu");
+                    narrative.GetComponent<SuspectQuestionMenu>().Close();
                 }
                 tour.SetView(0, true);
                 await Press(keyboard, Key.N);

@@ -120,6 +120,7 @@ namespace GraduationDemo.Editor
             var observation = prop.GetComponent<TrainObservation>() ?? prop.gameObject.AddComponent<TrainObservation>();
             observation.title = "Inspect " + c.name; observation.description = c.fact; observation.interactionRange = 3.1f;
             var binding = prop.GetComponent<NarrativeInteraction>() ?? prop.gameObject.AddComponent<NarrativeInteraction>(); binding.clueId = id;
+            if (prop.GetComponent<ClueMarker>() == null) prop.gameObject.AddComponent<ClueMarker>();
             return prop;
         }
         static void InstallCast(TrainTour tour)

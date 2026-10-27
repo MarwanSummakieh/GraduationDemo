@@ -1,3 +1,14 @@
+# Current environment-interaction QA
+
+See [clue markers, hints and suspect menu](ClueInteractions.md) for authoring and the three hidden-clue experiments.
+
+1. Play each scene. Approach a visible square question-mark marker and inspect with E or its button. Check that distant markers cannot collect evidence and nearby labels stay separate around Odette's clustered clues, with lines pointing to their world positions. Collected markers disappear.
+2. Find Felix and open his questioning menu. Check that the unasked alibi appears, and that constructed questions use the same diamonds and numbers as Reasoning, with their source icons. Opening/closing consumes nothing. Used prompts disappear; unaffordable choices remain disabled when costs are enabled.
+3. Complete Felix's receipt line. Check that a clue-hint notice appears, C05 becomes a grey anticipated node, and its marker becomes available at the bar. The receipt fact and evidence remain unavailable until inspection. Collect it and check that the same node becomes normal, with actual collection provenance.
+4. Repeat with Mila's fake-blood line (C08) and her clock/fall detail (C10). Check that each lead points to its authored search area and cannot be combined or used for accusation while unfound.
+5. Run the save/load regression test for progress after a hint, and finish a day in normal play. Check that the lead survives serialization and an empty conversation placeholder does not block progression. Repeated dialogue cannot duplicate the hint.
+
+The earlier question/accusation checklist follows.
 # Current question and accusation QA
 
 1. Play either train scene. Check **Action costs OFF** in the HUD. Open F8; confirm Enable action costs is unchecked. Ask several different questions beyond the configured daily budget; conversations remain free, and consumed prompts stay unavailable.

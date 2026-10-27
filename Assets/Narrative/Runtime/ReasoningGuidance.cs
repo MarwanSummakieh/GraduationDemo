@@ -50,7 +50,9 @@ namespace GraduationDemo.Narrative
             var sequence = catalogue.Sequence(conversation.sequenceId);
             bool newDiscovery = (sequence?.beats.SelectMany(b => b.grants) ?? Enumerable.Empty<string>())
                 .Concat(conversation.selection?.route?.grants ?? new List<string>())
-                .Any(id => (catalogue.Statement(id) != null || catalogue.Clue(id) != null) && !Discovered(progress, id));
+                .Any(id => (catalogue.Statement(id) != null || catalogue.Clue(id) != null && !progress.clueHints.Any(h => h.clueId == id)) && !Discovered(progress, id)) ||
+                (sequence?.beats.SelectMany(catalogue.ClueHints) ?? Enumerable.Empty<string>())
+                    .Any(id => !Discovered(progress, id) && !progress.clueHints.Any(h => h.clueId == id));
             return newDiscovery ? "This interview can develop a new line of inquiry." :
                 "No new testimony is expected from this pairing with " + conversation.suspect + ". You can still hear their reaction, or cancel and review the question for your final case.";
         }

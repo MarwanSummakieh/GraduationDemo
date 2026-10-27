@@ -12,9 +12,15 @@ namespace GraduationDemo.Narrative
         public List<string> removedTheories = new List<string>();
         public List<string> usedConversationSequences = new List<string>();
         public List<DiscoveryProvenance> discoveries = new List<DiscoveryProvenance>();
+        public List<ClueHintRecord> clueHints = new List<ClueHintRecord>();
         public int day = 1, actionsSpent;
         public InvestigationPhase phase;
         public ConversationReservation reservation;
+    }
+    [Serializable] public sealed class ClueHintRecord
+    {
+        public string clueId, speaker, voiceId;
+        public int day;
     }
     public sealed class RouteSelection
     {
@@ -35,6 +41,9 @@ namespace GraduationDemo.Narrative
         {
             catalogue = data ?? throw new ArgumentNullException(nameof(data));
             progress = restored ?? new InvestigationProgress();
+            if (progress.clueHints == null) progress.clueHints = new List<ClueHintRecord>();
+            // JsonUtility can materialize a null serializable reference as an empty object.
+            if (progress.reservation != null && (string.IsNullOrEmpty(progress.reservation.key) || string.IsNullOrEmpty(progress.reservation.sequenceId))) progress.reservation = null;
             configuration = pacing;
             foreach (var id in progress.clues.Concat(progress.statements))
                 if (!progress.discoveries.Any(x => x.id == id)) progress.discoveries.Add(new DiscoveryProvenance { id = id, locationId = "unknown", day = 0 });
@@ -47,6 +56,15 @@ namespace GraduationDemo.Narrative
         public bool CanConstructTheories => progress.phase == InvestigationPhase.Investigating || progress.phase == InvestigationPhase.Accusation;
         public bool HasAccusationEntry(string id) => progress.clues.Contains(id) || progress.statements.Contains(id) || progress.theories.Contains(id);
         public bool Has(string id) => progress.clues.Contains(id) || progress.statements.Contains(id) || progress.flags.Contains(id);
+        public bool HasClueHint(string id) => progress.clueHints.Any(h => h.clueId == id);
+        public bool CanFindClue(string id) => catalogue.Clue(id) != null && (!catalogue.Clue(id).hiddenUntilHint || HasClueHint(id) || progress.clues.Contains(id));
+        public bool HintClue(string id, string speaker, string voiceId)
+        {
+            if (!InvestigationOpen || catalogue.Clue(id) == null || progress.clues.Contains(id) || HasClueHint(id)) return false;
+            progress.clueHints.Add(new ClueHintRecord { clueId = id, speaker = speaker, voiceId = voiceId, day = progress.day });
+            Changed?.Invoke(); return true;
+        }
+        public bool DiscoverClue(string id, string locationId) => InvestigationOpen && CanFindClue(id) && Grant(id, locationId);
         public bool Grant(string id) => Grant(id, "unknown");
         public bool Grant(string id, string locationId)
         {
@@ -132,7 +150,9 @@ namespace GraduationDemo.Narrative
         public void Complete(RouteSelection selection)
         {
             if (selection == null || selection.route == null || selection.repeat) return;
-            foreach (var id in selection.route.grants) Grant(id);
+            foreach (var id in selection.route.grants)
+                if (catalogue.Clue(id) != null) HintClue(id, selection.route.suspect, selection.sequence?.beats.FirstOrDefault(b => catalogue.ClueHints(b).Contains(id))?.voiceId);
+                else Grant(id);
             Add(progress.completedRoutes, selection.route.id);
         }
         public ConversationInitialization Alibi(string suspect)

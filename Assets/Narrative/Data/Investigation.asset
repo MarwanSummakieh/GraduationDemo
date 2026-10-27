@@ -16,43 +16,65 @@ MonoBehaviour:
   - id: C01
     name: Theatrical dagger
     fact: Strawberry-syrup-covered prop, not a demonstrated stabbing weapon
+    hiddenUntilHint: 0
+    hint: ""
     interpretationTags: []
   - id: C02
     name: Broken clock
     fact: Heavy desk clock stopped at about 20:37
+    hiddenUntilHint: 0
+    hint: ""
     interpretationTags: []
   - id: C03
     name: Odette's injury
     fact: Head/neck trauma; no visible stab wound
+    hiddenUntilHint: 0
+    hint: ""
     interpretationTags: []
   - id: C04
     name: Murder programme
     fact: Fictional stabbing due 22:00; dagger intended in left hand
+    hiddenUntilHint: 0
+    hint: ""
     interpretationTags: []
   - id: C05
     name: Champagne receipt
     fact: Order at 20:10 charged to Odette; Felix possesses receipt
+    hiddenUntilHint: 1
+    hint: Felix mentioned a receipt. Search near his place at the bar.
     interpretationTags: []
   - id: C06
     name: Peacock and lion rings
     fact: Matched engagement rings in Felix's suitcase, privately purchased by him
+    hiddenUntilHint: 0
+    hint: ""
     interpretationTags:
     - P_MOTIVE
   - id: C07
     name: Disturbed desk
     fact: Displaced furniture and impact damage at Odette's desk
+    hiddenUntilHint: 0
+    hint: ""
     interpretationTags: []
   - id: C08
     name: Stage blood materials
     fact: Strawberry-syrup preparation involving Mila
+    hiddenUntilHint: 1
+    hint: Mila helped prepare sticky fake blood. Look for the preparation materials
+      in the dining saloon.
     interpretationTags: []
   - id: C09
     name: No-interruption rule
     fact: Odette instructed guests not to interrupt private rehearsals
+    hiddenUntilHint: 0
+    hint: ""
     interpretationTags: []
   - id: C10
     name: Clock behind desk
     fact: Clock found behind desk, away from its ordinary position
+    hiddenUntilHint: 1
+    hint: Mila pictured what Odette could reach during her fall. Inspect behind the
+      desk in Odette's compartment.
     interpretationTags: []
   statements:
   - id: F-S01
@@ -3355,616 +3377,847 @@ MonoBehaviour:
     beats:
     - voiceId: BURR_001
       grants: []
+      clueHints: []
     - voiceId: BELL_001
       grants: []
+      clueHints: []
     - voiceId: BURR_002
       grants: []
+      clueHints: []
     - voiceId: BELL_002
       grants: []
+      clueHints: []
     - voiceId: BURR_003
       grants: []
+      clueHints: []
     - voiceId: BURR_004
       grants: []
+      clueHints: []
     - voiceId: BURR_005
       grants: []
+      clueHints: []
     - voiceId: BELL_003
       grants: []
+      clueHints: []
     - voiceId: BURR_006
       grants: []
+      clueHints: []
     - voiceId: BELL_004
       grants: []
+      clueHints: []
     - voiceId: BURR_007
       grants: []
+      clueHints: []
     - voiceId: BELL_005
       grants: []
+      clueHints: []
     - voiceId: BURR_008
       grants: []
+      clueHints: []
     - voiceId: BELL_006
       grants: []
+      clueHints: []
     - voiceId: BURR_009
       grants: []
+      clueHints: []
     - voiceId: BELL_006
       grants: []
+      clueHints: []
     - voiceId: BURR_010
       grants:
       - flag:investigation
+      clueHints: []
   - id: "Felix \u2014 Champagne alibi"
     priority: MUST
     beats:
     - voiceId: BURR_011
       grants: []
+      clueHints: []
     - voiceId: FELI_001
       grants:
       - F-S01
+      clueHints: []
     - voiceId: BURR_012
       grants: []
+      clueHints: []
     - voiceId: FELI_002
       grants: []
+      clueHints:
+      - C05
     - voiceId: BURR_013
       grants: []
+      clueHints: []
     - voiceId: FELI_003
       grants:
       - F-S02
+      clueHints: []
     - voiceId: BURR_014
       grants: []
+      clueHints: []
     - voiceId: FELI_004
       grants: []
+      clueHints: []
   - id: "Bellamy \u2014 Corridor witness"
     priority: MUST
     beats:
     - voiceId: BURR_015
       grants: []
+      clueHints: []
     - voiceId: BELL_007
       grants: []
+      clueHints: []
     - voiceId: BURR_016
       grants: []
+      clueHints: []
     - voiceId: BELL_008
       grants:
       - B-S01
+      clueHints: []
     - voiceId: BURR_017
       grants: []
+      clueHints: []
     - voiceId: BELL_009
       grants:
       - B-S02
+      clueHints: []
     - voiceId: BURR_018
       grants: []
+      clueHints: []
     - voiceId: BELL_010
       grants: []
+      clueHints: []
   - id: "Mila \u2014 Solitary rehearsal"
     priority: MUST
     beats:
     - voiceId: BURR_019
       grants: []
+      clueHints: []
     - voiceId: MILA_001
       grants:
       - M-S01
+      clueHints: []
     - voiceId: BURR_020
       grants: []
+      clueHints: []
     - voiceId: MILA_002
       grants: []
+      clueHints: []
     - voiceId: BURR_021
       grants: []
+      clueHints: []
     - voiceId: MILA_003
       grants: []
+      clueHints: []
     - voiceId: BURR_022
       grants: []
+      clueHints: []
     - voiceId: MILA_004
       grants:
       - M-S02
+      clueHints:
+      - C08
     - voiceId: BURR_023
       grants: []
+      clueHints: []
     - voiceId: MILA_005
       grants:
       - M-S03
+      clueHints: []
   - id: "ENDING \u2014 Mila's account"
     priority: MUST
     beats:
     - voiceId: BURR_024
       grants: []
+      clueHints: []
     - voiceId: MILA_006
       grants: []
+      clueHints: []
     - voiceId: BURR_MMO_FINALE_01
       grants: []
+      clueHints: []
     - voiceId: MILA_007
       grants: []
+      clueHints: []
     - voiceId: BURR_026
       grants: []
+      clueHints: []
     - voiceId: MILA_CANON_FINALE_01
       grants: []
+      clueHints: []
     - voiceId: BURR_027
       grants: []
+      clueHints: []
     - voiceId: MILA_009
       grants: []
+      clueHints: []
     - voiceId: BURR_028
       grants: []
+      clueHints: []
     - voiceId: MILA_010
       grants: []
+      clueHints: []
     - voiceId: BURR_029
       grants: []
+      clueHints: []
     - voiceId: MILA_011
       grants: []
+      clueHints: []
     - voiceId: MILA_012
       grants: []
+      clueHints: []
     - voiceId: BURR_030
       grants:
       - flag:resolved
+      clueHints: []
   - id: The syrup supplier
     priority: SHOULD
     beats:
     - voiceId: BURR_031
       grants: []
+      clueHints: []
     - voiceId: BELL_011
       grants: []
+      clueHints: []
     - voiceId: BURR_032
       grants: []
+      clueHints: []
     - voiceId: BELL_012
       grants: []
+      clueHints: []
   - id: The sound in the corridor
     priority: MUST
     beats:
     - voiceId: BURR_033
       grants: []
+      clueHints: []
     - voiceId: BELL_013
       grants: []
+      clueHints: []
     - voiceId: BURR_034
       grants: []
+      clueHints: []
     - voiceId: BELL_014
       grants: []
+      clueHints: []
     - voiceId: BURR_035
       grants: []
+      clueHints: []
     - voiceId: BELL_015
       grants: []
+      clueHints: []
   - id: An inconvenient clock
     priority: SHOULD
     beats:
     - voiceId: BURR_036
       grants: []
+      clueHints: []
     - voiceId: MILA_013
       grants: []
+      clueHints: []
     - voiceId: BURR_037
       grants: []
+      clueHints: []
     - voiceId: MILA_014
       grants: []
+      clueHints: []
     - voiceId: BURR_038
       grants: []
+      clueHints: []
     - voiceId: MILA_015
       grants: []
+      clueHints: []
   - id: The remembered fall
     priority: MUST
     beats:
     - voiceId: BURR_039
       grants: []
+      clueHints: []
     - voiceId: MILA_016
       grants: []
+      clueHints: []
     - voiceId: BURR_040
       grants: []
+      clueHints: []
     - voiceId: MILA_017
       grants: []
+      clueHints: []
     - voiceId: BURR_041
       grants: []
+      clueHints: []
     - voiceId: MILA_018
       grants: []
+      clueHints: []
   - id: Instructions not to interrupt
     priority: SHOULD
     beats:
     - voiceId: BURR_042
       grants: []
+      clueHints: []
     - voiceId: BELL_016
       grants: []
+      clueHints: []
     - voiceId: BURR_043
       grants: []
+      clueHints: []
     - voiceId: BELL_017
       grants: []
+      clueHints: []
     - voiceId: BURR_044
       grants: []
+      clueHints: []
   - id: Why the champagne?
     priority: MUST
     beats:
     - voiceId: BURR_045
       grants: []
+      clueHints: []
     - voiceId: FELI_005
       grants: []
+      clueHints: []
     - voiceId: BURR_046
       grants: []
+      clueHints: []
     - voiceId: FELI_006
       grants: []
+      clueHints: []
     - voiceId: BURR_047
       grants: []
+      clueHints: []
     - voiceId: FELI_007
       grants: []
+      clueHints: []
     - voiceId: BURR_048
       grants: []
+      clueHints: []
   - id: The peacock and lion
     priority: MUST
     beats:
     - voiceId: BURR_049
       grants: []
+      clueHints: []
     - voiceId: FELI_008
       grants: []
+      clueHints: []
     - voiceId: BURR_050
       grants: []
+      clueHints: []
     - voiceId: FELI_009
       grants: []
+      clueHints: []
     - voiceId: BURR_051
       grants: []
+      clueHints: []
     - voiceId: FELI_010
       grants:
       - F-S03
+      clueHints: []
   - id: A safety pin is not a proposal
     priority: SHOULD
     beats:
     - voiceId: BURR_052
       grants: []
+      clueHints: []
     - voiceId: FELI_011
       grants: []
+      clueHints: []
     - voiceId: BURR_053
       grants: []
+      clueHints: []
     - voiceId: FELI_012
       grants: []
+      clueHints: []
     - voiceId: BURR_054
       grants: []
+      clueHints: []
   - id: A changing household
     priority: MUST
     beats:
     - voiceId: BURR_055
       grants: []
+      clueHints: []
     - voiceId: BELL_018
       grants: []
+      clueHints: []
     - voiceId: BURR_056
       grants: []
+      clueHints: []
     - voiceId: BELL_019
       grants: []
+      clueHints: []
     - voiceId: BURR_057
       grants: []
+      clueHints: []
     - voiceId: BELL_020
       grants: []
+      clueHints: []
   - id: How lovely for them
     priority: SHOULD
     beats:
     - voiceId: BURR_058
       grants: []
+      clueHints: []
     - voiceId: MILA_019
       grants: []
+      clueHints: []
     - voiceId: BURR_059
       grants: []
+      clueHints: []
     - voiceId: MILA_020
       grants: []
+      clueHints: []
     - voiceId: BURR_060
       grants: []
+      clueHints: []
     - voiceId: MILA_021
       grants: []
+      clueHints: []
   - id: The empty rehearsal
     priority: MUST
     beats:
     - voiceId: BURR_061
       grants: []
+      clueHints: []
     - voiceId: MILA_022
       grants: []
+      clueHints: []
     - voiceId: BURR_062
       grants: []
+      clueHints: []
     - voiceId: MILA_023
       grants: []
+      clueHints: []
     - voiceId: BURR_063
       grants: []
+      clueHints: []
     - voiceId: MILA_024
       grants: []
+      clueHints: []
   - id: A figure in the corridor
     priority: MUST
     beats:
     - voiceId: BURR_064
       grants: []
+      clueHints: []
     - voiceId: FELI_013
       grants: []
+      clueHints: []
     - voiceId: BURR_065
       grants: []
+      clueHints: []
     - voiceId: FELI_014
       grants: []
+      clueHints: []
     - voiceId: BURR_066
       grants: []
+      clueHints: []
     - voiceId: FELI_015
       grants: []
+      clueHints: []
   - id: A knowledge she cannot place
     priority: MUST
     beats:
     - voiceId: BURR_067
       grants: []
+      clueHints: []
     - voiceId: MILA_025
       grants: []
+      clueHints: []
     - voiceId: BURR_068
       grants: []
+      clueHints: []
     - voiceId: MILA_026
       grants: []
+      clueHints: []
     - voiceId: BURR_069
       grants: []
+      clueHints: []
     - voiceId: MILA_027
       grants: []
+      clueHints: []
   - id: An exceptionally sticky explanation
     priority: SHOULD
     beats:
     - voiceId: BURR_070
       grants: []
+      clueHints: []
     - voiceId: MILA_028
       grants: []
+      clueHints: []
     - voiceId: BURR_071
       grants: []
+      clueHints: []
     - voiceId: MILA_029
       grants: []
+      clueHints: []
     - voiceId: BURR_072
       grants: []
+      clueHints: []
     - voiceId: MILA_030
       grants: []
+      clueHints: []
   - id: The intolerable rehearsal
     priority: SHOULD
     beats:
     - voiceId: BURR_073
       grants: []
+      clueHints: []
     - voiceId: BELL_021
       grants: []
+      clueHints: []
     - voiceId: BURR_074
       grants: []
+      clueHints: []
     - voiceId: BELL_022
       grants:
       - B-S02
+      clueHints: []
   - id: The clock behind the desk
     priority: MUST
     beats:
     - voiceId: BURR_075
       grants: []
+      clueHints: []
     - voiceId: MILA_031
       grants: []
+      clueHints: []
     - voiceId: BURR_076
       grants: []
+      clueHints: []
     - voiceId: MILA_032
       grants: []
+      clueHints: []
     - voiceId: BURR_077
       grants: []
+      clueHints: []
     - voiceId: MILA_033
       grants: []
+      clueHints: []
   - id: A fall she shouldn't picture
     priority: MUST
     beats:
     - voiceId: BURR_078
       grants: []
+      clueHints: []
     - voiceId: MILA_034
       grants: []
+      clueHints: []
     - voiceId: BURR_079
       grants: []
+      clueHints: []
     - voiceId: MILA_035
       grants: []
+      clueHints: []
     - voiceId: BURR_080
       grants: []
+      clueHints: []
     - voiceId: MILA_036
       grants:
       - M-S05
+      clueHints: []
   - id: "The damaged desk and Mila\u2019s guess"
     priority: MUST
     beats:
     - voiceId: BURR_ALT_01
       grants: []
+      clueHints: []
     - voiceId: MILA_CANON_SPATIAL_01
       grants: []
+      clueHints:
+      - C10
     - voiceId: BURR_CANON_SPATIAL_01
       grants: []
+      clueHints: []
     - voiceId: MILA_CANON_SPATIAL_02
       grants: []
+      clueHints: []
     - voiceId: BURR_ALT_05
       grants: []
+      clueHints: []
     - voiceId: MILA_ALT_06
       grants:
       - M-S05
+      clueHints: []
   - id: The engagement in the suitcase
     priority: MUST
     beats:
     - voiceId: NEW_01_01
       grants: []
+      clueHints: []
     - voiceId: NEW_01_02
       grants: []
+      clueHints: []
     - voiceId: NEW_01_03
       grants: []
+      clueHints: []
     - voiceId: NEW_01_04
       grants: []
+      clueHints: []
     - voiceId: NEW_01_05
       grants: []
+      clueHints: []
     - voiceId: NEW_01_06
       grants:
       - F-S03
+      clueHints: []
   - id: A woman heading away
     priority: MUST
     beats:
     - voiceId: NEW_02_01
       grants: []
+      clueHints: []
     - voiceId: NEW_02_02
       grants: []
+      clueHints: []
     - voiceId: NEW_02_03
       grants: []
+      clueHints: []
     - voiceId: NEW_02_04
       grants: []
+      clueHints: []
     - voiceId: NEW_02_05
       grants: []
+      clueHints: []
     - voiceId: NEW_02_06
       grants:
       - F-S04
+      clueHints: []
   - id: A pin for a rabbit
     priority: SHOULD
     beats:
     - voiceId: NEW_03_01
       grants: []
+      clueHints: []
     - voiceId: NEW_03_02
       grants: []
+      clueHints: []
     - voiceId: NEW_03_03
       grants: []
+      clueHints: []
     - voiceId: NEW_03_04
       grants:
       - F-S05
+      clueHints: []
   - id: Bellamy admits an argument
     priority: MUST
     beats:
     - voiceId: NEW_04_01
       grants: []
+      clueHints: []
     - voiceId: NEW_04_02
       grants: []
+      clueHints: []
     - voiceId: NEW_04_03
       grants: []
+      clueHints: []
     - voiceId: NEW_04_04
       grants: []
+      clueHints: []
     - voiceId: NEW_04_05
       grants: []
+      clueHints: []
     - voiceId: NEW_04_06
       grants:
       - B-S03
+      clueHints: []
   - id: A reasonable mistake
     priority: SHOULD
     beats:
     - voiceId: NEW_05_01
       grants: []
+      clueHints: []
     - voiceId: NEW_05_02
       grants: []
+      clueHints: []
     - voiceId: NEW_05_03
       grants: []
+      clueHints: []
     - voiceId: NEW_05_04
       grants:
       - B-S04
+      clueHints: []
   - id: Who made the syrup?
     priority: SHOULD
     beats:
     - voiceId: NEW_06_01
       grants: []
+      clueHints: []
     - voiceId: NEW_06_02
       grants: []
+      clueHints: []
     - voiceId: NEW_06_03
       grants: []
+      clueHints: []
     - voiceId: NEW_06_04
       grants:
       - B-S05
+      clueHints: []
   - id: An awkward guess
     priority: MUST
     beats:
     - voiceId: NEW_07_01
       grants: []
+      clueHints: []
     - voiceId: NEW_07_02
       grants: []
+      clueHints: []
     - voiceId: NEW_07_03
       grants: []
+      clueHints: []
     - voiceId: NEW_07_04
       grants:
       - M-S04
+      clueHints: []
   - id: Happy for them
     priority: SHOULD
     beats:
     - voiceId: NEW_08_01
       grants: []
+      clueHints: []
     - voiceId: NEW_08_02
       grants: []
+      clueHints: []
     - voiceId: NEW_08_03
       grants: []
+      clueHints: []
     - voiceId: NEW_08_04
       grants:
       - M-S06
+      clueHints: []
   - id: Reusable/Felix
     priority: MUST
     beats:
     - voiceId: BURR_081
       grants: []
+      clueHints: []
     - voiceId: FELIX_REACT_QUESTION_01
       grants: []
+      clueHints: []
   - id: Reusable/Mila
     priority: MUST
     beats:
     - voiceId: BURR_082
       grants: []
+      clueHints: []
     - voiceId: MILA_REACT_QUESTION_01
       grants: []
+      clueHints: []
   - id: Reusable/Bellamy
     priority: MUST
     beats:
     - voiceId: BURR_083
       grants: []
+      clueHints: []
     - voiceId: BELL_REACT_QUESTION_01
       grants: []
+      clueHints: []
   - id: Reusable/BURR_081+FELIX_REACT_QUESTION_01
     priority: MUST
     beats:
     - voiceId: BURR_081
       grants: []
+      clueHints: []
     - voiceId: FELIX_REACT_QUESTION_01
       grants: []
+      clueHints: []
   - id: Reusable/BURR_082+MILA_REACT_DISMISS_01
     priority: MUST
     beats:
     - voiceId: BURR_082
       grants: []
+      clueHints: []
     - voiceId: MILA_REACT_DISMISS_01
       grants: []
+      clueHints: []
   - id: Reusable/BURR_083+BELL_REACT_DISMISS_01
     priority: MUST
     beats:
     - voiceId: BURR_083
       grants: []
+      clueHints: []
     - voiceId: BELL_REACT_DISMISS_01
       grants: []
+      clueHints: []
   - id: Reusable/BURR_082+MILA_REACT_QUESTION_01
     priority: MUST
     beats:
     - voiceId: BURR_082
       grants: []
+      clueHints: []
     - voiceId: MILA_REACT_QUESTION_01
       grants: []
+      clueHints: []
   - id: Reusable/BURR_083+BELL_REACT_QUESTION_01
     priority: MUST
     beats:
     - voiceId: BURR_083
       grants: []
+      clueHints: []
     - voiceId: BELL_REACT_QUESTION_01
       grants: []
+      clueHints: []
   - id: Reusable/BURR_081+FELIX_REACT_DISMISS_01
     priority: MUST
     beats:
     - voiceId: BURR_081
       grants: []
+      clueHints: []
     - voiceId: FELIX_REACT_DISMISS_01
       grants: []
+      clueHints: []
   - id: Reusable/BURR_081+FELIX_REACT_SERIOUS_01
     priority: MUST
     beats:
     - voiceId: BURR_081
       grants: []
+      clueHints: []
     - voiceId: FELIX_REACT_SERIOUS_01
       grants: []
+      clueHints: []
   - id: Reusable/BURR_082+MILA_REACT_SERIOUS_01
     priority: MUST
     beats:
     - voiceId: BURR_082
       grants: []
+      clueHints: []
     - voiceId: MILA_REACT_SERIOUS_01
       grants: []
+      clueHints: []
   - id: Reusable/BURR_082+MILA_REACT_DEFLECT_01
     priority: MUST
     beats:
     - voiceId: BURR_082
       grants: []
+      clueHints: []
     - voiceId: MILA_REACT_DEFLECT_01
       grants: []
+      clueHints: []
   - id: Reusable/BURR_083+BELL_REACT_SERIOUS_01
     priority: MUST
     beats:
     - voiceId: BURR_083
       grants: []
+      clueHints: []
     - voiceId: BELL_REACT_SERIOUS_01
       grants: []
+      clueHints: []
   - id: Reusable/BURR_083+BELL_REACT_DEFLECT_01
     priority: MUST
     beats:
     - voiceId: BURR_083
       grants: []
+      clueHints: []
     - voiceId: BELL_REACT_DEFLECT_01
       grants: []
+      clueHints: []
   - id: Reusable/BURR_081+FELIX_REACT_PRIVACY_01
     priority: MUST
     beats:
     - voiceId: BURR_081
       grants: []
+      clueHints: []
     - voiceId: FELIX_REACT_PRIVACY_01
       grants: []
+      clueHints: []
   routes:
   - id: T_C01_FS01/Felix/base
     theoryId: T_C01_FS01

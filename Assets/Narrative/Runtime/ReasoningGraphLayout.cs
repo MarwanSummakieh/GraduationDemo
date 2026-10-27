@@ -10,19 +10,23 @@ namespace GraduationDemo.Narrative
     {
         public string id, label, detail, speaker, clueParent, statementParent;
         public ReasoningNodeKind kind;
+        public bool anticipated;
         public Vector2 position;
     }
     public sealed class ReasoningGraphLayout
     {
         public readonly List<ReasoningNode> nodes = new List<ReasoningNode>();
         public Vector2 size;
+        public static string QuestionLabel(InvestigationProgress progress, string id) => "Question " + (progress.theories.IndexOf(id) + 1);
         public static ReasoningGraphLayout Build(NarrativeCatalogue catalogue, InvestigationProgress progress, string search = "", string suspect = "")
         {
             var model = new ReasoningGraphLayout();
             bool Matches(string text) => string.IsNullOrEmpty(search) || (text ?? "").IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0;
             bool Speaker(string speaker) => string.IsNullOrEmpty(suspect) || suspect == speaker;
             var theories = progress.theories.Select(catalogue.Theory).Where(t => t != null && Matches(t.text) && Speaker(catalogue.Statement(t.statementId)?.speaker)).OrderBy(t => t.id, StringComparer.Ordinal).ToList();
-            var clues = progress.clues.Select(catalogue.Clue).Where(c => c != null && (Matches(c.name + " " + c.fact) || theories.Any(t => t.clueId == c.id))).OrderBy(c => c.id, StringComparer.Ordinal).ToList();
+            var clues = progress.clues.Concat(progress.clueHints.Select(h => h.clueId)).Distinct().Select(catalogue.Clue)
+                .Where(c => c != null && (Matches(c.name + " " + (progress.clues.Contains(c.id) ? c.fact : c.hint)) || theories.Any(t => t.clueId == c.id)))
+                .OrderBy(c => c.id, StringComparer.Ordinal).ToList();
             var statements = progress.statements.Select(catalogue.Statement).Where(s => s != null && Speaker(s.speaker) && (Matches(s.claim + " " + s.speaker) || theories.Any(t => t.statementId == s.id))).OrderBy(s => s.speaker == "Felix" ? 0 : s.speaker == "Mila" ? 1 : 2).ThenBy(s => s.id, StringComparer.Ordinal).ToList();
             // Any visible theory always retains both acquired parents, even under search/filter.
             foreach (var t in theories)
@@ -32,7 +36,15 @@ namespace GraduationDemo.Narrative
             }
             float height = Mathf.Max(900, (Mathf.Ceil(theories.Count / 5f) + 2) * 192, clues.Count * 88, (statements.Count + 3) * 88);
             model.size = new Vector2(1160, height);
-            for (int i = 0; i < clues.Count; i++) model.nodes.Add(new ReasoningNode { id = clues[i].id, kind = ReasoningNodeKind.Clue, label = clues[i].name, detail = clues[i].fact, position = new Vector2(110, 80 + i * (height - 160) / Mathf.Max(1, clues.Count - 1)) });
+            for (int i = 0; i < clues.Count; i++)
+            {
+                var clue = clues[i]; bool anticipated = !progress.clues.Contains(clue.id);
+                var hint = progress.clueHints.Find(h => h.clueId == clue.id);
+                model.nodes.Add(new ReasoningNode { id = clue.id, kind = ReasoningNodeKind.Clue, anticipated = anticipated,
+                    label = clue.name + (anticipated ? " (not yet found)" : ""),
+                    detail = anticipated ? "CLUE HINT — not collected\n" + clue.hint + "\nMentioned by " + hint?.speaker + ". Approach its marker in the environment and inspect it." : clue.fact,
+                    position = new Vector2(110, 80 + i * (height - 160) / Mathf.Max(1, clues.Count - 1)) });
+            }
             for (int i = 0; i < statements.Count; i++) model.nodes.Add(new ReasoningNode { id = statements[i].id, kind = ReasoningNodeKind.Statement, speaker = statements[i].speaker, label = statements[i].speaker + " " + statements[i].id.Split('-').Last(), detail = statements[i].claim, position = new Vector2(1020, 80 + i * (height - 160) / Mathf.Max(1, statements.Count - 1)) });
             float Barycentre(TheoryDefinition t)
             {
@@ -72,7 +84,7 @@ namespace GraduationDemo.Narrative
                 Vector2 position = candidates.OrderBy(p => (p - ideal).sqrMagnitude).ThenBy(p => Mathf.Abs(p.x - columnX)).ThenBy(p => p.y).ThenBy(p => p.x)
                     .First(p => placed.All(other => Mathf.Abs(p.x - other.x) >= 79.9f || Mathf.Abs(p.y - other.y) >= 95.9f));
                 placed.Add(position);
-                model.nodes.Add(new ReasoningNode { id = t.id, kind = ReasoningNodeKind.Theory, label = "Question " + (progress.theories.IndexOf(t.id) + 1), detail = t.text,
+                model.nodes.Add(new ReasoningNode { id = t.id, kind = ReasoningNodeKind.Theory, label = QuestionLabel(progress, t.id), detail = t.text,
                     speaker = catalogue.Statement(t.statementId).speaker, clueParent = t.clueId, statementParent = t.statementId,
                     position = position });
             }

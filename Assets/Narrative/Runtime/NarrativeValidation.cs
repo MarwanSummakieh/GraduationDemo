@@ -29,7 +29,13 @@ namespace GraduationDemo.Narrative
                 {
                     if (c.Voice(b.voiceId) == null) errors.Add("Missing voice " + b.voiceId + " in " + s.id);
                     foreach (var id in b.grants) Reward(c, id, s.id, errors);
+                    foreach (var id in b.clueHints) if (c.Clue(id) == null) errors.Add("Unknown clue hint " + id + " in " + s.id);
                 }
+            }
+            foreach (var clue in c.clues.Where(x => x.hiddenUntilHint))
+            {
+                if (string.IsNullOrWhiteSpace(clue.hint)) errors.Add("Hidden clue needs search context: " + clue.id);
+                if (!c.sequences.SelectMany(s => s.beats).Any(b => c.ClueHints(b).Contains(clue.id))) errors.Add("Hidden clue has no dialogue hint: " + clue.id);
             }
             foreach (var r in c.routes)
             {
@@ -46,7 +52,9 @@ namespace GraduationDemo.Narrative
                     errors.Add("Route reward lacks spoken acquisition beat " + r.id);
             }
             // Fixed-point reachability from physical discoveries and spoken initial interviews.
-            var reachable = new HashSet<string>(c.clues.Select(x => x.id).Concat(c.statements.Where(x => x.initial).Select(x => x.id)));
+            var reachable = new HashSet<string>(c.clues.Where(x => !x.hiddenUntilHint).Select(x => x.id).Concat(c.statements.Where(x => x.initial).Select(x => x.id)));
+            foreach (var initial in c.sequences.Where(s => s.id.StartsWith("OPENING") || s.id.Contains("alibi") || s.id.Contains("rehearsal") || s.id.Contains("Corridor witness")))
+                foreach (var id in initial.beats.SelectMany(c.ClueHints)) reachable.Add(id);
             reachable.Add("flag:investigation");
             bool changed;
             do
@@ -57,8 +65,11 @@ namespace GraduationDemo.Narrative
                     var t = c.Theory(r.theoryId);
                     if (t == null || !reachable.Contains(t.clueId) || !reachable.Contains(t.statementId) || r.required.Any(x => !reachable.Contains(x))) continue;
                     foreach (var id in r.grants) if (reachable.Add(id)) changed = true;
+                    foreach (var id in c.Sequence(r.sequenceId)?.beats.SelectMany(c.ClueHints) ?? Enumerable.Empty<string>())
+                        if (reachable.Add(id)) changed = true;
                 }
             } while (changed);
+            foreach (var clue in c.clues) if (!reachable.Contains(clue.id)) errors.Add("Unreachable clue hint / circular dependency " + clue.id);
             foreach (var s in c.statements) if (!reachable.Contains(s.id)) errors.Add("Unreachable statement / circular dependency " + s.id);
             foreach (var s in c.sequences.Where(s => s.id.StartsWith("OPENING") || s.id.Contains("alibi") || s.id.Contains("rehearsal") || s.id.Contains("Corridor witness")))
                 if (s.beats.Any(b => c.Voice(b.voiceId)?.disclosesFallGeometry == true)) errors.Add("Confidential geometry in opening / initial interview " + s.id);

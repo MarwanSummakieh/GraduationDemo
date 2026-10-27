@@ -14,7 +14,8 @@ namespace GraduationDemo.Train
         public bool developmentUnvoiced = true;
         public bool playOpening = true;
         public InvestigationState State { get; private set; }
-        public bool Busy => sequence != null || notebook || choiceSuspect != null || pending != null || confirmDay;
+        public bool Busy => sequence != null || notebook || choiceSuspect != null || pending != null || confirmDay || QuestionMenuOpen;
+        public bool QuestionMenuOpen => questionMenu != null && questionMenu.IsOpen;
         public bool NotebookOpen => notebook;
         public string CurrentSequence => sequence?.id;
         public string CurrentVoiceId => sequence == null ? null : sequence.beats[beatIndex].voiceId;
@@ -35,6 +36,7 @@ namespace GraduationDemo.Train
         Vector2 debugScroll;
         TrainActor talkingActor;
         InvestigationNotebook notebookView;
+        SuspectQuestionMenu questionMenu;
         string choiceSuspect, conversationLocation = "unknown";
         ConversationInitialization pending;
         bool confirmDay, debugSequence, authorisedEnding;
@@ -66,6 +68,9 @@ namespace GraduationDemo.Train
             if (configuration != null) { configuration = Instantiate(configuration); ownsConfiguration = true; }
             State = new InvestigationState(catalogue, null, configuration);
             notebookView = GetComponent<InvestigationNotebook>();
+            questionMenu = GetComponent<SuspectQuestionMenu>() ?? gameObject.AddComponent<SuspectQuestionMenu>();
+            foreach (var binding in FindObjectsByType<NarrativeInteraction>())
+                if (!string.IsNullOrEmpty(binding.clueId) && binding.GetComponent<ClueMarker>() == null) binding.gameObject.AddComponent<ClueMarker>();
         }
         void Start()
         {
@@ -85,39 +90,57 @@ namespace GraduationDemo.Train
             if (keys.escapeKey.wasPressedThisFrame)
             {
                 if (notebook) notebook = false;
+                else if (QuestionMenuOpen) questionMenu.Close();
                 else if (sequence == null) { pending = null; choiceSuspect = null; confirmDay = false; }
                 notebookView?.SetOpen(notebook);
             }
         }
         public void ToggleNotebook()
         {
-            if (sequence != null || !State.Has("flag:investigation")) return;
+            if (sequence != null || pending != null || confirmDay || !State.Has("flag:investigation")) return;
+            questionMenu?.Close();
             tour.CloseObservation(); notebook = !notebook;
             notebookView?.SetOpen(notebook);
         }
         public bool Interact(TrainObservation observation)
         {
+            if (!tour.CanReach(observation)) { Message = "Approach the marker or suspect before interacting."; return true; }
             var binding = observation.GetComponent<NarrativeInteraction>();
             if (binding == null) { if (observation.speaker != null) { PlayBark(); return true; } return false; }
             if (Busy || !State.Has(binding.requiredFlag)) return true;
             if (!State.InvestigationOpen) { Message = "The investigation has closed. Review your notebook."; if (!string.IsNullOrEmpty(binding.suspectId)) PlayBark(); return true; }
             if (!string.IsNullOrEmpty(binding.clueId))
             {
+                if (!State.CanFindClue(binding.clueId)) { Message = "You have no lead to search here yet."; return true; }
                 var definition = catalogue.Clue(binding.clueId);
                 if (definition == null) { Debug.LogError("Missing clue binding " + binding.clueId, observation); return true; }
-                State.Grant(definition.id, CurrentLocation); observation.description = definition.fact + "\n\nRecorded in notebook. Press N to review.";
+                State.DiscoverClue(definition.id, CurrentLocation); observation.description = definition.fact + "\n\nRecorded in notebook. Press N to review.";
                 return false;
             }
             if (!string.IsNullOrEmpty(binding.suspectId))
             {
                 suspect = binding.suspectId;
-                var options = State.AvailableConversations(suspect);
-                if (!options.Any(x => x.cost <= State.RemainingActions)) { PlayBark(); return true; }
-                tour.CloseObservation(); choiceSuspect = null;
-                if (notebookView != null && notebookView.BeginConversationGraph(suspect)) { notebook = true; notebookView.SetOpen(true); }
+                OpenQuestionMenu(suspect);
                 return true;
             }
             return false;
+        }
+        public bool ObservationAvailable(TrainObservation observation)
+        {
+            var binding = observation.GetComponent<NarrativeInteraction>();
+            return binding == null || string.IsNullOrEmpty(binding.clueId) || State != null && State.InvestigationOpen && State.Has(binding.requiredFlag) && State.CanFindClue(binding.clueId) && !State.Has(binding.clueId);
+        }
+        public bool CanTalkTo(string target)
+        {
+            if (!NarrativeCatalogue.IsSuspect(target) || State == null || !State.InvestigationOpen) return false;
+            var binding = FindObjectsByType<NarrativeInteraction>().FirstOrDefault(b => b.suspectId == target);
+            return binding != null && tour.CanReach(binding.GetComponent<TrainObservation>());
+        }
+        public bool OpenQuestionMenu(string target)
+        {
+            if (sequence != null || pending != null || !CanTalkTo(target)) { Message = "Approach " + target + " to ask a question."; return false; }
+            tour.CloseObservation(); notebook = false; notebookView?.SetOpen(false);
+            return questionMenu != null && questionMenu.Open(target);
         }
         static string Interview(string target) => target == "Felix" ? "Felix — Champagne alibi" : target == "Mila" ? "Mila — Solitary rehearsal" : "Bellamy — Corridor witness";
         public bool Begin(string sequenceId, RouteSelection selected = null)
@@ -134,12 +157,13 @@ namespace GraduationDemo.Train
                 {
                     string target = new[] { "Felix", "Mila", "Bellamy" }.FirstOrDefault(x => Interview(x) == sequenceId);
                     var alibi = target == null ? null : State.Alibi(target);
-                    if (alibi == null || alibi.cost != 0 || !State.TryInitialize(alibi, out var reason)) return false;
+                    if (alibi == null || !CanTalkTo(target) || alibi.cost != 0 || !State.TryInitialize(alibi, out var reason)) return false;
                 }
                 else if (State.progress.reservation.sequenceId != sequenceId) return false;
             }
             conversationLocation = debugSequence ? "unknown" : CurrentLocation;
             tour.CloseObservation(); notebook = false; notebookView?.SetOpen(false); choiceSuspect = null; pending = null;
+            questionMenu?.Close();
             sequence = next; encounter = selected; beatIndex = 0; ShowBeat(); return sequence != null;
         }
         bool CanPlay(DialogueDefinition next)
@@ -173,14 +197,17 @@ namespace GraduationDemo.Train
         {
             if (sequence == null || audioSource.isPlaying) return;
             var notes = new List<string>();
-            foreach (var id in sequence.beats[beatIndex].grants)
+            foreach (var id in sequence.beats[beatIndex].grants.Where(id => catalogue.Clue(id) == null))
             {
                 bool acquired = State.Grant(id, conversationLocation);
                 if (!acquired) continue;
-                var clue = catalogue.Clue(id); var statement = catalogue.Statement(id);
-                if (clue != null) notes.Add("Clue: " + clue.name);
-                else if (statement != null) notes.Add(statement.speaker + ": " + statement.claim);
+                var statement = catalogue.Statement(id);
+                if (statement != null) notes.Add(statement.speaker + ": " + statement.claim);
             }
+            var completedBeat = sequence.beats[beatIndex];
+            var speaker = catalogue.Voice(completedBeat.voiceId)?.speaker;
+            foreach (var clueId in catalogue.ClueHints(completedBeat))
+                if (State.HintClue(clueId, speaker, completedBeat.voiceId)) notes.Add("Clue hint: " + catalogue.Clue(clueId).name + " — " + catalogue.Clue(clueId).hint);
             if (notes.Count > 0)
             {
                 LogbookNotice = "NOTED IN LOGBOOK\n" + string.Join("\n", notes);
@@ -207,15 +234,16 @@ namespace GraduationDemo.Train
         public bool OfferConversation(ConversationInitialization prompt)
         {
             if (sequence != null || prompt == null) { if (prompt == null) PlayBark(); return false; }
+            if (!CanTalkTo(prompt.suspect)) { Message = "Approach " + prompt.suspect + " first."; return false; }
             if (prompt.cost > State.RemainingActions) { Message = "Not enough actions remain today."; return false; }
             if (!CanPlay(catalogue.Sequence(prompt.sequenceId))) return false;
+            questionMenu?.Close();
             if (prompt.cost == 0) return Initialize(prompt);
             pending = prompt; choiceSuspect = null; notebook = false; notebookView?.SetOpen(false); return true;
         }
         bool Initialize(ConversationInitialization prompt)
         {
-            var actor = FindObjectsByType<TrainActor>().FirstOrDefault(x => x.characterId == prompt.suspect);
-            if (actor == null || tour.exterior || Vector3.Distance(tour.detective.transform.position + Vector3.up, actor.transform.position) > 3.3f) { Message = "Approach " + prompt.suspect + " first."; return false; }
+            if (!CanTalkTo(prompt.suspect)) { Message = "Approach " + prompt.suspect + " first."; return false; }
             var definition = catalogue.Sequence(prompt.sequenceId); if (definition == null || !CanPlay(definition)) return false;
             if (!State.TryInitialize(prompt, out var reason)) { Message = reason; pending = null; return false; }
             RouteDiagnostic = prompt.selection?.explanation ?? "Initial alibi / " + prompt.suspect;
@@ -267,22 +295,10 @@ namespace GraduationDemo.Train
             if (sequence != null && Event.current.type == EventType.KeyDown &&
                 (Event.current.keyCode == KeyCode.Space || Event.current.keyCode == KeyCode.Return || Event.current.keyCode == KeyCode.KeypadEnter))
             { UserAdvance(); Event.current.Use(); }
-            if (sequence == null && !notebook && State.Has("flag:investigation"))
+            if (sequence == null && !notebook && !QuestionMenuOpen && State.Has("flag:investigation"))
             {
                 if (GUI.Button(new Rect(width - 178, 66, 150, 32), "Notebook / N")) ToggleNotebook();
                 if (!string.IsNullOrEmpty(Message)) GUI.Label(new Rect(32, 106, width - 220, 60), Message, body);
-                if (!tour.exterior)
-                {
-                    GUILayout.BeginArea(new Rect(width - 270, 116, 246, height - 370));
-                    foreach (var observation in TrainObservation.Active)
-                    {
-                        var binding = observation.GetComponent<NarrativeInteraction>();
-                        if (binding == null || string.IsNullOrEmpty(binding.clueId) || State.Has(binding.clueId)) continue;
-                        if (Vector3.Distance(tour.detective.transform.position + Vector3.up, observation.transform.position) <= observation.interactionRange)
-                            if (GUILayout.Button(observation.title, notebookButton)) tour.OpenObservation(observation);
-                    }
-                    GUILayout.EndArea();
-                }
             }
             if (sequence != null)
             {
@@ -296,7 +312,7 @@ namespace GraduationDemo.Train
                 GUI.enabled = true; GUILayout.EndArea();
             }
             if (choiceSuspect != null || pending != null || confirmDay) DrawConversationChoice(width, height);
-            if (sequence == null && !notebook && choiceSuspect == null && pending == null && !confirmDay && State.Has("flag:investigation"))
+            if (sequence == null && !notebook && !QuestionMenuOpen && choiceSuspect == null && pending == null && !confirmDay && State.Has("flag:investigation"))
             {
                 GUI.Label(new Rect(24, height - 126, 550, 32), State.InvestigationOpen ? "Day " + State.progress.day + "/" + State.Days + "   " + (State.ActionCostsEnabled ? State.RemainingActions + "/" + State.ActionsPerDay + " actions" : "Action costs OFF") : "Investigation closed / Review your accusation", heading);
                 if (State.InvestigationOpen && GUI.Button(new Rect(24, height - 164, 170, 30), "End day")) RequestEndDay();

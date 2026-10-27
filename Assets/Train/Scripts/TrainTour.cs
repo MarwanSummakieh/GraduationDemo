@@ -84,6 +84,7 @@ namespace GraduationDemo.Train
             float best = float.PositiveInfinity;
             foreach (var item in TrainObservation.Active)
             {
+                if (narrative != null && !narrative.ObservationAvailable(item)) continue;
                 float distance = Vector3.Distance(detective.transform.position + Vector3.up, item.transform.position);
                 if (distance <= item.interactionRange)
                 {
@@ -154,10 +155,12 @@ namespace GraduationDemo.Train
             if (Vector3.Distance(detective.transform.position + Vector3.up, item.transform.position) > item.interactionRange) return false;
             OpenObservation(item); return true;
         }
+        public bool CanReach(TrainObservation item) => item != null && detective != null && !exterior &&
+            Vector3.Distance(detective.transform.position + Vector3.up, item.transform.position) <= item.interactionRange;
 
         public void OpenObservation(TrainObservation item)
         {
-            if (item == null || (narrative != null && narrative.Busy)) return;
+            if (!CanReach(item) || (narrative != null && narrative.Busy)) return;
             if (narrative != null && narrative.Interact(item)) return;
             CloseObservation(); observation = item.description;
             currentSpeaker = item.speaker;

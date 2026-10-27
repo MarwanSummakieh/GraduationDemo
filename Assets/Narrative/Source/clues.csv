@@ -1,11 +1,11 @@
-﻿Clue ID,Clue name,Observable fact,Acquisition,Notes
-C01,Theatrical dagger,"Strawberry-syrup-covered prop, not a demonstrated stabbing weapon",Investigate train,No automatic inference of guilt
-C02,Broken clock,Heavy desk clock stopped at about 20:37,Investigate train,No automatic inference of guilt
-C03,Odette's injury,Head/neck trauma; no visible stab wound,Investigate train,No automatic inference of guilt
-C04,Murder programme,Fictional stabbing due 22:00; dagger intended in left hand,Investigate train,No automatic inference of guilt
-C05,Champagne receipt,Order at 20:10 charged to Odette; Felix possesses receipt,Investigate train,No automatic inference of guilt
-C06,Peacock and lion rings,"Matched engagement rings in Felix's suitcase, privately purchased by him",Investigate train,No automatic inference of guilt
-C07,Disturbed desk,Displaced furniture and impact damage at Odette's desk,Investigate train,No automatic inference of guilt
-C08,Stage blood materials,Strawberry-syrup preparation involving Mila,Investigate train,No automatic inference of guilt
-C09,No-interruption rule,Odette instructed guests not to interrupt private rehearsals,Investigate train,No automatic inference of guilt
-C10,Clock behind desk,"Clock found behind desk, away from its ordinary position",Investigate train,No automatic inference of guilt
+"Clue ID","Clue name","Observable fact","Acquisition","Notes","Hidden until hinted","Clue hint"
+"C01","Theatrical dagger","Strawberry-syrup-covered prop, not a demonstrated stabbing weapon","Investigate train","No automatic inference of guilt","no",
+"C02","Broken clock","Heavy desk clock stopped at about 20:37","Investigate train","No automatic inference of guilt","no",
+"C03","Odette's injury","Head/neck trauma; no visible stab wound","Investigate train","No automatic inference of guilt","no",
+"C04","Murder programme","Fictional stabbing due 22:00; dagger intended in left hand","Investigate train","No automatic inference of guilt","no",
+"C05","Champagne receipt","Order at 20:10 charged to Odette; Felix possesses receipt","Investigate train","No automatic inference of guilt","yes","Felix mentioned a receipt. Search near his place at the bar."
+"C06","Peacock and lion rings","Matched engagement rings in Felix's suitcase, privately purchased by him","Investigate train","No automatic inference of guilt","no",
+"C07","Disturbed desk","Displaced furniture and impact damage at Odette's desk","Investigate train","No automatic inference of guilt","no",
+"C08","Stage blood materials","Strawberry-syrup preparation involving Mila","Investigate train","No automatic inference of guilt","yes","Mila helped prepare sticky fake blood. Look for the preparation materials in the dining saloon."
+"C09","No-interruption rule","Odette instructed guests not to interrupt private rehearsals","Investigate train","No automatic inference of guilt","no",
+"C10","Clock behind desk","Clock found behind desk, away from its ordinary position","Investigate train","No automatic inference of guilt","yes","Mila pictured what Odette could reach during her fall. Inspect behind the desk in Odette's compartment."

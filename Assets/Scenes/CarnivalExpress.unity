@@ -1855,6 +1855,7 @@ GameObject:
   - component: {fileID: 57038334}
   - component: {fileID: 57038333}
   - component: {fileID: 57038332}
+  - component: {fileID: 57038337}
   m_Layer: 0
   m_Name: C01 / Theatrical dagger
   m_TagString: Untagged
@@ -1988,6 +1989,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 57038330}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &57038337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57038330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a963707bd9f91345a26bea3affacfb8, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::GraduationDemo.Train.ClueMarker
+  markerOffset: {x: 0, y: 0.2, z: 0}
 --- !u!1 &59610000
 GameObject:
   m_ObjectHideFlags: 0
@@ -17582,6 +17596,7 @@ GameObject:
   - component: {fileID: 592979231}
   - component: {fileID: 592979230}
   - component: {fileID: 592979229}
+  - component: {fileID: 592979234}
   m_Layer: 0
   m_Name: C10 / Clock behind desk
   m_TagString: Untagged
@@ -17715,6 +17730,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592979227}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &592979234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 592979227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a963707bd9f91345a26bea3affacfb8, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::GraduationDemo.Train.ClueMarker
+  markerOffset: {x: 0, y: 0.2, z: 0}
 --- !u!1 &597160086
 GameObject:
   m_ObjectHideFlags: 0
@@ -20913,6 +20941,7 @@ GameObject:
   - component: {fileID: 687619393}
   - component: {fileID: 687619392}
   - component: {fileID: 687619391}
+  - component: {fileID: 687619396}
   m_Layer: 0
   m_Name: C06 / Peacock and lion rings
   m_TagString: Untagged
@@ -21047,6 +21076,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687619389}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &687619396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687619389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a963707bd9f91345a26bea3affacfb8, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::GraduationDemo.Train.ClueMarker
+  markerOffset: {x: 0, y: 0.2, z: 0}
 --- !u!1 &688898734
 GameObject:
   m_ObjectHideFlags: 0
@@ -25272,6 +25314,7 @@ GameObject:
   - component: {fileID: 842036903}
   - component: {fileID: 842036902}
   - component: {fileID: 842036901}
+  - component: {fileID: 842036906}
   m_Layer: 0
   m_Name: C03 / Odette's injury
   m_TagString: Untagged
@@ -25407,6 +25450,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 842036899}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &842036906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842036899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a963707bd9f91345a26bea3affacfb8, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::GraduationDemo.Train.ClueMarker
+  markerOffset: {x: 0, y: 0.2, z: 0}
 --- !u!1 &843828993
 GameObject:
   m_ObjectHideFlags: 0
@@ -36569,6 +36625,7 @@ GameObject:
   - component: {fileID: 1242506182}
   - component: {fileID: 1242506181}
   - component: {fileID: 1242506180}
+  - component: {fileID: 1242506185}
   m_Layer: 0
   m_Name: C08 / Stage blood materials
   m_TagString: Untagged
@@ -36704,6 +36761,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242506178}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1242506185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242506178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a963707bd9f91345a26bea3affacfb8, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::GraduationDemo.Train.ClueMarker
+  markerOffset: {x: 0, y: 0.2, z: 0}
 --- !u!1 &1245791570
 GameObject:
   m_ObjectHideFlags: 0
@@ -37131,6 +37201,7 @@ GameObject:
   - component: {fileID: 1257159050}
   - component: {fileID: 1257159049}
   - component: {fileID: 1257159048}
+  - component: {fileID: 1257159053}
   m_Layer: 0
   m_Name: C07 / Disturbed desk
   m_TagString: Untagged
@@ -37264,6 +37335,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1257159046}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1257159053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257159046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a963707bd9f91345a26bea3affacfb8, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::GraduationDemo.Train.ClueMarker
+  markerOffset: {x: 0, y: 0.2, z: 0}
 --- !u!1 &1259032156
 GameObject:
   m_ObjectHideFlags: 0
@@ -39133,6 +39217,7 @@ GameObject:
   - component: {fileID: 1304366674}
   - component: {fileID: 1304366673}
   - component: {fileID: 1304366672}
+  - component: {fileID: 1304366677}
   m_Layer: 0
   m_Name: C05 / Champagne receipt
   m_TagString: Untagged
@@ -39266,6 +39351,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1304366670}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1304366677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1304366670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a963707bd9f91345a26bea3affacfb8, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::GraduationDemo.Train.ClueMarker
+  markerOffset: {x: 0, y: 0.2, z: 0}
 --- !u!1 &1307387398
 GameObject:
   m_ObjectHideFlags: 0
@@ -44340,6 +44438,7 @@ GameObject:
   - component: {fileID: 1466404551}
   - component: {fileID: 1466404550}
   - component: {fileID: 1466404552}
+  - component: {fileID: 1466404553}
   m_Layer: 0
   m_Name: Train exploration / fixed camera
   m_TagString: Untagged
@@ -44360,6 +44459,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GraduationDemo.Train.TrainTour
   viewCamera: {fileID: 1195072978}
+  cameraRig: {fileID: 0}
+  locationIds:
+  - odette
+  - sleeping_a
+  - bar
+  - dining
+  - burrows
   detective: {fileID: 8068164642545000461}
   cutawayShells:
   - {fileID: 1664194012359748968}
@@ -44565,6 +44671,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217b9d8835772c24ebc202d3237e75d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GraduationDemo.Train.InvestigationNotebook
+--- !u!114 &1466404553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466404547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1497d3ccca03a7649b9d648cfcb053e0, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::GraduationDemo.Train.SuspectQuestionMenu
 --- !u!1 &1466964144
 GameObject:
   m_ObjectHideFlags: 0
@@ -44669,6 +44787,7 @@ GameObject:
   - component: {fileID: 1470713844}
   - component: {fileID: 1470713843}
   - component: {fileID: 1470713842}
+  - component: {fileID: 1470713847}
   m_Layer: 0
   m_Name: C02 / Broken clock
   m_TagString: Untagged
@@ -44804,6 +44923,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470713840}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1470713847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470713840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a963707bd9f91345a26bea3affacfb8, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::GraduationDemo.Train.ClueMarker
+  markerOffset: {x: 0, y: 0.2, z: 0}
 --- !u!1 &1471711237
 GameObject:
   m_ObjectHideFlags: 0
@@ -56703,6 +56835,7 @@ GameObject:
   - component: {fileID: 1847685376}
   - component: {fileID: 1847685375}
   - component: {fileID: 1847685374}
+  - component: {fileID: 1847685379}
   m_Layer: 0
   m_Name: C09 / No-interruption rule
   m_TagString: Untagged
@@ -56836,6 +56969,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1847685372}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1847685379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847685372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a963707bd9f91345a26bea3affacfb8, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::GraduationDemo.Train.ClueMarker
+  markerOffset: {x: 0, y: 0.2, z: 0}
 --- !u!1 &1847727833
 GameObject:
   m_ObjectHideFlags: 0
@@ -66740,6 +66886,7 @@ GameObject:
   - component: {fileID: 2124231948}
   - component: {fileID: 2124231947}
   - component: {fileID: 2124231946}
+  - component: {fileID: 2124231951}
   m_Layer: 0
   m_Name: C04 / Murder programme
   m_TagString: Untagged
@@ -66873,6 +67020,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2124231944}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2124231951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124231944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a963707bd9f91345a26bea3affacfb8, type: 3}
+  m_Name: ""
+  m_EditorClassIdentifier: Assembly-CSharp::GraduationDemo.Train.ClueMarker
+  markerOffset: {x: 0, y: 0.2, z: 0}
 --- !u!1 &2124361591
 GameObject:
   m_ObjectHideFlags: 0

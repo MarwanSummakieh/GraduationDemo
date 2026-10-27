@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="21" result="Passed" total="21" passed="21" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-26 20:49:01Z" end-time="2026-10-26 20:49:27Z" duration="25.4083414">
+  <test-suite type="TestSuite" id="1027" name="GraduationDemo" fullname="GraduationDemo" runstate="Runnable" testcasecount="21" result="Passed" start-time="2026-10-26 20:49:01Z" end-time="2026-10-26 20:49:27Z" duration="25.408341" total="21" passed="21" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1023" name="GraduationDemo.Narrative.PlayTests.dll" fullname="C:/Users/oldal/.codex/visualizations/2026/10/26/01a17970-c602-7fa3-bac8-efd2625d99e9/unity-clue-verification/Library/ScriptAssemblies/GraduationDemo.Narrative.PlayTests.dll" runstate="Runnable" testcasecount="21" result="Passed" start-time="2026-10-26 20:49:01Z" end-time="2026-10-26 20:49:27Z" duration="25.383087" total="21" passed="21" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="16052" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <output><![CDATA[CLUE_TEST_START: C:/Users/oldal/.codex/visualizations/2026/10/26/01a17970-c602-7fa3-bac8-efd2625d99e9/unity-clue-verification/Library/ScriptAssemblies/GraduationDemo.Narrative.PlayTests.dll
+]]></output>
+      <test-suite type="TestFixture" id="1001" name="PlayableInvestigationTests" fullname="PlayableInvestigationTests" classname="PlayableInvestigationTests" runstate="Runnable" testcasecount="21" result="Passed" start-time="2026-10-26 20:49:01Z" end-time="2026-10-26 20:49:27Z" duration="25.379281" total="21" passed="21" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests
+]]></output>
+        <test-case id="1018" name="AccusationChecklistShowsTheReportedGapAndUpdatesWhenTheTheoryIsReplaced" fullname="PlayableInvestigationTests.AccusationChecklistShowsTheReportedGapAndUpdatesWhenTheTheoryIsReplaced" methodname="AccusationChecklistShowsTheReportedGapAndUpdatesWhenTheTheoryIsReplaced" classname="PlayableInvestigationTests" runstate="Runnable" seed="26411263" result="Passed" start-time="2026-10-26 20:49:01Z" end-time="2026-10-26 20:49:03Z" duration="2.257395" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.AccusationChecklistShowsTheReportedGapAndUpdatesWhenTheTheoryIsReplaced
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+]]></output>
+        </test-case>
+        <test-case id="1016" name="AccusationTethersEnforceTwoAndPruneRemovedTheoriesWithoutReopeningInvestigation" fullname="PlayableInvestigationTests.AccusationTethersEnforceTwoAndPruneRemovedTheoriesWithoutReopeningInvestigation" methodname="AccusationTethersEnforceTwoAndPruneRemovedTheoriesWithoutReopeningInvestigation" classname="PlayableInvestigationTests" runstate="Runnable" seed="469136283" result="Passed" start-time="2026-10-26 20:49:03Z" end-time="2026-10-26 20:49:05Z" duration="1.291349" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.AccusationTethersEnforceTwoAndPruneRemovedTheoriesWithoutReopeningInvestigation
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+]]></output>
+        </test-case>
+        <test-case id="1021" name="CollectedClueAndStatementFillTwoInterpretationsAndResolve" fullname="PlayableInvestigationTests.CollectedClueAndStatementFillTwoInterpretationsAndResolve" methodname="CollectedClueAndStatementFillTwoInterpretationsAndResolve" classname="PlayableInvestigationTests" runstate="Runnable" seed="915386541" result="Passed" start-time="2026-10-26 20:49:05Z" end-time="2026-10-26 20:49:06Z" duration="1.100896" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.CollectedClueAndStatementFillTwoInterpretationsAndResolve
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: BURR_024 / You were near Odette's compartment when the real injury occurred.
+UNVOICED DEVELOPMENT LINE: MILA_006 / I didn't murder her.
+UNVOICED DEVELOPMENT LINE: BURR_MMO_FINALE_01 / The injury, your connection to the couple, and the sighting near Odette's compartment warrant an explanation.
+UNVOICED DEVELOPMENT LINE: MILA_007 / It was an argument. She said I had to let her go.
+UNVOICED DEVELOPMENT LINE: BURR_026 / What happened next?
+UNVOICED DEVELOPMENT LINE: MILA_CANON_FINALE_01 / I slapped her. She stumbled, and her head struck the heavy clock on her desk. I couldn't wake her.
+UNVOICED DEVELOPMENT LINE: BURR_027 / And the dagger?
+UNVOICED DEVELOPMENT LINE: MILA_009 / I thought if somebody found her with it, they'd think she was rehearsing.
+UNVOICED DEVELOPMENT LINE: BURR_028 / You knew she needed help.
+UNVOICED DEVELOPMENT LINE: MILA_010 / I was frightened.
+UNVOICED DEVELOPMENT LINE: BURR_029 / You could have called someone.
+UNVOICED DEVELOPMENT LINE: MILA_011 / I know.
+UNVOICED DEVELOPMENT LINE: MILA_012 / She was supposed to wake up.
+UNVOICED DEVELOPMENT LINE: BURR_030 / You will have to tell the authorities what happened.
+]]></output>
+        </test-case>
+        <test-case id="1003" name="ContinuousWalkingAisleAcrossAllFiveCarriages" fullname="PlayableInvestigationTests.ContinuousWalkingAisleAcrossAllFiveCarriages" methodname="ContinuousWalkingAisleAcrossAllFiveCarriages" classname="PlayableInvestigationTests" runstate="Runnable" seed="104357326" result="Passed" start-time="2026-10-26 20:49:06Z" end-time="2026-10-26 20:49:07Z" duration="1.087463" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.ContinuousWalkingAisleAcrossAllFiveCarriages
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+]]></output>
+        </test-case>
+        <test-case id="1009" name="DialogueHintRevealsMarkerButRequiresPhysicalCollectionInBothScenes" fullname="PlayableInvestigationTests.DialogueHintRevealsMarkerButRequiresPhysicalCollectionInBothScenes" methodname="DialogueHintRevealsMarkerButRequiresPhysicalCollectionInBothScenes" classname="PlayableInvestigationTests" runstate="Runnable" seed="591430914" result="Passed" start-time="2026-10-26 20:49:07Z" end-time="2026-10-26 20:49:11Z" duration="4.550399" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.DialogueHintRevealsMarkerButRequiresPhysicalCollectionInBothScenes
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: BURR_011 / Mr. Mercer, where were you at approximately half past eight?
+UNVOICED DEVELOPMENT LINE: FELI_001 / At the bar.
+UNVOICED DEVELOPMENT LINE: BURR_012 / Can anyone confirm that?
+UNVOICED DEVELOPMENT LINE: FELI_002 / I've got the receipt.
+UNVOICED DEVELOPMENT LINE: BURR_013 / Champagne. An expensive taste.
+UNVOICED DEVELOPMENT LINE: FELI_003 / Wasn't mine. Odette was paying.
+UNVOICED DEVELOPMENT LINE: BURR_014 / And you remained there?
+UNVOICED DEVELOPMENT LINE: FELI_004 / I was drinking, Inspector. Not posing for a portrait.
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: BURR_011 / Mr. Mercer, where were you at approximately half past eight?
+UNVOICED DEVELOPMENT LINE: FELI_001 / At the bar.
+UNVOICED DEVELOPMENT LINE: BURR_012 / Can anyone confirm that?
+UNVOICED DEVELOPMENT LINE: FELI_002 / I've got the receipt.
+UNVOICED DEVELOPMENT LINE: BURR_013 / Champagne. An expensive taste.
+UNVOICED DEVELOPMENT LINE: FELI_003 / Wasn't mine. Odette was paying.
+UNVOICED DEVELOPMENT LINE: BURR_014 / And you remained there?
+UNVOICED DEVELOPMENT LINE: FELI_004 / I was drinking, Inspector. Not posing for a portrait.
+]]></output>
+        </test-case>
+        <test-case id="1013" name="DialogueShowsLogbookCueOnlyForNewDiscoveries" fullname="PlayableInvestigationTests.DialogueShowsLogbookCueOnlyForNewDiscoveries" methodname="DialogueShowsLogbookCueOnlyForNewDiscoveries" classname="PlayableInvestigationTests" runstate="Runnable" seed="256096154" result="Passed" start-time="2026-10-26 20:49:11Z" end-time="2026-10-26 20:49:12Z" duration="0.906983" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.DialogueShowsLogbookCueOnlyForNewDiscoveries
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: BURR_019 / Miss Novak, where were you at half past eight?
+UNVOICED DEVELOPMENT LINE: MILA_001 / Rehearsing! In my compartment.
+UNVOICED DEVELOPMENT LINE: BURR_020 / Alone?
+UNVOICED DEVELOPMENT LINE: MILA_002 / Entirely. Not even a mouse.
+UNVOICED DEVELOPMENT LINE: BURR_021 / What were you rehearsing?
+UNVOICED DEVELOPMENT LINE: MILA_003 / My death scene. One must prepare for opportunity.
+UNVOICED DEVELOPMENT LINE: BURR_022 / Did you visit Odette later?
+UNVOICED DEVELOPMENT LINE: MILA_004 / Only earlier, for the fake blood. Terribly sticky stuff.
+UNVOICED DEVELOPMENT LINE: BURR_023 / And after that?
+UNVOICED DEVELOPMENT LINE: MILA_005 / I left her to prepare. She was very excited.
+]]></output>
+        </test-case>
+        <test-case id="1019" name="ExplicitMMOSocketsAcceptTheReportedCaseWithoutTheOldContradictionPrerequisites" fullname="PlayableInvestigationTests.ExplicitMMOSocketsAcceptTheReportedCaseWithoutTheOldContradictionPrerequisites" methodname="ExplicitMMOSocketsAcceptTheReportedCaseWithoutTheOldContradictionPrerequisites" classname="PlayableInvestigationTests" runstate="Runnable" seed="291869449" result="Passed" start-time="2026-10-26 20:49:12Z" end-time="2026-10-26 20:49:14Z" duration="1.148552" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.ExplicitMMOSocketsAcceptTheReportedCaseWithoutTheOldContradictionPrerequisites
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: BURR_024 / You were near Odette's compartment when the real injury occurred.
+UNVOICED DEVELOPMENT LINE: MILA_006 / I didn't murder her.
+UNVOICED DEVELOPMENT LINE: BURR_MMO_FINALE_01 / The injury, your connection to the couple, and the sighting near Odette's compartment warrant an explanation.
+UNVOICED DEVELOPMENT LINE: MILA_007 / It was an argument. She said I had to let her go.
+UNVOICED DEVELOPMENT LINE: BURR_026 / What happened next?
+UNVOICED DEVELOPMENT LINE: MILA_CANON_FINALE_01 / I slapped her. She stumbled, and her head struck the heavy clock on her desk. I couldn't wake her.
+UNVOICED DEVELOPMENT LINE: BURR_027 / And the dagger?
+UNVOICED DEVELOPMENT LINE: MILA_009 / I thought if somebody found her with it, they'd think she was rehearsing.
+UNVOICED DEVELOPMENT LINE: BURR_028 / You knew she needed help.
+UNVOICED DEVELOPMENT LINE: MILA_010 / I was frightened.
+UNVOICED DEVELOPMENT LINE: BURR_029 / You could have called someone.
+UNVOICED DEVELOPMENT LINE: MILA_011 / I know.
+UNVOICED DEVELOPMENT LINE: MILA_012 / She was supposed to wake up.
+UNVOICED DEVELOPMENT LINE: BURR_030 / You will have to tell the authorities what happened.
+]]></output>
+        </test-case>
+        <test-case id="1012" name="FinalDayClosureLocksDiscoveriesAndInterviewPrompts" fullname="PlayableInvestigationTests.FinalDayClosureLocksDiscoveriesAndInterviewPrompts" methodname="FinalDayClosureLocksDiscoveriesAndInterviewPrompts" classname="PlayableInvestigationTests" runstate="Runnable" seed="2071401624" result="Passed" start-time="2026-10-26 20:49:14Z" end-time="2026-10-26 20:49:14Z" duration="0.841820" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.FinalDayClosureLocksDiscoveriesAndInterviewPrompts
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+]]></output>
+        </test-case>
+        <test-case id="1015" name="FinalPhaseGraphConstructsNewTheoriesAndTethersASupportedAccusation" fullname="PlayableInvestigationTests.FinalPhaseGraphConstructsNewTheoriesAndTethersASupportedAccusation" methodname="FinalPhaseGraphConstructsNewTheoriesAndTethersASupportedAccusation" classname="PlayableInvestigationTests" runstate="Runnable" seed="427852691" result="Passed" start-time="2026-10-26 20:49:14Z" end-time="2026-10-26 20:49:16Z" duration="1.283163" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.FinalPhaseGraphConstructsNewTheoriesAndTethersASupportedAccusation
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: BURR_024 / You were near Odette's compartment when the real injury occurred.
+UNVOICED DEVELOPMENT LINE: MILA_006 / I didn't murder her.
+UNVOICED DEVELOPMENT LINE: BURR_MMO_FINALE_01 / The injury, your connection to the couple, and the sighting near Odette's compartment warrant an explanation.
+UNVOICED DEVELOPMENT LINE: MILA_007 / It was an argument. She said I had to let her go.
+UNVOICED DEVELOPMENT LINE: BURR_026 / What happened next?
+UNVOICED DEVELOPMENT LINE: MILA_CANON_FINALE_01 / I slapped her. She stumbled, and her head struck the heavy clock on her desk. I couldn't wake her.
+UNVOICED DEVELOPMENT LINE: BURR_027 / And the dagger?
+UNVOICED DEVELOPMENT LINE: MILA_009 / I thought if somebody found her with it, they'd think she was rehearsing.
+UNVOICED DEVELOPMENT LINE: BURR_028 / You knew she needed help.
+UNVOICED DEVELOPMENT LINE: MILA_010 / I was frightened.
+UNVOICED DEVELOPMENT LINE: BURR_029 / You could have called someone.
+UNVOICED DEVELOPMENT LINE: MILA_011 / I know.
+UNVOICED DEVELOPMENT LINE: MILA_012 / She was supposed to wake up.
+UNVOICED DEVELOPMENT LINE: BURR_030 / You will have to tell the authorities what happened.
+]]></output>
+        </test-case>
+        <test-case id="1005" name="FullInvestigationConfrontationAndStaticEnding" fullname="PlayableInvestigationTests.FullInvestigationConfrontationAndStaticEnding" methodname="FullInvestigationConfrontationAndStaticEnding" classname="PlayableInvestigationTests" runstate="Runnable" seed="824526389" result="Passed" start-time="2026-10-26 20:49:16Z" end-time="2026-10-26 20:49:17Z" duration="0.912304" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.FullInvestigationConfrontationAndStaticEnding
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: BURR_011 / Mr. Mercer, where were you at approximately half past eight?
+UNVOICED DEVELOPMENT LINE: FELI_001 / At the bar.
+UNVOICED DEVELOPMENT LINE: BURR_012 / Can anyone confirm that?
+UNVOICED DEVELOPMENT LINE: FELI_002 / I've got the receipt.
+UNVOICED DEVELOPMENT LINE: BURR_013 / Champagne. An expensive taste.
+UNVOICED DEVELOPMENT LINE: FELI_003 / Wasn't mine. Odette was paying.
+UNVOICED DEVELOPMENT LINE: BURR_014 / And you remained there?
+UNVOICED DEVELOPMENT LINE: FELI_004 / I was drinking, Inspector. Not posing for a portrait.
+UNVOICED DEVELOPMENT LINE: BURR_015 / Where were you before we discovered her?
+UNVOICED DEVELOPMENT LINE: BELL_007 / Walking through the sleeping carriage.
+UNVOICED DEVELOPMENT LINE: BURR_016 / Did you notice anything?
+UNVOICED DEVELOPMENT LINE: BELL_008 / A sharp noise, then a crash. From Odette's end of the corridor.
+UNVOICED DEVELOPMENT LINE: BURR_017 / You didn't investigate?
+UNVOICED DEVELOPMENT LINE: BELL_009 / She forbade interruptions. I believed she was rehearsing.
+UNVOICED DEVELOPMENT LINE: BURR_018 / A very convenient belief.
+UNVOICED DEVELOPMENT LINE: BELL_010 / It was considerably more convenient before she died.
+UNVOICED DEVELOPMENT LINE: BURR_019 / Miss Novak, where were you at half past eight?
+UNVOICED DEVELOPMENT LINE: MILA_001 / Rehearsing! In my compartment.
+UNVOICED DEVELOPMENT LINE: BURR_020 / Alone?
+UNVOICED DEVELOPMENT LINE: MILA_002 / Entirely. Not even a mouse.
+UNVOICED DEVELOPMENT LINE: BURR_021 / What were you rehearsing?
+UNVOICED DEVELOPMENT LINE: MILA_003 / My death scene. One must prepare for opportunity.
+UNVOICED DEVELOPMENT LINE: BURR_022 / Did you visit Odette later?
+UNVOICED DEVELOPMENT LINE: MILA_004 / Only earlier, for the fake blood. Terribly sticky stuff.
+UNVOICED DEVELOPMENT LINE: BURR_023 / And after that?
+UNVOICED DEVELOPMENT LINE: MILA_005 / I left her to prepare. She was very excited.
+UNVOICED DEVELOPMENT LINE: NEW_07_01 / The clock is broken. You say Odette seemed pleased when you last saw her.
+UNVOICED DEVELOPMENT LINE: NEW_07_02 / Odette was always knocking things over. Perhaps she broke it herself.
+UNVOICED DEVELOPMENT LINE: NEW_07_03 / A possibility. When did you see her last?
+UNVOICED DEVELOPMENT LINE: NEW_07_04 / Before dinner, Inspector. I told you.
+UNVOICED DEVELOPMENT LINE: BURR_ALT_01 / You say Odette had a habit of knocking things over. What about her damaged writing desk?
+UNVOICED DEVELOPMENT LINE: MILA_CANON_SPATIAL_01 / Perhaps she fell. But she could hardly have reached the clock from where she fell.
+UNVOICED DEVELOPMENT LINE: BURR_CANON_SPATIAL_01 / From where she fell?
+UNVOICED DEVELOPMENT LINE: MILA_CANON_SPATIAL_02 / I was only guessing, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_ALT_05 / You seem unusually sure of a fall you say you never witnessed.
+UNVOICED DEVELOPMENT LINE: MILA_ALT_06 / Oh, Inspector. I wish I had never said anything.
+UNVOICED DEVELOPMENT LINE: NEW_02_01 / You say you were at the bar. Did you leave it at any point?
+UNVOICED DEVELOPMENT LINE: NEW_02_02 / I went back toward the compartments later.
+UNVOICED DEVELOPMENT LINE: NEW_02_03 / Did you see anyone?
+UNVOICED DEVELOPMENT LINE: NEW_02_04 / Mila. Near Odette’s end of the carriage. I think it was quarter to nine.
+UNVOICED DEVELOPMENT LINE: NEW_02_05 / And you neglected to mention that?
+UNVOICED DEVELOPMENT LINE: NEW_02_06 / I thought everybody was running about rehearsing.
+UNVOICED DEVELOPMENT LINE: NEW_08_01 / A lion and a peacock. Their relationship was more than a costume joke.
+UNVOICED DEVELOPMENT LINE: NEW_08_02 / Yes. Odette told me. I was happy for them.
+UNVOICED DEVELOPMENT LINE: NEW_08_03 / And you kept that to yourself?
+UNVOICED DEVELOPMENT LINE: NEW_08_04 / She trusted me, Inspector. I did not think it was mine to announce.
+UNVOICED DEVELOPMENT LINE: BURR_024 / You were near Odette's compartment when the real injury occurred.
+UNVOICED DEVELOPMENT LINE: MILA_006 / I didn't murder her.
+UNVOICED DEVELOPMENT LINE: BURR_MMO_FINALE_01 / The injury, your connection to the couple, and the sighting near Odette's compartment warrant an explanation.
+UNVOICED DEVELOPMENT LINE: MILA_007 / It was an argument. She said I had to let her go.
+UNVOICED DEVELOPMENT LINE: BURR_026 / What happened next?
+UNVOICED DEVELOPMENT LINE: MILA_CANON_FINALE_01 / I slapped her. She stumbled, and her head struck the heavy clock on her desk. I couldn't wake her.
+UNVOICED DEVELOPMENT LINE: BURR_027 / And the dagger?
+UNVOICED DEVELOPMENT LINE: MILA_009 / I thought if somebody found her with it, they'd think she was rehearsing.
+UNVOICED DEVELOPMENT LINE: BURR_028 / You knew she needed help.
+UNVOICED DEVELOPMENT LINE: MILA_010 / I was frightened.
+UNVOICED DEVELOPMENT LINE: BURR_029 / You could have called someone.
+UNVOICED DEVELOPMENT LINE: MILA_011 / I know.
+UNVOICED DEVELOPMENT LINE: MILA_012 / She was supposed to wake up.
+UNVOICED DEVELOPMENT LINE: BURR_030 / You will have to tell the authorities what happened.
+]]></output>
+        </test-case>
+        <test-case id="1004" name="InteractionsAwardOnlySpokenStatementsAndPhysicalClues" fullname="PlayableInvestigationTests.InteractionsAwardOnlySpokenStatementsAndPhysicalClues" methodname="InteractionsAwardOnlySpokenStatementsAndPhysicalClues" classname="PlayableInvestigationTests" runstate="Runnable" seed="2089687509" result="Passed" start-time="2026-10-26 20:49:17Z" end-time="2026-10-26 20:49:17Z" duration="0.896234" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.InteractionsAwardOnlySpokenStatementsAndPhysicalClues
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: BURR_011 / Mr. Mercer, where were you at approximately half past eight?
+UNVOICED DEVELOPMENT LINE: FELI_001 / At the bar.
+UNVOICED DEVELOPMENT LINE: BURR_012 / Can anyone confirm that?
+UNVOICED DEVELOPMENT LINE: FELI_002 / I've got the receipt.
+UNVOICED DEVELOPMENT LINE: BURR_013 / Champagne. An expensive taste.
+UNVOICED DEVELOPMENT LINE: FELI_003 / Wasn't mine. Odette was paying.
+UNVOICED DEVELOPMENT LINE: BURR_014 / And you remained there?
+UNVOICED DEVELOPMENT LINE: FELI_004 / I was drinking, Inspector. Not posing for a portrait.
+UNVOICED DEVELOPMENT LINE: BURR_015 / Where were you before we discovered her?
+UNVOICED DEVELOPMENT LINE: BELL_007 / Walking through the sleeping carriage.
+UNVOICED DEVELOPMENT LINE: BURR_016 / Did you notice anything?
+UNVOICED DEVELOPMENT LINE: BELL_008 / A sharp noise, then a crash. From Odette's end of the corridor.
+UNVOICED DEVELOPMENT LINE: BURR_017 / You didn't investigate?
+UNVOICED DEVELOPMENT LINE: BELL_009 / She forbade interruptions. I believed she was rehearsing.
+UNVOICED DEVELOPMENT LINE: BURR_018 / A very convenient belief.
+UNVOICED DEVELOPMENT LINE: BELL_010 / It was considerably more convenient before she died.
+UNVOICED DEVELOPMENT LINE: BURR_019 / Miss Novak, where were you at half past eight?
+UNVOICED DEVELOPMENT LINE: MILA_001 / Rehearsing! In my compartment.
+UNVOICED DEVELOPMENT LINE: BURR_020 / Alone?
+UNVOICED DEVELOPMENT LINE: MILA_002 / Entirely. Not even a mouse.
+UNVOICED DEVELOPMENT LINE: BURR_021 / What were you rehearsing?
+UNVOICED DEVELOPMENT LINE: MILA_003 / My death scene. One must prepare for opportunity.
+UNVOICED DEVELOPMENT LINE: BURR_022 / Did you visit Odette later?
+UNVOICED DEVELOPMENT LINE: MILA_004 / Only earlier, for the fake blood. Terribly sticky stuff.
+UNVOICED DEVELOPMENT LINE: BURR_023 / And after that?
+UNVOICED DEVELOPMENT LINE: MILA_005 / I left her to prepare. She was very excited.
+]]></output>
+        </test-case>
+        <test-case id="1006" name="InterviewMustFinishAndCannotBeReinitialized" fullname="PlayableInvestigationTests.InterviewMustFinishAndCannotBeReinitialized" methodname="InterviewMustFinishAndCannotBeReinitialized" classname="PlayableInvestigationTests" runstate="Runnable" seed="1946607151" result="Passed" start-time="2026-10-26 20:49:17Z" end-time="2026-10-26 20:49:18Z" duration="0.844547" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.InterviewMustFinishAndCannotBeReinitialized
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: BURR_019 / Miss Novak, where were you at half past eight?
+UNVOICED DEVELOPMENT LINE: MILA_001 / Rehearsing! In my compartment.
+UNVOICED DEVELOPMENT LINE: BURR_020 / Alone?
+UNVOICED DEVELOPMENT LINE: MILA_002 / Entirely. Not even a mouse.
+UNVOICED DEVELOPMENT LINE: BURR_021 / What were you rehearsing?
+UNVOICED DEVELOPMENT LINE: MILA_003 / My death scene. One must prepare for opportunity.
+UNVOICED DEVELOPMENT LINE: BURR_022 / Did you visit Odette later?
+UNVOICED DEVELOPMENT LINE: MILA_004 / Only earlier, for the fake blood. Terribly sticky stuff.
+UNVOICED DEVELOPMENT LINE: BURR_023 / And after that?
+UNVOICED DEVELOPMENT LINE: MILA_005 / I left her to prepare. She was very excited.
+]]></output>
+        </test-case>
+        <test-case id="1022" name="LegacyDialogueClueRewardBecomesHintInsteadOfRemoteEvidence" fullname="PlayableInvestigationTests.LegacyDialogueClueRewardBecomesHintInsteadOfRemoteEvidence" methodname="LegacyDialogueClueRewardBecomesHintInsteadOfRemoteEvidence" classname="PlayableInvestigationTests" runstate="Runnable" seed="316492770" result="Passed" start-time="2026-10-26 20:49:18Z" end-time="2026-10-26 20:49:19Z" duration="0.870251" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.LegacyDialogueClueRewardBecomesHintInsteadOfRemoteEvidence
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: BURR_011 / Mr. Mercer, where were you at approximately half past eight?
+UNVOICED DEVELOPMENT LINE: FELI_001 / At the bar.
+UNVOICED DEVELOPMENT LINE: BURR_012 / Can anyone confirm that?
+UNVOICED DEVELOPMENT LINE: FELI_002 / I've got the receipt.
+UNVOICED DEVELOPMENT LINE: BURR_013 / Champagne. An expensive taste.
+]]></output>
+        </test-case>
+        <test-case id="1008" name="MissingRecordingOutsideDevelopmentModeStopsSafely" fullname="PlayableInvestigationTests.MissingRecordingOutsideDevelopmentModeStopsSafely" methodname="MissingRecordingOutsideDevelopmentModeStopsSafely" classname="PlayableInvestigationTests" runstate="Runnable" seed="623135607" result="Passed" start-time="2026-10-26 20:49:19Z" end-time="2026-10-26 20:49:20Z" duration="0.835357" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.MissingRecordingOutsideDevelopmentModeStopsSafely
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+Recording unavailable: BURR_082
+]]></output>
+        </test-case>
+        <test-case id="1011" name="NotebookCreatesConnectedGraphAndMapMarkerStaysBetweenStops" fullname="PlayableInvestigationTests.NotebookCreatesConnectedGraphAndMapMarkerStaysBetweenStops" methodname="NotebookCreatesConnectedGraphAndMapMarkerStaysBetweenStops" classname="PlayableInvestigationTests" runstate="Runnable" seed="980714730" result="Passed" start-time="2026-10-26 20:49:20Z" end-time="2026-10-26 20:49:21Z" duration="0.920941" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.NotebookCreatesConnectedGraphAndMapMarkerStaysBetweenStops
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+]]></output>
+        </test-case>
+        <test-case id="1014" name="NotebookRemovalClearsNodeAndCanBeRestored" fullname="PlayableInvestigationTests.NotebookRemovalClearsNodeAndCanBeRestored" methodname="NotebookRemovalClearsNodeAndCanBeRestored" classname="PlayableInvestigationTests" runstate="Runnable" seed="1399986038" result="Passed" start-time="2026-10-26 20:49:21Z" end-time="2026-10-26 20:49:22Z" duration="0.888684" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.NotebookRemovalClearsNodeAndCanBeRestored
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+]]></output>
+        </test-case>
+        <test-case id="1002" name="OpeningAndFiveCarriageNavigation" fullname="PlayableInvestigationTests.OpeningAndFiveCarriageNavigation" methodname="OpeningAndFiveCarriageNavigation" classname="PlayableInvestigationTests" runstate="Runnable" seed="1878142737" result="Passed" start-time="2026-10-26 20:49:22Z" end-time="2026-10-26 20:49:23Z" duration="0.880755" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.OpeningAndFiveCarriageNavigation
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+]]></output>
+        </test-case>
+        <test-case id="1010" name="PaidConfirmationCanCancelAndCannotDoubleSpend" fullname="PlayableInvestigationTests.PaidConfirmationCanCancelAndCannotDoubleSpend" methodname="PaidConfirmationCanCancelAndCannotDoubleSpend" classname="PlayableInvestigationTests" runstate="Runnable" seed="518462851" result="Passed" start-time="2026-10-26 20:49:23Z" end-time="2026-10-26 20:49:24Z" duration="0.839217" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.PaidConfirmationCanCancelAndCannotDoubleSpend
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: BURR_081 / I have a question, Mr. Mercer.
+UNVOICED DEVELOPMENT LINE: FELIX_REACT_QUESTION_01 / What are you getting at?
+]]></output>
+        </test-case>
+        <test-case id="1007" name="RecordedBeatUsesMatchingIdAndWaitsForPlayback" fullname="PlayableInvestigationTests.RecordedBeatUsesMatchingIdAndWaitsForPlayback" methodname="RecordedBeatUsesMatchingIdAndWaitsForPlayback" classname="PlayableInvestigationTests" runstate="Runnable" seed="1164789722" result="Passed" start-time="2026-10-26 20:49:24Z" end-time="2026-10-26 20:49:25Z" duration="1.077404" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.RecordedBeatUsesMatchingIdAndWaitsForPlayback
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: MILA_REACT_QUESTION_01 / I'm not sure I understand.
+]]></output>
+        </test-case>
+        <test-case id="1020" name="SocketMovesPreventDuplicatesAndWrongRoleAssignmentsRemainUnsupported" fullname="PlayableInvestigationTests.SocketMovesPreventDuplicatesAndWrongRoleAssignmentsRemainUnsupported" methodname="SocketMovesPreventDuplicatesAndWrongRoleAssignmentsRemainUnsupported" classname="PlayableInvestigationTests" runstate="Runnable" seed="1027970231" result="Passed" start-time="2026-10-26 20:49:25Z" end-time="2026-10-26 20:49:26Z" duration="0.898572" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.SocketMovesPreventDuplicatesAndWrongRoleAssignmentsRemainUnsupported
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+]]></output>
+        </test-case>
+        <test-case id="1017" name="SuspectMenuOffersUnaskedAlibiAndMatchingQuestionIcons" fullname="PlayableInvestigationTests.SuspectMenuOffersUnaskedAlibiAndMatchingQuestionIcons" methodname="SuspectMenuOffersUnaskedAlibiAndMatchingQuestionIcons" classname="PlayableInvestigationTests" runstate="Runnable" seed="631087095" result="Passed" start-time="2026-10-26 20:49:26Z" end-time="2026-10-26 20:49:27Z" duration="0.985958" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PlayableInvestigationTests.SuspectMenuOffersUnaskedAlibiAndMatchingQuestionIcons
+UNVOICED DEVELOPMENT LINE: BURR_001 / At last. A murder worthy of my considerable abilities.
+UNVOICED DEVELOPMENT LINE: BELL_001 / You're late, Inspector. The fictional murder was scheduled for ten.
+UNVOICED DEVELOPMENT LINE: BURR_002 / Observe the stillness. The absence of breathing. Our hostess is a marvel.
+UNVOICED DEVELOPMENT LINE: BELL_002 / Might we check whether she's actually breathing?
+UNVOICED DEVELOPMENT LINE: BURR_003 / A detective must never leap to conclusions.
+UNVOICED DEVELOPMENT LINE: BURR_004 / Aha. Blood.
+UNVOICED DEVELOPMENT LINE: BURR_005 / Strawberry.
+UNVOICED DEVELOPMENT LINE: BELL_003 / Strawberry?
+UNVOICED DEVELOPMENT LINE: BURR_006 / Raspberry makes a more convincing arterial effect.
+UNVOICED DEVELOPMENT LINE: BELL_004 / Inspector, please look at her.
+UNVOICED DEVELOPMENT LINE: BURR_007 / Odette? The performance has gone on quite long enough.
+UNVOICED DEVELOPMENT LINE: BELL_005 / She isn't moving.
+UNVOICED DEVELOPMENT LINE: BURR_008 / Good heavens. Someone has murdered the victim.
+UNVOICED DEVELOPMENT LINE: BELL_006 / Yes, Inspector.
+UNVOICED DEVELOPMENT LINE: BURR_009 / Before the murder.
+UNVOICED DEVELOPMENT LINE: BURR_010 / We had better start again.
+UNVOICED DEVELOPMENT LINE: BURR_011 / Mr. Mercer, where were you at approximately half past eight?
+UNVOICED DEVELOPMENT LINE: FELI_001 / At the bar.
+UNVOICED DEVELOPMENT LINE: BURR_012 / Can anyone confirm that?
+UNVOICED DEVELOPMENT LINE: FELI_002 / I've got the receipt.
+UNVOICED DEVELOPMENT LINE: BURR_013 / Champagne. An expensive taste.
+UNVOICED DEVELOPMENT LINE: FELI_003 / Wasn't mine. Odette was paying.
+UNVOICED DEVELOPMENT LINE: BURR_014 / And you remained there?
+UNVOICED DEVELOPMENT LINE: FELI_004 / I was drinking, Inspector. Not posing for a portrait.
+UNVOICED DEVELOPMENT LINE: NEW_01_01 / These rings carry a lion and a peacock. An exceedingly expensive zoological partnership.
+UNVOICED DEVELOPMENT LINE: NEW_01_02 / They are for Odette and me.
+UNVOICED DEVELOPMENT LINE: NEW_01_03 / An engagement?
+UNVOICED DEVELOPMENT LINE: NEW_01_04 / Yes. I bought them myself, before you ask. We were going to marry.
+UNVOICED DEVELOPMENT LINE: NEW_01_05 / Then the champagne was a celebration.
+UNVOICED DEVELOPMENT LINE: NEW_01_06 / It was supposed to be.
+Saving results to: C:/Users/oldal/AppData/LocalLow/DefaultCompany/GraduationDemo\TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -1,11 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq;
 using UnityEngine;
 
 namespace GraduationDemo.Narrative
 {
-    [Serializable] public class ClueDefinition { public string id, name, fact; public List<string> interpretationTags = new List<string>(); }
+    [Serializable] public class ClueDefinition
+    {
+        public string id, name, fact;
+        public bool hiddenUntilHint;
+        [TextArea] public string hint;
+        public List<string> interpretationTags = new List<string>();
+    }
     [Serializable] public class StatementDefinition { public string id, speaker, claim; public bool initial; public List<string> interpretationTags = new List<string>(); }
     [Serializable] public class TheoryDefinition
     {
@@ -24,7 +31,13 @@ namespace GraduationDemo.Narrative
         public string expression, priority, recordingStatus;
         public bool disclosesFallGeometry;
     }
-    [Serializable] public class DialogueBeat { public string voiceId; public List<string> grants = new List<string>(); }
+    [Serializable] public class DialogueBeat
+    {
+        public string voiceId;
+        public List<string> grants = new List<string>();
+        [Tooltip("Reveal a search lead, without collecting the physical clue.")]
+        public List<string> clueHints = new List<string>();
+    }
     [Serializable] public class DialogueDefinition { public string id, priority; public List<DialogueBeat> beats = new List<DialogueBeat>(); }
     [Serializable] public class RouteDefinition
     {
@@ -60,6 +73,7 @@ namespace GraduationDemo.Narrative
         public TheoryDefinition Theory(string id) => theories.Find(x => x.id == id);
         public VoiceDefinition Voice(string id) => voices.Find(x => x.id == id);
         public DialogueDefinition Sequence(string id) => sequences.Find(x => x.id == id);
+        public IEnumerable<string> ClueHints(DialogueBeat beat) => beat.clueHints.Concat(beat.grants.Where(id => Clue(id) != null)).Distinct();
         public TheoryDefinition Pair(string clue, string statement) => theories.Find(x => x.clueId == clue && x.statementId == statement);
         // Legacy Theory names/IDs remain serialized so existing discoveries and interview routes survive.
         public List<string> InterpretationTags(string id) => Clue(id)?.interpretationTags ?? Statement(id)?.interpretationTags ?? Theory(id)?.propositions ?? new List<string>();

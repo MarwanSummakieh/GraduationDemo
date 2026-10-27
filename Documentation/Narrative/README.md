@@ -1,5 +1,7 @@
 # Murder Most Inconvenient
 
+**Current environment and dialogue interactions:** [positioned clue markers, spoken clue hints and the dedicated suspect question menu](ClueInteractions.md).
+
 **Current flow:** [Questions, interpretation tags, Motive and Opportunity accusations, and optional action costs](QuestionsAndAccusation.md). This supersedes the older three-theory/Means model. Combine clues and statements into questions for interviews; assign two collected entries as motive and opportunity to a suspect at final accusation. Action costs start disabled. Use F8 for session tuning or edit InvestigationPacing for saved defaults.
 
 The earlier design and verification records remain in this folder as historical notes. The controls and integration notes below predate the current question and accusation flow.

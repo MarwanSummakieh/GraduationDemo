@@ -1,199 +1,199 @@
-﻿Encounter title,Type,MoSCoW,Player trigger (readable),Beat,Speaker,EXACT subtitle = spoken VO,Voice file ID,Portrait cue,Unlock on last beat,Theory route ID (technical)
-OPENING — The real corpse,Opening,MUST,Game starts,1,Burrows,At last. A murder worthy of my considerable abilities.,BURR_001,Confident,,
-OPENING — The real corpse,Opening,MUST,Game starts,2,Bellamy,"You're late, Inspector. The fictional murder was scheduled for ten.",BELL_001,Annoyed,,
-OPENING — The real corpse,Opening,MUST,Game starts,3,Burrows,Observe the stillness. The absence of breathing. Our hostess is a marvel.,BURR_002,Smug,,
-OPENING — The real corpse,Opening,MUST,Game starts,4,Bellamy,Might we check whether she's actually breathing?,BELL_002,Concerned,,
-OPENING — The real corpse,Opening,MUST,Game starts,5,Burrows,A detective must never leap to conclusions.,BURR_003,Confident,,
-OPENING — The real corpse,Opening,MUST,Game starts,6,Burrows,Aha. Blood.,BURR_004,Curious,,
-OPENING — The real corpse,Opening,MUST,Game starts,7,Burrows,Strawberry.,BURR_005,Surprised,,
-OPENING — The real corpse,Opening,MUST,Game starts,8,Bellamy,Strawberry?,BELL_003,Confused,,
-OPENING — The real corpse,Opening,MUST,Game starts,9,Burrows,Raspberry makes a more convincing arterial effect.,BURR_006,Smug,,
-OPENING — The real corpse,Opening,MUST,Game starts,10,Bellamy,"Inspector, please look at her.",BELL_004,Concerned,,
-OPENING — The real corpse,Opening,MUST,Game starts,11,Burrows,Odette? The performance has gone on quite long enough.,BURR_007,Concerned,,
-OPENING — The real corpse,Opening,MUST,Game starts,12,Bellamy,She isn't moving.,BELL_005,Concerned,,
-OPENING — The real corpse,Opening,MUST,Game starts,13,Burrows,Good heavens. Someone has murdered the victim.,BURR_008,Shocked,,
-OPENING — The real corpse,Opening,MUST,Game starts,14,Bellamy,"Yes, Inspector.",BELL_006,Dry,,
-OPENING — The real corpse,Opening,MUST,Game starts,15,Burrows,Before the murder.,BURR_009,Shocked,,
-OPENING — The real corpse,Opening,MUST,Game starts,16,Bellamy,"Yes, Inspector.",BELL_006,Dry,,
-OPENING — The real corpse,Opening,MUST,Game starts,17,Burrows,We had better start again.,BURR_010,Serious,Unlock investigation,
-Felix — Champagne alibi,Initial alibi,MUST,Initial interview,1,Burrows,"Mr. Mercer, where were you at approximately half past eight?",BURR_011,Serious,,
-Felix — Champagne alibi,Initial alibi,MUST,Initial interview,2,Felix,At the bar.,FELI_001,Defensive,,
-Felix — Champagne alibi,Initial alibi,MUST,Initial interview,3,Burrows,Can anyone confirm that?,BURR_012,Curious,,
-Felix — Champagne alibi,Initial alibi,MUST,Initial interview,4,Felix,I've got the receipt.,FELI_002,Neutral,,
-Felix — Champagne alibi,Initial alibi,MUST,Initial interview,5,Burrows,Champagne. An expensive taste.,BURR_013,Smug,,
-Felix — Champagne alibi,Initial alibi,MUST,Initial interview,6,Felix,Wasn't mine. Odette was paying.,FELI_003,Defensive,,
-Felix — Champagne alibi,Initial alibi,MUST,Initial interview,7,Burrows,And you remained there?,BURR_014,Serious,,
-Felix — Champagne alibi,Initial alibi,MUST,Initial interview,8,Felix,"I was drinking, Inspector. Not posing for a portrait.",FELI_004,Annoyed,Initial notebook statements,
-Bellamy — Corridor witness,Initial alibi,MUST,Initial interview,1,Burrows,Where were you before we discovered her?,BURR_015,Serious,,
-Bellamy — Corridor witness,Initial alibi,MUST,Initial interview,2,Bellamy,Walking through the sleeping carriage.,BELL_007,Neutral,,
-Bellamy — Corridor witness,Initial alibi,MUST,Initial interview,3,Burrows,Did you notice anything?,BURR_016,Curious,,
-Bellamy — Corridor witness,Initial alibi,MUST,Initial interview,4,Bellamy,"A sharp noise, then a crash. From Odette's end of the corridor.",BELL_008,Neutral,,
-Bellamy — Corridor witness,Initial alibi,MUST,Initial interview,5,Burrows,You didn't investigate?,BURR_017,Serious,,
-Bellamy — Corridor witness,Initial alibi,MUST,Initial interview,6,Bellamy,She forbade interruptions. I believed she was rehearsing.,BELL_009,Defensive,,
-Bellamy — Corridor witness,Initial alibi,MUST,Initial interview,7,Burrows,A very convenient belief.,BURR_018,Smug,,
-Bellamy — Corridor witness,Initial alibi,MUST,Initial interview,8,Bellamy,It was considerably more convenient before she died.,BELL_010,Subdued,Initial notebook statements,
-Mila — Solitary rehearsal,Initial alibi,MUST,Initial interview,1,Burrows,"Miss Novak, where were you at half past eight?",BURR_019,Serious,,
-Mila — Solitary rehearsal,Initial alibi,MUST,Initial interview,2,Mila,Rehearsing! In my compartment.,MILA_001,Polite,,
-Mila — Solitary rehearsal,Initial alibi,MUST,Initial interview,3,Burrows,Alone?,BURR_020,Curious,,
-Mila — Solitary rehearsal,Initial alibi,MUST,Initial interview,4,Mila,Entirely. Not even a mouse.,MILA_002,Cheerful,,
-Mila — Solitary rehearsal,Initial alibi,MUST,Initial interview,5,Burrows,What were you rehearsing?,BURR_021,Curious,,
-Mila — Solitary rehearsal,Initial alibi,MUST,Initial interview,6,Mila,My death scene. One must prepare for opportunity.,MILA_003,Cheerful,,
-Mila — Solitary rehearsal,Initial alibi,MUST,Initial interview,7,Burrows,Did you visit Odette later?,BURR_022,Serious,,
-Mila — Solitary rehearsal,Initial alibi,MUST,Initial interview,8,Mila,"Only earlier, for the fake blood. Terribly sticky stuff.",MILA_004,Polite,,
-Mila — Solitary rehearsal,Initial alibi,MUST,Initial interview,9,Burrows,And after that?,BURR_023,Serious,,
-Mila — Solitary rehearsal,Initial alibi,MUST,Initial interview,10,Mila,I left her to prepare. She was very excited.,MILA_005,Nervous,Initial notebook statements,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,1,Burrows,You were near Odette's compartment when the real injury occurred.,BURR_024,Serious,,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,2,Mila,I didn't murder her.,MILA_006,Defensive,,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,3,Burrows,"The clock, your account of the fall, and your changing alibi tell a different story about that evening.",BURR_025,Serious,,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,4,Mila,It was an argument. She said I had to let her go.,MILA_007,Subdued,,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,5,Burrows,What happened next?,BURR_026,Serious,,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,6,Mila,"I slapped her. She stumbled, and her head struck the desk. I couldn't wake her.",MILA_008,Subdued,,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,7,Burrows,And the dagger?,BURR_027,Serious,,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,8,Mila,"I thought if somebody found her with it, they'd think she was rehearsing.",MILA_009,Subdued,,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,9,Burrows,You knew she needed help.,BURR_028,Serious,,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,10,Mila,I was frightened.,MILA_010,Sad,,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,11,Burrows,You could have called someone.,BURR_029,Serious,,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,12,Mila,I know.,MILA_011,Sad,,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,13,Mila,She was supposed to wake up.,MILA_012,Sad,,
-ENDING — Mila's account,Finale,MUST,Successful supported arrest,14,Burrows,You will have to tell the authorities what happened.,BURR_030,Serious,Case resolved,
-The syrup supplier,Theory confrontation,Should,C01: theatrical dagger + BS05 → confront Bellamy,1,Burrows,The blood is counterfeit. Who was entrusted with the manufacture of this ghastly confection?,BURR_031,Confident,,T_C01_BS05
-The syrup supplier,Theory confrontation,Should,C01: theatrical dagger + BS05 → confront Bellamy,2,Bellamy,Miss Novak. She and Odette spent an extraordinary amount of time arguing about strawberries.,BELL_011,Annoyed,,T_C01_BS05
-The syrup supplier,Theory confrontation,Should,C01: theatrical dagger + BS05 → confront Bellamy,3,Burrows,And you watched them prepare it?,BURR_032,Curious,,T_C01_BS05
-The syrup supplier,Theory confrontation,Should,C01: theatrical dagger + BS05 → confront Bellamy,4,Bellamy,I saw the materials. I was not invited to lick the evidence.,BELL_012,Disgusted,,T_C01_BS05
-The sound in the corridor,Theory confrontation,MUST,C02: broken clock + BS01 → confront Bellamy,1,Burrows,"This clock stopped at twenty minutes to nine, give or take a few minutes. You heard a crash near then?",BURR_033,Serious,,T_C02_BS01
-The sound in the corridor,Theory confrontation,MUST,C02: broken clock + BS01 → confront Bellamy,2,Bellamy,"A sharp sound, then a crash. I couldn't tell you what made either noise.",BELL_013,Neutral,,T_C02_BS01
-The sound in the corridor,Theory confrontation,MUST,C02: broken clock + BS01 → confront Bellamy,3,Burrows,Did you look inside?,BURR_034,Curious,,T_C02_BS01
-The sound in the corridor,Theory confrontation,MUST,C02: broken clock + BS01 → confront Bellamy,4,Bellamy,No. Odette had forbidden interruptions. I assumed it was part of the performance.,BELL_014,Defensive,,T_C02_BS01
-The sound in the corridor,Theory confrontation,MUST,C02: broken clock + BS01 → confront Bellamy,5,Burrows,So you heard something. You did not see it.,BURR_035,Serious,,T_C02_BS01
-The sound in the corridor,Theory confrontation,MUST,C02: broken clock + BS01 → confront Bellamy,6,Bellamy,"At last, a statement with which I can agree.",BELL_015,Relieved,,T_C02_BS01
-An inconvenient clock,Theory confrontation,Should,C02: broken clock + MS04 → confront Mila,1,Burrows,That clock was damaged before the scheduled discovery. Do you know how?,BURR_036,Curious,,T_C02_MS04
-An inconvenient clock,Theory confrontation,Should,C02: broken clock + MS04 → confront Mila,2,Mila,Odette knocked things over all the time. You should have seen what happened to the champagne glasses.,MILA_013,Nervous,,T_C02_MS04
-An inconvenient clock,Theory confrontation,Should,C02: broken clock + MS04 → confront Mila,3,Burrows,Did she break the clock?,BURR_037,Serious,,T_C02_MS04
-An inconvenient clock,Theory confrontation,Should,C02: broken clock + MS04 → confront Mila,4,Mila,Perhaps. She was terribly busy preparing her surprise.,MILA_014,Polite,,T_C02_MS04
-An inconvenient clock,Theory confrontation,Should,C02: broken clock + MS04 → confront Mila,5,Burrows,Perhaps is not the same as yes.,BURR_038,Serious,,T_C02_MS04
-An inconvenient clock,Theory confrontation,Should,C02: broken clock + MS04 → confront Mila,6,Mila,"No, Inspector. Of course it isn't.",MILA_015,Nervous,,T_C02_MS04
-The remembered fall,Theory confrontation,MUST,C02: broken clock + MS05 → confront Mila,1,Burrows,"You speak as if you remember a fall, Miss Novak.",BURR_039,Serious,,T_C02_MS05
-The remembered fall,Theory confrontation,MUST,C02: broken clock + MS05 → confront Mila,2,Mila,I'm only imagining it. This whole business has made my imagination rather unhelpful.,MILA_016,Defensive,,T_C02_MS05
-The remembered fall,Theory confrontation,MUST,C02: broken clock + MS05 → confront Mila,3,Burrows,Then tell me what you actually saw.,BURR_040,Serious,,T_C02_MS05
-The remembered fall,Theory confrontation,MUST,C02: broken clock + MS05 → confront Mila,4,Mila,"I saw her earlier, when we prepared the syrup. That's all.",MILA_017,Nervous,,T_C02_MS05
-The remembered fall,Theory confrontation,MUST,C02: broken clock + MS05 → confront Mila,5,Burrows,An imagination can be mistaken. A memory has a source.,BURR_041,Serious,,T_C02_MS05
-The remembered fall,Theory confrontation,MUST,C02: broken clock + MS05 → confront Mila,6,Mila,Then perhaps I've mistaken the two.,MILA_018,Subdued,None,T_C02_MS05
-Instructions not to interrupt,Theory confrontation,Should,C04: murder programme + BS04 → confront Bellamy,1,Burrows,You heard a crash and obeyed a printed instruction instead of checking on your friend?,BURR_042,Serious,,T_C04_BS04
-Instructions not to interrupt,Theory confrontation,Should,C04: murder programme + BS04 → confront Bellamy,2,Bellamy,Odette had threatened to expel anyone who interrupted her preparations.,BELL_016,Annoyed,,T_C04_BS04
-Instructions not to interrupt,Theory confrontation,Should,C04: murder programme + BS04 → confront Bellamy,3,Burrows,A threat you considered binding?,BURR_043,Curious,,T_C04_BS04
-Instructions not to interrupt,Theory confrontation,Should,C04: murder programme + BS04 → confront Bellamy,4,Bellamy,From Odette? Entirely. Last year she dismissed a violinist for sneezing in the wrong key.,BELL_017,Dry,,T_C04_BS04
-Instructions not to interrupt,Theory confrontation,Should,C04: murder programme + BS04 → confront Bellamy,5,Burrows,A serious musical offense.,BURR_044,Confident,,T_C04_BS04
-Why the champagne?,Theory confrontation,MUST,C05: champagne receipt + FS03 → confront Felix,1,Burrows,Champagne charged to Madame Vesper. What exactly were you celebrating?,BURR_045,Curious,,T_C05_FS03
-Why the champagne?,Theory confrontation,MUST,C05: champagne receipt + FS03 → confront Felix,2,Felix,You'd turn it into something ugly.,FELI_005,Defensive,,T_C05_FS03
-Why the champagne?,Theory confrontation,MUST,C05: champagne receipt + FS03 → confront Felix,3,Burrows,Try me.,BURR_046,Serious,,T_C05_FS03
-Why the champagne?,Theory confrontation,MUST,C05: champagne receipt + FS03 → confront Felix,4,Felix,We were going to marry. Odette and me.,FELI_006,Subdued,,T_C05_FS03
-Why the champagne?,Theory confrontation,MUST,C05: champagne receipt + FS03 → confront Felix,5,Burrows,You were engaged?,BURR_047,Shocked,,T_C05_FS03
-Why the champagne?,Theory confrontation,MUST,C05: champagne receipt + FS03 → confront Felix,6,Felix,Yes. She bought the drinks. I bought the rings.,FELI_007,Sad,,T_C05_FS03
-Why the champagne?,Theory confrontation,MUST,C05: champagne receipt + FS03 → confront Felix,7,Burrows,"My condolences, Mr. Mercer.",BURR_048,Serious,,T_C05_FS03
-The peacock and lion,Theory confrontation,MUST,C06: matching rings in Felix's compartment + FS01 → confront Felix,1,Burrows,A peacock and a lion. These rings were made for you and Odette?,BURR_049,Curious,,T_C06_FS01
-The peacock and lion,Theory confrontation,MUST,C06: matching rings in Felix's compartment + FS01 → confront Felix,2,Felix,"I had them made. I used my own savings, before you ask.",FELI_008,Defensive,,T_C06_FS01
-The peacock and lion,Theory confrontation,MUST,C06: matching rings in Felix's compartment + FS01 → confront Felix,3,Burrows,I hadn't asked.,BURR_050,Neutral,,T_C06_FS01
-The peacock and lion,Theory confrontation,MUST,C06: matching rings in Felix's compartment + FS01 → confront Felix,4,Felix,You were going to.,FELI_009,Defensive,,T_C06_FS01
-The peacock and lion,Theory confrontation,MUST,C06: matching rings in Felix's compartment + FS01 → confront Felix,5,Burrows,And were you happy together?,BURR_051,Serious,,T_C06_FS01
-The peacock and lion,Theory confrontation,MUST,C06: matching rings in Felix's compartment + FS01 → confront Felix,6,Felix,I wanted breakfast with her tomorrow. And the day after that.,FELI_010,Sad,F-S03,T_C06_FS01
-A safety pin is not a proposal,Theory confrontation,Should,C06: matching rings + FS05 → confront Felix,1,Burrows,You gave Miss Novak a pin and kept two rings. Is this an unusually elaborate courtship?,BURR_052,Confident,,T_C06_FS05
-A safety pin is not a proposal,Theory confrontation,Should,C06: matching rings + FS05 → confront Felix,2,Felix,It was a safety pin. Her rabbit mask kept falling off.,FELI_011,Annoyed,,T_C06_FS05
-A safety pin is not a proposal,Theory confrontation,Should,C06: matching rings + FS05 → confront Felix,3,Burrows,An intimate gift.,BURR_053,Confident,,T_C06_FS05
-A safety pin is not a proposal,Theory confrontation,Should,C06: matching rings + FS05 → confront Felix,4,Felix,It came from my cuff. You make everything sound filthy.,FELI_012,Annoyed,,T_C06_FS05
-A safety pin is not a proposal,Theory confrontation,Should,C06: matching rings + FS05 → confront Felix,5,Burrows,I prefer the term thorough.,BURR_054,Smug,,T_C06_FS05
-A changing household,Theory confrontation,MUST,C06: peacock and lion rings + BS03 → confront Bellamy,1,Burrows,These rings explain why Odette was arranging her life differently.,BURR_055,Serious,,T_C06_BS03
-A changing household,Theory confrontation,MUST,C06: peacock and lion rings + BS03 → confront Bellamy,2,Bellamy,She had begun delegating work she once insisted on doing herself.,BELL_018,Neutral,,T_C06_BS03
-A changing household,Theory confrontation,MUST,C06: peacock and lion rings + BS03 → confront Bellamy,3,Burrows,You resented that.,BURR_056,Curious,,T_C06_BS03
-A changing household,Theory confrontation,MUST,C06: peacock and lion rings + BS03 → confront Bellamy,4,Bellamy,I resented having a sensible arrangement dismantled without discussion.,BELL_019,Defensive,,T_C06_BS03
-A changing household,Theory confrontation,MUST,C06: peacock and lion rings + BS03 → confront Bellamy,5,Burrows,Did you argue with her?,BURR_057,Serious,,T_C06_BS03
-A changing household,Theory confrontation,MUST,C06: peacock and lion rings + BS03 → confront Bellamy,6,Bellamy,"Yes. Earlier that evening. We argued, and I left her alive.",BELL_020,Subdued,,T_C06_BS03
-How lovely for them,Theory confrontation,Should,C06: the engagement rings + MS06 → confront Mila,1,Burrows,You knew about the engagement?,BURR_058,Curious,,T_C06_MS06
-How lovely for them,Theory confrontation,Should,C06: the engagement rings + MS06 → confront Mila,2,Mila,"Odette told me herself. Isn't that lovely? Two rings, two very determined people.",MILA_019,Polite,,T_C06_MS06
-How lovely for them,Theory confrontation,Should,C06: the engagement rings + MS06 → confront Mila,3,Burrows,Were you pleased?,BURR_059,Serious,,T_C06_MS06
-How lovely for them,Theory confrontation,Should,C06: the engagement rings + MS06 → confront Mila,4,Mila,"Of course. We spent ages on the invitations for her pretend murder, though. The lettering alone took all afternoon.",MILA_020,Nervous,,T_C06_MS06
-How lovely for them,Theory confrontation,Should,C06: the engagement rings + MS06 → confront Mila,5,Burrows,I asked about the wedding.,BURR_060,Serious,,T_C06_MS06
-How lovely for them,Theory confrontation,Should,C06: the engagement rings + MS06 → confront Mila,6,Mila,"I was happy for them, Inspector.",MILA_021,Subdued,,T_C06_MS06
-The empty rehearsal,Theory confrontation,MUST,C07: disturbed desk + MS01 → confront Mila,1,Burrows,You insist you were alone during preparations. Did you leave your compartment?,BURR_061,Serious,,T_C07_MS01
-The empty rehearsal,Theory confrontation,MUST,C07: disturbed desk + MS01 → confront Mila,2,Mila,I was practicing my death scene. Very little movement was required.,MILA_022,Polite,,T_C07_MS01
-The empty rehearsal,Theory confrontation,MUST,C07: disturbed desk + MS01 → confront Mila,3,Burrows,An enviable role for a tired performer.,BURR_062,Dry,,T_C07_MS01
-The empty rehearsal,Theory confrontation,MUST,C07: disturbed desk + MS01 → confront Mila,4,Mila,Odette said nobody should disturb her. So I didn't.,MILA_023,Defensive,,T_C07_MS01
-The empty rehearsal,Theory confrontation,MUST,C07: disturbed desk + MS01 → confront Mila,5,Burrows,That isn't quite the question I asked.,BURR_063,Serious,,T_C07_MS01
-The empty rehearsal,Theory confrontation,MUST,C07: disturbed desk + MS01 → confront Mila,6,Mila,"It's the answer I have, Inspector.",MILA_024,Subdued,None,T_C07_MS01
-A figure in the corridor,Theory confrontation,MUST,C07: disturbed desk + FS04 → confront Felix,1,Burrows,Did anyone pass Odette's end of the corridor after you left the bar?,BURR_064,Serious,,T_C07_FS04
-A figure in the corridor,Theory confrontation,MUST,C07: disturbed desk + FS04 → confront Felix,2,Felix,Mila did. I saw her walking away from that end of the carriage.,FELI_013,Neutral,,T_C07_FS04
-A figure in the corridor,Theory confrontation,MUST,C07: disturbed desk + FS04 → confront Felix,3,Burrows,Coming out of Odette's door?,BURR_065,Curious,,T_C07_FS04
-A figure in the corridor,Theory confrontation,MUST,C07: disturbed desk + FS04 → confront Felix,4,Felix,I didn't see the door. Don't put words in my mouth.,FELI_014,Annoyed,,T_C07_FS04
-A figure in the corridor,Theory confrontation,MUST,C07: disturbed desk + FS04 → confront Felix,5,Burrows,Roughly when?,BURR_066,Serious,,T_C07_FS04
-A figure in the corridor,Theory confrontation,MUST,C07: disturbed desk + FS04 → confront Felix,6,Felix,About a quarter to nine. I was on my way back from the bar.,FELI_015,Neutral,,T_C07_FS04
-A knowledge she cannot place,Theory confrontation,MUST,C07: desk damage + MS05 → confront Mila,1,Burrows,You described where Odette fell. Yet you maintain you never returned.,BURR_067,Serious,,T_C07_MS05
-A knowledge she cannot place,Theory confrontation,MUST,C07: desk damage + MS05 → confront Mila,2,Mila,"Everyone saw the room after the discovery, didn't they?",MILA_025,Nervous,,T_C07_MS05
-A knowledge she cannot place,Theory confrontation,MUST,C07: desk damage + MS05 → confront Mila,3,Burrows,You described the direction of her fall before I described it to you.,BURR_068,Serious,,T_C07_MS05
-A knowledge she cannot place,Theory confrontation,MUST,C07: desk damage + MS05 → confront Mila,4,Mila,I only meant the desk. She was always stumbling into things.,MILA_026,Defensive,,T_C07_MS05
-A knowledge she cannot place,Theory confrontation,MUST,C07: desk damage + MS05 → confront Mila,5,Burrows,You are correcting details I never gave you.,BURR_069,Serious,,T_C07_MS05
-A knowledge she cannot place,Theory confrontation,MUST,C07: desk damage + MS05 → confront Mila,6,Mila,Then I've said it badly. I'm sorry.,MILA_027,Subdued,None,T_C07_MS05
-An exceptionally sticky explanation,Theory confrontation,Should,C08: fake blood materials + MS02 → confront Mila,1,Burrows,You say you only visited Odette to help with the stage blood.,BURR_070,Serious,,T_C08_MS02
-An exceptionally sticky explanation,Theory confrontation,Should,C08: fake blood materials + MS02 → confront Mila,2,Mila,"We tried strawberry syrup, then raspberry. The raspberry stained everything, and the cornflour made terrible lumps.",MILA_028,Polite,,T_C08_MS02
-An exceptionally sticky explanation,Theory confrontation,Should,C08: fake blood materials + MS02 → confront Mila,3,Burrows,After that visit?,BURR_071,Curious,,T_C08_MS02
-An exceptionally sticky explanation,Theory confrontation,Should,C08: fake blood materials + MS02 → confront Mila,4,Mila,Then there was the tablecloth. It looked like a butcher had married a jam-maker.,MILA_029,Cheerful,,T_C08_MS02
-An exceptionally sticky explanation,Theory confrontation,Should,C08: fake blood materials + MS02 → confront Mila,5,Burrows,Miss Novak. After that visit?,BURR_072,Serious,,T_C08_MS02
-An exceptionally sticky explanation,Theory confrontation,Should,C08: fake blood materials + MS02 → confront Mila,6,Mila,I went to practice alone.,MILA_030,Defensive,None,T_C08_MS02
-The intolerable rehearsal,Theory confrontation,Should,C09: no-interruption rule + BS01 → confront Bellamy,1,Burrows,Explain why a violent noise didn't alarm you.,BURR_073,Serious,,T_C09_BS01
-The intolerable rehearsal,Theory confrontation,Should,C09: no-interruption rule + BS01 → confront Bellamy,2,Bellamy,Because we had been told not to interfere with the rehearsal. Very emphatically.,BELL_021,Annoyed,,T_C09_BS01
-The intolerable rehearsal,Theory confrontation,Should,C09: no-interruption rule + BS01 → confront Bellamy,3,Burrows,A rule more important than a woman's safety?,BURR_074,Serious,,T_C09_BS01
-The intolerable rehearsal,Theory confrontation,Should,C09: no-interruption rule + BS01 → confront Bellamy,4,Bellamy,"At the time, Inspector, I thought I was preserving her peace. I was wrong.",BELL_022,Subdued,B-S02,T_C09_BS01
-The clock behind the desk,Theory confrontation,MUST,C10 + Mila’s already recorded fall-position statement → challenge her firsthand knowledge,1,Burrows,You told me Odette could not have reached the clock from where she fell.,BURR_075,Serious,,T_C10_MS05
-The clock behind the desk,Theory confrontation,MUST,C10 + Mila’s already recorded fall-position statement → challenge her firsthand knowledge,2,Mila,I said I was guessing.,MILA_031,Defensive,,T_C10_MS05
-The clock behind the desk,Theory confrontation,MUST,C10 + Mila’s already recorded fall-position statement → challenge her firsthand knowledge,3,Burrows,"You guessed the position of her body, not merely that she fell.",BURR_076,Serious,,T_C10_MS05
-The clock behind the desk,Theory confrontation,MUST,C10 + Mila’s already recorded fall-position statement → challenge her firsthand knowledge,4,Mila,Everyone knew her desk was crowded.,MILA_032,Nervous,,T_C10_MS05
-The clock behind the desk,Theory confrontation,MUST,C10 + Mila’s already recorded fall-position statement → challenge her firsthand knowledge,5,Burrows,A crowded desk would not tell you which way she fell.,BURR_077,Serious,,T_C10_MS05
-The clock behind the desk,Theory confrontation,MUST,C10 + Mila’s already recorded fall-position statement → challenge her firsthand knowledge,6,Mila,"I have nothing more to add, Inspector.",MILA_033,Subdued,None,T_C10_MS05
-A fall she shouldn't picture,Theory confrontation,MUST,C10: concealed clock position + Mila’s speculation about the clock → confront Mila,1,Burrows,You said Odette often knocked things over. Could she have damaged her desk in a fall?,BURR_078,Serious,,T_C10_MS04
-A fall she shouldn't picture,Theory confrontation,MUST,C10: concealed clock position + Mila’s speculation about the clock → confront Mila,2,Mila,Perhaps. But she could hardly have reached the clock from where she fell.,MILA_034,Nervous,,T_C10_MS04
-A fall she shouldn't picture,Theory confrontation,MUST,C10: concealed clock position + Mila’s speculation about the clock → confront Mila,3,Burrows,From where she fell?,BURR_079,Serious,,T_C10_MS04
-A fall she shouldn't picture,Theory confrontation,MUST,C10: concealed clock position + Mila’s speculation about the clock → confront Mila,4,Mila,Oh. I only meant that she must have fallen. Surely?,MILA_035,Defensive,,T_C10_MS04
-A fall she shouldn't picture,Theory confrontation,MUST,C10: concealed clock position + Mila’s speculation about the clock → confront Mila,5,Burrows,You described her position. I never told you how she landed.,BURR_080,Serious,,T_C10_MS04
-A fall she shouldn't picture,Theory confrontation,MUST,C10: concealed clock position + Mila’s speculation about the clock → confront Mila,6,Mila,Then I must have imagined it. I have imagined a great deal lately.,MILA_036,Subdued,M-S05 (first time only),T_C10_MS04
-The damaged desk and Mila’s guess,Theory confrontation,MUST,C07: disturbed desk + M-S04 → confront Mila,1,Burrows,You say Odette had a habit of knocking things over. What about her damaged writing desk?,BURR_ALT_01,Serious,,T_C07_MS04
-The damaged desk and Mila’s guess,Theory confrontation,MUST,C07: disturbed desk + M-S04 → confront Mila,2,Mila,"She could have fallen against it. Though not from that side, with the clock in the way.",MILA_ALT_02,Nervous,,T_C07_MS04
-The damaged desk and Mila’s guess,Theory confrontation,MUST,C07: disturbed desk + M-S04 → confront Mila,3,Burrows,What side?,BURR_ALT_03,Serious,,T_C07_MS04
-The damaged desk and Mila’s guess,Theory confrontation,MUST,C07: disturbed desk + M-S04 → confront Mila,4,Mila,Whichever side it was. I was only guessing.,MILA_ALT_04,Defensive,,T_C07_MS04
-The damaged desk and Mila’s guess,Theory confrontation,MUST,C07: disturbed desk + M-S04 → confront Mila,5,Burrows,You seem unusually sure of a fall you say you never witnessed.,BURR_ALT_05,Serious,,T_C07_MS04
-The damaged desk and Mila’s guess,Theory confrontation,MUST,C07: disturbed desk + M-S04 → confront Mila,6,Mila,"Oh, Inspector. I wish I had never said anything.",MILA_ALT_06,Subdued,M-S05 (first time only),T_C07_MS04
-The engagement in the suitcase,Theory confrontation,MUST,T_C06_FS02 → confront Felix,1,Burrows,These rings carry a lion and a peacock. An exceedingly expensive zoological partnership.,NEW_01_01,Curious,,T_C06_FS02
-The engagement in the suitcase,Theory confrontation,MUST,T_C06_FS02 → confront Felix,2,Felix,They are for Odette and me.,NEW_01_02,Subdued,,T_C06_FS02
-The engagement in the suitcase,Theory confrontation,MUST,T_C06_FS02 → confront Felix,3,Burrows,An engagement?,NEW_01_03,Surprised,,T_C06_FS02
-The engagement in the suitcase,Theory confrontation,MUST,T_C06_FS02 → confront Felix,4,Felix,"Yes. I bought them myself, before you ask. We were going to marry.",NEW_01_04,Serious,,T_C06_FS02
-The engagement in the suitcase,Theory confrontation,MUST,T_C06_FS02 → confront Felix,5,Burrows,Then the champagne was a celebration.,NEW_01_05,Serious,,T_C06_FS02
-The engagement in the suitcase,Theory confrontation,MUST,T_C06_FS02 → confront Felix,6,Felix,It was supposed to be.,NEW_01_06,Sad,F-S03,T_C06_FS02
-A woman heading away,Theory confrontation,MUST,T_C09_FS01 → confront Felix,1,Burrows,You say you were at the bar. Did you leave it at any point?,NEW_02_01,Serious,,T_C09_FS01
-A woman heading away,Theory confrontation,MUST,T_C09_FS01 → confront Felix,2,Felix,I went back toward the compartments later.,NEW_02_02,Defensive,,T_C09_FS01
-A woman heading away,Theory confrontation,MUST,T_C09_FS01 → confront Felix,3,Burrows,Did you see anyone?,NEW_02_03,Curious,,T_C09_FS01
-A woman heading away,Theory confrontation,MUST,T_C09_FS01 → confront Felix,4,Felix,Mila. Near Odette’s end of the carriage. I think it was quarter to nine.,NEW_02_04,Neutral,,T_C09_FS01
-A woman heading away,Theory confrontation,MUST,T_C09_FS01 → confront Felix,5,Burrows,And you neglected to mention that?,NEW_02_05,Serious,,T_C09_FS01
-A woman heading away,Theory confrontation,MUST,T_C09_FS01 → confront Felix,6,Felix,I thought everybody was running about rehearsing.,NEW_02_06,Defensive,F-S04,T_C09_FS01
-A pin for a rabbit,Theory confrontation,SHOULD,T_C08_FS01 → confront Felix,1,Burrows,These preparations seem to have required an extraordinary amount of equipment.,NEW_03_01,Curious,,T_C08_FS01
-A pin for a rabbit,Theory confrontation,SHOULD,T_C08_FS01 → confront Felix,2,Felix,Tell me about it. Mila had me hunting for a safety pin before dinner.,NEW_03_02,Neutral,,T_C08_FS01
-A pin for a rabbit,Theory confrontation,SHOULD,T_C08_FS01 → confront Felix,3,Burrows,For what purpose?,NEW_03_03,Serious,,T_C08_FS01
-A pin for a rabbit,Theory confrontation,SHOULD,T_C08_FS01 → confront Felix,4,Felix,Her rabbit mask. The ribbon kept coming loose.,NEW_03_04,Neutral,F-S05,T_C08_FS01
-Bellamy admits an argument,Theory confrontation,MUST,T_C09_BS02 → confront Bellamy,1,Burrows,"You insist Odette wanted privacy, yet you spoke to her shortly before the performance.",NEW_04_01,Serious,,T_C09_BS02
-Bellamy admits an argument,Theory confrontation,MUST,T_C09_BS02 → confront Bellamy,2,Bellamy,We had a disagreement. I left when she told me to.,NEW_04_02,Annoyed,,T_C09_BS02
-Bellamy admits an argument,Theory confrontation,MUST,T_C09_BS02 → confront Bellamy,3,Burrows,Concerning?,NEW_04_03,Curious,,T_C09_BS02
-Bellamy admits an argument,Theory confrontation,MUST,T_C09_BS02 → confront Bellamy,4,Bellamy,She was handing away responsibilities she had spent decades accumulating.,NEW_04_04,Serious,,T_C09_BS02
-Bellamy admits an argument,Theory confrontation,MUST,T_C09_BS02 → confront Bellamy,5,Burrows,And you objected.,NEW_04_05,Serious,,T_C09_BS02
-Bellamy admits an argument,Theory confrontation,MUST,T_C09_BS02 → confront Bellamy,6,Bellamy,I objected to being made dispensable without so much as a memorandum.,NEW_04_06,Embarrassed,B-S03,T_C09_BS02
-A reasonable mistake,Theory confrontation,SHOULD,T_C02_BS02 → confront Bellamy,1,Burrows,A broken clock and a prohibition on interruptions. Why ignore a crash?,NEW_05_01,Serious,,T_C02_BS02
-A reasonable mistake,Theory confrontation,SHOULD,T_C02_BS02 → confront Bellamy,2,Bellamy,Because I thought it was part of the wretched performance.,NEW_05_02,Annoyed,,T_C02_BS02
-A reasonable mistake,Theory confrontation,SHOULD,T_C02_BS02 → confront Bellamy,3,Burrows,You were certain?,NEW_05_03,Curious,,T_C02_BS02
-A reasonable mistake,Theory confrontation,SHOULD,T_C02_BS02 → confront Bellamy,4,Bellamy,"No, Inspector. That is what a mistake is.",NEW_05_04,Annoyed,B-S04,T_C02_BS02
-Who made the syrup?,Theory confrontation,SHOULD,T_C08_BS01 → confront Bellamy,1,Burrows,The theatrical blood appears to have required considerable preparation.,NEW_06_01,Curious,,T_C08_BS01
-Who made the syrup?,Theory confrontation,SHOULD,T_C08_BS01 → confront Bellamy,2,Bellamy,Miss Novak assisted Odette. It was apparently a substantial undertaking.,NEW_06_02,Neutral,,T_C08_BS01
-Who made the syrup?,Theory confrontation,SHOULD,T_C08_BS01 → confront Bellamy,3,Burrows,Did you help?,NEW_06_03,Curious,,T_C08_BS01
-Who made the syrup?,Theory confrontation,SHOULD,T_C08_BS01 → confront Bellamy,4,Bellamy,I declined to participate in the manufacture of confectionery homicide.,NEW_06_04,Annoyed,B-S05,T_C08_BS01
-An awkward guess,Theory confrontation,MUST,T_C02_MS03 → confront Mila,1,Burrows,The clock is broken. You say Odette seemed pleased when you last saw her.,NEW_07_01,Serious,,T_C02_MS03
-An awkward guess,Theory confrontation,MUST,T_C02_MS03 → confront Mila,2,Mila,Odette was always knocking things over. Perhaps she broke it herself.,NEW_07_02,Nervous,,T_C02_MS03
-An awkward guess,Theory confrontation,MUST,T_C02_MS03 → confront Mila,3,Burrows,A possibility. When did you see her last?,NEW_07_03,Curious,,T_C02_MS03
-An awkward guess,Theory confrontation,MUST,T_C02_MS03 → confront Mila,4,Mila,"Before dinner, Inspector. I told you.",NEW_07_04,Neutral,M-S04,T_C02_MS03
-Happy for them,Theory confrontation,SHOULD,T_C06_MS03 → confront Mila,1,Burrows,A lion and a peacock. Their relationship was more than a costume joke.,NEW_08_01,Serious,,T_C06_MS03
-Happy for them,Theory confrontation,SHOULD,T_C06_MS03 → confront Mila,2,Mila,Yes. Odette told me. I was happy for them.,NEW_08_02,Pleasant,,T_C06_MS03
-Happy for them,Theory confrontation,SHOULD,T_C06_MS03 → confront Mila,3,Burrows,And you kept that to yourself?,NEW_08_03,Curious,,T_C06_MS03
-Happy for them,Theory confrontation,SHOULD,T_C06_MS03 → confront Mila,4,Mila,"She trusted me, Inspector. I did not think it was mine to announce.",NEW_08_04,Subdued,M-S06,T_C06_MS03
+"Encounter title","Type","MoSCoW","Player trigger (readable)","Beat","Speaker","EXACT subtitle = spoken VO","Voice file ID","Portrait cue","Unlock on last beat","Theory route ID (technical)","Clue hints"
+"OPENING — The real corpse","Opening","MUST","Game starts","1","Burrows","At last. A murder worthy of my considerable abilities.","BURR_001","Confident","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","2","Bellamy","You're late, Inspector. The fictional murder was scheduled for ten.","BELL_001","Annoyed","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","3","Burrows","Observe the stillness. The absence of breathing. Our hostess is a marvel.","BURR_002","Smug","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","4","Bellamy","Might we check whether she's actually breathing?","BELL_002","Concerned","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","5","Burrows","A detective must never leap to conclusions.","BURR_003","Confident","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","6","Burrows","Aha. Blood.","BURR_004","Curious","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","7","Burrows","Strawberry.","BURR_005","Surprised","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","8","Bellamy","Strawberry?","BELL_003","Confused","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","9","Burrows","Raspberry makes a more convincing arterial effect.","BURR_006","Smug","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","10","Bellamy","Inspector, please look at her.","BELL_004","Concerned","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","11","Burrows","Odette? The performance has gone on quite long enough.","BURR_007","Concerned","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","12","Bellamy","She isn't moving.","BELL_005","Concerned","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","13","Burrows","Good heavens. Someone has murdered the victim.","BURR_008","Shocked","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","14","Bellamy","Yes, Inspector.","BELL_006","Dry","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","15","Burrows","Before the murder.","BURR_009","Shocked","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","16","Bellamy","Yes, Inspector.","BELL_006","Dry","","",
+"OPENING — The real corpse","Opening","MUST","Game starts","17","Burrows","We had better start again.","BURR_010","Serious","Unlock investigation","",
+"Felix — Champagne alibi","Initial alibi","MUST","Initial interview","1","Burrows","Mr. Mercer, where were you at approximately half past eight?","BURR_011","Serious","","",
+"Felix — Champagne alibi","Initial alibi","MUST","Initial interview","2","Felix","At the bar.","FELI_001","Defensive","","",
+"Felix — Champagne alibi","Initial alibi","MUST","Initial interview","3","Burrows","Can anyone confirm that?","BURR_012","Curious","","",
+"Felix — Champagne alibi","Initial alibi","MUST","Initial interview","4","Felix","I've got the receipt.","FELI_002","Neutral","","","C05"
+"Felix — Champagne alibi","Initial alibi","MUST","Initial interview","5","Burrows","Champagne. An expensive taste.","BURR_013","Smug","","",
+"Felix — Champagne alibi","Initial alibi","MUST","Initial interview","6","Felix","Wasn't mine. Odette was paying.","FELI_003","Defensive","","",
+"Felix — Champagne alibi","Initial alibi","MUST","Initial interview","7","Burrows","And you remained there?","BURR_014","Serious","","",
+"Felix — Champagne alibi","Initial alibi","MUST","Initial interview","8","Felix","I was drinking, Inspector. Not posing for a portrait.","FELI_004","Annoyed","Initial notebook statements","",
+"Bellamy — Corridor witness","Initial alibi","MUST","Initial interview","1","Burrows","Where were you before we discovered her?","BURR_015","Serious","","",
+"Bellamy — Corridor witness","Initial alibi","MUST","Initial interview","2","Bellamy","Walking through the sleeping carriage.","BELL_007","Neutral","","",
+"Bellamy — Corridor witness","Initial alibi","MUST","Initial interview","3","Burrows","Did you notice anything?","BURR_016","Curious","","",
+"Bellamy — Corridor witness","Initial alibi","MUST","Initial interview","4","Bellamy","A sharp noise, then a crash. From Odette's end of the corridor.","BELL_008","Neutral","","",
+"Bellamy — Corridor witness","Initial alibi","MUST","Initial interview","5","Burrows","You didn't investigate?","BURR_017","Serious","","",
+"Bellamy — Corridor witness","Initial alibi","MUST","Initial interview","6","Bellamy","She forbade interruptions. I believed she was rehearsing.","BELL_009","Defensive","","",
+"Bellamy — Corridor witness","Initial alibi","MUST","Initial interview","7","Burrows","A very convenient belief.","BURR_018","Smug","","",
+"Bellamy — Corridor witness","Initial alibi","MUST","Initial interview","8","Bellamy","It was considerably more convenient before she died.","BELL_010","Subdued","Initial notebook statements","",
+"Mila — Solitary rehearsal","Initial alibi","MUST","Initial interview","1","Burrows","Miss Novak, where were you at half past eight?","BURR_019","Serious","","",
+"Mila — Solitary rehearsal","Initial alibi","MUST","Initial interview","2","Mila","Rehearsing! In my compartment.","MILA_001","Polite","","",
+"Mila — Solitary rehearsal","Initial alibi","MUST","Initial interview","3","Burrows","Alone?","BURR_020","Curious","","",
+"Mila — Solitary rehearsal","Initial alibi","MUST","Initial interview","4","Mila","Entirely. Not even a mouse.","MILA_002","Cheerful","","",
+"Mila — Solitary rehearsal","Initial alibi","MUST","Initial interview","5","Burrows","What were you rehearsing?","BURR_021","Curious","","",
+"Mila — Solitary rehearsal","Initial alibi","MUST","Initial interview","6","Mila","My death scene. One must prepare for opportunity.","MILA_003","Cheerful","","",
+"Mila — Solitary rehearsal","Initial alibi","MUST","Initial interview","7","Burrows","Did you visit Odette later?","BURR_022","Serious","","",
+"Mila — Solitary rehearsal","Initial alibi","MUST","Initial interview","8","Mila","Only earlier, for the fake blood. Terribly sticky stuff.","MILA_004","Polite","","","C08"
+"Mila — Solitary rehearsal","Initial alibi","MUST","Initial interview","9","Burrows","And after that?","BURR_023","Serious","","",
+"Mila — Solitary rehearsal","Initial alibi","MUST","Initial interview","10","Mila","I left her to prepare. She was very excited.","MILA_005","Nervous","Initial notebook statements","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","1","Burrows","You were near Odette's compartment when the real injury occurred.","BURR_024","Serious","","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","2","Mila","I didn't murder her.","MILA_006","Defensive","","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","3","Burrows","The clock, your account of the fall, and your changing alibi tell a different story about that evening.","BURR_025","Serious","","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","4","Mila","It was an argument. She said I had to let her go.","MILA_007","Subdued","","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","5","Burrows","What happened next?","BURR_026","Serious","","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","6","Mila","I slapped her. She stumbled, and her head struck the desk. I couldn't wake her.","MILA_008","Subdued","","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","7","Burrows","And the dagger?","BURR_027","Serious","","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","8","Mila","I thought if somebody found her with it, they'd think she was rehearsing.","MILA_009","Subdued","","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","9","Burrows","You knew she needed help.","BURR_028","Serious","","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","10","Mila","I was frightened.","MILA_010","Sad","","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","11","Burrows","You could have called someone.","BURR_029","Serious","","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","12","Mila","I know.","MILA_011","Sad","","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","13","Mila","She was supposed to wake up.","MILA_012","Sad","","",
+"ENDING — Mila's account","Finale","MUST","Successful supported arrest","14","Burrows","You will have to tell the authorities what happened.","BURR_030","Serious","Case resolved","",
+"The syrup supplier","Theory confrontation","Should","C01: theatrical dagger + BS05 → confront Bellamy","1","Burrows","The blood is counterfeit. Who was entrusted with the manufacture of this ghastly confection?","BURR_031","Confident","","T_C01_BS05",
+"The syrup supplier","Theory confrontation","Should","C01: theatrical dagger + BS05 → confront Bellamy","2","Bellamy","Miss Novak. She and Odette spent an extraordinary amount of time arguing about strawberries.","BELL_011","Annoyed","","T_C01_BS05",
+"The syrup supplier","Theory confrontation","Should","C01: theatrical dagger + BS05 → confront Bellamy","3","Burrows","And you watched them prepare it?","BURR_032","Curious","","T_C01_BS05",
+"The syrup supplier","Theory confrontation","Should","C01: theatrical dagger + BS05 → confront Bellamy","4","Bellamy","I saw the materials. I was not invited to lick the evidence.","BELL_012","Disgusted","","T_C01_BS05",
+"The sound in the corridor","Theory confrontation","MUST","C02: broken clock + BS01 → confront Bellamy","1","Burrows","This clock stopped at twenty minutes to nine, give or take a few minutes. You heard a crash near then?","BURR_033","Serious","","T_C02_BS01",
+"The sound in the corridor","Theory confrontation","MUST","C02: broken clock + BS01 → confront Bellamy","2","Bellamy","A sharp sound, then a crash. I couldn't tell you what made either noise.","BELL_013","Neutral","","T_C02_BS01",
+"The sound in the corridor","Theory confrontation","MUST","C02: broken clock + BS01 → confront Bellamy","3","Burrows","Did you look inside?","BURR_034","Curious","","T_C02_BS01",
+"The sound in the corridor","Theory confrontation","MUST","C02: broken clock + BS01 → confront Bellamy","4","Bellamy","No. Odette had forbidden interruptions. I assumed it was part of the performance.","BELL_014","Defensive","","T_C02_BS01",
+"The sound in the corridor","Theory confrontation","MUST","C02: broken clock + BS01 → confront Bellamy","5","Burrows","So you heard something. You did not see it.","BURR_035","Serious","","T_C02_BS01",
+"The sound in the corridor","Theory confrontation","MUST","C02: broken clock + BS01 → confront Bellamy","6","Bellamy","At last, a statement with which I can agree.","BELL_015","Relieved","","T_C02_BS01",
+"An inconvenient clock","Theory confrontation","Should","C02: broken clock + MS04 → confront Mila","1","Burrows","That clock was damaged before the scheduled discovery. Do you know how?","BURR_036","Curious","","T_C02_MS04",
+"An inconvenient clock","Theory confrontation","Should","C02: broken clock + MS04 → confront Mila","2","Mila","Odette knocked things over all the time. You should have seen what happened to the champagne glasses.","MILA_013","Nervous","","T_C02_MS04",
+"An inconvenient clock","Theory confrontation","Should","C02: broken clock + MS04 → confront Mila","3","Burrows","Did she break the clock?","BURR_037","Serious","","T_C02_MS04",
+"An inconvenient clock","Theory confrontation","Should","C02: broken clock + MS04 → confront Mila","4","Mila","Perhaps. She was terribly busy preparing her surprise.","MILA_014","Polite","","T_C02_MS04",
+"An inconvenient clock","Theory confrontation","Should","C02: broken clock + MS04 → confront Mila","5","Burrows","Perhaps is not the same as yes.","BURR_038","Serious","","T_C02_MS04",
+"An inconvenient clock","Theory confrontation","Should","C02: broken clock + MS04 → confront Mila","6","Mila","No, Inspector. Of course it isn't.","MILA_015","Nervous","","T_C02_MS04",
+"The remembered fall","Theory confrontation","MUST","C02: broken clock + MS05 → confront Mila","1","Burrows","You speak as if you remember a fall, Miss Novak.","BURR_039","Serious","","T_C02_MS05",
+"The remembered fall","Theory confrontation","MUST","C02: broken clock + MS05 → confront Mila","2","Mila","I'm only imagining it. This whole business has made my imagination rather unhelpful.","MILA_016","Defensive","","T_C02_MS05",
+"The remembered fall","Theory confrontation","MUST","C02: broken clock + MS05 → confront Mila","3","Burrows","Then tell me what you actually saw.","BURR_040","Serious","","T_C02_MS05",
+"The remembered fall","Theory confrontation","MUST","C02: broken clock + MS05 → confront Mila","4","Mila","I saw her earlier, when we prepared the syrup. That's all.","MILA_017","Nervous","","T_C02_MS05",
+"The remembered fall","Theory confrontation","MUST","C02: broken clock + MS05 → confront Mila","5","Burrows","An imagination can be mistaken. A memory has a source.","BURR_041","Serious","","T_C02_MS05",
+"The remembered fall","Theory confrontation","MUST","C02: broken clock + MS05 → confront Mila","6","Mila","Then perhaps I've mistaken the two.","MILA_018","Subdued","None","T_C02_MS05",
+"Instructions not to interrupt","Theory confrontation","Should","C04: murder programme + BS04 → confront Bellamy","1","Burrows","You heard a crash and obeyed a printed instruction instead of checking on your friend?","BURR_042","Serious","","T_C04_BS04",
+"Instructions not to interrupt","Theory confrontation","Should","C04: murder programme + BS04 → confront Bellamy","2","Bellamy","Odette had threatened to expel anyone who interrupted her preparations.","BELL_016","Annoyed","","T_C04_BS04",
+"Instructions not to interrupt","Theory confrontation","Should","C04: murder programme + BS04 → confront Bellamy","3","Burrows","A threat you considered binding?","BURR_043","Curious","","T_C04_BS04",
+"Instructions not to interrupt","Theory confrontation","Should","C04: murder programme + BS04 → confront Bellamy","4","Bellamy","From Odette? Entirely. Last year she dismissed a violinist for sneezing in the wrong key.","BELL_017","Dry","","T_C04_BS04",
+"Instructions not to interrupt","Theory confrontation","Should","C04: murder programme + BS04 → confront Bellamy","5","Burrows","A serious musical offense.","BURR_044","Confident","","T_C04_BS04",
+"Why the champagne?","Theory confrontation","MUST","C05: champagne receipt + FS03 → confront Felix","1","Burrows","Champagne charged to Madame Vesper. What exactly were you celebrating?","BURR_045","Curious","","T_C05_FS03",
+"Why the champagne?","Theory confrontation","MUST","C05: champagne receipt + FS03 → confront Felix","2","Felix","You'd turn it into something ugly.","FELI_005","Defensive","","T_C05_FS03",
+"Why the champagne?","Theory confrontation","MUST","C05: champagne receipt + FS03 → confront Felix","3","Burrows","Try me.","BURR_046","Serious","","T_C05_FS03",
+"Why the champagne?","Theory confrontation","MUST","C05: champagne receipt + FS03 → confront Felix","4","Felix","We were going to marry. Odette and me.","FELI_006","Subdued","","T_C05_FS03",
+"Why the champagne?","Theory confrontation","MUST","C05: champagne receipt + FS03 → confront Felix","5","Burrows","You were engaged?","BURR_047","Shocked","","T_C05_FS03",
+"Why the champagne?","Theory confrontation","MUST","C05: champagne receipt + FS03 → confront Felix","6","Felix","Yes. She bought the drinks. I bought the rings.","FELI_007","Sad","","T_C05_FS03",
+"Why the champagne?","Theory confrontation","MUST","C05: champagne receipt + FS03 → confront Felix","7","Burrows","My condolences, Mr. Mercer.","BURR_048","Serious","","T_C05_FS03",
+"The peacock and lion","Theory confrontation","MUST","C06: matching rings in Felix's compartment + FS01 → confront Felix","1","Burrows","A peacock and a lion. These rings were made for you and Odette?","BURR_049","Curious","","T_C06_FS01",
+"The peacock and lion","Theory confrontation","MUST","C06: matching rings in Felix's compartment + FS01 → confront Felix","2","Felix","I had them made. I used my own savings, before you ask.","FELI_008","Defensive","","T_C06_FS01",
+"The peacock and lion","Theory confrontation","MUST","C06: matching rings in Felix's compartment + FS01 → confront Felix","3","Burrows","I hadn't asked.","BURR_050","Neutral","","T_C06_FS01",
+"The peacock and lion","Theory confrontation","MUST","C06: matching rings in Felix's compartment + FS01 → confront Felix","4","Felix","You were going to.","FELI_009","Defensive","","T_C06_FS01",
+"The peacock and lion","Theory confrontation","MUST","C06: matching rings in Felix's compartment + FS01 → confront Felix","5","Burrows","And were you happy together?","BURR_051","Serious","","T_C06_FS01",
+"The peacock and lion","Theory confrontation","MUST","C06: matching rings in Felix's compartment + FS01 → confront Felix","6","Felix","I wanted breakfast with her tomorrow. And the day after that.","FELI_010","Sad","F-S03","T_C06_FS01",
+"A safety pin is not a proposal","Theory confrontation","Should","C06: matching rings + FS05 → confront Felix","1","Burrows","You gave Miss Novak a pin and kept two rings. Is this an unusually elaborate courtship?","BURR_052","Confident","","T_C06_FS05",
+"A safety pin is not a proposal","Theory confrontation","Should","C06: matching rings + FS05 → confront Felix","2","Felix","It was a safety pin. Her rabbit mask kept falling off.","FELI_011","Annoyed","","T_C06_FS05",
+"A safety pin is not a proposal","Theory confrontation","Should","C06: matching rings + FS05 → confront Felix","3","Burrows","An intimate gift.","BURR_053","Confident","","T_C06_FS05",
+"A safety pin is not a proposal","Theory confrontation","Should","C06: matching rings + FS05 → confront Felix","4","Felix","It came from my cuff. You make everything sound filthy.","FELI_012","Annoyed","","T_C06_FS05",
+"A safety pin is not a proposal","Theory confrontation","Should","C06: matching rings + FS05 → confront Felix","5","Burrows","I prefer the term thorough.","BURR_054","Smug","","T_C06_FS05",
+"A changing household","Theory confrontation","MUST","C06: peacock and lion rings + BS03 → confront Bellamy","1","Burrows","These rings explain why Odette was arranging her life differently.","BURR_055","Serious","","T_C06_BS03",
+"A changing household","Theory confrontation","MUST","C06: peacock and lion rings + BS03 → confront Bellamy","2","Bellamy","She had begun delegating work she once insisted on doing herself.","BELL_018","Neutral","","T_C06_BS03",
+"A changing household","Theory confrontation","MUST","C06: peacock and lion rings + BS03 → confront Bellamy","3","Burrows","You resented that.","BURR_056","Curious","","T_C06_BS03",
+"A changing household","Theory confrontation","MUST","C06: peacock and lion rings + BS03 → confront Bellamy","4","Bellamy","I resented having a sensible arrangement dismantled without discussion.","BELL_019","Defensive","","T_C06_BS03",
+"A changing household","Theory confrontation","MUST","C06: peacock and lion rings + BS03 → confront Bellamy","5","Burrows","Did you argue with her?","BURR_057","Serious","","T_C06_BS03",
+"A changing household","Theory confrontation","MUST","C06: peacock and lion rings + BS03 → confront Bellamy","6","Bellamy","Yes. Earlier that evening. We argued, and I left her alive.","BELL_020","Subdued","","T_C06_BS03",
+"How lovely for them","Theory confrontation","Should","C06: the engagement rings + MS06 → confront Mila","1","Burrows","You knew about the engagement?","BURR_058","Curious","","T_C06_MS06",
+"How lovely for them","Theory confrontation","Should","C06: the engagement rings + MS06 → confront Mila","2","Mila","Odette told me herself. Isn't that lovely? Two rings, two very determined people.","MILA_019","Polite","","T_C06_MS06",
+"How lovely for them","Theory confrontation","Should","C06: the engagement rings + MS06 → confront Mila","3","Burrows","Were you pleased?","BURR_059","Serious","","T_C06_MS06",
+"How lovely for them","Theory confrontation","Should","C06: the engagement rings + MS06 → confront Mila","4","Mila","Of course. We spent ages on the invitations for her pretend murder, though. The lettering alone took all afternoon.","MILA_020","Nervous","","T_C06_MS06",
+"How lovely for them","Theory confrontation","Should","C06: the engagement rings + MS06 → confront Mila","5","Burrows","I asked about the wedding.","BURR_060","Serious","","T_C06_MS06",
+"How lovely for them","Theory confrontation","Should","C06: the engagement rings + MS06 → confront Mila","6","Mila","I was happy for them, Inspector.","MILA_021","Subdued","","T_C06_MS06",
+"The empty rehearsal","Theory confrontation","MUST","C07: disturbed desk + MS01 → confront Mila","1","Burrows","You insist you were alone during preparations. Did you leave your compartment?","BURR_061","Serious","","T_C07_MS01",
+"The empty rehearsal","Theory confrontation","MUST","C07: disturbed desk + MS01 → confront Mila","2","Mila","I was practicing my death scene. Very little movement was required.","MILA_022","Polite","","T_C07_MS01",
+"The empty rehearsal","Theory confrontation","MUST","C07: disturbed desk + MS01 → confront Mila","3","Burrows","An enviable role for a tired performer.","BURR_062","Dry","","T_C07_MS01",
+"The empty rehearsal","Theory confrontation","MUST","C07: disturbed desk + MS01 → confront Mila","4","Mila","Odette said nobody should disturb her. So I didn't.","MILA_023","Defensive","","T_C07_MS01",
+"The empty rehearsal","Theory confrontation","MUST","C07: disturbed desk + MS01 → confront Mila","5","Burrows","That isn't quite the question I asked.","BURR_063","Serious","","T_C07_MS01",
+"The empty rehearsal","Theory confrontation","MUST","C07: disturbed desk + MS01 → confront Mila","6","Mila","It's the answer I have, Inspector.","MILA_024","Subdued","None","T_C07_MS01",
+"A figure in the corridor","Theory confrontation","MUST","C07: disturbed desk + FS04 → confront Felix","1","Burrows","Did anyone pass Odette's end of the corridor after you left the bar?","BURR_064","Serious","","T_C07_FS04",
+"A figure in the corridor","Theory confrontation","MUST","C07: disturbed desk + FS04 → confront Felix","2","Felix","Mila did. I saw her walking away from that end of the carriage.","FELI_013","Neutral","","T_C07_FS04",
+"A figure in the corridor","Theory confrontation","MUST","C07: disturbed desk + FS04 → confront Felix","3","Burrows","Coming out of Odette's door?","BURR_065","Curious","","T_C07_FS04",
+"A figure in the corridor","Theory confrontation","MUST","C07: disturbed desk + FS04 → confront Felix","4","Felix","I didn't see the door. Don't put words in my mouth.","FELI_014","Annoyed","","T_C07_FS04",
+"A figure in the corridor","Theory confrontation","MUST","C07: disturbed desk + FS04 → confront Felix","5","Burrows","Roughly when?","BURR_066","Serious","","T_C07_FS04",
+"A figure in the corridor","Theory confrontation","MUST","C07: disturbed desk + FS04 → confront Felix","6","Felix","About a quarter to nine. I was on my way back from the bar.","FELI_015","Neutral","","T_C07_FS04",
+"A knowledge she cannot place","Theory confrontation","MUST","C07: desk damage + MS05 → confront Mila","1","Burrows","You described where Odette fell. Yet you maintain you never returned.","BURR_067","Serious","","T_C07_MS05",
+"A knowledge she cannot place","Theory confrontation","MUST","C07: desk damage + MS05 → confront Mila","2","Mila","Everyone saw the room after the discovery, didn't they?","MILA_025","Nervous","","T_C07_MS05",
+"A knowledge she cannot place","Theory confrontation","MUST","C07: desk damage + MS05 → confront Mila","3","Burrows","You described the direction of her fall before I described it to you.","BURR_068","Serious","","T_C07_MS05",
+"A knowledge she cannot place","Theory confrontation","MUST","C07: desk damage + MS05 → confront Mila","4","Mila","I only meant the desk. She was always stumbling into things.","MILA_026","Defensive","","T_C07_MS05",
+"A knowledge she cannot place","Theory confrontation","MUST","C07: desk damage + MS05 → confront Mila","5","Burrows","You are correcting details I never gave you.","BURR_069","Serious","","T_C07_MS05",
+"A knowledge she cannot place","Theory confrontation","MUST","C07: desk damage + MS05 → confront Mila","6","Mila","Then I've said it badly. I'm sorry.","MILA_027","Subdued","None","T_C07_MS05",
+"An exceptionally sticky explanation","Theory confrontation","Should","C08: fake blood materials + MS02 → confront Mila","1","Burrows","You say you only visited Odette to help with the stage blood.","BURR_070","Serious","","T_C08_MS02",
+"An exceptionally sticky explanation","Theory confrontation","Should","C08: fake blood materials + MS02 → confront Mila","2","Mila","We tried strawberry syrup, then raspberry. The raspberry stained everything, and the cornflour made terrible lumps.","MILA_028","Polite","","T_C08_MS02",
+"An exceptionally sticky explanation","Theory confrontation","Should","C08: fake blood materials + MS02 → confront Mila","3","Burrows","After that visit?","BURR_071","Curious","","T_C08_MS02",
+"An exceptionally sticky explanation","Theory confrontation","Should","C08: fake blood materials + MS02 → confront Mila","4","Mila","Then there was the tablecloth. It looked like a butcher had married a jam-maker.","MILA_029","Cheerful","","T_C08_MS02",
+"An exceptionally sticky explanation","Theory confrontation","Should","C08: fake blood materials + MS02 → confront Mila","5","Burrows","Miss Novak. After that visit?","BURR_072","Serious","","T_C08_MS02",
+"An exceptionally sticky explanation","Theory confrontation","Should","C08: fake blood materials + MS02 → confront Mila","6","Mila","I went to practice alone.","MILA_030","Defensive","None","T_C08_MS02",
+"The intolerable rehearsal","Theory confrontation","Should","C09: no-interruption rule + BS01 → confront Bellamy","1","Burrows","Explain why a violent noise didn't alarm you.","BURR_073","Serious","","T_C09_BS01",
+"The intolerable rehearsal","Theory confrontation","Should","C09: no-interruption rule + BS01 → confront Bellamy","2","Bellamy","Because we had been told not to interfere with the rehearsal. Very emphatically.","BELL_021","Annoyed","","T_C09_BS01",
+"The intolerable rehearsal","Theory confrontation","Should","C09: no-interruption rule + BS01 → confront Bellamy","3","Burrows","A rule more important than a woman's safety?","BURR_074","Serious","","T_C09_BS01",
+"The intolerable rehearsal","Theory confrontation","Should","C09: no-interruption rule + BS01 → confront Bellamy","4","Bellamy","At the time, Inspector, I thought I was preserving her peace. I was wrong.","BELL_022","Subdued","B-S02","T_C09_BS01",
+"The clock behind the desk","Theory confrontation","MUST","C10 + Mila’s already recorded fall-position statement → challenge her firsthand knowledge","1","Burrows","You told me Odette could not have reached the clock from where she fell.","BURR_075","Serious","","T_C10_MS05",
+"The clock behind the desk","Theory confrontation","MUST","C10 + Mila’s already recorded fall-position statement → challenge her firsthand knowledge","2","Mila","I said I was guessing.","MILA_031","Defensive","","T_C10_MS05",
+"The clock behind the desk","Theory confrontation","MUST","C10 + Mila’s already recorded fall-position statement → challenge her firsthand knowledge","3","Burrows","You guessed the position of her body, not merely that she fell.","BURR_076","Serious","","T_C10_MS05",
+"The clock behind the desk","Theory confrontation","MUST","C10 + Mila’s already recorded fall-position statement → challenge her firsthand knowledge","4","Mila","Everyone knew her desk was crowded.","MILA_032","Nervous","","T_C10_MS05",
+"The clock behind the desk","Theory confrontation","MUST","C10 + Mila’s already recorded fall-position statement → challenge her firsthand knowledge","5","Burrows","A crowded desk would not tell you which way she fell.","BURR_077","Serious","","T_C10_MS05",
+"The clock behind the desk","Theory confrontation","MUST","C10 + Mila’s already recorded fall-position statement → challenge her firsthand knowledge","6","Mila","I have nothing more to add, Inspector.","MILA_033","Subdued","None","T_C10_MS05",
+"A fall she shouldn't picture","Theory confrontation","MUST","C10: concealed clock position + Mila’s speculation about the clock → confront Mila","1","Burrows","You said Odette often knocked things over. Could she have damaged her desk in a fall?","BURR_078","Serious","","T_C10_MS04",
+"A fall she shouldn't picture","Theory confrontation","MUST","C10: concealed clock position + Mila’s speculation about the clock → confront Mila","2","Mila","Perhaps. But she could hardly have reached the clock from where she fell.","MILA_034","Nervous","","T_C10_MS04",
+"A fall she shouldn't picture","Theory confrontation","MUST","C10: concealed clock position + Mila’s speculation about the clock → confront Mila","3","Burrows","From where she fell?","BURR_079","Serious","","T_C10_MS04",
+"A fall she shouldn't picture","Theory confrontation","MUST","C10: concealed clock position + Mila’s speculation about the clock → confront Mila","4","Mila","Oh. I only meant that she must have fallen. Surely?","MILA_035","Defensive","","T_C10_MS04",
+"A fall she shouldn't picture","Theory confrontation","MUST","C10: concealed clock position + Mila’s speculation about the clock → confront Mila","5","Burrows","You described her position. I never told you how she landed.","BURR_080","Serious","","T_C10_MS04",
+"A fall she shouldn't picture","Theory confrontation","MUST","C10: concealed clock position + Mila’s speculation about the clock → confront Mila","6","Mila","Then I must have imagined it. I have imagined a great deal lately.","MILA_036","Subdued","M-S05 (first time only)","T_C10_MS04",
+"The damaged desk and Mila’s guess","Theory confrontation","MUST","C07: disturbed desk + M-S04 → confront Mila","1","Burrows","You say Odette had a habit of knocking things over. What about her damaged writing desk?","BURR_ALT_01","Serious","","T_C07_MS04",
+"The damaged desk and Mila’s guess","Theory confrontation","MUST","C07: disturbed desk + M-S04 → confront Mila","2","Mila","She could have fallen against it. Though not from that side, with the clock in the way.","MILA_ALT_02","Nervous","","T_C07_MS04","C10"
+"The damaged desk and Mila’s guess","Theory confrontation","MUST","C07: disturbed desk + M-S04 → confront Mila","3","Burrows","What side?","BURR_ALT_03","Serious","","T_C07_MS04",
+"The damaged desk and Mila’s guess","Theory confrontation","MUST","C07: disturbed desk + M-S04 → confront Mila","4","Mila","Whichever side it was. I was only guessing.","MILA_ALT_04","Defensive","","T_C07_MS04",
+"The damaged desk and Mila’s guess","Theory confrontation","MUST","C07: disturbed desk + M-S04 → confront Mila","5","Burrows","You seem unusually sure of a fall you say you never witnessed.","BURR_ALT_05","Serious","","T_C07_MS04",
+"The damaged desk and Mila’s guess","Theory confrontation","MUST","C07: disturbed desk + M-S04 → confront Mila","6","Mila","Oh, Inspector. I wish I had never said anything.","MILA_ALT_06","Subdued","M-S05 (first time only)","T_C07_MS04",
+"The engagement in the suitcase","Theory confrontation","MUST","T_C06_FS02 → confront Felix","1","Burrows","These rings carry a lion and a peacock. An exceedingly expensive zoological partnership.","NEW_01_01","Curious","","T_C06_FS02",
+"The engagement in the suitcase","Theory confrontation","MUST","T_C06_FS02 → confront Felix","2","Felix","They are for Odette and me.","NEW_01_02","Subdued","","T_C06_FS02",
+"The engagement in the suitcase","Theory confrontation","MUST","T_C06_FS02 → confront Felix","3","Burrows","An engagement?","NEW_01_03","Surprised","","T_C06_FS02",
+"The engagement in the suitcase","Theory confrontation","MUST","T_C06_FS02 → confront Felix","4","Felix","Yes. I bought them myself, before you ask. We were going to marry.","NEW_01_04","Serious","","T_C06_FS02",
+"The engagement in the suitcase","Theory confrontation","MUST","T_C06_FS02 → confront Felix","5","Burrows","Then the champagne was a celebration.","NEW_01_05","Serious","","T_C06_FS02",
+"The engagement in the suitcase","Theory confrontation","MUST","T_C06_FS02 → confront Felix","6","Felix","It was supposed to be.","NEW_01_06","Sad","F-S03","T_C06_FS02",
+"A woman heading away","Theory confrontation","MUST","T_C09_FS01 → confront Felix","1","Burrows","You say you were at the bar. Did you leave it at any point?","NEW_02_01","Serious","","T_C09_FS01",
+"A woman heading away","Theory confrontation","MUST","T_C09_FS01 → confront Felix","2","Felix","I went back toward the compartments later.","NEW_02_02","Defensive","","T_C09_FS01",
+"A woman heading away","Theory confrontation","MUST","T_C09_FS01 → confront Felix","3","Burrows","Did you see anyone?","NEW_02_03","Curious","","T_C09_FS01",
+"A woman heading away","Theory confrontation","MUST","T_C09_FS01 → confront Felix","4","Felix","Mila. Near Odette’s end of the carriage. I think it was quarter to nine.","NEW_02_04","Neutral","","T_C09_FS01",
+"A woman heading away","Theory confrontation","MUST","T_C09_FS01 → confront Felix","5","Burrows","And you neglected to mention that?","NEW_02_05","Serious","","T_C09_FS01",
+"A woman heading away","Theory confrontation","MUST","T_C09_FS01 → confront Felix","6","Felix","I thought everybody was running about rehearsing.","NEW_02_06","Defensive","F-S04","T_C09_FS01",
+"A pin for a rabbit","Theory confrontation","SHOULD","T_C08_FS01 → confront Felix","1","Burrows","These preparations seem to have required an extraordinary amount of equipment.","NEW_03_01","Curious","","T_C08_FS01",
+"A pin for a rabbit","Theory confrontation","SHOULD","T_C08_FS01 → confront Felix","2","Felix","Tell me about it. Mila had me hunting for a safety pin before dinner.","NEW_03_02","Neutral","","T_C08_FS01",
+"A pin for a rabbit","Theory confrontation","SHOULD","T_C08_FS01 → confront Felix","3","Burrows","For what purpose?","NEW_03_03","Serious","","T_C08_FS01",
+"A pin for a rabbit","Theory confrontation","SHOULD","T_C08_FS01 → confront Felix","4","Felix","Her rabbit mask. The ribbon kept coming loose.","NEW_03_04","Neutral","F-S05","T_C08_FS01",
+"Bellamy admits an argument","Theory confrontation","MUST","T_C09_BS02 → confront Bellamy","1","Burrows","You insist Odette wanted privacy, yet you spoke to her shortly before the performance.","NEW_04_01","Serious","","T_C09_BS02",
+"Bellamy admits an argument","Theory confrontation","MUST","T_C09_BS02 → confront Bellamy","2","Bellamy","We had a disagreement. I left when she told me to.","NEW_04_02","Annoyed","","T_C09_BS02",
+"Bellamy admits an argument","Theory confrontation","MUST","T_C09_BS02 → confront Bellamy","3","Burrows","Concerning?","NEW_04_03","Curious","","T_C09_BS02",
+"Bellamy admits an argument","Theory confrontation","MUST","T_C09_BS02 → confront Bellamy","4","Bellamy","She was handing away responsibilities she had spent decades accumulating.","NEW_04_04","Serious","","T_C09_BS02",
+"Bellamy admits an argument","Theory confrontation","MUST","T_C09_BS02 → confront Bellamy","5","Burrows","And you objected.","NEW_04_05","Serious","","T_C09_BS02",
+"Bellamy admits an argument","Theory confrontation","MUST","T_C09_BS02 → confront Bellamy","6","Bellamy","I objected to being made dispensable without so much as a memorandum.","NEW_04_06","Embarrassed","B-S03","T_C09_BS02",
+"A reasonable mistake","Theory confrontation","SHOULD","T_C02_BS02 → confront Bellamy","1","Burrows","A broken clock and a prohibition on interruptions. Why ignore a crash?","NEW_05_01","Serious","","T_C02_BS02",
+"A reasonable mistake","Theory confrontation","SHOULD","T_C02_BS02 → confront Bellamy","2","Bellamy","Because I thought it was part of the wretched performance.","NEW_05_02","Annoyed","","T_C02_BS02",
+"A reasonable mistake","Theory confrontation","SHOULD","T_C02_BS02 → confront Bellamy","3","Burrows","You were certain?","NEW_05_03","Curious","","T_C02_BS02",
+"A reasonable mistake","Theory confrontation","SHOULD","T_C02_BS02 → confront Bellamy","4","Bellamy","No, Inspector. That is what a mistake is.","NEW_05_04","Annoyed","B-S04","T_C02_BS02",
+"Who made the syrup?","Theory confrontation","SHOULD","T_C08_BS01 → confront Bellamy","1","Burrows","The theatrical blood appears to have required considerable preparation.","NEW_06_01","Curious","","T_C08_BS01",
+"Who made the syrup?","Theory confrontation","SHOULD","T_C08_BS01 → confront Bellamy","2","Bellamy","Miss Novak assisted Odette. It was apparently a substantial undertaking.","NEW_06_02","Neutral","","T_C08_BS01",
+"Who made the syrup?","Theory confrontation","SHOULD","T_C08_BS01 → confront Bellamy","3","Burrows","Did you help?","NEW_06_03","Curious","","T_C08_BS01",
+"Who made the syrup?","Theory confrontation","SHOULD","T_C08_BS01 → confront Bellamy","4","Bellamy","I declined to participate in the manufacture of confectionery homicide.","NEW_06_04","Annoyed","B-S05","T_C08_BS01",
+"An awkward guess","Theory confrontation","MUST","T_C02_MS03 → confront Mila","1","Burrows","The clock is broken. You say Odette seemed pleased when you last saw her.","NEW_07_01","Serious","","T_C02_MS03",
+"An awkward guess","Theory confrontation","MUST","T_C02_MS03 → confront Mila","2","Mila","Odette was always knocking things over. Perhaps she broke it herself.","NEW_07_02","Nervous","","T_C02_MS03",
+"An awkward guess","Theory confrontation","MUST","T_C02_MS03 → confront Mila","3","Burrows","A possibility. When did you see her last?","NEW_07_03","Curious","","T_C02_MS03",
+"An awkward guess","Theory confrontation","MUST","T_C02_MS03 → confront Mila","4","Mila","Before dinner, Inspector. I told you.","NEW_07_04","Neutral","M-S04","T_C02_MS03",
+"Happy for them","Theory confrontation","SHOULD","T_C06_MS03 → confront Mila","1","Burrows","A lion and a peacock. Their relationship was more than a costume joke.","NEW_08_01","Serious","","T_C06_MS03",
+"Happy for them","Theory confrontation","SHOULD","T_C06_MS03 → confront Mila","2","Mila","Yes. Odette told me. I was happy for them.","NEW_08_02","Pleasant","","T_C06_MS03",
+"Happy for them","Theory confrontation","SHOULD","T_C06_MS03 → confront Mila","3","Burrows","And you kept that to yourself?","NEW_08_03","Curious","","T_C06_MS03",
+"Happy for them","Theory confrontation","SHOULD","T_C06_MS03 → confront Mila","4","Mila","She trusted me, Inspector. I did not think it was mine to announce.","NEW_08_04","Subdued","M-S06","T_C06_MS03",
