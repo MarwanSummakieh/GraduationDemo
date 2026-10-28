@@ -270,7 +270,7 @@ namespace GraduationDemo.Narrative
             Draft.tick++;
             Draft.finished = Draft.spawned == totalInvaders && Draft.invaders.All(i => i.health <= 0 || i.reachedCenter);
             if (Draft.finished) State.CompleteDoubtDefense(this);
-            Message = Draft.finished ? $"Rehearsal complete: {Draft.breaches} doubt(s) reached the center. This is not proof. Record your interpretation or revise it." :
+            Message = Draft.finished ? $"Rehearsal complete: {Draft.breaches} doubt(s) reached the center. Return to reasoning or rearrange and retry." :
                 $"Defending your question… {Draft.breaches} doubt(s) reached the center.";
         }
     }

@@ -95,7 +95,13 @@ namespace GraduationDemo.Narrative
             new AuthoredDoubtLink { id = "clock:reach", questionId = "T_C02_MS04", sourceId = "M-S05", reason = "Mila says Odette could not reach the clock from where she fell. That challenges the suggestion that Odette simply knocked it over herself." },
             new AuthoredDoubtLink { id = "clock:impact", questionId = "T_C02_MS04", sourceId = "C07", reason = "Impact damage and displaced furniture suggest a disturbance at the desk. A routine accident may be an incomplete explanation." },
             new AuthoredDoubtLink { id = "alibi:corridor", questionId = "T_C09_MS01", sourceId = "F-S04", reason = "Felix places Mila near Odette's compartment around 20:45, challenging her claim to have rehearsed alone in her own compartment." },
-            new AuthoredDoubtLink { id = "presence:alibi", questionId = "T_C04_FS04", sourceId = "M-S01", reason = "The question accepts Felix's sighting of Mila near the scene, while Mila claims she rehearsed alone elsewhere. These witness accounts conflict." }
+            new AuthoredDoubtLink { id = "presence:alibi", questionId = "T_C04_FS04", sourceId = "M-S01", reason = "The question accepts Felix's sighting of Mila near the scene, while Mila claims she rehearsed alone elsewhere. These witness accounts conflict." },
+            new AuthoredDoubtLink { id = "injury:disturbance", questionId = "T_C03_MS04", sourceId = "C07", reason = "A fall could explain a head injury, but the displaced furniture and impact damage leave open whether an encounter preceded it." },
+            new AuthoredDoubtLink { id = "staging:injury", questionId = "T_C01_BS04", sourceId = "C03", reason = "The question frames the death as a theatrical stabbing, yet the body has head and neck trauma without a visible stab wound. The actual injury needs explaining separately." },
+            new AuthoredDoubtLink { id = "romance:goodwill", questionId = "T_C06_BS03", sourceId = "M-S06", reason = "The rings may connect Bellamy's argument to the marriage, but Mila also says she welcomed it. Whose reaction to the news does this question actually establish?" },
+            new AuthoredDoubtLink { id = "questions:accident-impact", questionId = "T_C02_MS04", sourceId = "T_C02_BS01", reason = "One question treats the broken clock as Odette's ordinary clumsiness; the other links its stopping to Bellamy's sharp noise and crash. Can the same sequence explain both, or does the accident account omit something?" },
+            new AuthoredDoubtLink { id = "questions:private-presence", questionId = "T_C09_MS01", sourceId = "T_C04_FS04", reason = "One question gives weight to Mila rehearsing alone; the other places her near Odette's compartment before the scheduled discovery. How could both accounts fit the evening's sequence?" },
+            new AuthoredDoubtLink { id = "questions:accident-knowledge", questionId = "T_C03_MS04", sourceId = "T_C02_MS05", reason = "The injury question proposes a clumsy accident, while the clock question asks how Mila knows what Odette could reach during the fall. Does the accident account explain that knowledge?" }
         };
         public static IEnumerable<AuthoredDoubtLink> Links(InvestigationState state) => state.configuration?.doubtLinks ?? AuthoredLinks();
         public static List<DoubtDefinition> Defaults() => new List<DoubtDefinition>
@@ -118,7 +124,7 @@ namespace GraduationDemo.Narrative
             foreach (var link in Links(state))
             {
                 var id = link.questionId; var q = state.catalogue.Theory(id);
-                if (q == null || !state.progress.theories.Contains(id) || !state.Has(link.sourceId) || !includeDefended && state.progress.defendedDoubtLinks.Contains(link.id)) continue;
+                if (q == null || !state.progress.theories.Contains(id) || !state.HasAccusationEntry(link.sourceId) || !includeDefended && state.progress.defendedDoubtLinks.Contains(link.id)) continue;
                 string role = q.propositions.FirstOrDefault(AccusationReasoning.Roles.Contains) ??
                     state.catalogue.InterpretationTags(q.clueId).Concat(state.catalogue.InterpretationTags(q.statementId)).FirstOrDefault(AccusationReasoning.Roles.Contains);
                 yield return new DoubtDefinition { id = link.id, questionId = id, sourceId = link.sourceId,

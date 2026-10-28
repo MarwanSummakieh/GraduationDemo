@@ -41,6 +41,143 @@ public sealed class PlayableInvestigationTests
         Assert.That(defense.Draft.finished, Is.True, "The run must reach an outcome without manual stepping.");
     }
     UnityEngine.UI.Button ViewButton(Component view, string name) => view.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b => b.name == name);
+    [UnityTest] public IEnumerator DialogueCutoutsShowAllSpeakersAndAnimateSelfTalkWithoutHidingSubtitles()
+    {
+        var presentation = controller.GetComponent("DialoguePresentation"); Assert.That(presentation, Is.Not.Null);
+        foreach (var speaker in new[] { "Burrows", "Felix", "Mila", "Bellamy" })
+        {
+            var sequence = State.catalogue.sequences.Where(s => s.beats.Any(b => State.catalogue.Voice(b.voiceId).speaker == speaker)).OrderBy(s => s.beats.Count).First();
+            Call(controller, "DebugPlaySequence", sequence.id); yield return null; yield return null;
+            float deadline = Time.realtimeSinceStartup + 8;
+            while (State.catalogue.Voice((string)controller.GetType().GetProperty("CurrentVoiceId").GetValue(controller)).speaker != speaker && Time.realtimeSinceStartup < deadline)
+            {
+                if ((bool)controller.GetType().GetProperty("AwaitingIntuition").GetValue(controller))
+                {
+                    string entry = (string)controller.GetType().GetProperty("IntuitionEntry").GetValue(controller);
+                    Call(controller, "ChooseIntuition", State.catalogue.InterpretationTags(entry).First(AccusationReasoning.Roles.Contains));
+                }
+                else Call(controller, "Advance");
+                yield return null;
+            }
+            yield return null; yield return null;
+            Assert.That((string)presentation.GetType().GetProperty("ActiveSpeaker").GetValue(presentation), Is.EqualTo(speaker));
+            Assert.That((string)presentation.GetType().GetProperty("CurrentSubtitle").GetValue(presentation), Is.EqualTo(State.catalogue.Voice((string)controller.GetType().GetProperty("CurrentVoiceId").GetValue(controller)).subtitle));
+            var active = presentation.GetComponentsInChildren<MonoBehaviour>().Single(c => c.name == "Active speaker portrait");
+            Assert.That((bool)active.GetType().GetField("speaking").GetValue(active), Is.True);
+            float phase = (float)active.GetType().GetProperty("AnimationPhase").GetValue(active); yield return null; yield return null;
+            Assert.That((float)active.GetType().GetProperty("AnimationPhase").GetValue(active), Is.GreaterThan(phase));
+            yield return CaptureInteractionReview("mind-palace-dialogue-" + speaker, 1280, 720);
+        }
+        // Exercise a solo delivery of an existing line, without adding story content to the project.
+        var thought = new DialogueDefinition { id = "UI_TEST_SELF_TALK", beats = new System.Collections.Generic.List<DialogueBeat> { new DialogueBeat { voiceId = "BURR_002" } } };
+        State.catalogue.sequences.Add(thought);
+        Call(controller, "DebugPlaySequence", thought.id); yield return null; yield return null;
+        Assert.That((bool)presentation.GetType().GetProperty("InnerVoice").GetValue(presentation), Is.True);
+        Assert.That(presentation.GetComponentsInChildren<Transform>().Any(t => t.name == "Listener portrait"), Is.False);
+        yield return CaptureInteractionReview("mind-palace-inner-voice", 1280, 720);
+        State.configuration.defenseReducedMotion = true; yield return null; yield return null;
+        var portrait = presentation.GetComponentsInChildren<MonoBehaviour>().Single(c => c.name == "Active speaker portrait");
+        Assert.That((float)portrait.GetType().GetProperty("AnimationPhase").GetValue(portrait), Is.Zero);
+        Assert.That(portrait.transform.localRotation, Is.EqualTo(Quaternion.identity));
+        Finish(); yield return null; yield return null;
+        Assert.That((bool)presentation.GetType().GetProperty("Visible").GetValue(presentation), Is.False);
+        State.catalogue.sequences.Remove(thought);
+        yield return SceneManager.LoadSceneAsync("ThirdPersonTrain"); yield return null; yield return null;
+        controller = UnityEngine.Object.FindObjectsByType<MonoBehaviour>().First(c => c.GetType().Name == "TrainNarrative");
+        presentation = controller.GetComponent("DialoguePresentation");
+        Assert.That((bool)presentation.GetType().GetProperty("InnerVoice").GetValue(presentation), Is.True, "The authored opening thought is internal even inside a mixed-speaker scene.");
+        yield return CaptureInteractionReview("mind-palace-dialogue-ThirdPersonTrain", 1280, 720);
+    }
+    [UnityTest] public IEnumerator NeuralConnectionsRenderTheFullCaseWithinTheUIMeshBudget()
+    {
+        Finish(); foreach (var clue in State.catalogue.clues) State.Grant(clue.id);
+        foreach (var statement in State.catalogue.statements) State.Grant(statement.id);
+        foreach (var question in State.catalogue.theories) State.Construct(question.clueId, question.statementId);
+        Call(controller, "ToggleNotebook"); yield return null; yield return null;
+        var strokes = controller.GetComponentsInChildren<MonoBehaviour>().Single(c => c.GetType().Name == "NotebookStrokeGraphic" && c.name == "Parent connections");
+        using (var vertices = new UnityEngine.UI.VertexHelper())
+        {
+            strokes.GetType().GetMethod("OnPopulateMesh", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic, null, new[] { typeof(UnityEngine.UI.VertexHelper) }, null).Invoke(strokes, new object[] { vertices });
+            Assert.That(vertices.currentVertCount, Is.InRange(1, 64999));
+            var mesh = new Mesh(); try { vertices.FillMesh(mesh); Assert.That(mesh.vertexCount, Is.EqualTo(vertices.currentVertCount)); }
+            finally { UnityEngine.Object.Destroy(mesh); }
+        }
+    }
+    [UnityTest] public IEnumerator DialogueIntuitionButtonsKeepTheCorrectionGateAndFocusReward()
+    {
+        Finish(); State.Grant("C09"); State.Grant("F-S01"); State.Construct("C09", "F-S01"); Approach("Felix");
+        Call(controller, "Confront", "T_C09_FS01", "Felix"); Call(controller, "ConfirmConversation");
+        for (int i = 0; i < 40 && !(bool)controller.GetType().GetProperty("AwaitingIntuition").GetValue(controller); i++) Call(controller, "Advance");
+        yield return null; yield return null; var presentation = controller.GetComponent("DialoguePresentation");
+        Assert.That(ViewButton(presentation, "Intuition opportunity"), Is.Not.Null);
+        yield return CaptureInteractionReview("mind-palace-intuition-choice", 1280, 720);
+        ViewButton(presentation, "Intuition motive").onClick.Invoke(); yield return null; yield return null;
+        Assert.That((bool)controller.GetType().GetProperty("AwaitingIntuition").GetValue(controller), Is.False);
+        Assert.That((string)controller.GetType().GetProperty("IntuitionFeedback").GetValue(controller), Does.Contain("Opportunity"));
+        Assert.That(presentation.GetComponentsInChildren<UnityEngine.UI.Button>().Any(b => b.name == "Intuition opportunity"), Is.False);
+        yield return CaptureInteractionReview("mind-palace-intuition-correction", 1280, 720);
+        ViewButton(presentation, "Intuition continue").onClick.Invoke(); Finish();
+        yield return SceneManager.LoadSceneAsync("CarnivalExpress"); yield return null;
+        controller = UnityEngine.Object.FindObjectsByType<MonoBehaviour>().First(c => c.GetType().Name == "TrainNarrative"); tour = controller.GetComponent("TrainTour"); Finish();
+        int focus = State.FocusCapacity; State.Grant("C09"); State.Grant("F-S01"); State.Construct("C09", "F-S01"); Approach("Felix");
+        Assert.That((bool)Call(controller, "Confront", "T_C09_FS01", "Felix"), Is.True); Call(controller, "ConfirmConversation");
+        for (int i = 0; i < 40 && !(bool)controller.GetType().GetProperty("AwaitingIntuition").GetValue(controller); i++) Call(controller, "Advance");
+        yield return null; yield return null; presentation = controller.GetComponent("DialoguePresentation"); ViewButton(presentation, "Intuition opportunity").onClick.Invoke(); yield return null;
+        Assert.That(State.FocusCapacity, Is.EqualTo(focus + 1)); Finish();
+    }
+    [UnityTest] public IEnumerator CategoryPalettePlacesDistinctMaterialsAndProvidesIndependentMutedFeedback()
+    {
+        Finish(); CollectClockDoubts(true); Call(controller, "ToggleNotebook"); yield return null; yield return null;
+        Call(controller.GetComponent("InvestigationNotebook"), "SelectNode", "clock:position"); yield return null;
+        var view = controller.GetComponent("DoubtDefenseView");
+        Assert.That(view.GetComponentsInChildren<UnityEngine.UI.Button>().Any(b => b.name.StartsWith("C02  /")), Is.False);
+        foreach (var kind in new[] { FocusTowerKind.Projectile, FocusTowerKind.Slow, FocusTowerKind.Buff })
+        {
+            string name = "Tower category / " + (kind == FocusTowerKind.Projectile ? "Shot" : kind == FocusTowerKind.Slow ? "Slow" : "Buff");
+            var categoryCard = view.GetComponentsInChildren<Transform>().Single(t => t.name == name);
+            var categoryButton = categoryCard.GetComponentInChildren<UnityEngine.UI.Button>();
+            Assert.That(categoryButton, Is.Not.Null, name + " must own its category button: " + string.Join(",", categoryCard.GetComponentsInChildren<Transform>().Select(t => t.name)));
+            categoryButton.onClick.Invoke();
+            Assert.That(view.GetType().GetProperty("SelectedEntry").GetValue(view), Is.Not.Null);
+            Assert.That((bool)Call(view, "PlaceSelected", kind == FocusTowerKind.Projectile ? 5.87f : 8f, kind == FocusTowerKind.Projectile ? 6.17f : kind == FocusTowerKind.Slow ? 3f : 9f), Is.True);
+            yield return null;
+        }
+        Call(view, "SelectCategory", FocusTowerKind.Projectile); Assert.That((bool)Call(view, "PlaceSelected", 10f, 6f), Is.True);
+        Assert.That((bool)Call(view, "PlaceSelected", 8f, 4f), Is.True);
+        var defense = (DoubtDefense)view.GetType().GetProperty("Defense").GetValue(view);
+        Assert.That(defense.FocusUsed, Is.EqualTo(6)); Assert.That(defense.Draft.towers.Select(t => t.entryId).Distinct().Count(), Is.EqualTo(5));
+        Assert.That(defense.Draft.towers[0].x, Is.EqualTo(5.87f));
+        Assert.That(view.GetComponentsInChildren<Transform>().Count(t => t.name.StartsWith("Tower category /")), Is.EqualTo(3));
+        var feedback = controller.GetComponent("DefenseFeedback");
+        Assert.That(feedback, Is.Not.Null); Assert.That(controller.GetComponents<AudioSource>().Length, Is.EqualTo(2), "Dialogue retains its own audio source.");
+        ViewButton(view, "Sound: on").onClick.Invoke(); Assert.That((bool)feedback.GetType().GetProperty("Muted").GetValue(feedback), Is.True);
+        yield return CaptureInteractionReview("defense-categories-and-effects", 1280, 900);
+        ViewButton(view, "Test defense").onClick.Invoke(); yield return WaitForAutomaticDefense(view);
+        Assert.That(defense.Draft.defended, Is.True, "Presentation must not change a winning formation.");
+        Assert.That(feedback.GetType().GetField("Bursts").GetValue(feedback), Is.Not.Empty);
+        yield return CaptureInteractionReview("defense-category-victory", 1280, 900);
+    }
+    [UnityTest] public IEnumerator QuestionQuestionDoubtRendersAndOpensFromItsConnection()
+    {
+        Finish(); foreach (var id in new[] { "C02", "M-S04", "B-S01" }) State.Grant(id);
+        State.Construct("C02", "M-S04"); State.Construct("C02", "B-S01");
+        Call(controller, "ToggleNotebook"); yield return null; yield return null;
+        var notebook = controller.GetComponent("InvestigationNotebook");
+        var graph = (ReasoningGraphLayout)notebook.GetType().GetProperty("Graph").GetValue(notebook);
+        var doubt = graph.nodes.Single(n => n.id == "questions:accident-impact");
+        Assert.That(doubt.questionParent, Is.EqualTo("T_C02_MS04")); Assert.That(doubt.doubtSource, Is.EqualTo("T_C02_BS01"));
+        Assert.That((Vector2)Call(notebook, "NodePosition", doubt.id), Is.EqualTo(((Vector2)Call(notebook, "NodePosition", doubt.questionParent) + (Vector2)Call(notebook, "NodePosition", doubt.doubtSource)) * .5f));
+        notebook.GetComponentsInChildren<UnityEngine.UI.InputField>().Single(i => i.name == "Search graph").onEndEdit.Invoke("broken the clock herself");
+        yield return null; yield return null;
+        graph = (ReasoningGraphLayout)notebook.GetType().GetProperty("Graph").GetValue(notebook);
+        Assert.That(graph.nodes.Any(n => n.id == doubt.doubtSource), Is.True, "Filtering the counter-question must retain the contradiction.");
+        Assert.That(graph.nodes.Any(n => n.id == "B-S01"), Is.True, "The counter-question retains its statement connection too.");
+        yield return CaptureInteractionReview("question-question-doubt", 1280, 900);
+        Call(notebook, "SelectNode", doubt.id); yield return null;
+        var view = controller.GetComponent("DoubtDefenseView"); var defense = (DoubtDefense)view.GetType().GetProperty("Defense").GetValue(view);
+        Assert.That(defense.Definition.sourceId, Is.EqualTo(doubt.doubtSource)); Assert.That(defense.Draft.pressure, Is.EqualTo(1));
+        Assert.That(State.Presentation("T_C02_MS04", "Felix"), Is.Null); Assert.That(State.Presentation("T_C02_BS01", "Felix"), Is.Not.Null);
+    }
     [UnityTest] public IEnumerator CoffeeStandConnectsReachableExplorationToPersistentFocusInBothScenes()
     {
         foreach (var scene in new[] { "CarnivalExpress", "ThirdPersonTrain" })
@@ -102,6 +239,7 @@ public sealed class PlayableInvestigationTests
             yield return CaptureInteractionReview("authored-doubt-graph-" + scene, 1280, 900);
             Call(notebook, "SelectNode", doubt.id); yield return null;
             var view = controller.GetComponent("DoubtDefenseView"); PlaceClockFormation(view, true); yield return null;
+            Assert.That(controller.GetComponentsInChildren<MonoBehaviour>().Count(c => c.GetType().Name == "NeuralFieldGraphic"), Is.GreaterThanOrEqualTo(2), "Reasoning and defense share the inner mind-space field.");
             var defense = (DoubtDefense)view.GetType().GetProperty("Defense").GetValue(view);
             Assert.That(defense.Interpretation, Is.EqualTo(question.text)); Assert.That(defense.Draft.waves, Is.EqualTo(2)); Assert.That(defense.Draft.environment.Count, Is.EqualTo(3));
             yield return CaptureInteractionReview("authored-doubt-planning-" + scene, 1280, 900);
@@ -109,6 +247,11 @@ public sealed class PlayableInvestigationTests
             State.configuration.doubtTuning.stepSeconds = .3f; ViewButton(view, "Test defense").onClick.Invoke(); yield return null;
             float deadline = Time.realtimeSinceStartup + 3; while (defense.Draft.tick < 3 && Time.realtimeSinceStartup < deadline) yield return null;
             yield return CaptureInteractionReview("authored-doubt-running-" + scene, 1280, 900);
+            deadline = Time.realtimeSinceStartup + 6;
+            while (!defense.Effects.Any(e => e.kind == FocusTowerKind.Projectile) && !defense.Draft.finished && Time.realtimeSinceStartup < deadline) yield return null;
+            Assert.That(defense.Effects.Any(e => e.kind == FocusTowerKind.Projectile), Is.True);
+            yield return new WaitForSecondsRealtime(.05f);
+            yield return CaptureInteractionReview("mind-palace-synaptic-discharge-" + scene, 1280, 900);
             State.configuration.doubtTuning.stepSeconds = .04f; yield return WaitForAutomaticDefense(view);
             Assert.That(defense.Draft.defended, Is.True); Assert.That(State.DoubtPressure, Is.Zero); Assert.That(State.QuestionSecure(question.id), Is.True);
             yield return CaptureInteractionReview("authored-doubt-success-" + scene, 1280, 900);

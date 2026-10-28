@@ -18,6 +18,9 @@ namespace GraduationDemo.Train
         public bool QuestionMenuOpen => questionMenu != null && questionMenu.IsOpen;
         public bool NotebookOpen => notebook;
         public string CurrentSequence => sequence?.id;
+        public bool DialogueAudioPlaying => audioSource != null && audioSource.isPlaying;
+        public string DialoguePartner => encounter?.route?.suspect ?? (sequence == null ? null : sequence.beats.Select(b => catalogue.Voice(b.voiceId)?.speaker).FirstOrDefault(s => s != null && s != "Burrows"));
+        public void ContinueDialogue() => UserAdvance();
         public bool CurrentQuestionDoubtResolved => encounter?.route != null && State.QuestionDoubtResolved(encounter.route.theoryId);
         public string CurrentVoiceId => sequence == null ? null : sequence.beats[beatIndex].voiceId;
         public string IntuitionEntry { get; private set; }
@@ -68,7 +71,7 @@ namespace GraduationDemo.Train
             var errors = NarrativeValidation.Errors(catalogue);
             if (errors.Count > 0) { Debug.LogError("Invalid narrative catalogue: " + string.Join("\n", errors), this); enabled = false; return; }
             if (configuration != null && configuration.Errors().Count > 0) { Debug.LogError(string.Join("\n", configuration.Errors()), this); enabled = false; return; }
-            if (configuration != null && configuration.doubtLinks.Any(d => catalogue.Theory(d.questionId) == null || catalogue.Clue(d.sourceId) == null && catalogue.Statement(d.sourceId) == null))
+            if (configuration != null && configuration.doubtLinks.Any(d => catalogue.Theory(d.questionId) == null || catalogue.Clue(d.sourceId) == null && catalogue.Statement(d.sourceId) == null && catalogue.Theory(d.sourceId) == null))
             { Debug.LogError("Authored doubt links reference missing questions or evidence.", this); enabled = false; return; }
             if (configuration != null && configuration.doubts.Any(d => catalogue.Clue(d.clueId) == null || catalogue.Statement(d.statementId) == null))
             { Debug.LogError("Doubt definitions reference missing source evidence.", this); enabled = false; return; }
@@ -84,6 +87,7 @@ namespace GraduationDemo.Train
         void Start()
         {
             if (State == null) return;
+            if (GetComponent<DialoguePresentation>() == null) gameObject.AddComponent<DialoguePresentation>();
             if (playOpening) Begin("OPENING — The real corpse");
             else State.Grant("flag:investigation");
         }
@@ -350,36 +354,6 @@ namespace GraduationDemo.Train
             {
                 if (GUI.Button(new Rect(width - 178, 66, 150, 32), "Notebook / N")) ToggleNotebook();
                 if (!string.IsNullOrEmpty(Message)) GUI.Label(new Rect(32, 106, width - 220, 60), Message, body);
-            }
-            if (sequence != null)
-            {
-                var voice = catalogue.Voice(CurrentVoiceId);
-                GUILayout.BeginArea(new Rect(24, height - 235, width - 48, 210), panelStyle);
-                GUILayout.Label(voice.speaker == "Burrows" ? "Basil Burrows" : voice.speaker == "Felix" ? "Felix Mercer" : voice.speaker == "Mila" ? "Mila Novak" : "Edgar Bellamy", heading);
-                GUILayout.Label(voice.subtitle, body, GUILayout.MinHeight(76));
-                if (CurrentQuestionDoubtResolved) GUILayout.Label("Doubt resolved / question ready", body);
-                if (voice.clip == null) GUILayout.Label("DEVELOPMENT — unvoiced: " + voice.id);
-                GUI.enabled = !audioSource.isPlaying;
-                if (IntuitionEntry == null && GUILayout.Button("Continue / Space", GUILayout.Height(32))) UserAdvance();
-                GUI.enabled = true; GUILayout.EndArea();
-                if (IntuitionEntry != null)
-                {
-                    GUILayout.BeginArea(new Rect(24, 115, width - 48, Mathf.Max(210, height - 365)), panelStyle);
-                    GUILayout.Label("Detectives' intuition", heading);
-                    GUILayout.Label(catalogue.EntryText(IntuitionEntry), body);
-                    if (AwaitingIntuition)
-                    {
-                        GUILayout.Label("What does this reveal?", body);
-                        if (GUILayout.Button("Motive", GUILayout.Height(36))) ChooseIntuition(AccusationReasoning.Motive);
-                        if (GUILayout.Button("Opportunity", GUILayout.Height(36))) ChooseIntuition(AccusationReasoning.Opportunity);
-                    }
-                    else
-                    {
-                        GUILayout.Label(IntuitionFeedback, body);
-                        if (GUILayout.Button("Continue / Space", GUILayout.Height(32))) UserAdvance();
-                    }
-                    GUILayout.EndArea();
-                }
             }
             if (choiceSuspect != null || pending != null || confirmDay) DrawConversationChoice(width, height);
             if (sequence == null && !notebook && !QuestionMenuOpen && choiceSuspect == null && pending == null && !confirmDay && State.Has("flag:investigation"))

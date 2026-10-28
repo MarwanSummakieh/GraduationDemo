@@ -205,6 +205,8 @@ namespace GraduationDemo.Train
             float width = page.rect.width, height = page.rect.height; bool narrow = width < 880;
             viewport = Panel(page, "Reasoning graph viewport", new Color(.065f, .12f, .13f));
             Place(viewport, new Vector2(8, -52), new Vector2(narrow ? width - 16 : width - 300, narrow ? height - (ConversationGraphActive ? 281 : 245) : height - 64)); viewport.gameObject.AddComponent<RectMask2D>();
+            viewport.GetComponent<Image>().color = new Color(.035f, .025f, .085f);
+            NeuralFieldGraphic.Attach(viewport, owner.configuration != null && owner.configuration.defenseReducedMotion);
             graphContent = new GameObject("Graph", typeof(RectTransform)).GetComponent<RectTransform>(); graphContent.SetParent(viewport, false); graphContent.anchorMin = graphContent.anchorMax = new Vector2(.5f, .5f); graphContent.pivot = new Vector2(0, 1);
             Graph = ConversationGraphActive ? ConversationGraphLayout.Build(owner.State, conversationSuspect, search) : AccusationGraphActive ? AccusationGraphLayout.Build(owner.catalogue, owner.State.progress, accusation, accusationSuspect, search, suspectFilter, accusationSockets) :
                 ReasoningGraphLayout.Build(owner.catalogue, owner.State.progress, search, suspectFilter);
@@ -215,7 +217,15 @@ namespace GraduationDemo.Train
                 {
                     var all = ReasoningGraphLayout.Build(owner.catalogue, owner.State.progress);
                     foreach (var d in doubts.Where(d => !Graph.nodes.Any(n => n.id == d.sourceId)))
-                    { var source = all.nodes.Find(n => n.id == d.sourceId); Graph.nodes.Add(source); Graph.size = new Vector2(Graph.size.x, Mathf.Max(Graph.size.y, source.position.y + 100)); }
+                    {
+                        var source = all.nodes.Find(n => n.id == d.sourceId);
+                        foreach (var id in new[] { source.id, source.clueParent, source.statementParent })
+                        {
+                            var context = all.nodes.Find(n => n.id == id);
+                            if (context == null || Graph.nodes.Any(n => n.id == id)) continue;
+                            Graph.nodes.Add(context); Graph.size = new Vector2(Mathf.Max(Graph.size.x, context.position.x + 300), Mathf.Max(Graph.size.y, context.position.y + 100));
+                        }
+                    }
                 }
                 if (doubts.Count > 0)
                 {
@@ -507,7 +517,13 @@ namespace GraduationDemo.Train
         string SelectedDetail()
         {
             string content = SelectedDetailContent();
-            if (selectedTheory != null && !owner.State.QuestionSecure(selectedTheory)) content = "INSECURE: defend the pink doubt connection before using this question in dialogue.\n\n" + content;
+            if (selectedTheory != null && !owner.State.QuestionSecure(selectedTheory))
+            {
+                string instruction = DoubtRules.Available(owner.State).Any(d => d.questionId == selectedTheory) ?
+                    "Defend the pink doubt connection before using this question in dialogue." :
+                    "Restore the archived counter-question from Removed to show its doubt connection. Another visible doubt defense can also clear the accumulated backlog.";
+                content = "INSECURE: " + instruction + "\n\n" + content;
+            }
             else if (selectedTheory != null && owner.State.QuestionDoubtResolved(selectedTheory)) content = "DOUBT RESOLVED — ready to discuss with suspects.\n\n" + content;
             var tags = owner.catalogue.InterpretationTags(selectedClue != null && !owner.State.Has(selectedClue) ? null : selectedTheory ?? selectedClue ?? selectedStatement).Where(AccusationReasoning.Roles.Contains).Select(AccusationReasoning.Label).ToList();
             if (tags.Count > 0) content = "Interpretation: " + string.Join(", ", tags) + " (a lead, not proof)\n\n" + content;

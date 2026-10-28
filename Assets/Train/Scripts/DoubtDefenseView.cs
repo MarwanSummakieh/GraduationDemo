@@ -19,18 +19,22 @@ namespace GraduationDemo.Train
         RectTransform page;
         Font font;
         string inspection = "";
-        int palettePage;
+        FocusTowerKind? category;
+        public DefenseFeedback Feedback { get; private set; }
+        Text battleStatus;
         Action confirm;
         Dictionary<string, string> sockets;
         string suspect;
         Text previewText;
         public void SetPreview(string message) { if (previewText != null) previewText.text = message.Split('\n')[0]; }
-        readonly Color ink = new Color(.045f, .085f, .10f), paper = new Color(.94f, .88f, .72f);
+        readonly Color ink = new Color(.045f, .025f, .095f), paper = new Color(.93f, .92f, 1);
         public bool OpenDoubt(string id)
         {
             owner = GetComponent<TrainNarrative>();
             var defense = owner.State.OpenDoubt(id); if (defense == null) return false;
-            Defense = defense; SelectedEntry = null; palettePage = 0; inspection = "";
+            Defense = defense; SelectedEntry = null; category = null; inspection = "";
+            Feedback = GetComponent<DefenseFeedback>() ?? gameObject.AddComponent<DefenseFeedback>();
+            Feedback.Configure(owner.State.configuration); Feedback.Clear();
             showDetails = false; autoTime = 0;
             EnsureRoot(); DrawBoard(); return true;
         }
@@ -67,12 +71,13 @@ namespace GraduationDemo.Train
             var label = go.GetComponent<Text>(); label.font = font; label.fontSize = fontSize; label.color = paper; label.text = text;
             label.horizontalOverflow = HorizontalWrapMode.Wrap; label.verticalOverflow = VerticalWrapMode.Truncate; label.raycastTarget = false; return label;
         }
-        void Button(string text, Action action, float x, float y, float width = 170, bool enabled = true)
+        RectTransform Button(string text, Action action, float x, float y, float width = 170, bool enabled = true)
         {
-            var rect = Panel(page, text, new Color(.15f, .25f, .27f), new Vector2(x, y), new Vector2(width, 34));
+            var rect = Panel(page, text, new Color(.16f, .11f, .25f), new Vector2(x, y), new Vector2(width, 34));
             var button = rect.gameObject.AddComponent<Button>(); button.targetGraphic = rect.GetComponent<Image>(); button.interactable = enabled;
             button.onClick.AddListener(() => action());
             var label = Label(rect, text, new Vector2(6, 2), new Vector2(width - 12, 30)); label.alignment = TextAnchor.MiddleCenter;
+            return rect;
         }
         public bool DetailsVisible => showDetails;
         public bool Running => Defense != null && Defense.Draft.started && !Defense.Draft.finished;
@@ -81,65 +86,79 @@ namespace GraduationDemo.Train
         public void StartDefense()
         {
             if (Defense == null || !Defense.Start()) { DrawBoard(); return; }
-            autoTime = 0; showDetails = false; DrawBoard();
+            autoTime = 0; showDetails = false; Feedback.Play(DefenseFeedback.Cue.Launch); DrawBoard();
         }
-        void ResetDefense() { Defense.Reset(); autoTime = 0; showDetails = false; DrawBoard(); }
+        void ResetDefense() { Defense.Reset(); Feedback.Clear(); autoTime = 0; showDetails = false; DrawBoard(); }
         void DrawBoard()
         {
             Defense.RefreshPressure();
             Clear();
             Label(page, "DEFEND YOUR QUESTION", new Vector2(22, 16), new Vector2(900, 34), 25);
+            Label(page, "MIND PALACE / DOUBT DEFENSE", new Vector2(500, 24), new Vector2(460, 26), 14).color = NeuralInk.Cyan;
             Button(ReviewingAccusation ? "Return to review" : "Notebook", Close, 970, 16, 188);
             Label(page, Defense.Interpretation, new Vector2(22, 57), new Vector2(1120, 52), 20);
-            Label(page, "Focus " + Defense.FocusUsed + " / " + owner.State.FocusCapacity + "   •   Doubt " + (Defense.Draft.finished ? owner.State.DoubtPressure : Defense.Draft.pressure) + "   •   " + Defense.Draft.waves + " wave(s)" + (Running ? "   •   Running" : Defense.Draft.finished ? "   •   Complete" : ""), new Vector2(22, 115), new Vector2(1120, 26), 20);
-            var boardRect = Panel(page, "Defense board", new Color(.065f, .13f, .15f), new Vector2(22, 154), new Vector2(760, 540));
+            battleStatus = Label(page, "Focus " + Defense.FocusUsed + " / " + owner.State.FocusCapacity + "   •   Doubt " + (Defense.Draft.finished ? owner.State.DoubtPressure : Defense.Draft.pressure) + "   •   " + Defense.Draft.waves + " wave(s)" + (Running ? "   •   Running" : Defense.Draft.finished ? "   •   Complete" : ""), new Vector2(22, 115), new Vector2(1120, 26), 20);
+            Panel(page, "Focus capacity", new Color(.15f, .25f, .27f), new Vector2(22, 145), new Vector2(760, 4));
+            Panel(page, "Focus deployed", new Color(.5f, .9f, .8f), new Vector2(22, 145), new Vector2(760 * Mathf.Clamp01((float)Defense.FocusUsed / Mathf.Max(1, owner.State.FocusCapacity)), 4));
+            var boardRect = Panel(page, "Defense board", new Color(.035f, .025f, .085f), new Vector2(22, 154), new Vector2(760, 540));
             boardRect.gameObject.AddComponent<RectMask2D>();
+            NeuralFieldGraphic.Attach(boardRect, Feedback.ReducedMotion);
             var surface = new GameObject("Board geometry", typeof(RectTransform), typeof(DoubtBoardGraphic)); surface.transform.SetParent(boardRect, false);
             var surfaceRect = surface.GetComponent<RectTransform>(); surfaceRect.anchorMin = Vector2.zero; surfaceRect.anchorMax = Vector2.one; surfaceRect.offsetMin = surfaceRect.offsetMax = Vector2.zero;
             var graphic = surface.GetComponent<DoubtBoardGraphic>(); graphic.view = this; graphic.raycastTarget = true;
+            var centerLabel = Label(boardRect, "QUESTION", new Vector2(338, 305), new Vector2(84, 18), 12); centerLabel.alignment = TextAnchor.MiddleCenter;
             foreach (var tower in Defense.Draft.towers)
             {
                 string letter = DoubtRules.Kind(owner.catalogue, tower.entryId) == FocusTowerKind.Projectile ? "C" : DoubtRules.Kind(owner.catalogue, tower.entryId) == FocusTowerKind.Slow ? "S" : "Q";
                 Label(boardRect, letter, new Vector2((tower.x + .5f) * 760 / 17 - 6, (tower.y + .5f) * 540 / 13 - 10), new Vector2(18, 20), 15);
             }
-            string status = Defense.Draft.finished ? (Defense.Draft.defended ? "Doubt cleared. Affected questions are ready for suspects." : "Defense failed. Questions remain insecure; rearrange and retry.") :
+            string status = Defense.Draft.finished ? (Defense.Draft.defended ? "DOUBT RESOLVED   /   Affected questions are ready for suspects." : "Defense failed. Questions remain insecure; rearrange and retry.") :
                 "Shots • Slow • Buff  |  Red: enemy haste  |  Amber: tower weakness";
-            Label(page, status, new Vector2(22, 704), new Vector2(760, 28), 17);
+            var statusLabel = Label(page, status, new Vector2(22, 704), new Vector2(760, 28), 17);
+            if (Defense.Draft.finished) statusLabel.color = Defense.Draft.defended ? new Color(.5f, 1, .75f) : new Color(1, .5f, .5f);
             previewText = Label(page, Defense.Draft.finished ? "New contradictions may raise doubt again. Defense is readiness to question, not proof." : Defense.Message ?? "This run handles accumulated doubt together. Place towers, then test defense.", new Vector2(22, 738), new Vector2(760, 30), 16);
             Button(Defense.Planning ? "Test defense" : Defense.Draft.finished ? "Back to reasoning" : "Defending…", () => { if (Defense.Planning) StartDefense(); else BackToReasoning(); }, 22, 774, 230, !Running);
             Button(Running ? "Stop and rearrange" : "Rearrange", ResetDefense, 264, 774, 210, !Defense.Planning && owner.State.DoubtPressure > 0);
             DrawPalette();
             if (showDetails) DrawDetails();
         }
+        IEnumerable<string> AvailableMaterials(FocusTowerKind kind) => owner.State.progress.clues.Concat(owner.State.progress.statements).Concat(owner.State.progress.theories)
+            .Where(id => DoubtRules.Kind(owner.catalogue, id) == kind && !Defense.Draft.towers.Any(t => t.entryId == id))
+            .OrderByDescending(id => DoubtRules.Relevant(owner.catalogue, Defense.Definition, id)).ThenBy(id => id, StringComparer.Ordinal);
+        public void SelectCategory(FocusTowerKind kind)
+        {
+            category = kind; SelectedEntry = AvailableMaterials(kind).FirstOrDefault(); inspection = ""; DrawBoard();
+        }
         void DrawPalette()
         {
-            Label(page, "TOWERS", new Vector2(804, 154), new Vector2(354, 30), 23);
-            var entries = owner.State.progress.clues.Concat(owner.State.progress.statements).Concat(owner.State.progress.theories).ToList();
-            int pages = Mathf.Max(1, Mathf.CeilToInt(entries.Count / 6f)); palettePage = Mathf.Clamp(palettePage, 0, pages - 1);
-            for (int i = 0; i < 6 && palettePage * 6 + i < entries.Count; i++)
+            Label(page, Defense.Planning ? "PLACE A TOWER" : "YOUR FORMATION", new Vector2(804, 154), new Vector2(354, 30), 23);
+            var kinds = new[] { FocusTowerKind.Projectile, FocusTowerKind.Slow, FocusTowerKind.Buff };
+            var names = new[] { "Shot", "Slow", "Buff" };
+            var descriptions = new[] { "Clues discharge neural impulses.", "Statements slow nearby doubts.", "Questions amplify nearby synapses." };
+            for (int i = 0; i < kinds.Length; i++)
             {
-                string id = entries[palettePage * 6 + i]; var kind = DoubtRules.Kind(owner.catalogue, id);
-                string role = kind == FocusTowerKind.Projectile ? "Shot" : kind == FocusTowerKind.Slow ? "Slow" : "Buff";
-                Button((SelectedEntry == id ? "• " : "") + id + "  /  " + role + "  /  " + DoubtRules.Cost(owner.catalogue, id) + " focus", () => SelectEntry(id), 804, 194 + i * 44, 354, !Running);
+                var kind = kinds[i]; int available = AvailableMaterials(kind).Count(), cost = kind == FocusTowerKind.Buff ? 2 : 1;
+                float y = 198 + i * 112;
+                var card = Panel(page, "Tower category / " + names[i], category == kind ? new Color(.2f, .16f, .34f) : new Color(.085f, .055f, .16f), new Vector2(804, y - 8), new Vector2(354, 102));
+                var categoryButton = Button((category == kind ? "| " : "") + names[i] + "  /  " + cost + " focus", () => SelectCategory(kind), 814, y, 334,
+                    Defense.Planning && available > 0 && Defense.FocusUsed + cost <= owner.State.FocusCapacity);
+                categoryButton.SetParent(card, false); categoryButton.anchoredPosition = new Vector2(10, -8);
+                Label(card, descriptions[i] + "\n" + available + " available", new Vector2(12, 48), new Vector2(330, 48), 16);
             }
-            Button("Previous", () => { palettePage--; DrawBoard(); }, 804, 466, 126, palettePage > 0 && !Running);
-            Button("Next", () => { palettePage++; DrawBoard(); }, 940, 466, 126, palettePage < pages - 1 && !Running);
-            Label(page, (palettePage + 1) + "/" + pages, new Vector2(1080, 470), new Vector2(78, 26));
-            string description = "Select a tower to see its effect.\nPlacement and rearrangement are free.";
-            if (SelectedEntry != null)
-            {
-                var kind = DoubtRules.Kind(owner.catalogue, SelectedEntry); var t = Defense.Tuning;
-                description = kind == FocusTowerKind.Projectile ? "Shoots nearby doubts.\nRange " + t.projectileRange + " • Damage " + t.projectileDamage :
-                    kind == FocusTowerKind.Slow ? "Slows nearby doubts.\nRange " + t.slowRange + " • Speed ×" + t.slowedSpeed :
-                    "Boosts nearby towers.\nRange " + t.buffRange + " • Strength ×" + t.buffMultiplier;
-                description += "\nFocus cost: " + DoubtRules.Cost(owner.catalogue, SelectedEntry);
-                var placed = Defense.Draft.towers.Find(tower => tower.entryId == SelectedEntry);
-                if (placed != null && Defense.TowerEnvironmentMultiplier(placed.Cell) < 1) description += "\nWeakened here: ×" + Defense.TowerEnvironmentMultiplier(placed.Cell);
-            }
-            Label(page, description, new Vector2(804, 520), new Vector2(354, 115), 19);
-            Button("Details", () => { showDetails = true; DrawBoard(); }, 804, 650, 168);
-            Button("Remove tower", () => { if (SelectedEntry != null) Defense.Remove(SelectedEntry); DrawBoard(); }, 990, 650, 168, Defense.Planning && SelectedEntry != null);
-            Label(page, "Focus limits active towers.\nYour notebook questions are kept.", new Vector2(804, 710), new Vector2(354, 60), 16);
+            string description = category.HasValue ? (SelectedEntry == null ? "No unused material in this category." : "Click anywhere clear to place.\nRelated evidence is selected first.") : "Choose Shot, Slow or Buff.\nClick a placed tower to move it.";
+            if (SelectedEntry != null && !category.HasValue) description = "Selected: " + SelectedEntry + "\nClick a clear position to move it.";
+            if (!Defense.Planning) description = Running ? "Defending your question…\nSelect a tower for details." : "Review your formation in Details.\nReturn to reasoning when ready.";
+            Label(page, description, new Vector2(804, 538), new Vector2(354, 76), 18);
+            Button("Details", () => { showDetails = true; DrawBoard(); }, 804, 634, 168);
+            Button("Remove tower", RemoveSelected, 990, 634, 168, Defense.Planning && SelectedEntry != null && Defense.Draft.towers.Any(t => t.entryId == SelectedEntry));
+            Button(Feedback.Muted ? "Sound: off" : "Sound: on", () => { Feedback.Muted = !Feedback.Muted; DrawBoard(); }, 804, 680, 168);
+            Label(page, "Free placement | No grid\nWalls link automatically; a route stays open.\nFocus limits towers, not notebook questions.", new Vector2(804, 734), new Vector2(354, 72), 15);
+        }
+        void RemoveSelected()
+        {
+            var tower = Defense.Draft.towers.Find(t => t.entryId == SelectedEntry);
+            if (tower != null) { Feedback.Emit(tower.Cell, new Color(.6f, .8f, .9f)); Defense.Remove(SelectedEntry); Feedback.Play(DefenseFeedback.Cue.Remove); }
+            SelectedEntry = null; category = null; DrawBoard();
         }
         void Modal(string title)
         {
@@ -169,10 +188,13 @@ namespace GraduationDemo.Train
             var scroll = viewport.gameObject.AddComponent<ScrollRect>(); scroll.viewport = viewport; scroll.content = text.rectTransform; scroll.horizontal = false; scroll.movementType = ScrollRect.MovementType.Clamped;
             text.raycastTarget = true;
         }
-        public void SelectEntry(string id) { SelectedEntry = id; inspection = ""; DrawBoard(); }
+        public void SelectEntry(string id) { category = null; SelectedEntry = id; inspection = ""; DrawBoard(); }
         public bool PlaceSelected(float x, float y)
         {
-            bool result = SelectedEntry != null && Defense.Place(SelectedEntry, new Vector2(x, y)); DrawBoard(); return result;
+            bool result = SelectedEntry != null && Defense.Place(SelectedEntry, new Vector2(x, y));
+            Feedback.Play(result ? DefenseFeedback.Cue.Place : DefenseFeedback.Cue.Reject);
+            if (result) { Feedback.Emit(new Vector2(x, y), new Color(.5f, 1, .85f)); if (category.HasValue) SelectedEntry = AvailableMaterials(category.Value).FirstOrDefault(); }
+            DrawBoard(); return result;
         }
         public void ClickPosition(Vector2 cell)
         {
@@ -190,7 +212,7 @@ namespace GraduationDemo.Train
         public void Close()
         {
             if (ReviewingAccusation && Defense != null) { Defense = null; DrawAccusationReview(); }
-            else { if (root != null) root.SetActive(false); ReviewingAccusation = false; Defense = null; }
+            else { if (root != null) root.SetActive(false); if (Feedback != null) Feedback.Clear(); ReviewingAccusation = false; Defense = null; }
         }
         public void OpenAccusationReview(IReadOnlyDictionary<string, string> assignments, string target, Action onConfirm)
         {
@@ -223,11 +245,12 @@ namespace GraduationDemo.Train
             if (!IsOpen || !Running) return;
             autoTime += Time.unscaledDeltaTime; int count = 0;
             while (autoTime >= Defense.Tuning.stepSeconds && count++ < 4 && Running)
-            { autoTime -= Defense.Tuning.stepSeconds; Defense.Step(); }
+            { autoTime -= Defense.Tuning.stepSeconds; Feedback.Step(Defense); }
             if (count == 0) return;
             if (Defense.Draft.finished) { showDetails = false; autoTime = 0; DrawBoard(); }
             else
             {
+                if (battleStatus != null) battleStatus.text = "Focus " + Defense.FocusUsed + " / " + owner.State.FocusCapacity + "   |   Wave " + Mathf.Min(Defense.Draft.waves, 1 + Mathf.Max(0, Defense.Draft.spawned - 1) / Defense.Tuning.enemiesPerWave) + " / " + Defense.Draft.waves + "   |   Breaches " + Defense.Draft.breaches;
                 if (previewText != null) previewText.text = Defense.Message;
                 foreach (var graphic in root.GetComponentsInChildren<DoubtBoardGraphic>()) graphic.SetVerticesDirty();
             }

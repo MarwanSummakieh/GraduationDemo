@@ -8,6 +8,8 @@
 
 **Accusation update:** collected reasoning nodes show Motive/Opportunity badges. The ACCUSE button is available throughout investigation, including day one; unsuccessful accusations leave investigation open.
 
+**Current presentation:** [the neurological mind palace, electrical reasoning and defense, and portrait dialogue experiment](MindPalacePresentation.md).
+
 **Current environment and dialogue interactions:** [positioned clue markers, spoken clue hints and the dedicated suspect question menu](ClueInteractions.md).
 
 **Current flow:** [Questions, interpretation tags, Motive and Opportunity accusations, and optional action costs](QuestionsAndAccusation.md). This supersedes the older three-theory/Means model. Combine clues and statements into questions for interviews; assign two collected entries as motive and opportunity to a suspect at final accusation. Action costs start disabled. Use F8 for session tuning or edit InvestigationPacing for saved defaults.

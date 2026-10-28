@@ -32,6 +32,9 @@ namespace GraduationDemo.Narrative
         [Min(0), Tooltip("Minimum conversation cost after an incorrect intuition. Charged once per conversation when action costs are enabled.")]
         public int intuitionMistakeCost = 1;
         public DoubtTuning doubtTuning = new DoubtTuning();
+        [Header("Defense presentation")]
+        [Range(0, 1)] public float defenseSoundVolume = .35f;
+        [InspectorName("Reduced Presentation Motion"), Tooltip("Reduce decorative neural movement, portrait animation and defense shake.")] public bool defenseReducedMotion;
         [Min(0)] public int coffeeFocusReward = 2;
         [Min(0)] public int intuitionFocusReward = 1;
         [HideInInspector] public List<DoubtDefinition> doubts = DoubtRules.Defaults();
@@ -48,8 +51,10 @@ namespace GraduationDemo.Narrative
         {
             var errors = new List<string>();
             if (coffeeFocusReward < 0 || intuitionFocusReward < 0) errors.Add("Focus rewards cannot be negative.");
+            if (float.IsNaN(defenseSoundVolume) || defenseSoundVolume < 0 || defenseSoundVolume > 1) errors.Add("Defense sound volume must be between zero and one.");
             if (doubtLinks == null || doubtLinks.Exists(d => d == null || string.IsNullOrEmpty(d.id) || string.IsNullOrEmpty(d.questionId) || string.IsNullOrEmpty(d.sourceId) || string.IsNullOrWhiteSpace(d.reason) || d.weight < 1)) errors.Add("Authored doubt links need IDs, question, source, reason and positive weight.");
             if (doubtLinks != null && new HashSet<string>(doubtLinks.ConvertAll(d => d?.id)).Count != doubtLinks.Count) errors.Add("Duplicate authored doubt link ID.");
+            if (doubtLinks != null && doubtLinks.Exists(d => d != null && d.questionId == d.sourceId)) errors.Add("A doubt must connect a question to another node.");
             if (doubtTuning == null) errors.Add("Doubt tuning is required."); else errors.AddRange(doubtTuning.Errors());
             if (doubts == null || doubts.Exists(d => d == null || string.IsNullOrEmpty(d.id) || string.IsNullOrEmpty(d.clueId) || string.IsNullOrEmpty(d.statementId) || d.challenges == null || d.challenges.Count == 0)) errors.Add("Doubts need IDs, source entries and at least one challenge.");
             if (doubts != null)

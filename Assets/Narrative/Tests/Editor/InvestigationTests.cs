@@ -15,6 +15,15 @@ public sealed class InvestigationTests
     InvestigationState state;
     [SetUp] public void SetUp() { catalogue = NarrativeImporter.Build(NarrativeImporter.Source); state = new InvestigationState(catalogue); }
     [TearDown] public void TearDown() { Object.DestroyImmediate(catalogue); }
+    [Test] public void InnerThoughtPresentationFlagsHaveDefaultsAndSurviveNarrativeReimport()
+    {
+        Assert.That(catalogue.Voice("BURR_001").innerThought, Is.True);
+        Assert.That(catalogue.Voice("BELL_001").innerThought, Is.False);
+        catalogue.Voice("BURR_001").innerThought = false; catalogue.Voice("BURR_002").innerThought = true;
+        var rebuilt = NarrativeImporter.Build(NarrativeImporter.Source, catalogue);
+        try { Assert.That(rebuilt.Voice("BURR_001").innerThought, Is.False); Assert.That(rebuilt.Voice("BURR_002").innerThought, Is.True); }
+        finally { Object.DestroyImmediate(rebuilt); }
+    }
     void Initial()
     {
         foreach (var c in catalogue.clues) state.Grant(c.id);

@@ -70,7 +70,7 @@ namespace GraduationDemo.Narrative
         void SyncDoubts()
         {
             foreach (var link in DoubtRules.Links(this))
-                if (progress.theories.Contains(link.questionId) && Has(link.sourceId)) Add(progress.encounteredDoubtLinks, link.id);
+                if (progress.theories.Contains(link.questionId) && HasAccusationEntry(link.sourceId)) Add(progress.encounteredDoubtLinks, link.id);
         }
         public List<AuthoredDoubtLink> PendingDoubts => DoubtRules.Links(this).Where(d => progress.encounteredDoubtLinks.Contains(d.id) && !progress.defendedDoubtLinks.Contains(d.id)).ToList();
         public int DoubtPressure => PendingDoubts.Sum(d => d.weight);

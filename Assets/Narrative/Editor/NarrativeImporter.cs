@@ -44,7 +44,7 @@ namespace GraduationDemo.Editor
             foreach (var r in Read(source, "statements.csv")) c.statements.Add(new StatementDefinition { id = r["Statement ID"], speaker = r["Speaker"], claim = r["Exact notebook claim (not necessarily spoken subtitle)"], initial = r["Availability"] == "initial" });
             foreach (var r in Read(source, "theories.csv")) c.theories.Add(new TheoryDefinition { id = r["Theory ID"], clueId = r["Clue ID"], statementId = r["Statement ID"], text = r["Theory (automatic text)"], reading = r["Narrative reading"], truth = r["Truth status"] });
             foreach (var r in Read(source, "voice_lines.csv"))
-                c.voices.Add(new VoiceDefinition { id = r["Voice file ID"], speaker = r["Actor"], subtitle = r["EXACT spoken line / subtitle"], expression = r["Portrait"], priority = r["Priority"].ToUpperInvariant(), recordingStatus = r["Recording status"], clip = previous == null ? null : previous.Voice(r["Voice file ID"])?.clip });
+                c.voices.Add(new VoiceDefinition { id = r["Voice file ID"], speaker = r["Actor"], subtitle = r["EXACT spoken line / subtitle"], expression = r["Portrait"], priority = r["Priority"].ToUpperInvariant(), recordingStatus = r["Recording status"], innerThought = previous?.Voice(r["Voice file ID"])?.innerThought ?? (r["Voice file ID"] == "BURR_001"), clip = previous == null ? null : previous.Voice(r["Voice file ID"])?.clip });
             foreach (var group in Read(source, "spoken_script.csv").GroupBy(x => x["Encounter title"]))
             {
                 var sequence = new DialogueDefinition { id = group.Key, priority = group.First()["MoSCoW"].ToUpperInvariant() };
@@ -159,7 +159,7 @@ namespace GraduationDemo.Editor
         static void CorrectVoice(NarrativeCatalogue c, string original, string id, string text)
         {
             var v = c.Voice(original);
-            c.voices.Add(new VoiceDefinition { id = id, speaker = v.speaker, subtitle = text, expression = v.expression, priority = v.priority, recordingStatus = "Canon correction — needs new recording" });
+            c.voices.Add(new VoiceDefinition { id = id, speaker = v.speaker, subtitle = text, expression = v.expression, priority = v.priority, innerThought = v.innerThought, recordingStatus = "Canon correction — needs new recording" });
             foreach (var s in c.sequences) foreach (var b in s.beats.Where(x => x.voiceId == original)) b.voiceId = id;
         }
         [MenuItem("Graduation Demo/Narrative/Validate Catalogue")]

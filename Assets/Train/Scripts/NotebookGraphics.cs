@@ -31,23 +31,25 @@ namespace GraduationDemo.Train
             vh.Clear(); if (notebook == null) return;
             if (map) { notebook.DrawMap(vh, rectTransform.rect); return; }
             var model = notebook.Graph; if (model == null) return;
+            var pacing = notebook.GetComponentInParent<TrainNarrative>()?.configuration;
+            float neuralTime = pacing != null && pacing.defenseReducedMotion ? 0 : Time.unscaledTime;
             foreach (var node in model.nodes)
             {
                 if (node.kind != ReasoningNodeKind.Theory && node.kind != ReasoningNodeKind.Doubt) continue;
                 Vector2 here = notebook.NodePosition(node.id);
                 float alpha = notebook.AccusationGraphActive || notebook.ConversationGraphActive ? .16f : .55f;
-                Color clueLink = notebook.ConversationGraphActive ? new Color(.65f, .65f, .65f, .32f) : new Color(.72f, .62f, .39f, alpha);
-                Color statementLink = notebook.ConversationGraphActive ? clueLink : new Color(.42f, .72f, .72f, alpha);
+                Color clueLink = new Color(.65f, .43f, 1, alpha);
+                Color statementLink = new Color(.3f, .95f, 1, alpha);
                 float width = notebook.ConversationGraphActive ? 4 : 2;
                 if (node.kind == ReasoningNodeKind.Doubt)
                 {
-                    Stroke(vh, notebook.NodePosition(node.questionParent), here, new Color(.83f, .48f, .66f, .8f), 3);
-                    Stroke(vh, here, notebook.NodePosition(node.doubtSource), new Color(.83f, .48f, .66f, .8f), 3);
+                    NeuralInk.Axon(vh, notebook.NodePosition(node.questionParent), here, NeuralInk.Coral, neuralTime, 2);
+                    NeuralInk.Axon(vh, here, notebook.NodePosition(node.doubtSource), NeuralInk.Coral, neuralTime, 2);
                 }
                 else
                 {
-                    Stroke(vh, notebook.NodePosition(node.clueParent), here, clueLink, width);
-                    Stroke(vh, here, notebook.NodePosition(node.statementParent), statementLink, width);
+                    NeuralInk.Axon(vh, notebook.NodePosition(node.clueParent), here, clueLink, neuralTime, width);
+                    NeuralInk.Axon(vh, here, notebook.NodePosition(node.statementParent), statementLink, neuralTime, width);
                 }
                 foreach (var parent in node.reflectionParents)
                     Stroke(vh, here, notebook.NodePosition(parent), new Color(.75f, .45f, .7f, .5f), 3);
@@ -88,6 +90,8 @@ namespace GraduationDemo.Train
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear(); Vector2 middle = rectTransform.rect.center; float r = Mathf.Min(rectTransform.rect.width, rectTransform.rect.height) * .43f;
+            if (kind != ReasoningNodeKind.Accusation && kind != ReasoningNodeKind.Suspect)
+                NeuralInk.Neuron(vh, middle, r * .9f, color, .3f);
             if (kind == ReasoningNodeKind.Statement || kind == ReasoningNodeKind.Suspect) { NotebookStrokeGraphic.Dot(vh, middle, color, r); return; }
             if (kind == ReasoningNodeKind.Accusation)
             {
@@ -97,8 +101,9 @@ namespace GraduationDemo.Train
             }
             Vector2[] corners = kind == ReasoningNodeKind.Theory ? new[] { middle + Vector2.up * r, middle + Vector2.right * r, middle + Vector2.down * r, middle + Vector2.left * r } :
                 new[] { middle + new Vector2(-r, r), middle + new Vector2(r, r), middle + new Vector2(r, -r), middle + new Vector2(-r, -r) };
+            int start = vh.currentVertCount;
             for (int i = 0; i < 4; i++) vh.AddVert(corners[i], color, Vector2.zero);
-            vh.AddTriangle(0, 1, 2); vh.AddTriangle(0, 2, 3);
+            vh.AddTriangle(start, start + 1, start + 2); vh.AddTriangle(start, start + 2, start + 3);
         }
     }
     public sealed class NotebookHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler

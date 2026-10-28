@@ -1598,6 +1598,7 @@ MonoBehaviour:
   voices:
   - id: BURR_001
     speaker: Burrows
+    innerThought: 1
     subtitle: At last. A murder worthy of my considerable abilities.
     clip: {fileID: 0}
     expression: Confident

@@ -18,6 +18,8 @@ MonoBehaviour:
   alibiCost: 0
   confrontationCost: 1
   intuitionMistakeCost: 1
+  defenseSoundVolume: 0.35
+  defenseReducedMotion: 0
   coffeeFocusReward: 2
   intuitionFocusReward: 1
   reasoningAssistance: 1

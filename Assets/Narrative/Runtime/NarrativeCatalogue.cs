@@ -28,6 +28,8 @@ namespace GraduationDemo.Narrative
         [TextArea] public string subtitle;
         public AudioClip clip;
         public string expression, priority, recordingStatus;
+        [Tooltip("Present this detective line as internal thought, even within a spoken conversation.")]
+        public bool innerThought;
         public bool disclosesFallGeometry;
     }
     [Serializable] public class DialogueBeat

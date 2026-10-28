@@ -20,6 +20,43 @@ public sealed class DoubtDefenseTests
     [TearDown] public void Cleanup() { Object.DestroyImmediate(catalogue); Object.DestroyImmediate(configuration); }
     DoubtDefense Board()
     { state.Grant("C06"); state.Grant("F-S02"); state.Grant("M-S03"); state.Construct("C06", "F-S02"); return state.OpenDoubt("doubt:relationship"); }
+    [TestCase(true)] [TestCase(false)]
+    public void QuestionCounterSourcesRequireBothQuestionsAndSurviveSaving(bool targetFirst)
+    {
+        configuration.doubtLinks = DoubtRules.AuthoredLinks();
+        state = new InvestigationState(catalogue, null, configuration);
+        foreach (var id in new[] { "C02", "M-S04", "B-S01" }) state.Grant(id);
+        state.Construct("C02", targetFirst ? "M-S04" : "B-S01");
+        Assert.That(state.DoubtPressure, Is.Zero, "Ingredients alone are not a question node.");
+        state.Construct("C02", targetFirst ? "B-S01" : "M-S04");
+        Assert.That(state.DoubtPressure, Is.EqualTo(1)); Assert.That(state.QuestionSecure("T_C02_MS04"), Is.False);
+        Assert.That(state.QuestionSecure("T_C02_BS01"), Is.True, "Doubt is selective and directional.");
+        var restored = new InvestigationState(catalogue, JsonUtility.FromJson<InvestigationProgress>(JsonUtility.ToJson(state.progress)), configuration);
+        var board = restored.OpenDoubt("questions:accident-impact");
+        Assert.That(board.Definition.sourceId, Is.EqualTo("T_C02_BS01"));
+        configuration.doubtTuning.projectileRange = 50; configuration.doubtTuning.invaderHealth = .1f;
+        board.Place("C02", new Vector2(6, 6)); Assert.That(board.Start(), Is.True);
+        for (int i = 0; i < 250 && !board.Draft.finished; i++) board.Step();
+        Assert.That(board.Draft.defended, Is.True); Assert.That(restored.QuestionDoubtResolved("T_C02_MS04"), Is.True);
+        Assert.That(restored.DoubtPressure, Is.Zero);
+    }
+    [Test] public void AuthoredDoubtsNeverConnectAQuestionToItself()
+    {
+        Assert.That(DoubtRules.AuthoredLinks().All(d => d.questionId != d.sourceId && catalogue.Theory(d.questionId) != null &&
+            (catalogue.Clue(d.sourceId) != null || catalogue.Statement(d.sourceId) != null || catalogue.Theory(d.sourceId) != null)), Is.True);
+        configuration.doubtLinks[0].sourceId = configuration.doubtLinks[0].questionId;
+        Assert.That(configuration.Errors(), Does.Contain("A doubt must connect a question to another node."));
+    }
+    [Test] public void ArchivedCounterQuestionPreservesPressureAndRestoresItsDefenseConnection()
+    {
+        configuration.doubtLinks = DoubtRules.AuthoredLinks(); state = new InvestigationState(catalogue, null, configuration);
+        foreach (var id in new[] { "C02", "M-S04", "B-S01" }) state.Grant(id);
+        state.Construct("C02", "M-S04"); state.Construct("C02", "B-S01");
+        Assert.That(state.RemoveTheory("T_C02_BS01"), Is.True); Assert.That(state.DoubtPressure, Is.EqualTo(1));
+        Assert.That(state.QuestionSecure("T_C02_MS04"), Is.False); Assert.That(DoubtRules.Available(state), Is.Empty);
+        state.RestoreTheory("T_C02_BS01"); Assert.That(state.OpenDoubt("questions:accident-impact"), Is.Not.Null);
+        Assert.That(state.DoubtPressure, Is.EqualTo(1));
+    }
     [Test] public void CoffeeFocusIsOneTimePersistentAndActuallyExpandsDeployment()
     {
         configuration.doubtTuning.focusBudget = 1; var board = Board();
