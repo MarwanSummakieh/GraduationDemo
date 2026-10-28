@@ -5,13 +5,14 @@ using UnityEngine;
 
 namespace GraduationDemo.Narrative
 {
-    public enum ReasoningNodeKind { Clue, Statement, Theory, Accusation, Suspect, AccusationSocket }
+    public enum ReasoningNodeKind { Clue, Statement, Theory, Accusation, Suspect, AccusationSocket, Doubt }
     public sealed class ReasoningNode
     {
-        public string id, label, detail, speaker, clueParent, statementParent;
+        public string id, label, detail, speaker, clueParent, statementParent, questionParent, doubtSource;
         public ReasoningNodeKind kind;
         public bool anticipated;
         public Vector2 position;
+        public List<string> reflectionParents = new List<string>();
     }
     public sealed class ReasoningGraphLayout
     {

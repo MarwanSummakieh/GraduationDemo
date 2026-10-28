@@ -18,6 +18,7 @@ namespace GraduationDemo.Train
         public bool QuestionMenuOpen => questionMenu != null && questionMenu.IsOpen;
         public bool NotebookOpen => notebook;
         public string CurrentSequence => sequence?.id;
+        public bool CurrentQuestionDoubtResolved => encounter?.route != null && State.QuestionDoubtResolved(encounter.route.theoryId);
         public string CurrentVoiceId => sequence == null ? null : sequence.beats[beatIndex].voiceId;
         public string IntuitionEntry { get; private set; }
         public string IntuitionFeedback { get; private set; }
@@ -67,9 +68,14 @@ namespace GraduationDemo.Train
             var errors = NarrativeValidation.Errors(catalogue);
             if (errors.Count > 0) { Debug.LogError("Invalid narrative catalogue: " + string.Join("\n", errors), this); enabled = false; return; }
             if (configuration != null && configuration.Errors().Count > 0) { Debug.LogError(string.Join("\n", configuration.Errors()), this); enabled = false; return; }
+            if (configuration != null && configuration.doubtLinks.Any(d => catalogue.Theory(d.questionId) == null || catalogue.Clue(d.sourceId) == null && catalogue.Statement(d.sourceId) == null))
+            { Debug.LogError("Authored doubt links reference missing questions or evidence.", this); enabled = false; return; }
+            if (configuration != null && configuration.doubts.Any(d => catalogue.Clue(d.clueId) == null || catalogue.Statement(d.statementId) == null))
+            { Debug.LogError("Doubt definitions reference missing source evidence.", this); enabled = false; return; }
             // Debug tuning applies to this play session without changing the project asset.
             if (configuration != null) { configuration = Instantiate(configuration); ownsConfiguration = true; }
             State = new InvestigationState(catalogue, null, configuration);
+            FocusCoffeeStand.Ensure(this, tour);
             notebookView = GetComponent<InvestigationNotebook>();
             questionMenu = GetComponent<SuspectQuestionMenu>() ?? gameObject.AddComponent<SuspectQuestionMenu>();
             foreach (var binding in FindObjectsByType<NarrativeInteraction>())
@@ -112,6 +118,17 @@ namespace GraduationDemo.Train
             if (binding == null) { if (observation.speaker != null) { PlayBark(); return true; } return false; }
             if (Busy || !State.Has(binding.requiredFlag)) return true;
             if (!State.InvestigationOpen) { Message = "The investigation has closed. Review your notebook."; if (!string.IsNullOrEmpty(binding.suspectId)) PlayBark(); return true; }
+            if (binding.coffeeFocus)
+            {
+                int before = State.FocusCapacity;
+                if (State.ClaimCoffeeFocus())
+                {
+                    NotifyFocusReward(State.FocusCapacity - before, "COFFEE");
+                    observation.description = "A fresh coffee clears your head. +" + (State.FocusCapacity - before) + " focus.\nFocus capacity: " + State.FocusCapacity + ". This stand's coffee reward has been collected.";
+                }
+                else observation.description = "You've already taken this coffee break.";
+                return false;
+            }
             if (!string.IsNullOrEmpty(binding.clueId))
             {
                 if (!State.CanFindClue(binding.clueId)) { Message = "You have no lead to search here yet."; return true; }
@@ -131,6 +148,7 @@ namespace GraduationDemo.Train
         public bool ObservationAvailable(TrainObservation observation)
         {
             var binding = observation.GetComponent<NarrativeInteraction>();
+            if (binding != null && binding.coffeeFocus) return State != null && State.Has(binding.requiredFlag) && State.CoffeeAvailable;
             return binding == null || string.IsNullOrEmpty(binding.clueId) || State != null && State.InvestigationOpen && State.Has(binding.requiredFlag) && State.CanFindClue(binding.clueId) && !State.Has(binding.clueId);
         }
         public bool CanTalkTo(string target)
@@ -234,14 +252,21 @@ namespace GraduationDemo.Train
         public bool ChooseIntuition(string role)
         {
             if (!AwaitingIntuition || !AccusationReasoning.Roles.Contains(role)) return false;
+            int beforeFocus = State.FocusCapacity;
             bool correct = State.ResolveIntuition(IntuitionEntry, role);
             string interpretation = string.Join(" or ", catalogue.InterpretationTags(IntuitionEntry).Where(AccusationReasoning.Roles.Contains).Select(AccusationReasoning.Label));
             string explanation = interpretation == "Motive" ? "This suggests why someone might have wanted to hurt Odette." :
                 interpretation == "Opportunity" ? "This suggests access, presence or a chance to act." : "This account can support either interpretation.";
             IntuitionFeedback = (correct ? "Correct. " : "The interpretation is " + interpretation + ". ") + explanation + "\n" +
                 (!State.ActionCostsEnabled ? "Action costs are disabled." : State.progress.reservation.cost == 0 ? "This conversation is free." : "Conversation cost: " + State.progress.reservation.cost + " action(s).");
-            if (correct) { Message = IntuitionFeedback; Advance(); }
+            if (correct) { Message = IntuitionFeedback; Advance(); if (State.FocusCapacity > beforeFocus) NotifyFocusReward(State.FocusCapacity - beforeFocus, "INTUITION"); }
             return true;
+        }
+        void NotifyFocusReward(int amount, string source)
+        {
+            Message = source + " +" + amount + " FOCUS • Capacity " + State.FocusCapacity;
+            LogbookNotice = Message + (Time.unscaledTime < logbookNoticeUntil && !string.IsNullOrEmpty(LogbookNotice) ? "\n" + LogbookNotice : "");
+            LogbookNoticeVersion++; logbookNoticeUntil = Time.unscaledTime + 5;
         }
         public void CancelDialogue() { if (sequence != null) Message = "Finish this conversation before returning to the investigation."; }
         void RecoverPlayback() { State.RecoverFailedConversation(); StopSpeaker(); sequence = null; encounter = null; debugSequence = false; IntuitionEntry = null; IntuitionFeedback = null; }
@@ -249,6 +274,7 @@ namespace GraduationDemo.Train
         void StopSpeaker() { audioSource.Stop(); if (talkingActor != null) talkingActor.SetTalking(false); talkingActor = null; }
         public bool Confront(string theoryId, string target)
         {
+            if (!State.QuestionSecure(theoryId)) { Message = "This question is insecure. Defend its doubt connection in Reasoning before asking a suspect."; return false; }
             if (!NarrativeCatalogue.IsSuspect(target)) return false;
             var actor = FindObjectsByType<TrainActor>(FindObjectsSortMode.None).FirstOrDefault(x => x.characterId == target);
             if (actor == null || tour.exterior || Vector3.Distance(tour.detective.transform.position + Vector3.up, actor.transform.position) > 3.3f)
@@ -257,6 +283,7 @@ namespace GraduationDemo.Train
         }
         public bool OfferConversation(ConversationInitialization prompt)
         {
+            if (prompt != null && prompt.kind == ConversationKind.Theory && !State.QuestionSecure(prompt.theoryId)) { Message = "Defend this insecure question in Reasoning first."; return false; }
             if (sequence != null || prompt == null) { if (prompt == null) PlayBark(); return false; }
             if (!CanTalkTo(prompt.suspect)) { Message = "Approach " + prompt.suspect + " first."; return false; }
             if (prompt.cost > State.RemainingActions) { Message = "Not enough actions remain today."; return false; }
@@ -330,6 +357,7 @@ namespace GraduationDemo.Train
                 GUILayout.BeginArea(new Rect(24, height - 235, width - 48, 210), panelStyle);
                 GUILayout.Label(voice.speaker == "Burrows" ? "Basil Burrows" : voice.speaker == "Felix" ? "Felix Mercer" : voice.speaker == "Mila" ? "Mila Novak" : "Edgar Bellamy", heading);
                 GUILayout.Label(voice.subtitle, body, GUILayout.MinHeight(76));
+                if (CurrentQuestionDoubtResolved) GUILayout.Label("Doubt resolved / question ready", body);
                 if (voice.clip == null) GUILayout.Label("DEVELOPMENT — unvoiced: " + voice.id);
                 GUI.enabled = !audioSource.isPlaying;
                 if (IntuitionEntry == null && GUILayout.Button("Continue / Space", GUILayout.Height(32))) UserAdvance();

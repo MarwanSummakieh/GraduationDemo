@@ -13,6 +13,11 @@ namespace GraduationDemo.Narrative
         public List<string> usedConversationSequences = new List<string>();
         public List<DiscoveryProvenance> discoveries = new List<DiscoveryProvenance>();
         public List<ClueHintRecord> clueHints = new List<ClueHintRecord>();
+        public List<DoubtDraft> doubtDrafts = new List<DoubtDraft>();
+        public List<DoubtReview> doubtReviews = new List<DoubtReview>();
+        public List<string> encounteredDoubtLinks = new List<string>(), defendedDoubtLinks = new List<string>();
+        public int bonusFocus;
+        public List<string> focusRewardClaims = new List<string>();
         public int day = 1, actionsSpent;
         public InvestigationPhase phase;
         public ConversationReservation reservation;
@@ -36,15 +41,21 @@ namespace GraduationDemo.Narrative
         public readonly InvestigationProgress progress;
         public readonly InvestigationConfiguration configuration;
         public event Action Changed;
-        public void RefreshConfiguration() => Changed?.Invoke();
+        public void RefreshConfiguration() { SyncDoubts(); Changed?.Invoke(); }
         public InvestigationState(NarrativeCatalogue data, InvestigationProgress restored = null, InvestigationConfiguration pacing = null)
         {
             catalogue = data ?? throw new ArgumentNullException(nameof(data));
             progress = restored ?? new InvestigationProgress();
             if (progress.clueHints == null) progress.clueHints = new List<ClueHintRecord>();
+            if (progress.doubtDrafts == null) progress.doubtDrafts = new List<DoubtDraft>();
+            if (progress.doubtReviews == null) progress.doubtReviews = new List<DoubtReview>();
+            if (progress.encounteredDoubtLinks == null) progress.encounteredDoubtLinks = new List<string>();
+            if (progress.defendedDoubtLinks == null) progress.defendedDoubtLinks = new List<string>();
+            if (progress.focusRewardClaims == null) progress.focusRewardClaims = new List<string>();
             // JsonUtility can materialize a null serializable reference as an empty object.
             if (progress.reservation != null && (string.IsNullOrEmpty(progress.reservation.key) || string.IsNullOrEmpty(progress.reservation.sequenceId))) progress.reservation = null;
             configuration = pacing;
+            SyncDoubts();
             foreach (var id in progress.clues.Concat(progress.statements))
                 if (!progress.discoveries.Any(x => x.id == id)) progress.discoveries.Add(new DiscoveryProvenance { id = id, locationId = "unknown", day = 0 });
         }
@@ -56,6 +67,51 @@ namespace GraduationDemo.Narrative
         public bool CanBuildAccusation => progress.phase != InvestigationPhase.Resolved && progress.reservation == null;
         public bool CanConstructTheories => progress.phase == InvestigationPhase.Investigating || progress.phase == InvestigationPhase.Accusation;
         public bool HasAccusationEntry(string id) => progress.clues.Contains(id) || progress.statements.Contains(id) || progress.theories.Contains(id);
+        void SyncDoubts()
+        {
+            foreach (var link in DoubtRules.Links(this))
+                if (progress.theories.Contains(link.questionId) && Has(link.sourceId)) Add(progress.encounteredDoubtLinks, link.id);
+        }
+        public List<AuthoredDoubtLink> PendingDoubts => DoubtRules.Links(this).Where(d => progress.encounteredDoubtLinks.Contains(d.id) && !progress.defendedDoubtLinks.Contains(d.id)).ToList();
+        public int DoubtPressure => PendingDoubts.Sum(d => d.weight);
+        public bool QuestionSecure(string id) => !PendingDoubts.Any(d => d.questionId == id);
+        public bool QuestionDoubtResolved(string id) => progress.theories.Contains(id) && QuestionSecure(id) && DoubtRules.Links(this).Any(d => d.questionId == id && progress.defendedDoubtLinks.Contains(d.id));
+        public int FocusCapacity => (int)Math.Min(int.MaxValue, (long)(configuration?.doubtTuning?.focusBudget ?? 6) + Math.Max(0, progress.bonusFocus));
+        public int CoffeeFocusReward => configuration?.coffeeFocusReward ?? 2;
+        public bool CoffeeAvailable => InvestigationOpen && CoffeeFocusReward > 0 && !progress.focusRewardClaims.Contains("coffee:bar");
+        bool AwardFocus(string source, int amount)
+        {
+            if (amount <= 0 || progress.focusRewardClaims.Contains(source)) return false;
+            progress.focusRewardClaims.Add(source); progress.bonusFocus = (int)Math.Min(int.MaxValue, (long)Math.Max(0, progress.bonusFocus) + amount);
+            Changed?.Invoke(); return true;
+        }
+        public bool ClaimCoffeeFocus() => CoffeeAvailable && progress.reservation == null && AwardFocus("coffee:bar", CoffeeFocusReward);
+        public void CompleteDoubtDefense(DoubtDefense defense)
+        {
+            if (defense.State != this || !progress.doubtDrafts.Contains(defense.Draft) || !defense.Draft.pressureCaptured || defense.Draft.batchLinkIds.Count == 0 || !defense.Draft.finished || defense.Draft.defended || defense.Draft.breaches != 0) return;
+            defense.Draft.defended = true;
+            foreach (var id in defense.Draft.batchLinkIds) Add(progress.defendedDoubtLinks, id);
+            RecordDoubt(defense, DoubtOutcome.Examined, "Accumulated doubt defended. Affected questions are available for interviews.");
+            Changed?.Invoke();
+        }
+        public DoubtDefense OpenDoubt(string id)
+        {
+            if (!CanBuildAccusation) return null;
+            var definition = DoubtRules.Available(this, true).FirstOrDefault(d => d.id == id); if (definition == null) return null;
+            var draft = progress.doubtDrafts.Find(d => d.doubtId == id);
+            if (draft == null) { draft = new DoubtDraft { doubtId = id }; progress.doubtDrafts.Add(draft); }
+            return new DoubtDefense(this, definition, draft);
+        }
+        public void RecordDoubt(DoubtDefense defense, DoubtOutcome outcome, string note)
+        {
+            if (defense == null || defense.State != this || !progress.doubtDrafts.Contains(defense.Draft) || !CanBuildAccusation || outcome == DoubtOutcome.Examined && !defense.Draft.finished) return;
+            progress.doubtReviews.Add(new DoubtReview { doubtId = defense.Definition.id, outcome = outcome, note = note ?? "", day = progress.day,
+                breaches = defense.Draft.breaches, cleared = defense.Draft.finished && defense.Draft.breaches == 0,
+                entries = defense.Draft.towers.Select(t => t.entryId).ToList() });
+            if (outcome == DoubtOutcome.Revised && !string.IsNullOrWhiteSpace(note))
+            { defense.Draft.revisedInterpretation = note; defense.Reset(); }
+            Changed?.Invoke();
+        }
         public bool Has(string id) => progress.clues.Contains(id) || progress.statements.Contains(id) || progress.flags.Contains(id);
         public bool HasClueHint(string id) => progress.clueHints.Any(h => h.clueId == id);
         public bool CanFindClue(string id) => catalogue.Clue(id) != null && (!catalogue.Clue(id).hiddenUntilHint || HasClueHint(id) || progress.clues.Contains(id));
@@ -82,6 +138,7 @@ namespace GraduationDemo.Narrative
                 if (discovery) progress.discoveries.Add(new DiscoveryProvenance { id = id, locationId = string.IsNullOrEmpty(locationId) ? "unknown" : locationId, day = progress.day });
                 if (progress.reservation != null) progress.reservation.grantedDuringPlayback.Add(id);
                 if (id == "flag:resolved") progress.phase = InvestigationPhase.Resolved;
+                SyncDoubts();
                 Changed?.Invoke();
             }
             return added;
@@ -94,7 +151,7 @@ namespace GraduationDemo.Narrative
             string statement = catalogue.Statement(second) != null ? second : first;
             if (!progress.clues.Contains(clue) || !progress.statements.Contains(statement)) return null;
             var theory = catalogue.Pair(clue, statement);
-            if (theory != null && Add(progress.theories, theory.id)) { progress.removedTheories.Remove(theory.id); Changed?.Invoke(); }
+            if (theory != null && Add(progress.theories, theory.id)) { progress.removedTheories.Remove(theory.id); SyncDoubts(); Changed?.Invoke(); }
             return theory;
         }
         public bool RemoveTheory(string id)
@@ -108,7 +165,7 @@ namespace GraduationDemo.Narrative
         {
             var theory = catalogue.Theory(id);
             if (progress.reservation != null || theory == null || !progress.removedTheories.Contains(id) || !progress.clues.Contains(theory.clueId) || !progress.statements.Contains(theory.statementId)) return false;
-            progress.removedTheories.Remove(id); Add(progress.theories, id); Changed?.Invoke(); return true;
+            progress.removedTheories.Remove(id); Add(progress.theories, id); SyncDoubts(); Changed?.Invoke(); return true;
         }
         public RouteSelection SelectRoute(string theoryId, string suspect)
         {
@@ -163,18 +220,19 @@ namespace GraduationDemo.Narrative
             if (!InvestigationOpen || !NarrativeCatalogue.IsSuspect(suspect) || progress.usedInitializations.Contains(key) || catalogue.Sequence(sequence) == null) return null;
             return new ConversationInitialization { key = key, suspect = suspect, sequenceId = sequence, kind = ConversationKind.Alibi, cost = ActionCostsEnabled ? configuration.alibiCost : 0 };
         }
-        public ConversationInitialization Presentation(string theory, string suspect)
+        public ConversationInitialization Presentation(string theory, string suspect, bool includeInsecure = false)
         {
+            if (!includeInsecure && !QuestionSecure(theory)) return null;
             var selection = SelectRoute(theory, suspect);
             if (selection?.sequence == null) return null;
             return new ConversationInitialization { key = "theory/" + theory + "/" + suspect + "/" + (selection.route?.id ?? "fallback"), suspect = suspect, theoryId = theory,
-                sequenceId = selection.sequence.id, selection = selection, kind = ConversationKind.Theory, cost = ActionCostsEnabled ? configuration.confrontationCost : 0 };
+                sequenceId = selection.sequence.id, selection = selection, kind = ConversationKind.Theory, blockedByDoubt = !QuestionSecure(theory), cost = ActionCostsEnabled ? configuration.confrontationCost : 0 };
         }
         public List<ConversationInitialization> AvailableConversations(string suspect)
         {
             var values = new List<ConversationInitialization>();
             var alibi = Alibi(suspect); if (alibi != null) values.Add(alibi);
-            foreach (var theory in progress.theories) { var prompt = Presentation(theory, suspect); if (prompt != null) values.Add(prompt); }
+            foreach (var theory in progress.theories) { var prompt = Presentation(theory, suspect, true); if (prompt != null) values.Add(prompt); }
             return values;
         }
         public bool TryInitialize(ConversationInitialization offered, out string reason)
@@ -199,6 +257,7 @@ namespace GraduationDemo.Narrative
             if (roles.Count == 0) return false;
             reservation.interpretedEntries.Add(entryId);
             bool correct = roles.Contains(role);
+            if (correct) AwardFocus("intuition:" + entryId, configuration?.intuitionFocusReward ?? 1);
             reservation.intuitionMistake |= !correct;
             int cost = ActionCostsEnabled && reservation.intuitionMistake ? Math.Max(reservation.originalCost, configuration.intuitionMistakeCost) : 0;
             progress.actionsSpent = Math.Max(0, progress.actionsSpent + cost - reservation.cost);

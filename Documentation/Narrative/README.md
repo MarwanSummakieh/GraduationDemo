@@ -1,5 +1,9 @@
 # Murder Most Inconvenient
 
+**Focus rewards:** the bar/lounge coffee stand grants +2 focus once per investigation; each correctly interpreted intuition reveal grants +1. [Controls and tuning](DoubtsAndFocus.md).
+
+**Doubts and Focus:** [authored contradiction links, accumulated pressure, automatic defense and interview readiness](DoubtsAndFocus.md).
+
 **Detectives' intuition:** [Motive/Opportunity choices during revealing dialogue, corrections and action costs](DetectivesIntuition.md).
 
 **Accusation update:** collected reasoning nodes show Motive/Opportunity badges. The ACCUSE button is available throughout investigation, including day one; unsuccessful accusations leave investigation open.

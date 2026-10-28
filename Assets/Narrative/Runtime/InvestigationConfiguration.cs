@@ -31,6 +31,11 @@ namespace GraduationDemo.Narrative
         public int confrontationCost = 1;
         [Min(0), Tooltip("Minimum conversation cost after an incorrect intuition. Charged once per conversation when action costs are enabled.")]
         public int intuitionMistakeCost = 1;
+        public DoubtTuning doubtTuning = new DoubtTuning();
+        [Min(0)] public int coffeeFocusReward = 2;
+        [Min(0)] public int intuitionFocusReward = 1;
+        [HideInInspector] public List<DoubtDefinition> doubts = DoubtRules.Defaults();
+        public List<AuthoredDoubtLink> doubtLinks = DoubtRules.AuthoredLinks();
         public ReasoningAssistance reasoningAssistance = ReasoningAssistance.Subtle;
         public List<ReasoningHint> reasoningHints = ReasoningGuidance.DefaultHints();
         public List<JourneyStop> stops = new List<JourneyStop> {
@@ -42,6 +47,22 @@ namespace GraduationDemo.Narrative
         public List<string> Errors()
         {
             var errors = new List<string>();
+            if (coffeeFocusReward < 0 || intuitionFocusReward < 0) errors.Add("Focus rewards cannot be negative.");
+            if (doubtLinks == null || doubtLinks.Exists(d => d == null || string.IsNullOrEmpty(d.id) || string.IsNullOrEmpty(d.questionId) || string.IsNullOrEmpty(d.sourceId) || string.IsNullOrWhiteSpace(d.reason) || d.weight < 1)) errors.Add("Authored doubt links need IDs, question, source, reason and positive weight.");
+            if (doubtLinks != null && new HashSet<string>(doubtLinks.ConvertAll(d => d?.id)).Count != doubtLinks.Count) errors.Add("Duplicate authored doubt link ID.");
+            if (doubtTuning == null) errors.Add("Doubt tuning is required."); else errors.AddRange(doubtTuning.Errors());
+            if (doubts == null || doubts.Exists(d => d == null || string.IsNullOrEmpty(d.id) || string.IsNullOrEmpty(d.clueId) || string.IsNullOrEmpty(d.statementId) || d.challenges == null || d.challenges.Count == 0)) errors.Add("Doubts need IDs, source entries and at least one challenge.");
+            if (doubts != null)
+            {
+                var ids = new HashSet<string>();
+                foreach (var d in doubts)
+                {
+                    if (d == null) continue;
+                    if (!ids.Add(d.id)) errors.Add("Duplicate doubt ID: " + d.id);
+                    if (d.role != AccusationReasoning.Motive && d.role != AccusationReasoning.Opportunity) errors.Add("Doubt needs a Motive or Opportunity review role: " + d.id);
+                    if (string.IsNullOrWhiteSpace(d.title) || string.IsNullOrWhiteSpace(d.explanation) || string.IsNullOrWhiteSpace(d.interpretation) || d.challenges != null && d.challenges.Exists(string.IsNullOrWhiteSpace)) errors.Add("Doubt needs readable interpretation, explanation and challenge text: " + d.id);
+                }
+            }
             if (investigationDays < 1 || actionsPerDay < 1 || alibiCost < 0 || confrontationCost < 0 || intuitionMistakeCost < 0) errors.Add("Days/actions must be positive; costs cannot be negative.");
             if (stops == null || stops.Count < 2) errors.Add("The journey needs at least two stops.");
             else foreach (var stop in stops) if (stop == null || string.IsNullOrWhiteSpace(stop.name)) errors.Add("Every journey stop needs a readable name.");
@@ -54,6 +75,7 @@ namespace GraduationDemo.Narrative
         public string key, suspect, theoryId, sequenceId;
         public ConversationKind kind;
         public int cost;
+        public bool blockedByDoubt;
         public RouteSelection selection;
     }
     [Serializable] public class ConversationReservation

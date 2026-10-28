@@ -15,6 +15,28 @@ public sealed class PacingAndNotebookTests
         pacing.actionCostsEnabled = true; state = new InvestigationState(catalogue, null, pacing);
     }
     [TearDown] public void Cleanup() { Object.DestroyImmediate(catalogue); Object.DestroyImmediate(pacing); }
+    [Test] public void CorrectIntuitionAwardsFocusEvenWithCostsOffAndCannotBeFarmedAfterRecovery()
+    {
+        pacing.actionCostsEnabled = false;
+        var prompt = Prompt("C09", "F-S01", "Felix"); state.TryInitialize(prompt, out _);
+        Assert.That(state.ResolveIntuition("F-S04", AccusationReasoning.Opportunity), Is.True); Assert.That(state.FocusCapacity, Is.EqualTo(7));
+        Assert.That(state.ResolveIntuition("F-S04", AccusationReasoning.Opportunity), Is.False);
+        state.RecoverFailedConversation(); state.TryInitialize(prompt, out _);
+        Assert.That(state.ResolveIntuition("F-S04", AccusationReasoning.Opportunity), Is.True); Assert.That(state.FocusCapacity, Is.EqualTo(7));
+        state.RecoverFailedConversation();
+        var next = Prompt("C06", "M-S03", "Mila"); state.TryInitialize(next, out _);
+        Assert.That(state.ResolveIntuition("M-S06", AccusationReasoning.Motive), Is.True); Assert.That(state.FocusCapacity, Is.EqualTo(8));
+        var restored = new InvestigationState(catalogue, JsonUtility.FromJson<InvestigationProgress>(JsonUtility.ToJson(state.progress)), pacing);
+        Assert.That(restored.FocusCapacity, Is.EqualTo(8)); Assert.That(restored.progress.focusRewardClaims.Count, Is.EqualTo(2));
+    }
+    [Test] public void WrongOrInvalidIntuitionAwardsNoFocusAndRewardAmountIsTunable()
+    {
+        pacing.intuitionFocusReward = 3; var prompt = Prompt("C09", "F-S01", "Felix"); state.TryInitialize(prompt, out _);
+        Assert.That(state.ResolveIntuition("F-S04", "invalid"), Is.False); Assert.That(state.FocusCapacity, Is.EqualTo(6));
+        Assert.That(state.ResolveIntuition("F-S04", AccusationReasoning.Motive), Is.False); Assert.That(state.FocusCapacity, Is.EqualTo(6));
+        state.RecoverFailedConversation(); state.TryInitialize(prompt, out _);
+        Assert.That(state.ResolveIntuition("F-S04", AccusationReasoning.Opportunity), Is.True); Assert.That(state.FocusCapacity, Is.EqualTo(9));
+    }
     [TestCase(true, true, 0)]
     [TestCase(true, false, 2)]
     [TestCase(false, false, 0)]

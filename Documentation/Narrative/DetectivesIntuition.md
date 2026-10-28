@@ -2,6 +2,8 @@
 
 When an interview first reveals a statement tagged Motive or Opportunity, continuing from that spoken line opens an intuition choice. The player chooses **Motive** or **Opportunity**. Tagged testimony is recorded only after the choice is resolved. Existing notebook badges then show its authored interpretation.
 
+Correct intuition also grants **+1 focus capacity** for doubt defenses, once per distinct testimony. Wrong answers grant no focus. This reward works with action costs off and remains claimed across conversation recovery, replay and progress restoration. Tune **Intuition Focus Reward** on InvestigationPacing; zero disables the bonus. See [focus from exploration and intuition](DoubtsAndFocus.md).
+
 A correct answer continues immediately and refunds the conversation's reserved action cost. An incorrect answer pauses to explain the correct interpretation; the player must continue before the dialogue proceeds. The conversation costs the greater of its original cost and **Intuition Mistake Cost** (default 1), charged once for the entire conversation. Any incorrect answer keeps this cost even if another revelation is interpreted correctly. Both choices are accepted for entries authored with both tags.
 
 The global **Action Costs Enabled** toggle still starts disabled. Intuition choices and corrections remain active, but spend no actions while costs are off. Set the penalty in `Assets/Narrative/Data/InvestigationPacing.asset`, or use F8's **Intuition mistake cost** control for the current play session. Normal interview confirmation and affordability checks remain in effect. A mistake may exhaust the remaining budget; it never blocks the current dialogue. Playback recovery refunds the conversation's actual charged cost.

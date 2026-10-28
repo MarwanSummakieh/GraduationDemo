@@ -32,6 +32,147 @@ public sealed class PlayableInvestigationTests
         }
         Assert.That(Sequence, Is.Null);
     }
+    IEnumerator WaitForAutomaticDefense(Component view)
+    {
+        var defense = (DoubtDefense)view.GetType().GetProperty("Defense").GetValue(view);
+        Assert.That(defense.Draft.started, Is.True);
+        float deadline = Time.realtimeSinceStartup + 12;
+        while (!defense.Draft.finished && Time.realtimeSinceStartup < deadline) yield return null;
+        Assert.That(defense.Draft.finished, Is.True, "The run must reach an outcome without manual stepping.");
+    }
+    UnityEngine.UI.Button ViewButton(Component view, string name) => view.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b => b.name == name);
+    [UnityTest] public IEnumerator CoffeeStandConnectsReachableExplorationToPersistentFocusInBothScenes()
+    {
+        foreach (var scene in new[] { "CarnivalExpress", "ThirdPersonTrain" })
+        {
+            yield return SceneManager.LoadSceneAsync(scene); yield return null;
+            controller = UnityEngine.Object.FindObjectsByType<MonoBehaviour>().First(c => c.GetType().Name == "TrainNarrative"); tour = controller.GetComponent("TrainTour"); Finish();
+            var stand = UnityEngine.Object.FindObjectsByType<MonoBehaviour>().Single(c => c.GetType().Name == "FocusCoffeeStand");
+            int before = State.FocusCapacity; var observation = stand.GetComponent("TrainObservation");
+            Call(tour, "OpenObservation", observation); Assert.That(State.FocusCapacity, Is.EqualTo(before), "Distant coffee cannot be collected.");
+            Call(tour, "SetView", 2, true); ApproachClue(stand, -1.5f); Call(tour, "SnapCamera"); yield return null; yield return null;
+            Assert.That((bool)stand.GetType().GetProperty("MarkerVisible").GetValue(stand), Is.True);
+            yield return CaptureInteractionReview("coffee-focus-" + scene);
+            Call(tour, "OpenObservation", observation); yield return null;
+            Assert.That(State.FocusCapacity, Is.EqualTo(before + 2)); Assert.That(State.progress.bonusFocus, Is.EqualTo(2));
+            Assert.That(State.progress.clues, Is.Empty); Assert.That(State.progress.actionsSpent, Is.Zero);
+            Assert.That((bool)stand.GetType().GetProperty("MarkerVisible").GetValue(stand), Is.False);
+            Call(tour, "CloseObservation"); Call(tour, "OpenObservation", observation); Assert.That(State.FocusCapacity, Is.EqualTo(before + 2));
+            var restored = new InvestigationState(State.catalogue, JsonUtility.FromJson<InvestigationProgress>(JsonUtility.ToJson(State.progress)), State.configuration);
+            Assert.That(restored.FocusCapacity, Is.EqualTo(before + 2)); Assert.That(restored.ClaimCoffeeFocus(), Is.False);
+            Call(tour, "CloseObservation"); foreach (var id in new[] { "C02", "M-S04", "C10" }) State.Grant(id); State.Construct("C02", "M-S04");
+            Call(controller, "ToggleNotebook"); yield return null; yield return null; var notebook = controller.GetComponent("InvestigationNotebook"); Call(notebook, "SelectNode", "clock:position"); yield return null;
+            yield return CaptureInteractionReview("coffee-focus-board-" + scene, 1280, 900);
+            Assert.That(controller.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t => t.text.StartsWith("Focus 0 / " + (before + 2))), Is.True);
+        }
+    }
+    void CollectClockDoubts(bool all)
+    {
+        foreach (var id in new[] { "C02", "M-S04", "C10" }) State.Grant(id);
+        if (all) { State.Grant("M-S05"); State.Grant("C07"); }
+        State.Construct("C02", "M-S04"); State.configuration.doubtTuning.stepSeconds = .04f;
+    }
+    void PlaceClockFormation(Component view, bool extraShot)
+    {
+        Call(view, "SelectEntry", "C02"); Call(view, "PlaceSelected", 6f, 6f);
+        Call(view, "SelectEntry", "C10"); Call(view, "PlaceSelected", 10f, 6f);
+        Call(view, "SelectEntry", "M-S04"); Call(view, "PlaceSelected", 8f, 3f);
+        Call(view, "SelectEntry", "T_C02_MS04"); Call(view, "PlaceSelected", 8f, 9f);
+        if (extraShot) { Call(view, "SelectEntry", "C07"); Call(view, "PlaceSelected", 8f, 4f); }
+    }
+    [UnityTest] public IEnumerator AuthoredContradictionsCreateMidpointConnectionsAndOneAccumulatedDefenseInBothScenes()
+    {
+        foreach (var scene in new[] { "CarnivalExpress", "ThirdPersonTrain" })
+        {
+            yield return SceneManager.LoadSceneAsync(scene); yield return null;
+            controller = UnityEngine.Object.FindObjectsByType<MonoBehaviour>().First(c => c.GetType().Name == "TrainNarrative"); tour = controller.GetComponent("TrainTour"); Finish();
+            foreach (var id in new[] { "C02", "M-S04", "C10", "C07", "M-S05" }) State.Grant(id);
+            Call(controller, "ToggleNotebook"); yield return null; yield return null;
+            var notebook = controller.GetComponent("InvestigationNotebook");
+            var graph = (ReasoningGraphLayout)notebook.GetType().GetProperty("Graph").GetValue(notebook);
+            Assert.That(graph.nodes.Any(n => n.kind == ReasoningNodeKind.Doubt), Is.False);
+            var question = State.Construct("C02", "M-S04"); yield return null; yield return null;
+            graph = (ReasoningGraphLayout)notebook.GetType().GetProperty("Graph").GetValue(notebook);
+            Assert.That(graph.nodes.Count(n => n.kind == ReasoningNodeKind.Doubt), Is.EqualTo(3));
+            var doubt = graph.nodes.Single(n => n.id == "clock:position");
+            Assert.That(doubt.questionParent, Is.EqualTo(question.id)); Assert.That(doubt.doubtSource, Is.EqualTo("C10"));
+            Assert.That(doubt.position, Is.EqualTo((graph.nodes.Single(n => n.id == question.id).position + graph.nodes.Single(n => n.id == "C10").position) * .5f));
+            Assert.That((Vector2)Call(notebook, "NodePosition", doubt.id), Is.EqualTo(((Vector2)Call(notebook, "NodePosition", question.id) + (Vector2)Call(notebook, "NodePosition", "C10")) * .5f));
+            Assert.That(State.DoubtPressure, Is.EqualTo(3)); Assert.That(State.Presentation(question.id, "Felix"), Is.Null);
+            yield return CaptureInteractionReview("authored-doubt-graph-" + scene, 1280, 900);
+            Call(notebook, "SelectNode", doubt.id); yield return null;
+            var view = controller.GetComponent("DoubtDefenseView"); PlaceClockFormation(view, true); yield return null;
+            var defense = (DoubtDefense)view.GetType().GetProperty("Defense").GetValue(view);
+            Assert.That(defense.Interpretation, Is.EqualTo(question.text)); Assert.That(defense.Draft.waves, Is.EqualTo(2)); Assert.That(defense.Draft.environment.Count, Is.EqualTo(3));
+            yield return CaptureInteractionReview("authored-doubt-planning-" + scene, 1280, 900);
+            yield return CaptureInteractionReview("authored-doubt-planning-narrow-" + scene);
+            State.configuration.doubtTuning.stepSeconds = .3f; ViewButton(view, "Test defense").onClick.Invoke(); yield return null;
+            float deadline = Time.realtimeSinceStartup + 3; while (defense.Draft.tick < 3 && Time.realtimeSinceStartup < deadline) yield return null;
+            yield return CaptureInteractionReview("authored-doubt-running-" + scene, 1280, 900);
+            State.configuration.doubtTuning.stepSeconds = .04f; yield return WaitForAutomaticDefense(view);
+            Assert.That(defense.Draft.defended, Is.True); Assert.That(State.DoubtPressure, Is.Zero); Assert.That(State.QuestionSecure(question.id), Is.True);
+            yield return CaptureInteractionReview("authored-doubt-success-" + scene, 1280, 900);
+            Assert.That(view.GetComponentsInChildren<UnityEngine.UI.InputField>().Any(i => i.name == "Reflection note"), Is.False);
+            Assert.That(view.GetComponentsInChildren<UnityEngine.UI.Button>().Any(b => b.name == "Reflect"), Is.False);
+            ViewButton(view, "Back to reasoning").onClick.Invoke(); yield return null; yield return null;
+            Assert.That((bool)view.GetType().GetProperty("IsOpen").GetValue(view), Is.False);
+            graph = (ReasoningGraphLayout)notebook.GetType().GetProperty("Graph").GetValue(notebook);
+            Assert.That(graph.nodes.Any(n => n.kind == ReasoningNodeKind.Doubt), Is.False, "One defense clears the accumulated connections.");
+            var questionNode = notebook.GetComponentsInChildren<MonoBehaviour>().Single(c => c.GetType().Name == "NotebookNodeGraphic" && c.name == question.id);
+            Assert.That(questionNode.transform.Find("Doubt resolved badge"), Is.Not.Null);
+            Call(notebook, "SelectNode", question.id); yield return null; yield return null;
+            var nav = notebook.GetComponentsInChildren<MonoBehaviour>().Single(c => c.GetType().Name == "NotebookPanZoom");
+            var content = (RectTransform)nav.GetType().GetField("content").GetValue(nav); nav.GetType().GetField("zoom").SetValue(nav, 1f);
+            content.localScale = Vector3.one; content.anchoredPosition = -(Vector2)Call(notebook, "NodePosition", question.id);
+            yield return CaptureInteractionReview("resolved-question-graph-" + scene, 1280, 900);
+            Assert.That(State.progress.theories, Does.Contain(question.id)); Assert.That(State.progress.actionsSpent, Is.Zero);
+        }
+    }
+    [UnityTest] public IEnumerator InsecureQuestionIsDisabledUntilSuccessfulDefenseAndFailureDoesNotUnlock()
+    {
+        Finish(); CollectClockDoubts(false); Approach("Felix"); Call(controller, "OpenQuestionMenu", "Felix"); yield return null;
+        var menu = controller.GetComponent("SuspectQuestionMenu"); var locked = State.AvailableConversations("Felix").Single(p => p.theoryId == "T_C02_MS04");
+        Assert.That(menu.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b => b.name == locked.key).interactable, Is.False);
+        Assert.That((bool)Call(menu, "Choose", locked.key), Is.False); Assert.That(State.progress.reservation, Is.Null);
+        yield return CaptureInteractionReview("authored-doubt-locked-interview", 1280, 900);
+        Call(menu, "Close"); Call(controller, "ToggleNotebook"); yield return null; yield return null;
+        var notebook = controller.GetComponent("InvestigationNotebook"); Call(notebook, "SelectNode", "clock:position"); yield return null;
+        var view = controller.GetComponent("DoubtDefenseView");
+        State.configuration.doubtTuning.invaderHealth = 10000;
+        Call(view, "SelectEntry", "C02"); Call(view, "PlaceSelected", 1f, 2f); ViewButton(view, "Test defense").onClick.Invoke(); yield return null;
+        yield return WaitForAutomaticDefense(view);
+        var defense = (DoubtDefense)view.GetType().GetProperty("Defense").GetValue(view);
+        Assert.That(defense.Draft.defended, Is.False); Assert.That(State.QuestionSecure("T_C02_MS04"), Is.False); Assert.That(State.DoubtPressure, Is.EqualTo(1));
+        ViewButton(view, "Rearrange").onClick.Invoke(); State.configuration.doubtTuning.invaderHealth = 8; PlaceClockFormation(view, false); yield return null;
+        ViewButton(view, "Test defense").onClick.Invoke(); yield return null; yield return WaitForAutomaticDefense(view);
+        Assert.That(defense.Draft.defended, Is.True); Assert.That(State.QuestionSecure("T_C02_MS04"), Is.True);
+        var restored = new InvestigationState(State.catalogue, JsonUtility.FromJson<InvestigationProgress>(JsonUtility.ToJson(State.progress)), State.configuration);
+        Assert.That(restored.DoubtPressure, Is.Zero); Assert.That(restored.Presentation("T_C02_MS04", "Felix"), Is.Not.Null);
+        Call(view, "Close"); Call(controller, "ToggleNotebook"); Approach("Felix"); Call(controller, "OpenQuestionMenu", "Felix"); yield return null;
+        var ready = State.AvailableConversations("Felix").Single(p => p.theoryId == "T_C02_MS04");
+        Assert.That(menu.GetComponentsInChildren<UnityEngine.UI.Button>().Single(b => b.name == ready.key).interactable, Is.True);
+        Assert.That(menu.GetComponentsInChildren<UnityEngine.UI.Text>().Any(t => t.text.Contains("Doubt resolved")), Is.True);
+        yield return CaptureInteractionReview("resolved-question-dialogue-menu", 1280, 900);
+        Assert.That((bool)Call(menu, "Choose", ready.key), Is.True);
+        Assert.That((bool)controller.GetType().GetProperty("CurrentQuestionDoubtResolved").GetValue(controller), Is.True);
+        Finish(); Assert.That(State.progress.actionsSpent, Is.Zero);
+        State.Grant("M-S05"); Assert.That(State.QuestionDoubtResolved("T_C02_MS04"), Is.False);
+        Call(controller, "ToggleNotebook"); yield return null; yield return null;
+        var node = notebook.GetComponentsInChildren<MonoBehaviour>().Single(c => c.GetType().Name == "NotebookNodeGraphic" && c.name == "T_C02_MS04");
+        Assert.That(node.transform.Find("Doubt resolved badge"), Is.Null);
+    }
+    [UnityTest] public IEnumerator OptionalAccusationReviewCanRevisitAnAuthoredDoubtWithoutForcingAnAccusationDefense()
+    {
+        Finish(); foreach (var id in new[] { "C06", "F-S04", "C04", "M-S01" }) State.Grant(id); State.Construct("C04", "F-S04");
+        Call(controller, "ToggleNotebook"); var notebook = controller.GetComponent("InvestigationNotebook"); Call(notebook, "BeginAccusationGraph"); yield return null;
+        Call(notebook, "SelectNode", "C06"); Call(notebook, "SelectNode", AccusationReasoning.SocketId(AccusationReasoning.Motive));
+        Call(notebook, "SelectNode", "F-S04"); Call(notebook, "SelectNode", AccusationReasoning.SocketId(AccusationReasoning.Opportunity));
+        Call(notebook, "SelectNode", AccusationGraphLayout.SuspectId("Mila")); Assert.That((bool)Call(notebook, "RequestAccusationReview"), Is.True); yield return null;
+        var view = controller.GetComponent("DoubtDefenseView"); ViewButton(view, "Revisit relevant doubt").onClick.Invoke(); yield return null;
+        Assert.That(((DoubtDefense)view.GetType().GetProperty("Defense").GetValue(view)).Definition.sourceId, Is.EqualTo("M-S01"));
+        Call(view, "Close"); yield return null; ViewButton(view, "Proceed with uncertainty").onClick.Invoke();
+        Assert.That(Sequence, Is.EqualTo("ENDING — Mila's account")); Finish(); Assert.That(State.progress.phase, Is.EqualTo(InvestigationPhase.Resolved));
+    }
     [UnityTest] public IEnumerator OpeningAndFiveCarriageNavigation()
     {
         Assert.That(Sequence, Is.EqualTo("OPENING — The real corpse"));
@@ -77,6 +218,7 @@ public sealed class PlayableInvestigationTests
         yield return CaptureInteractionReview("intuition-choice");
         Assert.That((bool)Call(controller, "ChooseIntuition", AccusationReasoning.Motive), Is.True);
         Assert.That(State.Has("M-S06"), Is.True); Assert.That(State.progress.actionsSpent, Is.Zero);
+        Assert.That(State.FocusCapacity, Is.EqualTo(7)); StringAssert.Contains("+1 FOCUS", (string)controller.GetType().GetProperty("LogbookNotice").GetValue(controller));
         Finish(); Assert.That(State.progress.actionsSpent, Is.Zero);
     }
     [UnityTest] public IEnumerator ContinuousWalkingAisleAcrossAllFiveCarriages()
@@ -183,11 +325,11 @@ public sealed class PlayableInvestigationTests
         var point = binding.transform.position + Vector3.back * distance; point.y = 1.12f;
         detective.enabled = false; detective.transform.position = point; detective.enabled = true;
     }
-    static IEnumerator CaptureInteractionReview(string name)
+    static IEnumerator CaptureInteractionReview(string name, int captureWidth = 0, int captureHeight = 0)
     {
         yield return null;
         var camera = Camera.main; Assert.That(camera, Is.Not.Null);
-        int width = Mathf.Max(1, Screen.width), height = Mathf.Max(1, Screen.height);
+        int width = captureWidth > 0 ? captureWidth : Mathf.Max(1, Screen.width), height = captureHeight > 0 ? captureHeight : Mathf.Max(1, Screen.height);
         var target = new RenderTexture(width, height, 24);
         var pixels = new Texture2D(width, height, TextureFormat.RGB24, false);
         var previousTarget = camera.targetTexture; var previousActive = RenderTexture.active;
@@ -293,6 +435,7 @@ public sealed class PlayableInvestigationTests
         Call(notebook, "SelectNode", "C01"); Call(notebook, "SelectNode", "F-S01"); yield return null; yield return null;
         var graph = (ReasoningGraphLayout)notebook.GetType().GetProperty("Graph").GetValue(notebook);
         Assert.That(graph.nodes.Count, Is.EqualTo(3)); Assert.That(State.progress.theories.Count, Is.EqualTo(1));
+        Assert.That(graph.nodes.Any(n => n.kind == ReasoningNodeKind.Doubt), Is.False);
         Assert.That(graph.nodes.Single(n => n.kind == ReasoningNodeKind.Theory).clueParent, Is.EqualTo("C01"));
         Call(notebook, "SelectNode", "F-S01"); yield return null; Assert.That(State.progress.theories.Count, Is.EqualTo(1));
         var tabType = notebook.GetType().GetMethod("SelectTab").GetParameters()[0].ParameterType;
@@ -333,6 +476,7 @@ public sealed class PlayableInvestigationTests
         Assert.That(graph.nodes.Any(n => n.id == t.id), Is.False); Assert.That(graph.nodes.Count, Is.EqualTo(2));
         Assert.That(State.RestoreTheory(t.id), Is.True); yield return null; yield return null;
         graph = (ReasoningGraphLayout)notebook.GetType().GetProperty("Graph").GetValue(notebook); Assert.That(graph.nodes.Count, Is.EqualTo(3));
+        Assert.That(graph.nodes.Any(n => n.kind == ReasoningNodeKind.Doubt), Is.False);
     }
     [UnityTest] public IEnumerator FinalPhaseGraphConstructsNewTheoriesAndTethersASupportedAccusation()
     {

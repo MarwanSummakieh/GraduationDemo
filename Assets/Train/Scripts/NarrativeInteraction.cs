@@ -6,6 +6,7 @@ namespace GraduationDemo.Train
     {
         public string clueId;
         public string suspectId;
+        public bool coffeeFocus;
         public string requiredFlag = "flag:investigation";
     }
 }

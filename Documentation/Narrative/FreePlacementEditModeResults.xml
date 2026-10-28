@@ -1,0 +1,817 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="89" result="Passed" total="89" passed="89" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:09Z" duration="4.7389949">
+  <test-suite type="TestSuite" id="1000" name="GraduationDemo" fullname="GraduationDemo" runstate="Runnable" testcasecount="89" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:09Z" duration="4.738995" total="89" passed="89" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1104" name="GraduationDemo.Narrative.Tests.dll" fullname="C:/Users/oldal/.codex/visualizations/2026/10/26/01a17970-c602-7fa3-bac8-efd2625d99e9/unity-clue-verification/Library/ScriptAssemblies/GraduationDemo.Narrative.Tests.dll" runstate="Runnable" testcasecount="89" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:09Z" duration="4.724649" total="89" passed="89" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="23780" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <output><![CDATA[CLUE_TEST_START: C:/Users/oldal/.codex/visualizations/2026/10/26/01a17970-c602-7fa3-bac8-efd2625d99e9/unity-clue-verification/Library/ScriptAssemblies/GraduationDemo.Narrative.Tests.dll
+]]></output>
+      <test-suite type="TestFixture" id="1002" name="DoubtDefenseTests" fullname="DoubtDefenseTests" classname="DoubtDefenseTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:06Z" duration="1.784250" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests
+]]></output>
+        <test-case id="1011" name="ArchivingActiveQuestionReopensChallengeInPlanningAndRetainsHistory" fullname="DoubtDefenseTests.ArchivingActiveQuestionReopensChallengeInPlanningAndRetainsHistory" methodname="ArchivingActiveQuestionReopensChallengeInPlanningAndRetainsHistory" classname="DoubtDefenseTests" runstate="Runnable" seed="1604332616" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:04Z" duration="0.104110" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.ArchivingActiveQuestionReopensChallengeInPlanningAndRetainsHistory
+]]></output>
+        </test-case>
+        <test-case id="1007" name="AutoWallsRejectLoopsAndKeepEveryEntranceTraversable" fullname="DoubtDefenseTests.AutoWallsRejectLoopsAndKeepEveryEntranceTraversable" methodname="AutoWallsRejectLoopsAndKeepEveryEntranceTraversable" classname="DoubtDefenseTests" runstate="Runnable" seed="1927689803" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:04Z" duration="0.035747" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.AutoWallsRejectLoopsAndKeepEveryEntranceTraversable
+]]></output>
+        </test-case>
+        <test-case id="1009" name="BuffAndSlowHaveMechanicalEffectsAndRehearsalNeverResolvesCase" fullname="DoubtDefenseTests.BuffAndSlowHaveMechanicalEffectsAndRehearsalNeverResolvesCase" methodname="BuffAndSlowHaveMechanicalEffectsAndRehearsalNeverResolvesCase" classname="DoubtDefenseTests" runstate="Runnable" seed="1595241198" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:04Z" duration="0.040801" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.BuffAndSlowHaveMechanicalEffectsAndRehearsalNeverResolvesCase
+]]></output>
+        </test-case>
+        <test-case id="1010" name="DraftSimulationAndReflectionHistorySurviveJsonRoundtrip" fullname="DoubtDefenseTests.DraftSimulationAndReflectionHistorySurviveJsonRoundtrip" methodname="DraftSimulationAndReflectionHistorySurviveJsonRoundtrip" classname="DoubtDefenseTests" runstate="Runnable" seed="2122341452" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:04Z" duration="0.029251" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.DraftSimulationAndReflectionHistorySurviveJsonRoundtrip
+]]></output>
+        </test-case>
+        <test-case id="1005" name="EligibilityUsesCollectedSourcesNotHintsAndSuggestionsNeverInventEvidence" fullname="DoubtDefenseTests.EligibilityUsesCollectedSourcesNotHintsAndSuggestionsNeverInventEvidence" methodname="EligibilityUsesCollectedSourcesNotHintsAndSuggestionsNeverInventEvidence" classname="DoubtDefenseTests" runstate="Runnable" seed="863880855" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:04Z" duration="0.029618" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.EligibilityUsesCollectedSourcesNotHintsAndSuggestionsNeverInventEvidence
+]]></output>
+        </test-case>
+        <test-case id="1006" name="FocusOnlyLimitsDeploymentAndMovementIsFree" fullname="DoubtDefenseTests.FocusOnlyLimitsDeploymentAndMovementIsFree" methodname="FocusOnlyLimitsDeploymentAndMovementIsFree" classname="DoubtDefenseTests" runstate="Runnable" seed="1733380031" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:04Z" duration="0.033528" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.FocusOnlyLimitsDeploymentAndMovementIsFree
+]]></output>
+        </test-case>
+        <test-case id="1004" name="FreePlacementChecksFootprintsAndPathClearanceWithoutSnapping" fullname="DoubtDefenseTests.FreePlacementChecksFootprintsAndPathClearanceWithoutSnapping" methodname="FreePlacementChecksFootprintsAndPathClearanceWithoutSnapping" classname="DoubtDefenseTests" runstate="Runnable" seed="1235012135" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:04Z" duration="0.037632" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.FreePlacementChecksFootprintsAndPathClearanceWithoutSnapping
+]]></output>
+        </test-case>
+        <test-case id="1012" name="InvalidTuningAndDuplicateDefinitionsAreRejected" fullname="DoubtDefenseTests.InvalidTuningAndDuplicateDefinitionsAreRejected" methodname="InvalidTuningAndDuplicateDefinitionsAreRejected" classname="DoubtDefenseTests" runstate="Runnable" seed="1263125267" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:04Z" duration="0.028424" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.InvalidTuningAndDuplicateDefinitionsAreRejected
+]]></output>
+        </test-case>
+        <test-suite type="ParameterizedMethod" id="1016" name="NonCombatOutcomesAreLegitimateAndPersistWithoutSpending" fullname="DoubtDefenseTests.NonCombatOutcomesAreLegitimateAndPersistWithoutSpending" classname="DoubtDefenseTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:04Z" duration="0.085650" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.NonCombatOutcomesAreLegitimateAndPersistWithoutSpending
+]]></output>
+          <test-case id="1013" name="NonCombatOutcomesAreLegitimateAndPersistWithoutSpending(Unresolved)" fullname="DoubtDefenseTests.NonCombatOutcomesAreLegitimateAndPersistWithoutSpending(Unresolved)" methodname="NonCombatOutcomesAreLegitimateAndPersistWithoutSpending" classname="DoubtDefenseTests" runstate="Runnable" seed="56183182" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:04Z" duration="0.024815" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.NonCombatOutcomesAreLegitimateAndPersistWithoutSpending(Unresolved)
+]]></output>
+          </test-case>
+          <test-case id="1014" name="NonCombatOutcomesAreLegitimateAndPersistWithoutSpending(Acknowledged)" fullname="DoubtDefenseTests.NonCombatOutcomesAreLegitimateAndPersistWithoutSpending(Acknowledged)" methodname="NonCombatOutcomesAreLegitimateAndPersistWithoutSpending" classname="DoubtDefenseTests" runstate="Runnable" seed="2124638098" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:04Z" duration="0.027016" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.NonCombatOutcomesAreLegitimateAndPersistWithoutSpending(Acknowledged)
+]]></output>
+          </test-case>
+          <test-case id="1015" name="NonCombatOutcomesAreLegitimateAndPersistWithoutSpending(Revised)" fullname="DoubtDefenseTests.NonCombatOutcomesAreLegitimateAndPersistWithoutSpending(Revised)" methodname="NonCombatOutcomesAreLegitimateAndPersistWithoutSpending" classname="DoubtDefenseTests" runstate="Runnable" seed="963630945" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:04Z" duration="0.029172" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.NonCombatOutcomesAreLegitimateAndPersistWithoutSpending(Revised)
+]]></output>
+          </test-case>
+        </test-suite>
+        <test-case id="1008" name="RandomArrangementsNeverCloseAPathIncludingLongWallRadii" fullname="DoubtDefenseTests.RandomArrangementsNeverCloseAPathIncludingLongWallRadii" methodname="RandomArrangementsNeverCloseAPathIncludingLongWallRadii" classname="DoubtDefenseTests" runstate="Runnable" seed="838537829" result="Passed" start-time="2026-10-27 21:42:04Z" end-time="2026-10-27 21:42:06Z" duration="1.296364" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.RandomArrangementsNeverCloseAPathIncludingLongWallRadii
+]]></output>
+        </test-case>
+        <test-case id="1003" name="TowersRetainExactFreePositionsIncludingTwoInTheSameFormerGridSquare" fullname="DoubtDefenseTests.TowersRetainExactFreePositionsIncludingTwoInTheSameFormerGridSquare" methodname="TowersRetainExactFreePositionsIncludingTwoInTheSameFormerGridSquare" classname="DoubtDefenseTests" runstate="Runnable" seed="1813867687" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.033538" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: DoubtDefenseTests.TowersRetainExactFreePositionsIncludingTwoInTheSameFormerGridSquare
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestSuite" id="1105" name="GraduationDemo" fullname="GraduationDemo" runstate="Runnable" testcasecount="27" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.813486" total="27" passed="27" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[CLUE_TEST_START: GraduationDemo
+]]></output>
+        <test-suite type="TestSuite" id="1106" name="Narrative" fullname="GraduationDemo.Narrative" runstate="Runnable" testcasecount="27" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.811830" total="27" passed="27" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative
+]]></output>
+          <test-suite type="TestSuite" id="1107" name="Tests" fullname="GraduationDemo.Narrative.Tests" runstate="Runnable" testcasecount="27" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.810454" total="27" passed="27" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests
+]]></output>
+            <test-suite type="TestFixture" id="1072" name="AccusationAssessmentTests" fullname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests" classname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.212613" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.AccusationAssessmentTests
+]]></output>
+              <test-case id="1078" name="CollectedCluesAndStatementsCanDefineAccusationWithoutConstructingQuestions" fullname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests.CollectedCluesAndStatementsCanDefineAccusationWithoutConstructingQuestions" methodname="CollectedCluesAndStatementsCanDefineAccusationWithoutConstructingQuestions" classname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests" runstate="Runnable" seed="1563885792" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.032927" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.AccusationAssessmentTests.CollectedCluesAndStatementsCanDefineAccusationWithoutConstructingQuestions
+]]></output>
+              </test-case>
+              <test-case id="1075" name="DiagnosticsAlsoExplainMissingObservationsAndDisclosedGeometryWithoutLeakingClaims" fullname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests.DiagnosticsAlsoExplainMissingObservationsAndDisclosedGeometryWithoutLeakingClaims" methodname="DiagnosticsAlsoExplainMissingObservationsAndDisclosedGeometryWithoutLeakingClaims" classname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests" runstate="Runnable" seed="1925532898" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.026966" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.AccusationAssessmentTests.DiagnosticsAlsoExplainMissingObservationsAndDisclosedGeometryWithoutLeakingClaims
+]]></output>
+              </test-case>
+              <test-case id="1073" name="EarlyAccusationsAllowInvestigationToContinueAndRespectConversationAndResolutionLocks" fullname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests.EarlyAccusationsAllowInvestigationToContinueAndRespectConversationAndResolutionLocks" methodname="EarlyAccusationsAllowInvestigationToContinueAndRespectConversationAndResolutionLocks" classname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests" runstate="Runnable" seed="519546919" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.028022" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.AccusationAssessmentTests.EarlyAccusationsAllowInvestigationToContinueAndRespectConversationAndResolutionLocks
+]]></output>
+              </test-case>
+              <test-case id="1076" name="PreviewDoesNotResolveWithoutTargetOrAcceptDuplicateTheories" fullname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests.PreviewDoesNotResolveWithoutTargetOrAcceptDuplicateTheories" methodname="PreviewDoesNotResolveWithoutTargetOrAcceptDuplicateTheories" classname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests" runstate="Runnable" seed="653800007" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.032052" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.AccusationAssessmentTests.PreviewDoesNotResolveWithoutTargetOrAcceptDuplicateTheories
+]]></output>
+              </test-case>
+              <test-case id="1074" name="ReportedCaseSupportsAMeansMotiveOpportunityHypothesis" fullname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests.ReportedCaseSupportsAMeansMotiveOpportunityHypothesis" methodname="ReportedCaseSupportsAMeansMotiveOpportunityHypothesis" classname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests" runstate="Runnable" seed="136693515" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.029916" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.AccusationAssessmentTests.ReportedCaseSupportsAMeansMotiveOpportunityHypothesis
+]]></output>
+              </test-case>
+              <test-case id="1077" name="SocketAssignmentsMustMatchRolesAndCannotReuseOneTheory" fullname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests.SocketAssignmentsMustMatchRolesAndCannotReuseOneTheory" methodname="SocketAssignmentsMustMatchRolesAndCannotReuseOneTheory" classname="GraduationDemo.Narrative.Tests.AccusationAssessmentTests" runstate="Runnable" seed="1757132423" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.056282" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.AccusationAssessmentTests.SocketAssignmentsMustMatchRolesAndCannotReuseOneTheory
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1079" name="AccusationGraphTests" fullname="GraduationDemo.Narrative.Tests.AccusationGraphTests" classname="GraduationDemo.Narrative.Tests.AccusationGraphTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.171046" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.AccusationGraphTests
+]]></output>
+              <test-case id="1081" name="AccusationGraphRetainsSourcesAndAddsDistinctDraftAndSuspectNodes" fullname="GraduationDemo.Narrative.Tests.AccusationGraphTests.AccusationGraphRetainsSourcesAndAddsDistinctDraftAndSuspectNodes" methodname="AccusationGraphRetainsSourcesAndAddsDistinctDraftAndSuspectNodes" classname="GraduationDemo.Narrative.Tests.AccusationGraphTests" runstate="Runnable" seed="1804145103" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.043596" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.AccusationGraphTests.AccusationGraphRetainsSourcesAndAddsDistinctDraftAndSuspectNodes
+]]></output>
+              </test-case>
+              <test-case id="1082" name="FilteringCannotHideTetheredTheoriesOrTheirParents" fullname="GraduationDemo.Narrative.Tests.AccusationGraphTests.FilteringCannotHideTetheredTheoriesOrTheirParents" methodname="FilteringCannotHideTetheredTheoriesOrTheirParents" classname="GraduationDemo.Narrative.Tests.AccusationGraphTests" runstate="Runnable" seed="1193174097" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.023291" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.AccusationGraphTests.FilteringCannotHideTetheredTheoriesOrTheirParents
+]]></output>
+              </test-case>
+              <test-case id="1083" name="FinalCaseCanBeConstructedEntirelyAfterInvestigationCloses" fullname="GraduationDemo.Narrative.Tests.AccusationGraphTests.FinalCaseCanBeConstructedEntirelyAfterInvestigationCloses" methodname="FinalCaseCanBeConstructedEntirelyAfterInvestigationCloses" classname="GraduationDemo.Narrative.Tests.AccusationGraphTests" runstate="Runnable" seed="1542592340" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.023112" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.AccusationGraphTests.FinalCaseCanBeConstructedEntirelyAfterInvestigationCloses
+]]></output>
+              </test-case>
+              <test-case id="1080" name="FinalClosureAllowsNewReasoningFromKnownSourcesButNoNewDiscoveriesOrInterviews" fullname="GraduationDemo.Narrative.Tests.AccusationGraphTests.FinalClosureAllowsNewReasoningFromKnownSourcesButNoNewDiscoveriesOrInterviews" methodname="FinalClosureAllowsNewReasoningFromKnownSourcesButNoNewDiscoveriesOrInterviews" classname="GraduationDemo.Narrative.Tests.AccusationGraphTests" runstate="Runnable" seed="547131493" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.024805" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.AccusationGraphTests.FinalClosureAllowsNewReasoningFromKnownSourcesButNoNewDiscoveriesOrInterviews
+]]></output>
+              </test-case>
+              <test-case id="1084" name="QuestionsAreTentativeAndFilteredAccusationRetainsAttachedCluesAndStatements" fullname="GraduationDemo.Narrative.Tests.AccusationGraphTests.QuestionsAreTentativeAndFilteredAccusationRetainsAttachedCluesAndStatements" methodname="QuestionsAreTentativeAndFilteredAccusationRetainsAttachedCluesAndStatements" classname="GraduationDemo.Narrative.Tests.AccusationGraphTests" runstate="Runnable" seed="1511712246" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.024627" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.AccusationGraphTests.QuestionsAreTentativeAndFilteredAccusationRetainsAttachedCluesAndStatements
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1085" name="ClueHintTests" fullname="GraduationDemo.Narrative.Tests.ClueHintTests" classname="GraduationDemo.Narrative.Tests.ClueHintTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.248125" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ClueHintTests
+]]></output>
+              <test-case id="1089" name="AuthoredHiddenCluesHaveSpokenNonCircularHintRoutes" fullname="GraduationDemo.Narrative.Tests.ClueHintTests.AuthoredHiddenCluesHaveSpokenNonCircularHintRoutes" methodname="AuthoredHiddenCluesHaveSpokenNonCircularHintRoutes" classname="GraduationDemo.Narrative.Tests.ClueHintTests" runstate="Runnable" seed="524238468" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.085693" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ClueHintTests.AuthoredHiddenCluesHaveSpokenNonCircularHintRoutes
+]]></output>
+              </test-case>
+              <test-case id="1087" name="FindingAClueUpgradesItsSingleNodeAndRecordsPhysicalProvenance" fullname="GraduationDemo.Narrative.Tests.ClueHintTests.FindingAClueUpgradesItsSingleNodeAndRecordsPhysicalProvenance" methodname="FindingAClueUpgradesItsSingleNodeAndRecordsPhysicalProvenance" classname="GraduationDemo.Narrative.Tests.ClueHintTests" runstate="Runnable" seed="1883147447" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.022918" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ClueHintTests.FindingAClueUpgradesItsSingleNodeAndRecordsPhysicalProvenance
+]]></output>
+              </test-case>
+              <test-case id="1088" name="HintsDeduplicateSurviveSaveAndDoNotUnlockAfterInvestigation" fullname="GraduationDemo.Narrative.Tests.ClueHintTests.HintsDeduplicateSurviveSaveAndDoNotUnlockAfterInvestigation" methodname="HintsDeduplicateSurviveSaveAndDoNotUnlockAfterInvestigation" classname="GraduationDemo.Narrative.Tests.ClueHintTests" runstate="Runnable" seed="466151325" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.025715" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ClueHintTests.HintsDeduplicateSurviveSaveAndDoNotUnlockAfterInvestigation
+]]></output>
+              </test-case>
+              <test-case id="1086" name="HintsRevealSearchLeadsWithoutCollectingEvidenceOrEnablingReasoning" fullname="GraduationDemo.Narrative.Tests.ClueHintTests.HintsRevealSearchLeadsWithoutCollectingEvidenceOrEnablingReasoning" methodname="HintsRevealSearchLeadsWithoutCollectingEvidenceOrEnablingReasoning" classname="GraduationDemo.Narrative.Tests.ClueHintTests" runstate="Runnable" seed="1552342944" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.026923" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ClueHintTests.HintsRevealSearchLeadsWithoutCollectingEvidenceOrEnablingReasoning
+]]></output>
+              </test-case>
+              <test-case id="1091" name="HintValidationRejectsUnknownReferencesAndCircularLeads" fullname="GraduationDemo.Narrative.Tests.ClueHintTests.HintValidationRejectsUnknownReferencesAndCircularLeads" methodname="HintValidationRejectsUnknownReferencesAndCircularLeads" classname="GraduationDemo.Narrative.Tests.ClueHintTests" runstate="Runnable" seed="1317369829" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.051851" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ClueHintTests.HintValidationRejectsUnknownReferencesAndCircularLeads
+]]></output>
+              </test-case>
+              <test-case id="1090" name="LegacyRouteClueRewardsBecomeHintsAndGuidanceRecognizesNewLeads" fullname="GraduationDemo.Narrative.Tests.ClueHintTests.LegacyRouteClueRewardsBecomeHintsAndGuidanceRecognizesNewLeads" methodname="LegacyRouteClueRewardsBecomeHintsAndGuidanceRecognizesNewLeads" classname="GraduationDemo.Narrative.Tests.ClueHintTests" runstate="Runnable" seed="1602646479" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.028277" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ClueHintTests.LegacyRouteClueRewardsBecomeHintsAndGuidanceRecognizesNewLeads
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1092" name="ConversationGraphTests" fullname="GraduationDemo.Narrative.Tests.ConversationGraphTests" classname="GraduationDemo.Narrative.Tests.ConversationGraphTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.058120" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ConversationGraphTests
+]]></output>
+              <test-case id="1093" name="ConversationGraphContainsOnlyAvailableTheoriesAndTheirKnownParents" fullname="GraduationDemo.Narrative.Tests.ConversationGraphTests.ConversationGraphContainsOnlyAvailableTheoriesAndTheirKnownParents" methodname="ConversationGraphContainsOnlyAvailableTheoriesAndTheirKnownParents" classname="GraduationDemo.Narrative.Tests.ConversationGraphTests" runstate="Runnable" seed="1789644749" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.026927" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ConversationGraphTests.ConversationGraphContainsOnlyAvailableTheoriesAndTheirKnownParents
+]]></output>
+              </test-case>
+              <test-case id="1094" name="GuidanceConnectionFollowsConstructionRemovalAndRestorationWithoutLosingRecipientAdvice" fullname="GraduationDemo.Narrative.Tests.ConversationGraphTests.GuidanceConnectionFollowsConstructionRemovalAndRestorationWithoutLosingRecipientAdvice" methodname="GuidanceConnectionFollowsConstructionRemovalAndRestorationWithoutLosingRecipientAdvice" classname="GraduationDemo.Narrative.Tests.ConversationGraphTests" runstate="Runnable" seed="2050001119" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.027904" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ConversationGraphTests.GuidanceConnectionFollowsConstructionRemovalAndRestorationWithoutLosingRecipientAdvice
+]]></output>
+              </test-case>
+            </test-suite>
+            <test-suite type="TestFixture" id="1095" name="ReasoningGuidanceTests" fullname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests" classname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.114122" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ReasoningGuidanceTests
+]]></output>
+              <test-case id="1097" name="AmbiguityHintsDoNotChangeDiscoveryOrActionState" fullname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.AmbiguityHintsDoNotChangeDiscoveryOrActionState" methodname="AmbiguityHintsDoNotChangeDiscoveryOrActionState" classname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests" runstate="Runnable" seed="886033164" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.001532" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.AmbiguityHintsDoNotChangeDiscoveryOrActionState
+]]></output>
+              </test-case>
+              <test-case id="1103" name="AuthoredTheoryHintsRequireActiveTheoryNotArchivedTheory" fullname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.AuthoredTheoryHintsRequireActiveTheoryNotArchivedTheory" methodname="AuthoredTheoryHintsRequireActiveTheoryNotArchivedTheory" classname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests" runstate="Runnable" seed="1519398283" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.000843" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.AuthoredTheoryHintsRequireActiveTheoryNotArchivedTheory
+]]></output>
+              </test-case>
+              <test-case id="1098" name="DefaultLeadsCoverEveryFirstDisclosureWithoutRevealingItsRecipient" fullname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.DefaultLeadsCoverEveryFirstDisclosureWithoutRevealingItsRecipient" methodname="DefaultLeadsCoverEveryFirstDisclosureWithoutRevealingItsRecipient" classname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests" runstate="Runnable" seed="2063388597" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.026173" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.DefaultLeadsCoverEveryFirstDisclosureWithoutRevealingItsRecipient
+]]></output>
+              </test-case>
+              <test-case id="1102" name="DirectedLeadsContinueThroughNewStatementsToSupportedFinalCaseWithinBudget" fullname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.DirectedLeadsContinueThroughNewStatementsToSupportedFinalCaseWithinBudget" methodname="DirectedLeadsContinueThroughNewStatementsToSupportedFinalCaseWithinBudget" classname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests" runstate="Runnable" seed="772040465" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.027087" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.DirectedLeadsContinueThroughNewStatementsToSupportedFinalCaseWithinBudget
+]]></output>
+              </test-case>
+              <test-case id="1101" name="EveryRevelationHasAnAcquiredOnlyFollowOnCaseConnection" fullname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.EveryRevelationHasAnAcquiredOnlyFollowOnCaseConnection" methodname="EveryRevelationHasAnAcquiredOnlyFollowOnCaseConnection" classname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests" runstate="Runnable" seed="1251742453" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.023922" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.EveryRevelationHasAnAcquiredOnlyFollowOnCaseConnection
+]]></output>
+              </test-case>
+              <test-case id="1096" name="GuidanceRequiresBothDiscoveriesAndDefaultsToSubtle" fullname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.GuidanceRequiresBothDiscoveriesAndDefaultsToSubtle" methodname="GuidanceRequiresBothDiscoveriesAndDefaultsToSubtle" classname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests" runstate="Runnable" seed="2083901630" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.001409" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.GuidanceRequiresBothDiscoveriesAndDefaultsToSubtle
+]]></output>
+              </test-case>
+              <test-case id="1100" name="ReportedTheoryIsCaseEvidenceAndItsConfrontationsAreReactionOnly" fullname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.ReportedTheoryIsCaseEvidenceAndItsConfrontationsAreReactionOnly" methodname="ReportedTheoryIsCaseEvidenceAndItsConfrontationsAreReactionOnly" classname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests" runstate="Runnable" seed="1908088346" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.024766" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.ReportedTheoryIsCaseEvidenceAndItsConfrontationsAreReactionOnly
+]]></output>
+              </test-case>
+              <test-case id="1099" name="SharedRevelationRetiresBothSpatialLeads" fullname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.SharedRevelationRetiresBothSpatialLeads" methodname="SharedRevelationRetiresBothSpatialLeads" classname="GraduationDemo.Narrative.Tests.ReasoningGuidanceTests" runstate="Runnable" seed="121482058" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.000814" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+                <output><![CDATA[CLUE_TEST_START: GraduationDemo.Narrative.Tests.ReasoningGuidanceTests.SharedRevelationRetiresBothSpatialLeads
+]]></output>
+              </test-case>
+            </test-suite>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+      <test-suite type="TestFixture" id="1017" name="InvestigationTests" fullname="InvestigationTests" classname="InvestigationTests" runstate="Runnable" testcasecount="20" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:08Z" duration="1.193292" total="20" passed="20" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[CLUE_TEST_START: InvestigationTests
+]]></output>
+        <test-case id="1019" name="AcquisitionAndConstructionAreDistinctAndIdempotent" fullname="InvestigationTests.AcquisitionAndConstructionAreDistinctAndIdempotent" methodname="AcquisitionAndConstructionAreDistinctAndIdempotent" classname="InvestigationTests" runstate="Runnable" seed="2085558909" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:06Z" duration="0.031579" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.AcquisitionAndConstructionAreDistinctAndIdempotent
+]]></output>
+        </test-case>
+        <test-case id="1018" name="AllPairsAndSuspectsResolveAndDataIsValid" fullname="InvestigationTests.AllPairsAndSuspectsResolveAndDataIsValid" methodname="AllPairsAndSuspectsResolveAndDataIsValid" classname="InvestigationTests" runstate="Runnable" seed="754199849" result="Passed" start-time="2026-10-27 21:42:06Z" end-time="2026-10-27 21:42:07Z" duration="0.068907" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.AllPairsAndSuspectsResolveAndDataIsValid
+]]></output>
+        </test-case>
+        <test-suite type="ParameterizedMethod" id="1024" name="AlternativeSpatialRevelationsShareOnceOnlyReward" fullname="InvestigationTests.AlternativeSpatialRevelationsShareOnceOnlyReward" classname="InvestigationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.050506" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.AlternativeSpatialRevelationsShareOnceOnlyReward
+]]></output>
+          <test-case id="1022" name="AlternativeSpatialRevelationsShareOnceOnlyReward(&quot;C07&quot;,&quot;C10&quot;)" fullname="InvestigationTests.AlternativeSpatialRevelationsShareOnceOnlyReward(&quot;C07&quot;,&quot;C10&quot;)" methodname="AlternativeSpatialRevelationsShareOnceOnlyReward" classname="InvestigationTests" runstate="Runnable" seed="950094861" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.026766" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[CLUE_TEST_START: InvestigationTests.AlternativeSpatialRevelationsShareOnceOnlyReward("C07","C10")
+]]></output>
+          </test-case>
+          <test-case id="1023" name="AlternativeSpatialRevelationsShareOnceOnlyReward(&quot;C10&quot;,&quot;C07&quot;)" fullname="InvestigationTests.AlternativeSpatialRevelationsShareOnceOnlyReward(&quot;C10&quot;,&quot;C07&quot;)" methodname="AlternativeSpatialRevelationsShareOnceOnlyReward" classname="InvestigationTests" runstate="Runnable" seed="176989860" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.022022" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[CLUE_TEST_START: InvestigationTests.AlternativeSpatialRevelationsShareOnceOnlyReward("C10","C07")
+]]></output>
+          </test-case>
+        </test-suite>
+        <test-case id="1020" name="ConstructingIngredientsNeverAwardsTestimony" fullname="InvestigationTests.ConstructingIngredientsNeverAwardsTestimony" methodname="ConstructingIngredientsNeverAwardsTestimony" classname="InvestigationTests" runstate="Runnable" seed="1832665842" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.045201" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.ConstructingIngredientsNeverAwardsTestimony
+]]></output>
+        </test-case>
+        <test-case id="1032" name="CsvSupportsQuotedNewlinesCommasAndDoubleQuotes" fullname="InvestigationTests.CsvSupportsQuotedNewlinesCommasAndDoubleQuotes" methodname="CsvSupportsQuotedNewlinesCommasAndDoubleQuotes" classname="InvestigationTests" runstate="Runnable" seed="1744036938" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.029737" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.CsvSupportsQuotedNewlinesCommasAndDoubleQuotes
+]]></output>
+        </test-case>
+        <test-case id="1025" name="EveryRevelationIsReachableThroughPlayableRules" fullname="InvestigationTests.EveryRevelationIsReachableThroughPlayableRules" methodname="EveryRevelationIsReachableThroughPlayableRules" classname="InvestigationTests" runstate="Runnable" seed="1812565771" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.070965" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.EveryRevelationIsReachableThroughPlayableRules
+]]></output>
+        </test-case>
+        <test-case id="1033" name="IncompleteRoutesUseSafeSuspectFallbackWithoutRewards" fullname="InvestigationTests.IncompleteRoutesUseSafeSuspectFallbackWithoutRewards" methodname="IncompleteRoutesUseSafeSuspectFallbackWithoutRewards" classname="InvestigationTests" runstate="Runnable" seed="1448079494" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.021800" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.IncompleteRoutesUseSafeSuspectFallbackWithoutRewards
+]]></output>
+        </test-case>
+        <test-suite type="ParameterizedMethod" id="1028" name="IndependentPhysicalBuildsSupportStaticEnding" fullname="InvestigationTests.IndependentPhysicalBuildsSupportStaticEnding" classname="InvestigationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.048143" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.IndependentPhysicalBuildsSupportStaticEnding
+]]></output>
+          <test-case id="1026" name="IndependentPhysicalBuildsSupportStaticEnding(&quot;T_C03_BS01&quot;,&quot;T_C04_FS04&quot;,&quot;T_C06_MS06&quot;)" fullname="InvestigationTests.IndependentPhysicalBuildsSupportStaticEnding(&quot;T_C03_BS01&quot;,&quot;T_C04_FS04&quot;,&quot;T_C06_MS06&quot;)" methodname="IndependentPhysicalBuildsSupportStaticEnding" classname="InvestigationTests" runstate="Runnable" seed="1892780720" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.023604" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[CLUE_TEST_START: InvestigationTests.IndependentPhysicalBuildsSupportStaticEnding("T_C03_BS01","T_C04_FS04","T_C06_MS06")
+]]></output>
+          </test-case>
+          <test-case id="1027" name="IndependentPhysicalBuildsSupportStaticEnding(&quot;T_C02_BS01&quot;,&quot;T_C09_FS04&quot;,&quot;T_C06_MS06&quot;)" fullname="InvestigationTests.IndependentPhysicalBuildsSupportStaticEnding(&quot;T_C02_BS01&quot;,&quot;T_C09_FS04&quot;,&quot;T_C06_MS06&quot;)" methodname="IndependentPhysicalBuildsSupportStaticEnding" classname="InvestigationTests" runstate="Runnable" seed="254085089" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.022514" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[CLUE_TEST_START: InvestigationTests.IndependentPhysicalBuildsSupportStaticEnding("T_C02_BS01","T_C09_FS04","T_C06_MS06")
+]]></output>
+          </test-case>
+        </test-suite>
+        <test-case id="1039" name="InvalidRefreshLeavesExistingCatalogueUntouched" fullname="InvestigationTests.InvalidRefreshLeavesExistingCatalogueUntouched" methodname="InvalidRefreshLeavesExistingCatalogueUntouched" classname="InvestigationTests" runstate="Runnable" seed="566060443" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.064439" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.InvalidRefreshLeavesExistingCatalogueUntouched
+]]></output>
+        </test-case>
+        <test-case id="1031" name="MissingAssetsAndCircularDependenciesAreActionable" fullname="InvestigationTests.MissingAssetsAndCircularDependenciesAreActionable" methodname="MissingAssetsAndCircularDependenciesAreActionable" classname="InvestigationTests" runstate="Runnable" seed="2015062600" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.044365" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.MissingAssetsAndCircularDependenciesAreActionable
+]]></output>
+        </test-case>
+        <test-case id="1030" name="OneObservationCannotSatisfyIndependentPropositions" fullname="InvestigationTests.OneObservationCannotSatisfyIndependentPropositions" methodname="OneObservationCannotSatisfyIndependentPropositions" classname="InvestigationTests" runstate="Runnable" seed="892769462" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.022538" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.OneObservationCannotSatisfyIndependentPropositions
+]]></output>
+        </test-case>
+        <test-case id="1037" name="PrematureGeometryDisclosureAndImpossibleIngredientsAreRejected" fullname="InvestigationTests.PrematureGeometryDisclosureAndImpossibleIngredientsAreRejected" methodname="PrematureGeometryDisclosureAndImpossibleIngredientsAreRejected" classname="InvestigationTests" runstate="Runnable" seed="17130593" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.045936" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.PrematureGeometryDisclosureAndImpossibleIngredientsAreRejected
+]]></output>
+        </test-case>
+        <test-case id="1036" name="ProgressRoundTripPreservesDiscoveriesAndFlags" fullname="InvestigationTests.ProgressRoundTripPreservesDiscoveriesAndFlags" methodname="ProgressRoundTripPreservesDiscoveriesAndFlags" classname="InvestigationTests" runstate="Runnable" seed="124140875" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.024052" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.ProgressRoundTripPreservesDiscoveriesAndFlags
+]]></output>
+        </test-case>
+        <test-case id="1035" name="RefreshPreservesDesignerMetadataAndOriginalVoices" fullname="InvestigationTests.RefreshPreservesDesignerMetadataAndOriginalVoices" methodname="RefreshPreservesDesignerMetadataAndOriginalVoices" classname="InvestigationTests" runstate="Runnable" seed="1276385251" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.050513" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.RefreshPreservesDesignerMetadataAndOriginalVoices
+]]></output>
+        </test-case>
+        <test-case id="1034" name="ReleaseGateRejectsMissingMatchingRecordings" fullname="InvestigationTests.ReleaseGateRejectsMissingMatchingRecordings" methodname="ReleaseGateRejectsMissingMatchingRecordings" classname="InvestigationTests" runstate="Runnable" seed="1323889263" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:07Z" duration="0.072214" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.ReleaseGateRejectsMissingMatchingRecordings
+]]></output>
+        </test-case>
+        <test-case id="1038" name="RepeatedRefreshKeepsCatalogueGuidAndVoiceReferences" fullname="InvestigationTests.RepeatedRefreshKeepsCatalogueGuidAndVoiceReferences" methodname="RepeatedRefreshKeepsCatalogueGuidAndVoiceReferences" classname="InvestigationTests" runstate="Runnable" seed="1700792604" result="Passed" start-time="2026-10-27 21:42:07Z" end-time="2026-10-27 21:42:08Z" duration="0.434076" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.RepeatedRefreshKeepsCatalogueGuidAndVoiceReferences
+Main Object Name '' does not match filename 'Investigation'
+NARRATIVE_VALIDATE: 0 errors; 218 unrecorded lines. See Documentation/Narrative/Validation.txt.
+NARRATIVE_IMPORT_OK: 160 theories, 490 routes, 218 voice lines.
+Main Object Name '' does not match filename 'Investigation'
+NARRATIVE_VALIDATE: 0 errors; 218 unrecorded lines. See Documentation/Narrative/Validation.txt.
+NARRATIVE_IMPORT_OK: 160 theories, 490 routes, 218 voice lines.
+]]></output>
+        </test-case>
+        <test-case id="1021" name="SuspectSpecificRoutesAndDeterministicTieBreak" fullname="InvestigationTests.SuspectSpecificRoutesAndDeterministicTieBreak" methodname="SuspectSpecificRoutesAndDeterministicTieBreak" classname="InvestigationTests" runstate="Runnable" seed="1900899400" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.022767" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.SuspectSpecificRoutesAndDeterministicTieBreak
+]]></output>
+        </test-case>
+        <test-case id="1029" name="WrongSuspectRedundancyMissingEvidenceAndDisclosureCannotSucceed" fullname="InvestigationTests.WrongSuspectRedundancyMissingEvidenceAndDisclosureCannotSucceed" methodname="WrongSuspectRedundancyMissingEvidenceAndDisclosureCannotSucceed" classname="InvestigationTests" runstate="Runnable" seed="1276369047" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.030981" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: InvestigationTests.WrongSuspectRedundancyMissingEvidenceAndDisclosureCannotSucceed
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1040" name="PacingAndNotebookTests" fullname="PacingAndNotebookTests" classname="PacingAndNotebookTests" runstate="Runnable" testcasecount="24" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.707533" total="24" passed="24" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests
+]]></output>
+        <test-case id="1048" name="AlibisAreFreeAndConsumedAtInitialization" fullname="PacingAndNotebookTests.AlibisAreFreeAndConsumedAtInitialization" methodname="AlibisAreFreeAndConsumedAtInitialization" classname="PacingAndNotebookTests" runstate="Runnable" seed="1196772727" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.021906" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.AlibisAreFreeAndConsumedAtInitialization
+]]></output>
+        </test-case>
+        <test-case id="1059" name="ANewRouteCannotReplayTheSameSequenceForTheSameTheoryAndSuspect" fullname="PacingAndNotebookTests.ANewRouteCannotReplayTheSameSequenceForTheSameTheoryAndSuspect" methodname="ANewRouteCannotReplayTheSameSequenceForTheSameTheoryAndSuspect" classname="PacingAndNotebookTests" runstate="Runnable" seed="300830645" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.024361" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.ANewRouteCannotReplayTheSameSequenceForTheSameTheoryAndSuspect
+]]></output>
+        </test-case>
+        <test-case id="1054" name="BalancingFieldsControlCostsAndDayCount" fullname="PacingAndNotebookTests.BalancingFieldsControlCostsAndDayCount" methodname="BalancingFieldsControlCostsAndDayCount" classname="PacingAndNotebookTests" runstate="Runnable" seed="1597097316" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.028177" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.BalancingFieldsControlCostsAndDayCount
+]]></output>
+        </test-case>
+        <test-case id="1052" name="BudgetDoesNotPreventFreeEvidenceOrAlibis" fullname="PacingAndNotebookTests.BudgetDoesNotPreventFreeEvidenceOrAlibis" methodname="BudgetDoesNotPreventFreeEvidenceOrAlibis" classname="PacingAndNotebookTests" runstate="Runnable" seed="1975618688" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.027665" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.BudgetDoesNotPreventFreeEvidenceOrAlibis
+]]></output>
+        </test-case>
+        <test-case id="1056" name="ChangedConditionsRejectAStaleConfirmationWithoutSpending" fullname="PacingAndNotebookTests.ChangedConditionsRejectAStaleConfirmationWithoutSpending" methodname="ChangedConditionsRejectAStaleConfirmationWithoutSpending" classname="PacingAndNotebookTests" runstate="Runnable" seed="2072624140" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.059851" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.ChangedConditionsRejectAStaleConfirmationWithoutSpending
+]]></output>
+        </test-case>
+        <test-case id="1053" name="DayClosureReplenishesThenLocksInvestigationAndUnlocksAccusation" fullname="PacingAndNotebookTests.DayClosureReplenishesThenLocksInvestigationAndUnlocksAccusation" methodname="DayClosureReplenishesThenLocksInvestigationAndUnlocksAccusation" classname="PacingAndNotebookTests" runstate="Runnable" seed="858352299" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.021715" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.DayClosureReplenishesThenLocksInvestigationAndUnlocksAccusation
+]]></output>
+        </test-case>
+        <test-case id="1060" name="DifferentTheoriesMayUseTheSameGenericRecordingOnceEach" fullname="PacingAndNotebookTests.DifferentTheoriesMayUseTheSameGenericRecordingOnceEach" methodname="DifferentTheoriesMayUseTheSameGenericRecordingOnceEach" classname="PacingAndNotebookTests" runstate="Runnable" seed="1549912304" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.021881" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.DifferentTheoriesMayUseTheSameGenericRecordingOnceEach
+]]></output>
+        </test-case>
+        <test-case id="1049" name="DisabledCostsAllowConversationsPastBudgetAndCanBeReenabled" fullname="PacingAndNotebookTests.DisabledCostsAllowConversationsPastBudgetAndCanBeReenabled" methodname="DisabledCostsAllowConversationsPastBudgetAndCanBeReenabled" classname="PacingAndNotebookTests" runstate="Runnable" seed="2107074748" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.022151" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.DisabledCostsAllowConversationsPastBudgetAndCanBeReenabled
+]]></output>
+        </test-case>
+        <test-case id="1061" name="FirstAcquisitionLocationAndDayAreStable" fullname="PacingAndNotebookTests.FirstAcquisitionLocationAndDayAreStable" methodname="FirstAcquisitionLocationAndDayAreStable" classname="PacingAndNotebookTests" runstate="Runnable" seed="1661185392" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.022170" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.FirstAcquisitionLocationAndDayAreStable
+]]></output>
+        </test-case>
+        <test-case id="1047" name="FreeInterviewCanChargeMistakeAtExhaustedBudgetWithoutBlockingDialogue" fullname="PacingAndNotebookTests.FreeInterviewCanChargeMistakeAtExhaustedBudgetWithoutBlockingDialogue" methodname="FreeInterviewCanChargeMistakeAtExhaustedBudgetWithoutBlockingDialogue" classname="PacingAndNotebookTests" runstate="Runnable" seed="158953876" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.023513" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.FreeInterviewCanChargeMistakeAtExhaustedBudgetWithoutBlockingDialogue
+]]></output>
+        </test-case>
+        <test-case id="1063" name="FullGraphHasDistinctNodesAndRetainsEveryParent" fullname="PacingAndNotebookTests.FullGraphHasDistinctNodesAndRetainsEveryParent" methodname="FullGraphHasDistinctNodesAndRetainsEveryParent" classname="PacingAndNotebookTests" runstate="Runnable" seed="1300624071" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.085481" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.FullGraphHasDistinctNodesAndRetainsEveryParent
+]]></output>
+        </test-case>
+        <test-case id="1064" name="GraphSearchPreservesSourcesAndSuspectClustering" fullname="PacingAndNotebookTests.GraphSearchPreservesSourcesAndSuspectClustering" methodname="GraphSearchPreservesSourcesAndSuspectClustering" classname="PacingAndNotebookTests" runstate="Runnable" seed="511957373" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.026164" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.GraphSearchPreservesSourcesAndSuspectClustering
+]]></output>
+        </test-case>
+        <test-suite type="ParameterizedMethod" id="1044" name="IntuitionSettlesConversationCostAndRecoveryRefunds" fullname="PacingAndNotebookTests.IntuitionSettlesConversationCostAndRecoveryRefunds" classname="PacingAndNotebookTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.076739" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.IntuitionSettlesConversationCostAndRecoveryRefunds
+]]></output>
+          <test-case id="1041" name="IntuitionSettlesConversationCostAndRecoveryRefunds(True,True,0)" fullname="PacingAndNotebookTests.IntuitionSettlesConversationCostAndRecoveryRefunds(True,True,0)" methodname="IntuitionSettlesConversationCostAndRecoveryRefunds" classname="PacingAndNotebookTests" runstate="Runnable" seed="1306239206" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.023114" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.IntuitionSettlesConversationCostAndRecoveryRefunds(True,True,0)
+]]></output>
+          </test-case>
+          <test-case id="1042" name="IntuitionSettlesConversationCostAndRecoveryRefunds(True,False,2)" fullname="PacingAndNotebookTests.IntuitionSettlesConversationCostAndRecoveryRefunds(True,False,2)" methodname="IntuitionSettlesConversationCostAndRecoveryRefunds" classname="PacingAndNotebookTests" runstate="Runnable" seed="1963644641" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.021720" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.IntuitionSettlesConversationCostAndRecoveryRefunds(True,False,2)
+]]></output>
+          </test-case>
+          <test-case id="1043" name="IntuitionSettlesConversationCostAndRecoveryRefunds(False,False,0)" fullname="PacingAndNotebookTests.IntuitionSettlesConversationCostAndRecoveryRefunds(False,False,0)" methodname="IntuitionSettlesConversationCostAndRecoveryRefunds" classname="PacingAndNotebookTests" runstate="Runnable" seed="2140032115" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.029240" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+            <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.IntuitionSettlesConversationCostAndRecoveryRefunds(False,False,0)
+]]></output>
+          </test-case>
+        </test-suite>
+        <test-case id="1065" name="InvalidPacingIsReported" fullname="PacingAndNotebookTests.InvalidPacingIsReported" methodname="InvalidPacingIsReported" classname="PacingAndNotebookTests" runstate="Runnable" seed="2068658299" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.027383" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.InvalidPacingIsReported
+]]></output>
+        </test-case>
+        <test-case id="1046" name="LaterCorrectAnswerCannotEraseMistakeAndDualRoleAcceptsEitherChoice" fullname="PacingAndNotebookTests.LaterCorrectAnswerCannotEraseMistakeAndDualRoleAcceptsEitherChoice" methodname="LaterCorrectAnswerCannotEraseMistakeAndDualRoleAcceptsEitherChoice" classname="PacingAndNotebookTests" runstate="Runnable" seed="1566847025" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.022792" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.LaterCorrectAnswerCannotEraseMistakeAndDualRoleAcceptsEitherChoice
+]]></output>
+        </test-case>
+        <test-case id="1057" name="NewConditionalResponseCanAppearAfterAPairWasUsed" fullname="PacingAndNotebookTests.NewConditionalResponseCanAppearAfterAPairWasUsed" methodname="NewConditionalResponseCanAppearAfterAPairWasUsed" classname="PacingAndNotebookTests" runstate="Runnable" seed="1103291872" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.022867" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.NewConditionalResponseCanAppearAfterAPairWasUsed
+]]></output>
+        </test-case>
+        <test-case id="1050" name="NewPacingStartsWithCostsDisabled" fullname="PacingAndNotebookTests.NewPacingStartsWithCostsDisabled" methodname="NewPacingStartsWithCostsDisabled" classname="PacingAndNotebookTests" runstate="Runnable" seed="45780345" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.022251" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.NewPacingStartsWithCostsDisabled
+]]></output>
+        </test-case>
+        <test-case id="1051" name="OfferingDoesNotSpendAndConfirmationIsAtomic" fullname="PacingAndNotebookTests.OfferingDoesNotSpendAndConfirmationIsAtomic" methodname="OfferingDoesNotSpendAndConfirmationIsAtomic" classname="PacingAndNotebookTests" runstate="Runnable" seed="811457995" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.022555" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.OfferingDoesNotSpendAndConfirmationIsAtomic
+]]></output>
+        </test-case>
+        <test-case id="1055" name="PlaybackFailureRestoresPromptAndSpentAction" fullname="PacingAndNotebookTests.PlaybackFailureRestoresPromptAndSpentAction" methodname="PlaybackFailureRestoresPromptAndSpentAction" classname="PacingAndNotebookTests" runstate="Runnable" seed="361532815" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.025376" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.PlaybackFailureRestoresPromptAndSpentAction
+]]></output>
+        </test-case>
+        <test-case id="1062" name="ProgressRoundTripRetainsPacingPromptsAndProvenance" fullname="PacingAndNotebookTests.ProgressRoundTripRetainsPacingPromptsAndProvenance" methodname="ProgressRoundTripRetainsPacingPromptsAndProvenance" classname="PacingAndNotebookTests" runstate="Runnable" seed="110575744" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.034871" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.ProgressRoundTripRetainsPacingPromptsAndProvenance
+]]></output>
+        </test-case>
+        <test-case id="1058" name="SharedRevelationDisablesRedundantAlternativePrompts" fullname="PacingAndNotebookTests.SharedRevelationDisablesRedundantAlternativePrompts" methodname="SharedRevelationDisablesRedundantAlternativePrompts" classname="PacingAndNotebookTests" runstate="Runnable" seed="1434729468" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.022905" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.SharedRevelationDisablesRedundantAlternativePrompts
+]]></output>
+        </test-case>
+        <test-case id="1045" name="UnrelatedInterpretationsCannotRefundConversation" fullname="PacingAndNotebookTests.UnrelatedInterpretationsCannotRefundConversation" methodname="UnrelatedInterpretationsCannotRefundConversation" classname="PacingAndNotebookTests" runstate="Runnable" seed="712045640" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.026569" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: PacingAndNotebookTests.UnrelatedInterpretationsCannotRefundConversation
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1066" name="TheoryRefinementTests" fullname="TheoryRefinementTests" classname="TheoryRefinementTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:09Z" duration="0.219591" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <output><![CDATA[CLUE_TEST_START: TheoryRefinementTests
+]]></output>
+        <test-case id="1068" name="FullGraphAvoidsOverlappingTheoryIconsAndCaptions" fullname="TheoryRefinementTests.FullGraphAvoidsOverlappingTheoryIconsAndCaptions" methodname="FullGraphAvoidsOverlappingTheoryIconsAndCaptions" classname="TheoryRefinementTests" runstate="Runnable" seed="1920471036" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.051476" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: TheoryRefinementTests.FullGraphAvoidsOverlappingTheoryIconsAndCaptions
+]]></output>
+        </test-case>
+        <test-case id="1071" name="RemovalCannotInvalidateAnActiveConversation" fullname="TheoryRefinementTests.RemovalCannotInvalidateAnActiveConversation" methodname="RemovalCannotInvalidateAnActiveConversation" classname="TheoryRefinementTests" runstate="Runnable" seed="1606499640" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.027541" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: TheoryRefinementTests.RemovalCannotInvalidateAnActiveConversation
+]]></output>
+        </test-case>
+        <test-case id="1069" name="RemovalPreservesEvidenceAndConsumedConversationAndCanBeReconstructed" fullname="TheoryRefinementTests.RemovalPreservesEvidenceAndConsumedConversationAndCanBeReconstructed" methodname="RemovalPreservesEvidenceAndConsumedConversationAndCanBeReconstructed" classname="TheoryRefinementTests" runstate="Runnable" seed="2003600625" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:08Z" duration="0.029283" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: TheoryRefinementTests.RemovalPreservesEvidenceAndConsumedConversationAndCanBeReconstructed
+]]></output>
+        </test-case>
+        <test-case id="1070" name="RemovedTheoriesCanBeRestoredAfterFinalClosureWithoutNewDiscovery" fullname="TheoryRefinementTests.RemovedTheoriesCanBeRestoredAfterFinalClosureWithoutNewDiscovery" methodname="RemovedTheoriesCanBeRestoredAfterFinalClosureWithoutNewDiscovery" classname="TheoryRefinementTests" runstate="Runnable" seed="1238567651" result="Passed" start-time="2026-10-27 21:42:08Z" end-time="2026-10-27 21:42:09Z" duration="0.042735" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: TheoryRefinementTests.RemovedTheoriesCanBeRestoredAfterFinalClosureWithoutNewDiscovery
+]]></output>
+        </test-case>
+        <test-case id="1067" name="SingleTheoryUsesItsParentLineIntersection" fullname="TheoryRefinementTests.SingleTheoryUsesItsParentLineIntersection" methodname="SingleTheoryUsesItsParentLineIntersection" classname="TheoryRefinementTests" runstate="Runnable" seed="218430281" result="Passed" start-time="2026-10-27 21:42:09Z" end-time="2026-10-27 21:42:09Z" duration="0.063017" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[CLUE_TEST_START: TheoryRefinementTests.SingleTheoryUsesItsParentLineIntersection
+Saving results to: C:/Users/oldal/AppData/LocalLow/DefaultCompany/GraduationDemo\TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

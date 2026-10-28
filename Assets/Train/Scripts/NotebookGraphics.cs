@@ -33,14 +33,24 @@ namespace GraduationDemo.Train
             var model = notebook.Graph; if (model == null) return;
             foreach (var node in model.nodes)
             {
-                if (node.kind != ReasoningNodeKind.Theory) continue;
+                if (node.kind != ReasoningNodeKind.Theory && node.kind != ReasoningNodeKind.Doubt) continue;
                 Vector2 here = notebook.NodePosition(node.id);
                 float alpha = notebook.AccusationGraphActive || notebook.ConversationGraphActive ? .16f : .55f;
                 Color clueLink = notebook.ConversationGraphActive ? new Color(.65f, .65f, .65f, .32f) : new Color(.72f, .62f, .39f, alpha);
                 Color statementLink = notebook.ConversationGraphActive ? clueLink : new Color(.42f, .72f, .72f, alpha);
                 float width = notebook.ConversationGraphActive ? 4 : 2;
-                Stroke(vh, notebook.NodePosition(node.clueParent), here, clueLink, width);
-                Stroke(vh, here, notebook.NodePosition(node.statementParent), statementLink, width);
+                if (node.kind == ReasoningNodeKind.Doubt)
+                {
+                    Stroke(vh, notebook.NodePosition(node.questionParent), here, new Color(.83f, .48f, .66f, .8f), 3);
+                    Stroke(vh, here, notebook.NodePosition(node.doubtSource), new Color(.83f, .48f, .66f, .8f), 3);
+                }
+                else
+                {
+                    Stroke(vh, notebook.NodePosition(node.clueParent), here, clueLink, width);
+                    Stroke(vh, here, notebook.NodePosition(node.statementParent), statementLink, width);
+                }
+                foreach (var parent in node.reflectionParents)
+                    Stroke(vh, here, notebook.NodePosition(parent), new Color(.75f, .45f, .7f, .5f), 3);
             }
             if (notebook.AccusationGraphActive)
             {

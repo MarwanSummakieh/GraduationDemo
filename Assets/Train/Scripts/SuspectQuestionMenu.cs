@@ -40,7 +40,7 @@ namespace GraduationDemo.Train
         {
             if (!IsOpen || !owner.CanTalkTo(Suspect)) return false;
             var current = owner.State.AvailableConversations(Suspect).Find(p => p.key == key);
-            if (current == null || current.cost > owner.State.RemainingActions) { refresh = true; return false; }
+            if (current == null || current.blockedByDoubt || current.cost > owner.State.RemainingActions) { refresh = true; return false; }
             bool started = owner.OfferConversation(current); refresh = true; return started;
         }
         void LateUpdate()
@@ -75,7 +75,7 @@ namespace GraduationDemo.Train
         void AddOption(ConversationInitialization option, int index, float width)
         {
             var card = Panel(content, option.key, new Color(.12f, .22f, .23f)); Place(card, new Vector2(8, -8 - index * 148), new Vector2(width, 138));
-            var button = card.gameObject.AddComponent<Button>(); button.targetGraphic = card.GetComponent<Image>(); button.interactable = option.cost <= owner.State.RemainingActions;
+            var button = card.gameObject.AddComponent<Button>(); button.targetGraphic = card.GetComponent<Image>(); button.interactable = !option.blockedByDoubt && option.cost <= owner.State.RemainingActions;
             string key = option.key; button.onClick.AddListener(() => Choose(key));
             bool alibi = option.kind == ConversationKind.Alibi;
             var question = owner.catalogue.Theory(option.theoryId);
@@ -88,7 +88,8 @@ namespace GraduationDemo.Train
                 Label(card, "+", new Vector2(41, -96), new Vector2(24, 24), 15, gold);
             }
             string label = alibi ? "Ask for an alibi" : ReasoningGraphLayout.QuestionLabel(owner.State.progress, option.theoryId);
-            Label(card, label + " · " + (option.cost == 0 ? "Free" : option.cost + " action(s)"), new Vector2(108, -10), new Vector2(width - 122, 26), 19, gold);
+            bool resolved = !alibi && owner.State.QuestionDoubtResolved(option.theoryId);
+            Label(card, label + " · " + (option.blockedByDoubt ? "Needs doubt defense in Reasoning" : (resolved ? "Doubt resolved · " : "") + (option.cost == 0 ? "Free" : option.cost + " action(s)")), new Vector2(108, -10), new Vector2(width - 122, 26), 19, resolved ? new Color(.5f, .9f, .65f) : gold);
             Label(card, alibi ? "Where were you during the evening?" : question.text, new Vector2(108, -40), new Vector2(width - 128, 58), 18, Color.white);
             if (!alibi) Label(card, question.clueId + " / " + owner.catalogue.Clue(question.clueId).name + " + " + question.statementId + " / " + owner.catalogue.Statement(question.statementId).speaker,
                 new Vector2(108, -102), new Vector2(width - 128, 32), 14, new Color(.71f, .77f, .73f));
